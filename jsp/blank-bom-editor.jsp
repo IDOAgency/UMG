@@ -1,3 +1,4 @@
+
 <%
 	/*
 		this include (template-top-page.jsp) does the following:

@@ -235,7 +235,7 @@
 /*      */     
 /*  236 */     String[] columnNames = { "Division", "Company" };
 /*  237 */     contents = MilestoneHelper.sortCorporateVectorByName(DivisionManager.getInstance().getDivisionNotepadList(userId, null));
-/*  238 */     return new Notepad(contents, 0, 7, "Division", 11, columnNames);
+/*  238 */     return new Notepad(contents, 0, 15, "Division", 11, columnNames);
 /*      */   }
 /*      */ 
 /*      */ 

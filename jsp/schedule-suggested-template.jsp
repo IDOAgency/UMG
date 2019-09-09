@@ -139,12 +139,14 @@
     // call the right command for resizing
     parent.top.bottomFrame.location = "home?cmd=notepad-toggle&notepadType=<%=MilestoneConstants.NOTEPAD_SCHEDULE_VISIBLE%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
  } //end submitResize
-
+ 
+ if(parent.top.menuFrame.document.all.MIschedule) {
                                                             //sOnColor
- parent.top.menuFrame.document.all.MIschedule.style.color = 6750156;
+ 	parent.top.menuFrame.document.all.MIschedule.style.color = 6750156;
                                                               //sOffColor
- parent.top.menuFrame.document.all.MIselection.style.color = 65638;
- parent.top.menuFrame.selectedMenuItem = "schedule";
+ 	parent.top.menuFrame.document.all.MIselection.style.color = 65638;
+ 	parent.top.menuFrame.selectedMenuItem = "schedule";
+ }
  </script>
 
 <script type="text/javascript" language="javascript">

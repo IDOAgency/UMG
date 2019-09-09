@@ -701,7 +701,7 @@
 /*     */     
 /* 702 */     String[] columnNames = { "Sell Code", "Ret. Code", "Description" };
 /* 703 */     contents = PriceCodeManager.getInstance().getPriceCodeNotepadList(userId, null);
-/* 704 */     return new Notepad(contents, 0, 7, "Price Code", 16, columnNames);
+/* 704 */     return new Notepad(contents, 0, 15, "Price Code", 16, columnNames);
 /*     */   }
 /*     */ 
 /*     */ 

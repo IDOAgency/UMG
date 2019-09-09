@@ -1083,16 +1083,16 @@
 /* 1083 */         selection.setASide(connector.getField("side_a_title", ""));
 /* 1084 */         selection.setBSide(connector.getField("side_b_title", ""));
 /*      */         
-/* 1086 */         selection.setProductCategory(
-/* 1087 */             (ProductCategory)MilestoneHelper.getLookupObject(connector.getField("product_line"), Cache.getProductCategories()));
+/* 1086 */         selection.setProductCategory((ProductCategory)MilestoneHelper.getLookupObject(connector.getField("product_line"), 
+/* 1087 */               Cache.getProductCategories()));
 /* 1088 */         selection.setReleaseType(
 /* 1089 */             (ReleaseType)MilestoneHelper.getLookupObject(connector.getField("release_type"), 
 /* 1090 */               Cache.getReleaseTypes()));
 /*      */         
-/* 1092 */         selection.setSelectionConfig(
-/* 1093 */             MilestoneHelper.getSelectionConfigObject(connector.getField("configuration"), Cache.getSelectionConfigs()));
-/* 1094 */         selection.setSelectionSubConfig(
-/* 1095 */             MilestoneHelper.getSelectionSubConfigObject(connector.getField("sub_configuration"), selection.getSelectionConfig()));
+/* 1092 */         selection.setSelectionConfig(MilestoneHelper.getSelectionConfigObject(connector.getField("configuration"), 
+/* 1093 */               Cache.getSelectionConfigs()));
+/* 1094 */         selection.setSelectionSubConfig(MilestoneHelper.getSelectionSubConfigObject(connector.getField("sub_configuration"), 
+/* 1095 */               selection.getSelectionConfig()));
 /*      */         
 /* 1097 */         selection.setUpc(connector.getField("upc", ""));
 /*      */         
@@ -1104,8 +1104,8 @@
 /*      */         
 /* 1105 */         selection.setSellCode(sellCodeString);
 /*      */         
-/* 1107 */         selection.setGenre(
-/* 1108 */             (Genre)MilestoneHelper.getLookupObject(connector.getField("genre"), Cache.getMusicTypes()));
+/* 1107 */         selection.setGenre((Genre)MilestoneHelper.getLookupObject(connector.getField("genre"), 
+/* 1108 */               Cache.getMusicTypes()));
 /* 1109 */         selection.setFamily((Family)MilestoneHelper.getStructureObject(connector.getIntegerField("family_id")));
 /* 1110 */         selection.setEnvironment((Environment)MilestoneHelper.getStructureObject(connector.getIntegerField("environment_id")));
 /* 1111 */         selection.setCompany((Company)MilestoneHelper.getStructureObject(connector.getIntegerField("company_id")));
@@ -1125,8 +1125,8 @@
 /* 1125 */         if (UserManager.getInstance().getUser(connector.getIntegerField("contact_id")) != null) {
 /* 1126 */           selection.setLabelContact(UserManager.getInstance().getUser(connector.getIntegerField("contact_id")));
 /*      */         }
-/* 1128 */         selection.setSelectionStatus(
-/* 1129 */             (SelectionStatus)MilestoneHelper.getLookupObject(connector.getField("status"), Cache.getSelectionStatusList()));
+/* 1128 */         selection.setSelectionStatus((SelectionStatus)MilestoneHelper.getLookupObject(connector.getField("status"), 
+/* 1129 */               Cache.getSelectionStatusList()));
 /* 1130 */         selection.setHoldSelection(connector.getBoolean("hold_indicator"));
 /*      */         
 /* 1132 */         selection.setHoldReason(connector.getField("hold_reason", ""));

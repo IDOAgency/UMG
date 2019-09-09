@@ -249,6 +249,45 @@
 <%@ include file="template-top-html.shtml"%>
 
 <link rel="stylesheet" type="text/css" href="./server.css" title="ServerStyle">
+
+<!-- Matomo -->
+
+<script type="text/javascript">
+  console.log("Google Analytics");
+  var _paq = _paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  
+    _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+
+  (function() {
+    var u="//runanalytics.global.umusic.ext/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '26']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+
+</script>
+
+<!-- End Matomo Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-97790349-16"></script>
+
+<script>
+
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+
+  gtag('config', 'UA-97790349-16');
+
+</script>
+
 <script language="JavaScript">
 
 var sRollColor =  16777215;
@@ -315,13 +354,29 @@ function setInitialMenu(initMenu)
     }
     selectedMenu = initMenu;
     eval("document." + initMenu + ".src = '<%= inf.getImageDirectory() %>" + initMenu + "_On.gif';");
-    eval("document.all." + initMenu + "Selection.style.visibility = 'visible'");
+    
+    // Getting Parent Container of Submenu
+    var subMenuContainer = document.getElementById("SelectionInfo");
+    
+    // Reset all classes of Parent Container
+    subMenuContainer.className = '';
+    
+    // Add Label Class
+    subMenuContainer.classList.add(initMenu.toLowerCase() + "-selected");
   }
   else
   {
     selectedMenu = initMenu;
     eval("document." + initMenu + ".src = '<%= inf.getImageDirectory() %>" + initMenu + "_On.gif';");
-    eval("document.all." + initMenu + "Selection.style.visibility = 'visible'");
+    
+ // Getting Parent Container of Submenu
+    var subMenuContainer = document.getElementById("SelectionInfo");
+    
+    // Reset all classes of Parent Container
+    subMenuContainer.className = '';
+    
+    // Add Label Class
+    subMenuContainer.classList.add(initMenu.toLowerCase() + "-selected");
   }
 }
 
@@ -603,20 +658,24 @@ function _ToggleButton_click()
     //get the image prefix to find out which image was clicked
     //and normalize previous selected button
     var whichImage = this.image.src;
-
+	
+    // Getting Parent Container of Submenu
+    var subMenuContainer = document.getElementById("SelectionInfo");
+    
     if (whichImage.indexOf("Labels") != -1)
     {
       //only if old selected menu is not Labels proceed
       if(selectedMenu != "Labels")
-      {
-        //make the submenu available for Labels
-        document.all.LabelsSelection.style.visibility = "visible";
-
+      {	  
+    	// Reset all classes of Parent Container
+    	subMenuContainer.className = '';
+    	// Add Label Class
+        subMenuContainer.classList.add("labels-selected");
+        
         //deselect old Menu tab and make the Submenu for this menu hidden
         if(selectedMenu != "")
         {
           eval("document.all." + selectedMenu + ".src = '<%= inf.getImageDirectory() %>" + selectedMenu + "_Off.gif'");
-          eval("document.all." + selectedMenu + "Selection.style.visibility = 'hidden'");
           deselectMenuItem(selectedMenuItem);
         }
         //save what was just selected
@@ -632,13 +691,15 @@ function _ToggleButton_click()
       //only if old selected menu is not Admin proceed
       if(selectedMenu != "Admin")
       {
-        //make the submenu available for Admin
-        document.all.AdminSelection.style.visibility = "visible";
+    	// Reset all classes of Parent Container
+      	subMenuContainer.className = '';
+      	// Add Admin Class
+    	subMenuContainer.classList.add("admin-selected");
+    	  
         //deselect old Menu tab and make the Submenu for this menu hidden
         if(selectedMenu != "")
         {
           eval("document.all." + selectedMenu + ".src = '<%= inf.getImageDirectory() %>" + selectedMenu + "_Off.gif';");
-          eval("document.all." + selectedMenu + "Selection.style.visibility = 'hidden'");
           deselectMenuItem(selectedMenuItem);
         }
         //save what was just selected
@@ -654,13 +715,15 @@ function _ToggleButton_click()
       //only if old selected menu is not Security proceed
       if(selectedMenu != "Security")
       {
-        //make the submenu available for Security
-        document.all.SecuritySelection.style.visibility = "visible";
+    	// Reset all classes of Parent Container
+      	subMenuContainer.className = '';
+      	// Add Security Class
+    	subMenuContainer.classList.add("security-selected");
+    	  
         //deselect old Menu tab and make the Submenu for this menu hidden
         if(selectedMenu != "")
         {
           eval("document.all." + selectedMenu + ".src = '<%= inf.getImageDirectory() %>" + selectedMenu + "_Off.gif';");
-          eval("document.all." + selectedMenu + "Selection.style.visibility = 'hidden'");
           deselectMenuItem(selectedMenuItem);
         }
         //save what was just selected
@@ -676,13 +739,15 @@ function _ToggleButton_click()
       //only if old selected menu is not Utilities proceed
       if(selectedMenu != "Utilities")
       {
-        //make the submenu available for Utilities
-        document.all.UtilitiesSelection.style.visibility = "visible";
-        //deselect old Menu tab and make the Submenu for this menu hidden
+    	// Reset all classes of Parent Container
+      	subMenuContainer.className = '';
+      	// Add Utility Class
+    	subMenuContainer.classList.add("utilities-selected");
+    	
+    	//deselect old Menu tab and make the Submenu for this menu hidden
         if(selectedMenu != "")
         {
           eval("document.all." + selectedMenu + ".src = '<%= inf.getImageDirectory() %>" + selectedMenu + "_Off.gif';");
-          eval("document.all." + selectedMenu + "Selection.style.visibility = 'hidden'");
           deselectMenuItem(selectedMenuItem);
         }
         //save what was just selected
@@ -806,18 +871,19 @@ function _ToggleButton_reset()
     {
       //select the Menu Tab
       this.image.src = this.limages[2].src;
-
+      
+      var subMenuContainer = document.getElementById("SelectionInfo");
       //only if old selected menu is not Labels proceed
       if(selectedMenu != "Labels")
       {
+    	  
+    	subMenuContainer.classList.add("labels-selected");
         //make the submenu available for Labels
-        document.all.LabelsSelection.style.visibility = "visible";
-
+        
         //deselect old Menu tab and make the Submenu for this menu  hidden
         if(selectedMenu != "")
         {
           eval("document.all." + selectedMenu + ".src = '<%= inf.getImageDirectory() %>" + selectedMenu + "_Off.gif'");
-          eval("document.all." + selectedMenu + "Selection.style.visibility = 'hidden'");
           deselectMenuItem(selectedMenuItem);
         }
 
@@ -854,7 +920,7 @@ environment_name = "<%=(String)context.getSessionValue("environment_name")%>";
      z-index: 0;
      position: absolute;
      top: 7px;
-     left: 231px;
+     left: 365px;
    }
 
    #Buttons
@@ -862,6 +928,7 @@ environment_name = "<%=(String)context.getSessionValue("environment_name")%>";
      z-index: 1;
      position: absolute;
      top: 17px;
+     left: 132px;
    }
 
    #SubMenuPanel
@@ -869,7 +936,7 @@ environment_name = "<%=(String)context.getSessionValue("environment_name")%>";
      z-index: 2;
      position: absolute;
      top: 38px;
-     left: 0px;
+     left: 0;
    }
 
    #SelectionInfo
@@ -877,7 +944,7 @@ environment_name = "<%=(String)context.getSessionValue("environment_name")%>";
      z-index: 3;
      position: absolute;
      top: 42px;
-     left: 20px;
+     left: 148px;
      font size:10pt;
      font-family:Arial;
      font-weight:bold;
@@ -887,12 +954,19 @@ environment_name = "<%=(String)context.getSessionValue("environment_name")%>";
    .SelectionStyle
    {
      position:absolute;
-     visibility:hidden;
+     display: none;
    }
 
+   .labels-selected #LabelsSelection,
+   .admin-selected #AdminSelection,
+   .security-selected #SecuritySelection, 
+   .utilities-selected #UtilitiesSelection 
+   {
+     display: block;
+   }
    .MenuStyle
    {
-     font size:10pt;
+     font-size:10pt;
      font-family:Arial;
      font-weight:bold;
    }
@@ -1002,7 +1076,7 @@ environment_name = "<%=(String)context.getSessionValue("environment_name")%>";
 </div>
 
 <div id="SubMenuPanel">
-  <img src="<%= inf.getImageDirectory() %>Sub_Menu_Panel.gif" width=795 height=24 alt="" border=0>
+  <img src="<%= inf.getImageDirectory() %>Sub_Menu_Panel.gif" width=929 height=24 alt="" border=0>
 </div>
 
 <div id="SelectionInfo">
@@ -1075,7 +1149,7 @@ environment_name = "<%=(String)context.getSessionValue("environment_name")%>";
    <table cellpadding=0 cellspacing=0 width=768>
      <tr>
        <td>
-         <div id="MIusersecurity" Class="MenuStyle" <% if (userAccess){%> onMouseOver="highlightMenuItem('user-security')"  onMouseOut="normalizeMenuItem('user-security')" onClick="selectMenuItem('user-security','Security');parent.top.bottomFrame.location ='home?cmd=user-security-editor&showNotepad=true'"<%}%>>Users&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+          <div id="MIusersecurity" Class="MenuStyle" <% if (userAccess){%> onMouseOver="highlightMenuItem('user-security')"  onMouseOut="normalizeMenuItem('user-security')" onClick="selectMenuItem('user-security','Security');parent.top.bottomFrame.location ='home?cmd=user-security-editor&showNotepad=true'"<%}%>>Users&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
        </td>
        <td>
          <div id="MIfamily" Class="MenuStyle" <% if (familyAccess){%> onMouseOver="highlightMenuItem('family')"  onMouseOut="normalizeMenuItem('family')"  onClick="selectMenuItem('family','Security');parent.top.bottomFrame.location ='home?cmd=family-editor&showNotepad=true'"<%}%>>Family&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>

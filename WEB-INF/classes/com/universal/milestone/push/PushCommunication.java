@@ -71,8 +71,8 @@
 /*     */   public static final String CREATED = "has been created:";
 /*     */   public static final String COMPONENT_CODE = "Push PFM";
 /*     */   public static final String configFile = "pushbean.config";
-/*  74 */   public static String destEmailAddr = "mark.cole@umusic.com";
-/*  75 */   public static String ccEmailAddr = "marla.hall@umusic.com; tommy.thomas@umusic.com";
+/*  74 */   public static String destEmailAddr = "LCSSupport@umusic.com";
+/*  75 */   public static String ccEmailAddr = "milestone@umusic.com";
 /*  76 */   public static String emailHostServer = "usushntws51";
 /*  77 */   public static String adminEmailAddr = "Milestone";
 /*  78 */   public static String adminEmailName = "Milestone";
@@ -243,7 +243,7 @@
 /* 243 */       pushPFM.setError(result.trim());
 /*     */     } else {
 /* 245 */       pushPFM.setError(result.substring(342, result.length()).trim());
-/*     */     } 
+/* 246 */     }  sendJavaMailOpt("", "", "test erro push to legacy", "839", "");
 /*     */ 
 /*     */ 
 /*     */     

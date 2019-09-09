@@ -1121,7 +1121,7 @@
 /*      */     
 /* 1122 */     String[] columnNames = { "Description" };
 /* 1123 */     contents = TableManager.getInstance().getTableNotepadList(userId, null);
-/* 1124 */     return new Notepad(contents, 0, 7, "Tables", 14, columnNames);
+/* 1124 */     return new Notepad(contents, 0, 15, "Tables", 14, columnNames);
 /*      */   }
 /*      */ 
 /*      */ 
@@ -1150,7 +1150,7 @@
 /*      */     
 /* 1151 */     String[] columnNames = { "Description" };
 /* 1152 */     contents = TableManager.getInstance().getTableDetailNotepadList(fieldID, null);
-/* 1153 */     return new Notepad(contents, 0, 7, "Table", 18, columnNames);
+/* 1153 */     return new Notepad(contents, 0, 15, "Table", 18, columnNames);
 /*      */   }
 /*      */ 
 /*      */ 

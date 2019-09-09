@@ -109,123 +109,123 @@
 /*     */ 
 /*     */ 
 /*     */ 
-/*     */ 
 /*     */     
 /*     */     try {
-/* 115 */       Form reportForm = (Form)context.getSessionValue("reportForm");
+/* 114 */       Form reportForm = (Form)context.getSessionValue("reportForm");
 /*     */       
-/* 117 */       Calendar beginStDate = (reportForm.getStringValue("beginDate") != null && 
-/* 118 */         reportForm.getStringValue("beginDate").length() > 0) ? 
-/* 119 */         MilestoneHelper.getDate(reportForm.getStringValue("beginDate")) : null;
+/* 116 */       Calendar beginStDate = (reportForm.getStringValue("beginDate") != null && 
+/* 117 */         reportForm.getStringValue("beginDate").length() > 0) ? 
+/* 118 */         MilestoneHelper.getDate(reportForm.getStringValue("beginDate")) : null;
 /*     */       
-/* 121 */       Calendar endStDate = (reportForm.getStringValue("endDate") != null && 
-/* 122 */         reportForm.getStringValue("endDate").length() > 0) ? 
-/* 123 */         MilestoneHelper.getDate(reportForm.getStringValue("endDate")) : null;
+/* 120 */       Calendar endStDate = (reportForm.getStringValue("endDate") != null && 
+/* 121 */         reportForm.getStringValue("endDate").length() > 0) ? 
+/* 122 */         MilestoneHelper.getDate(reportForm.getStringValue("endDate")) : null;
 /*     */       
-/* 125 */       report.setElement("crs_startdate", MilestoneHelper.getFormatedDate(beginStDate));
-/* 126 */       report.setElement("crs_enddate", MilestoneHelper.getFormatedDate(endStDate));
+/* 124 */       report.setElement("crs_startdate", MilestoneHelper.getFormatedDate(beginStDate));
+/* 125 */       report.setElement("crs_enddate", MilestoneHelper.getFormatedDate(endStDate));
 /*     */       
-/* 128 */       SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy");
-/* 129 */       String todayLong = formatter.format(new Date());
-/* 130 */       report.setElement("crs_bottomdate", todayLong);
+/* 127 */       SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy");
+/* 128 */       String todayLong = formatter.format(new Date());
+/* 129 */       report.setElement("crs_bottomdate", todayLong);
 /*     */       
-/* 132 */       SectionBand hbandType = new SectionBand(report);
-/* 133 */       SectionBand hbandCategory = new SectionBand(report);
-/* 134 */       SectionBand body = new SectionBand(report);
-/* 135 */       SectionBand footer = new SectionBand(report);
-/* 136 */       DefaultSectionLens group = null;
+/* 131 */       SectionBand hbandType = new SectionBand(report);
+/* 132 */       SectionBand hbandCategory = new SectionBand(report);
+/* 133 */       SectionBand body = new SectionBand(report);
+/* 134 */       SectionBand footer = new SectionBand(report);
+/* 135 */       DefaultSectionLens group = null;
 /*     */       
-/* 138 */       DefaultTableLens table_contents = null;
-/* 139 */       DefaultTableLens rowCountTable = null;
-/* 140 */       DefaultTableLens columnHeaderTable = null;
+/* 137 */       DefaultTableLens table_contents = null;
+/* 138 */       DefaultTableLens rowCountTable = null;
+/* 139 */       DefaultTableLens columnHeaderTable = null;
 /*     */ 
 /*     */       
-/* 143 */       DefaultTableLens subTable = null;
+/* 142 */       DefaultTableLens subTable = null;
 /*     */ 
 /*     */       
-/* 146 */       int numSelections = selections.size() * 2;
-/* 147 */       int numRows = numSelections + 5;
+/* 145 */       int numSelections = selections.size() * 2;
+/* 146 */       int numRows = numSelections + 5;
 /*     */ 
 /*     */       
-/* 150 */       rowCountTable = new DefaultTableLens(2, 10000);
-/* 151 */       table_contents = new DefaultTableLens(1, 14);
+/* 149 */       rowCountTable = new DefaultTableLens(2, 10000);
+/* 150 */       table_contents = new DefaultTableLens(1, 14);
 /*     */ 
 /*     */       
-/* 154 */       int nextRow = 0;
-/* 155 */       hbandType = new SectionBand(report);
-/* 156 */       hbandType.setHeight(0.95F);
-/* 157 */       hbandType.setShrinkToFit(true);
-/* 158 */       hbandType.setVisible(true);
+/* 153 */       int nextRow = 0;
+/* 154 */       hbandType = new SectionBand(report);
+/* 155 */       hbandType.setHeight(0.95F);
+/* 156 */       hbandType.setShrinkToFit(true);
+/* 157 */       hbandType.setVisible(true);
 /*     */       
-/* 160 */       hbandCategory = new SectionBand(report);
-/* 161 */       hbandCategory.setHeight(2.0F);
-/* 162 */       hbandCategory.setShrinkToFit(true);
-/* 163 */       hbandCategory.setVisible(true);
-/* 164 */       hbandCategory.setBottomBorder(0);
-/* 165 */       hbandCategory.setLeftBorder(0);
-/* 166 */       hbandCategory.setRightBorder(0);
-/* 167 */       hbandCategory.setTopBorder(0);
+/* 159 */       hbandCategory = new SectionBand(report);
+/* 160 */       hbandCategory.setHeight(2.0F);
+/* 161 */       hbandCategory.setShrinkToFit(true);
+/* 162 */       hbandCategory.setVisible(true);
+/* 163 */       hbandCategory.setBottomBorder(0);
+/* 164 */       hbandCategory.setLeftBorder(0);
+/* 165 */       hbandCategory.setRightBorder(0);
+/* 166 */       hbandCategory.setTopBorder(0);
 /*     */ 
 /*     */       
-/* 170 */       table_contents.setHeaderRowCount(0);
+/* 169 */       table_contents.setHeaderRowCount(0);
 /*     */ 
 /*     */       
-/* 173 */       table_contents.setColWidth(0, 95);
-/* 174 */       table_contents.setColWidth(1, 225);
-/* 175 */       table_contents.setColWidth(2, 140);
-/* 176 */       table_contents.setColWidth(3, 130);
-/* 177 */       table_contents.setColWidth(4, 70);
-/* 178 */       table_contents.setColWidth(5, 70);
-/* 179 */       table_contents.setColWidth(6, 70);
-/* 180 */       table_contents.setColWidth(7, 70);
-/* 181 */       table_contents.setColWidth(8, 70);
-/* 182 */       table_contents.setColWidth(9, 70);
-/* 183 */       table_contents.setColWidth(10, 70);
-/* 184 */       table_contents.setColWidth(11, 70);
-/* 185 */       table_contents.setColWidth(12, 80);
-/* 186 */       table_contents.setColWidth(13, 180);
+/* 172 */       table_contents.setColWidth(0, 95);
+/* 173 */       table_contents.setColWidth(1, 225);
+/* 174 */       table_contents.setColWidth(2, 140);
+/* 175 */       table_contents.setColWidth(3, 130);
+/* 176 */       table_contents.setColWidth(4, 70);
+/* 177 */       table_contents.setColWidth(5, 70);
+/* 178 */       table_contents.setColWidth(6, 70);
+/* 179 */       table_contents.setColWidth(7, 70);
+/* 180 */       table_contents.setColWidth(8, 70);
+/* 181 */       table_contents.setColWidth(9, 70);
+/* 182 */       table_contents.setColWidth(10, 70);
+/* 183 */       table_contents.setColWidth(11, 70);
+/* 184 */       table_contents.setColWidth(12, 80);
+/* 185 */       table_contents.setColWidth(13, 180);
 /*     */ 
 /*     */       
-/* 189 */       table_contents.setRowBorderColor(nextRow, Color.lightGray);
-/* 190 */       table_contents.setRowBorder(4097);
-/* 191 */       table_contents.setColBorder(4097);
+/* 188 */       table_contents.setRowBorderColor(nextRow, Color.lightGray);
+/* 189 */       table_contents.setRowBorder(4097);
+/* 190 */       table_contents.setColBorder(4097);
 /*     */ 
 /*     */       
-/* 194 */       columnHeaderTable = new DefaultTableLens(1, 14);
+/* 193 */       columnHeaderTable = new DefaultTableLens(1, 14);
 /*     */       
-/* 196 */       nextRow = 0;
+/* 195 */       nextRow = 0;
 /*     */       
-/* 198 */       columnHeaderTable.setColWidth(0, 95);
-/* 199 */       columnHeaderTable.setColWidth(1, 225);
-/* 200 */       columnHeaderTable.setColWidth(2, 140);
-/* 201 */       columnHeaderTable.setColWidth(3, 120);
-/* 202 */       columnHeaderTable.setColWidth(4, 80);
-/* 203 */       columnHeaderTable.setColWidth(5, 70);
-/* 204 */       columnHeaderTable.setColWidth(6, 70);
-/* 205 */       columnHeaderTable.setColWidth(7, 70);
-/* 206 */       columnHeaderTable.setColWidth(8, 70);
-/* 207 */       columnHeaderTable.setColWidth(9, 70);
-/* 208 */       columnHeaderTable.setColWidth(10, 70);
-/* 209 */       columnHeaderTable.setColWidth(11, 70);
-/* 210 */       columnHeaderTable.setColWidth(12, 90);
-/* 211 */       columnHeaderTable.setColWidth(13, 180);
+/* 197 */       columnHeaderTable.setColWidth(0, 95);
+/* 198 */       columnHeaderTable.setColWidth(1, 225);
+/* 199 */       columnHeaderTable.setColWidth(2, 140);
+/* 200 */       columnHeaderTable.setColWidth(3, 120);
+/* 201 */       columnHeaderTable.setColWidth(4, 80);
+/* 202 */       columnHeaderTable.setColWidth(5, 70);
+/* 203 */       columnHeaderTable.setColWidth(6, 70);
+/* 204 */       columnHeaderTable.setColWidth(7, 70);
+/* 205 */       columnHeaderTable.setColWidth(8, 70);
+/* 206 */       columnHeaderTable.setColWidth(9, 70);
+/* 207 */       columnHeaderTable.setColWidth(10, 70);
+/* 208 */       columnHeaderTable.setColWidth(11, 70);
+/* 209 */       columnHeaderTable.setColWidth(12, 90);
+/* 210 */       columnHeaderTable.setColWidth(13, 180);
 /*     */ 
 /*     */       
-/* 214 */       columnHeaderTable.setRowAlignment(nextRow, 34);
-/* 215 */       columnHeaderTable.setObject(nextRow, 0, "Release\nDate");
-/* 216 */       columnHeaderTable.setObject(nextRow, 1, "UPC\nLocal Prod #\nArtist\nTitle");
-/* 217 */       columnHeaderTable.setObject(nextRow, 2, "Label");
-/* 218 */       columnHeaderTable.setObject(nextRow, 3, "Format");
-/* 219 */       columnHeaderTable.setObject(nextRow, 4, "Pricing");
-/* 220 */       columnHeaderTable.setObject(nextRow, 5, "Label Copy\nDue");
-/* 221 */       columnHeaderTable.setObject(nextRow, 6, "FGs Due");
-/* 222 */       columnHeaderTable.setObject(nextRow, 7, "Audio to\nManuf.");
-/* 223 */       columnHeaderTable.setObject(nextRow, 8, "Art to\nPrinter");
-/* 224 */       columnHeaderTable.setObject(nextRow, 9, "BOM");
-/* 225 */       columnHeaderTable.setObject(nextRow, 11, "Qty\nDone");
-/* 226 */       columnHeaderTable.setObject(nextRow, 10, "IO");
-/* 227 */       columnHeaderTable.setObject(nextRow, 12, "Production\nStatus");
-/* 228 */       columnHeaderTable.setObject(nextRow, 13, "Comments/Pkg Info");
+/* 213 */       columnHeaderTable.setRowAlignment(nextRow, 34);
+/* 214 */       columnHeaderTable.setObject(nextRow, 0, "Release\nDate");
+/* 215 */       columnHeaderTable.setObject(nextRow, 1, "UPC\nLocal Prod #\nArtist\nTitle");
+/* 216 */       columnHeaderTable.setObject(nextRow, 2, "Label");
+/* 217 */       columnHeaderTable.setObject(nextRow, 3, "Format");
+/* 218 */       columnHeaderTable.setObject(nextRow, 4, "Pricing");
+/* 219 */       columnHeaderTable.setObject(nextRow, 5, "Label Copy\nDue");
+/* 220 */       columnHeaderTable.setObject(nextRow, 6, "FGs Due");
+/* 221 */       columnHeaderTable.setObject(nextRow, 7, "Audio to\nManuf.");
+/* 222 */       columnHeaderTable.setObject(nextRow, 8, "Art to\nPrinter");
+/* 223 */       columnHeaderTable.setObject(nextRow, 9, "BOM");
+/* 224 */       columnHeaderTable.setObject(nextRow, 11, "Qty\nDone");
+/* 225 */       columnHeaderTable.setObject(nextRow, 10, "IO");
+/* 226 */       columnHeaderTable.setObject(nextRow, 12, "Production\nStatus");
+/* 227 */       columnHeaderTable.setObject(nextRow, 13, "Comments/Pkg Info");
+/*     */ 
 /*     */       
 /* 230 */       columnHeaderTable.setRowFont(nextRow, new Font("Arial", 1, 8));
 /* 231 */       columnHeaderTable.setRowBorderColor(nextRow, Color.lightGray);
@@ -403,12 +403,12 @@
 /*     */ 
 /*     */ 
 /*     */ 
-/*     */ 
-/*     */ 
 /*     */         
-/* 409 */         Schedule schedule = sel.getSchedule();
-/* 410 */         String dueDateTaks = "";
-/* 411 */         String completationDateTaks = "";
+/* 407 */         String dueDateTaks = "";
+/* 408 */         String completationDateTaks = "";
+/*     */         
+/* 410 */         Schedule schedule = sel.getSchedule();
+/*     */ 
 /*     */         
 /* 413 */         String dueDateHolidayFlg = "";
 /*     */ 
@@ -428,20 +428,20 @@
 /*     */         }
 /*     */         
 /* 430 */         if (tasks != null) {
-/*     */ 
 /*     */           
-/* 433 */           Iterator it = tasks.iterator();
+/* 432 */           Iterator it = tasks.iterator();
 /*     */           
-/* 435 */           while (it != null && it.hasNext()) {
+/* 434 */           while (it != null && it.hasNext()) {
 /*     */             
-/* 437 */             ScheduledTask task = (ScheduledTask)it.next();
-/* 438 */             String taskAbbrev = MilestoneHelper.getTaskAbbreivationNameById(task.getTaskAbbreviationID());
-/* 439 */             String name = task.getName();
-/* 440 */             if (name.equalsIgnoreCase("Finished Goods Due")) {
+/* 436 */             ScheduledTask task = (ScheduledTask)it.next();
+/* 437 */             String taskAbbrev = MilestoneHelper.getTaskAbbreivationNameById(task.getTaskAbbreviationID());
+/* 438 */             String name = task.getName();
+/* 439 */             if (name.equalsIgnoreCase("Finished Goods Due")) {
 /*     */               
-/* 442 */               dueDateTaks = MilestoneHelper.getShortDate(task.getDueDate());
-/* 443 */               completationDateTaks = MilestoneHelper.getFormatedDate(task.getCompletionDate());
+/* 441 */               dueDateTaks = MilestoneHelper.getShortDate(task.getDueDate());
+/* 442 */               completationDateTaks = MilestoneHelper.getFormatedDate(task.getCompletionDate());
 /*     */             } 
+/*     */ 
 /*     */             
 /*     */             try {
 /* 447 */               if (name != null) {
@@ -590,286 +590,291 @@
 /* 590 */         subTable.setColWidth(12, 90);
 /* 591 */         subTable.setColWidth(13, 180);
 /*     */ 
+/*     */ 
 /*     */         
-/* 594 */         subTable.setColBorderColor(nextRow, Color.lightGray);
-/* 595 */         subTable.setRowBorderColor(nextRow, Color.lightGray);
-/* 596 */         subTable.setRowBorder(4097);
-/* 597 */         subTable.setColBorder(4097);
+/* 595 */         subTable.setColBorderColor(nextRow, Color.lightGray);
+/* 596 */         subTable.setRowBorderColor(nextRow, Color.lightGray);
+/* 597 */         subTable.setRowBorder(4097);
+/* 598 */         subTable.setColBorder(4097);
 /*     */ 
 /*     */ 
 /*     */         
-/* 601 */         subTable.setRowInsets(nextRow, new Insets(0, 0, 0, 0));
+/* 602 */         subTable.setRowInsets(nextRow, new Insets(0, 0, 0, 0));
 /*     */         
-/* 603 */         subTable.setRowAlignment(nextRow, 2);
+/* 604 */         subTable.setRowAlignment(nextRow, 2);
 /*     */ 
 /*     */         
-/* 606 */         subTable.setSpan(nextRow, 0, new Dimension(1, 2));
-/* 607 */         subTable.setObject(nextRow, 0, USIntRelease);
+/* 607 */         subTable.setSpan(nextRow, 0, new Dimension(1, 2));
+/* 608 */         subTable.setObject(nextRow, 0, USIntRelease);
 /*     */         
-/* 609 */         subTable.setObject(nextRow, 1, "");
+/* 610 */         subTable.setObject(nextRow, 1, "");
 /*     */         
-/* 611 */         subTable.setObject(nextRow, 2, "");
-/* 612 */         subTable.setObject(nextRow, 3, "");
-/* 613 */         subTable.setObject(nextRow, 4, schedulingFormDate);
-/* 614 */         subTable.setObject(nextRow, 5, labelCopyDate);
-/* 615 */         subTable.setObject(nextRow, 6, dueDateTaks);
-/* 616 */         subTable.setObject(nextRow, 7, audioToUMSDate);
-/* 617 */         subTable.setObject(nextRow, 8, artToPrinterDate);
-/* 618 */         subTable.setObject(nextRow, 9, bomDate);
-/* 619 */         subTable.setObject(nextRow, 10, "");
-/* 620 */         subTable.setObject(nextRow, 11, "");
-/* 621 */         subTable.setObject(nextRow, 12, "");
-/* 622 */         subTable.setObject(nextRow, 13, sel.getSelectionComments());
+/* 612 */         subTable.setObject(nextRow, 2, "");
+/* 613 */         subTable.setObject(nextRow, 3, "");
+/* 614 */         subTable.setObject(nextRow, 4, schedulingFormDate);
+/* 615 */         subTable.setObject(nextRow, 5, labelCopyDate);
+/* 616 */         subTable.setObject(nextRow, 6, dueDateTaks);
+/* 617 */         subTable.setObject(nextRow, 7, audioToUMSDate);
+/* 618 */         subTable.setObject(nextRow, 8, artToPrinterDate);
+/* 619 */         subTable.setObject(nextRow, 9, bomDate);
+/* 620 */         subTable.setObject(nextRow, 10, "");
+/* 621 */         subTable.setObject(nextRow, 11, "");
+/* 622 */         subTable.setObject(nextRow, 12, "");
+/* 623 */         subTable.setObject(nextRow, 13, sel.getSelectionComments());
+/*     */ 
 /*     */         
-/* 624 */         subTable.setSpan(nextRow, 13, new Dimension(1, 2));
+/* 626 */         subTable.setSpan(nextRow, 13, new Dimension(1, 2));
 /*     */         
-/* 626 */         subTable.setRowFont(nextRow, new Font("Arial", 1, 7));
+/* 628 */         subTable.setRowFont(nextRow, new Font("Arial", 1, 7));
 /*     */ 
 /*     */ 
 /*     */         
-/* 630 */         Font holidayFont = new Font("Arial", 3, 7);
-/* 631 */         for (int colIdx = 4; colIdx <= 10; colIdx++) {
+/* 632 */         Font holidayFont = new Font("Arial", 3, 7);
+/* 633 */         for (int colIdx = 4; colIdx <= 10; colIdx++) {
 /*     */           
-/* 633 */           String dueDate = subTable.getObject(nextRow, colIdx).toString();
-/* 634 */           if (dueDate != null && dueDate.length() > 0) {
+/* 635 */           String dueDate = subTable.getObject(nextRow, colIdx).toString();
+/* 636 */           if (dueDate != null && dueDate.length() > 0) {
 /*     */             
-/* 636 */             char lastChar = dueDate.charAt(dueDate.length() - 1);
-/* 637 */             if (Character.isLetter(lastChar)) {
-/* 638 */               subTable.setFont(nextRow, colIdx, holidayFont);
+/* 638 */             char lastChar = dueDate.charAt(dueDate.length() - 1);
+/* 639 */             if (Character.isLetter(lastChar)) {
+/* 640 */               subTable.setFont(nextRow, colIdx, holidayFont);
 /*     */             }
 /*     */           } 
 /*     */         } 
 /*     */         
-/* 643 */         subTable.setFont(nextRow, 0, new Font("Arial", 0, 7));
-/* 644 */         subTable.setFont(nextRow, 1, new Font("Arial", 0, 7));
+/* 645 */         subTable.setFont(nextRow, 0, new Font("Arial", 0, 7));
+/* 646 */         subTable.setFont(nextRow, 1, new Font("Arial", 0, 7));
 /*     */         
-/* 646 */         subTable.setAlignment(nextRow, 0, 10);
+/* 648 */         subTable.setAlignment(nextRow, 0, 10);
 /*     */         
-/* 648 */         subTable.setRowHeight(nextRow, 10);
-/* 649 */         subTable.setColFont(0, new Font("Arial", 0, 8));
+/* 650 */         subTable.setRowHeight(nextRow, 10);
+/* 651 */         subTable.setColFont(0, new Font("Arial", 0, 8));
 /*     */         
-/* 651 */         subTable.setRowBackground(nextRow, Color.white);
-/* 652 */         subTable.setBackground(nextRow, 0, Color.white);
-/* 653 */         subTable.setBackground(nextRow, 1, Color.lightGray);
-/* 654 */         subTable.setBackground(nextRow, 2, Color.lightGray);
-/* 655 */         subTable.setBackground(nextRow, 3, Color.lightGray);
-/* 656 */         subTable.setBackground(nextRow, 4, Color.lightGray);
-/* 657 */         subTable.setBackground(nextRow, 5, Color.lightGray);
-/* 658 */         subTable.setBackground(nextRow, 6, Color.lightGray);
-/* 659 */         subTable.setBackground(nextRow, 7, Color.lightGray);
-/* 660 */         subTable.setBackground(nextRow, 8, Color.lightGray);
-/* 661 */         subTable.setBackground(nextRow, 9, Color.lightGray);
-/* 662 */         subTable.setBackground(nextRow, 10, Color.lightGray);
-/* 663 */         subTable.setBackground(nextRow, 11, Color.lightGray);
-/* 664 */         subTable.setBackground(nextRow, 12, Color.lightGray);
-/* 665 */         subTable.setBackground(nextRow, 13, Color.white);
+/* 653 */         subTable.setRowBackground(nextRow, Color.white);
+/* 654 */         subTable.setBackground(nextRow, 0, Color.white);
+/* 655 */         subTable.setBackground(nextRow, 1, Color.lightGray);
+/* 656 */         subTable.setBackground(nextRow, 2, Color.lightGray);
+/* 657 */         subTable.setBackground(nextRow, 3, Color.lightGray);
+/* 658 */         subTable.setBackground(nextRow, 4, Color.lightGray);
+/* 659 */         subTable.setBackground(nextRow, 5, Color.lightGray);
+/* 660 */         subTable.setBackground(nextRow, 6, Color.lightGray);
+/* 661 */         subTable.setBackground(nextRow, 7, Color.lightGray);
+/* 662 */         subTable.setBackground(nextRow, 8, Color.lightGray);
+/* 663 */         subTable.setBackground(nextRow, 9, Color.lightGray);
+/* 664 */         subTable.setBackground(nextRow, 10, Color.lightGray);
+/* 665 */         subTable.setBackground(nextRow, 11, Color.lightGray);
+/* 666 */         subTable.setBackground(nextRow, 12, Color.lightGray);
+/* 667 */         subTable.setBackground(nextRow, 13, Color.white);
 /*     */         
-/* 667 */         subTable.setColBorderColor(nextRow, -1, Color.lightGray);
-/* 668 */         subTable.setColBorderColor(nextRow, 0, Color.lightGray);
-/* 669 */         subTable.setColBorderColor(nextRow, 1, Color.lightGray);
-/* 670 */         subTable.setColBorderColor(nextRow, 2, Color.lightGray);
-/* 671 */         subTable.setColBorderColor(nextRow, 3, Color.lightGray);
-/* 672 */         subTable.setColBorderColor(nextRow, 4, Color.lightGray);
-/* 673 */         subTable.setColBorderColor(nextRow, 5, Color.lightGray);
-/* 674 */         subTable.setColBorderColor(nextRow, 6, Color.lightGray);
-/* 675 */         subTable.setColBorderColor(nextRow, 7, Color.lightGray);
-/* 676 */         subTable.setColBorderColor(nextRow, 8, Color.lightGray);
-/* 677 */         subTable.setColBorderColor(nextRow, 9, Color.lightGray);
-/* 678 */         subTable.setColBorderColor(nextRow, 10, Color.lightGray);
-/* 679 */         subTable.setColBorderColor(nextRow, 11, Color.lightGray);
-/* 680 */         subTable.setColBorderColor(nextRow, 12, Color.lightGray);
-/* 681 */         subTable.setColBorderColor(nextRow, 13, Color.lightGray);
+/* 669 */         subTable.setColBorderColor(nextRow, -1, Color.lightGray);
+/* 670 */         subTable.setColBorderColor(nextRow, 0, Color.lightGray);
+/* 671 */         subTable.setColBorderColor(nextRow, 1, Color.lightGray);
+/* 672 */         subTable.setColBorderColor(nextRow, 2, Color.lightGray);
+/* 673 */         subTable.setColBorderColor(nextRow, 3, Color.lightGray);
+/* 674 */         subTable.setColBorderColor(nextRow, 4, Color.lightGray);
+/* 675 */         subTable.setColBorderColor(nextRow, 5, Color.lightGray);
+/* 676 */         subTable.setColBorderColor(nextRow, 6, Color.lightGray);
+/* 677 */         subTable.setColBorderColor(nextRow, 7, Color.lightGray);
+/* 678 */         subTable.setColBorderColor(nextRow, 8, Color.lightGray);
+/* 679 */         subTable.setColBorderColor(nextRow, 9, Color.lightGray);
+/* 680 */         subTable.setColBorderColor(nextRow, 10, Color.lightGray);
+/* 681 */         subTable.setColBorderColor(nextRow, 11, Color.lightGray);
+/* 682 */         subTable.setColBorderColor(nextRow, 12, Color.lightGray);
+/* 683 */         subTable.setColBorderColor(nextRow, 13, Color.lightGray);
 /*     */         
-/* 683 */         subTable.setRowBorderColor(nextRow, Color.lightGray);
+/* 685 */         subTable.setRowBorderColor(nextRow, Color.lightGray);
 /*     */         
-/* 685 */         subTable.setRowBorderColor(nextRow - 1, Color.lightGray);
-/* 686 */         subTable.setRowBorderColor(nextRow, 1, Color.white);
+/* 687 */         subTable.setRowBorderColor(nextRow - 1, Color.lightGray);
+/* 688 */         subTable.setRowBorderColor(nextRow, 1, Color.white);
 /*     */         
-/* 688 */         subTable.setColBorder(nextRow, 1, 266240);
-/* 689 */         subTable.setColBorder(nextRow, 2, 266240);
-/* 690 */         subTable.setColBorder(nextRow, 3, 266240);
-/* 691 */         subTable.setColBorder(nextRow, 4, 266240);
-/* 692 */         subTable.setColBorder(nextRow, 5, 266240);
-/* 693 */         subTable.setColBorder(nextRow, 6, 266240);
-/* 694 */         subTable.setColBorder(nextRow, 7, 266240);
-/* 695 */         subTable.setColBorder(nextRow, 8, 266240);
-/* 696 */         subTable.setColBorder(nextRow, 9, 266240);
-/* 697 */         subTable.setColBorder(nextRow, 10, 266240);
-/* 698 */         subTable.setColBorder(nextRow, 11, 266240);
+/* 690 */         subTable.setColBorder(nextRow, 1, 266240);
+/* 691 */         subTable.setColBorder(nextRow, 2, 266240);
+/* 692 */         subTable.setColBorder(nextRow, 3, 266240);
+/* 693 */         subTable.setColBorder(nextRow, 4, 266240);
+/* 694 */         subTable.setColBorder(nextRow, 5, 266240);
+/* 695 */         subTable.setColBorder(nextRow, 6, 266240);
+/* 696 */         subTable.setColBorder(nextRow, 7, 266240);
+/* 697 */         subTable.setColBorder(nextRow, 8, 266240);
+/* 698 */         subTable.setColBorder(nextRow, 9, 266240);
+/* 699 */         subTable.setColBorder(nextRow, 10, 266240);
+/* 700 */         subTable.setColBorder(nextRow, 11, 266240);
 /*     */ 
 /*     */         
-/* 701 */         subTable.setAlignment(nextRow, 0, 10);
-/* 702 */         subTable.setAlignment(nextRow, 1, 10);
-/* 703 */         subTable.setAlignment(nextRow, 2, 10);
-/* 704 */         subTable.setAlignment(nextRow, 3, 10);
-/* 705 */         subTable.setAlignment(nextRow, 4, 10);
-/* 706 */         subTable.setAlignment(nextRow, 5, 10);
-/* 707 */         subTable.setAlignment(nextRow, 6, 10);
-/* 708 */         subTable.setAlignment(nextRow, 7, 10);
-/* 709 */         subTable.setAlignment(nextRow, 8, 10);
-/* 710 */         subTable.setAlignment(nextRow, 9, 10);
-/* 711 */         subTable.setAlignment(nextRow, 10, 10);
-/* 712 */         subTable.setAlignment(nextRow, 11, 10);
-/* 713 */         subTable.setAlignment(nextRow, 12, 10);
-/* 714 */         subTable.setAlignment(nextRow, 13, 9);
-/*     */         
-/* 716 */         nextRow++;
-/*     */         
-/* 718 */         subTable.setRowBorderColor(nextRow, Color.lightGray);
-/*     */         
-/* 720 */         subTable.setColBorderColor(nextRow, -1, Color.lightGray);
-/* 721 */         subTable.setColBorderColor(nextRow, 0, Color.lightGray);
-/* 722 */         subTable.setColBorderColor(nextRow, 1, Color.lightGray);
-/* 723 */         subTable.setColBorderColor(nextRow, 2, Color.lightGray);
-/* 724 */         subTable.setColBorderColor(nextRow, 3, Color.lightGray);
-/* 725 */         subTable.setColBorderColor(nextRow, 4, Color.lightGray);
-/* 726 */         subTable.setColBorderColor(nextRow, 5, Color.lightGray);
-/* 727 */         subTable.setColBorderColor(nextRow, 6, Color.lightGray);
-/* 728 */         subTable.setColBorderColor(nextRow, 7, Color.lightGray);
-/* 729 */         subTable.setColBorderColor(nextRow, 8, Color.lightGray);
-/* 730 */         subTable.setColBorderColor(nextRow, 9, Color.lightGray);
-/* 731 */         subTable.setColBorderColor(nextRow, 10, Color.lightGray);
-/* 732 */         subTable.setColBorderColor(nextRow, 11, Color.lightGray);
-/* 733 */         subTable.setColBorderColor(nextRow, 12, Color.lightGray);
-/* 734 */         subTable.setColBorderColor(nextRow, 13, Color.lightGray);
+/* 703 */         subTable.setAlignment(nextRow, 0, 10);
+/* 704 */         subTable.setAlignment(nextRow, 1, 10);
+/* 705 */         subTable.setAlignment(nextRow, 2, 10);
+/* 706 */         subTable.setAlignment(nextRow, 3, 10);
+/* 707 */         subTable.setAlignment(nextRow, 4, 10);
+/* 708 */         subTable.setAlignment(nextRow, 5, 10);
+/* 709 */         subTable.setAlignment(nextRow, 6, 10);
+/* 710 */         subTable.setAlignment(nextRow, 7, 10);
+/* 711 */         subTable.setAlignment(nextRow, 8, 10);
+/* 712 */         subTable.setAlignment(nextRow, 9, 10);
+/* 713 */         subTable.setAlignment(nextRow, 10, 10);
+/* 714 */         subTable.setAlignment(nextRow, 11, 10);
+/* 715 */         subTable.setAlignment(nextRow, 12, 10);
+/* 716 */         subTable.setAlignment(nextRow, 13, 9);
 /*     */ 
 /*     */         
-/* 737 */         subTable.setRowInsets(nextRow, new Insets(0, 0, 0, 0));
+/* 719 */         nextRow++;
 /*     */         
-/* 739 */         subTable.setRowFont(nextRow, new Font("Arial", 0, 7));
-/* 740 */         subTable.setRowAlignment(nextRow, 10);
+/* 721 */         subTable.setRowBorderColor(nextRow, Color.lightGray);
+/*     */         
+/* 723 */         subTable.setColBorderColor(nextRow, -1, Color.lightGray);
+/* 724 */         subTable.setColBorderColor(nextRow, 0, Color.lightGray);
+/* 725 */         subTable.setColBorderColor(nextRow, 1, Color.lightGray);
+/* 726 */         subTable.setColBorderColor(nextRow, 2, Color.lightGray);
+/* 727 */         subTable.setColBorderColor(nextRow, 3, Color.lightGray);
+/* 728 */         subTable.setColBorderColor(nextRow, 4, Color.lightGray);
+/* 729 */         subTable.setColBorderColor(nextRow, 5, Color.lightGray);
+/* 730 */         subTable.setColBorderColor(nextRow, 6, Color.lightGray);
+/* 731 */         subTable.setColBorderColor(nextRow, 7, Color.lightGray);
+/* 732 */         subTable.setColBorderColor(nextRow, 8, Color.lightGray);
+/* 733 */         subTable.setColBorderColor(nextRow, 9, Color.lightGray);
+/* 734 */         subTable.setColBorderColor(nextRow, 10, Color.lightGray);
+/* 735 */         subTable.setColBorderColor(nextRow, 11, Color.lightGray);
+/* 736 */         subTable.setColBorderColor(nextRow, 12, Color.lightGray);
+/* 737 */         subTable.setColBorderColor(nextRow, 13, Color.lightGray);
 /*     */ 
 /*     */         
-/* 743 */         subTable.setObject(nextRow, 0, "");
-/* 744 */         subTable.setObject(nextRow, 1, String.valueOf(upc) + "\n" + localProductNumber + "\n" + artistName + "\n" + title);
-/* 745 */         subTable.setObject(nextRow, 2, labelAndPackage);
-/* 746 */         subTable.setObject(nextRow, 3, selFormat);
-/* 747 */         subTable.setObject(nextRow, 4, String.valueOf(code) + " " + retail + " " + price);
-/* 748 */         subTable.setObject(nextRow, 5, labelCopy);
-/* 749 */         subTable.setObject(nextRow, 6, completationDateTaks);
-/* 750 */         subTable.setObject(nextRow, 7, audioToUMS);
-/* 751 */         subTable.setObject(nextRow, 8, artToPrinter);
-/* 752 */         subTable.setObject(nextRow, 9, bom);
-/* 753 */         subTable.setObject(nextRow, 11, qtyOrders);
-/* 754 */         subTable.setObject(nextRow, 10, (poQty == 0) ? "" : fS);
-/* 755 */         subTable.setObject(nextRow, 12, productionStatus);
-/* 756 */         subTable.setObject(nextRow, 13, sel.getSelectionComments());
+/* 740 */         subTable.setRowInsets(nextRow, new Insets(0, 0, 0, 0));
+/*     */         
+/* 742 */         subTable.setRowFont(nextRow, new Font("Arial", 0, 7));
+/* 743 */         subTable.setRowAlignment(nextRow, 10);
+/*     */ 
+/*     */         
+/* 746 */         subTable.setObject(nextRow, 0, "");
+/* 747 */         subTable.setObject(nextRow, 1, String.valueOf(upc) + "\n" + localProductNumber + "\n" + artistName + "\n" + title);
+/* 748 */         subTable.setObject(nextRow, 2, labelAndPackage);
+/* 749 */         subTable.setObject(nextRow, 3, selFormat);
+/* 750 */         subTable.setObject(nextRow, 4, String.valueOf(code) + " " + retail + " " + price);
+/* 751 */         subTable.setObject(nextRow, 5, labelCopy);
+/* 752 */         subTable.setObject(nextRow, 6, completationDateTaks);
+/* 753 */         subTable.setObject(nextRow, 7, audioToUMS);
+/* 754 */         subTable.setObject(nextRow, 8, artToPrinter);
+/* 755 */         subTable.setObject(nextRow, 9, bom);
+/* 756 */         subTable.setObject(nextRow, 11, qtyOrders);
+/* 757 */         subTable.setObject(nextRow, 10, (poQty == 0) ? "" : fS);
+/* 758 */         subTable.setObject(nextRow, 12, productionStatus);
+/* 759 */         subTable.setObject(nextRow, 13, sel.getSelectionComments());
+/*     */ 
+/*     */ 
 /*     */ 
 /*     */ 
 /*     */         
-/* 760 */         body = new SectionBand(report);
-/* 761 */         body.addTable(subTable, new Rectangle(800, 800));
+/* 765 */         body = new SectionBand(report);
+/* 766 */         body.addTable(subTable, new Rectangle(800, 800));
 /*     */         
-/* 763 */         double lfLineCount = 1.5D;
+/* 768 */         double lfLineCount = 1.5D;
 /*     */         
-/* 765 */         if (commentLines > 0 || labelAndPackage.length() > 17 || sel.getTitle().length() > 20) {
+/* 770 */         if (commentLines > 0 || labelAndPackage.length() > 17 || sel.getTitle().length() > 20) {
 /*     */           
-/* 767 */           body.setHeight(1.5F);
+/* 772 */           body.setHeight(1.5F);
 /*     */         }
 /*     */         else {
 /*     */           
-/* 771 */           body.setHeight(1.0F);
+/* 776 */           body.setHeight(1.0F);
 /*     */         } 
 /*     */         
-/* 774 */         if (commentLines > 0 || labelAndPackage.length() > 17 || sel.getTitle().length() > 20 || 
-/* 775 */           schedulingForm.length() > 25 || labelCopy.length() > 25 || artToPrinter.length() > 25 || 
-/* 776 */           audioToUMS.length() > 25 || productionStatus.length() > 25 || 
-/* 777 */           bom.length() > 25) {
+/* 779 */         if (commentLines > 0 || labelAndPackage.length() > 17 || sel.getTitle().length() > 20 || 
+/* 780 */           schedulingForm.length() > 25 || labelCopy.length() > 25 || artToPrinter.length() > 25 || 
+/* 781 */           audioToUMS.length() > 25 || productionStatus.length() > 25 || 
+/* 782 */           bom.length() > 25) {
 /*     */           
-/* 779 */           if (lfLineCount < commentLines * 0.3D) {
-/* 780 */             lfLineCount = commentLines * 0.3D;
+/* 784 */           if (lfLineCount < commentLines * 0.3D) {
+/* 785 */             lfLineCount = commentLines * 0.3D;
 /*     */           }
-/* 782 */           if (lfLineCount < (labelAndPackage.length() / 8) * 0.3D) {
-/* 783 */             lfLineCount = (labelAndPackage.length() / 8) * 0.3D;
+/* 787 */           if (lfLineCount < (labelAndPackage.length() / 8) * 0.3D) {
+/* 788 */             lfLineCount = (labelAndPackage.length() / 8) * 0.3D;
 /*     */           }
-/* 785 */           if (lfLineCount < (sel.getTitle().length() / 8) * 0.3D) {
-/* 786 */             lfLineCount = (sel.getTitle().length() / 8) * 0.3D;
+/* 790 */           if (lfLineCount < (sel.getTitle().length() / 8) * 0.3D) {
+/* 791 */             lfLineCount = (sel.getTitle().length() / 8) * 0.3D;
 /*     */           }
-/* 788 */           if (lfLineCount < (schedulingForm.length() / 7) * 0.3D) {
-/* 789 */             lfLineCount = (schedulingForm.length() / 7) * 0.3D;
+/* 793 */           if (lfLineCount < (schedulingForm.length() / 7) * 0.3D) {
+/* 794 */             lfLineCount = (schedulingForm.length() / 7) * 0.3D;
 /*     */           }
-/* 791 */           if (lfLineCount < (labelCopy.length() / 7) * 0.3D) {
-/* 792 */             lfLineCount = (labelCopy.length() / 7) * 0.3D;
+/* 796 */           if (lfLineCount < (labelCopy.length() / 7) * 0.3D) {
+/* 797 */             lfLineCount = (labelCopy.length() / 7) * 0.3D;
 /*     */           }
-/* 794 */           if (lfLineCount < (artToPrinter.length() / 7) * 0.3D) {
-/* 795 */             lfLineCount = (artToPrinter.length() / 7) * 0.3D;
+/* 799 */           if (lfLineCount < (artToPrinter.length() / 7) * 0.3D) {
+/* 800 */             lfLineCount = (artToPrinter.length() / 7) * 0.3D;
 /*     */           }
-/* 797 */           if (lfLineCount < (audioToUMS.length() / 7) * 0.3D) {
-/* 798 */             lfLineCount = (audioToUMS.length() / 7) * 0.3D;
+/* 802 */           if (lfLineCount < (audioToUMS.length() / 7) * 0.3D) {
+/* 803 */             lfLineCount = (audioToUMS.length() / 7) * 0.3D;
 /*     */           }
-/* 800 */           if (lfLineCount < (productionStatus.length() / 7) * 0.3D) {
-/* 801 */             lfLineCount = (productionStatus.length() / 7) * 0.3D;
+/* 805 */           if (lfLineCount < (productionStatus.length() / 7) * 0.3D) {
+/* 806 */             lfLineCount = (productionStatus.length() / 7) * 0.3D;
 /*     */           }
-/* 803 */           if (lfLineCount < (bom.length() / 7) * 0.3D) {
-/* 804 */             lfLineCount = (bom.length() / 7) * 0.3D;
+/* 808 */           if (lfLineCount < (bom.length() / 7) * 0.3D) {
+/* 809 */             lfLineCount = (bom.length() / 7) * 0.3D;
 /*     */           }
-/* 806 */           body.setHeight((float)lfLineCount);
+/* 811 */           body.setHeight((float)lfLineCount);
 /*     */         }
-/* 808 */         else if (commentLines > 0 || labelAndPackage.length() > 17 || sel.getTitle().length() > 20 || 
-/* 809 */           schedulingForm.length() > 5 || labelCopy.length() > 5 || artToPrinter.length() > 5 || 
-/* 810 */           audioToUMS.length() > 5 || productionStatus.length() > 5 || 
-/* 811 */           bom.length() > 5) {
+/* 813 */         else if (commentLines > 0 || labelAndPackage.length() > 17 || sel.getTitle().length() > 20 || 
+/* 814 */           schedulingForm.length() > 5 || labelCopy.length() > 5 || artToPrinter.length() > 5 || 
+/* 815 */           audioToUMS.length() > 5 || productionStatus.length() > 5 || 
+/* 816 */           bom.length() > 5) {
 /*     */ 
 /*     */ 
 /*     */           
-/* 815 */           if (lfLineCount < commentLines * 0.3D) {
-/* 816 */             lfLineCount = commentLines * 0.3D;
+/* 820 */           if (lfLineCount < commentLines * 0.3D) {
+/* 821 */             lfLineCount = commentLines * 0.3D;
 /*     */           }
-/* 818 */           if (lfLineCount < (labelAndPackage.length() / 5) * 0.3D) {
-/* 819 */             lfLineCount = (labelAndPackage.length() / 5) * 0.3D;
+/* 823 */           if (lfLineCount < (labelAndPackage.length() / 5) * 0.3D) {
+/* 824 */             lfLineCount = (labelAndPackage.length() / 5) * 0.3D;
 /*     */           }
-/* 821 */           if (lfLineCount < (sel.getTitle().length() / 5) * 0.3D) {
-/* 822 */             lfLineCount = (sel.getTitle().length() / 5) * 0.3D;
+/* 826 */           if (lfLineCount < (sel.getTitle().length() / 5) * 0.3D) {
+/* 827 */             lfLineCount = (sel.getTitle().length() / 5) * 0.3D;
 /*     */           }
-/* 824 */           if (lfLineCount < (schedulingForm.length() / 5) * 0.3D) {
-/* 825 */             lfLineCount = (schedulingForm.length() / 5) * 0.3D;
+/* 829 */           if (lfLineCount < (schedulingForm.length() / 5) * 0.3D) {
+/* 830 */             lfLineCount = (schedulingForm.length() / 5) * 0.3D;
 /*     */           }
-/* 827 */           if (lfLineCount < (labelCopy.length() / 5) * 0.3D) {
-/* 828 */             lfLineCount = (labelCopy.length() / 5) * 0.3D;
+/* 832 */           if (lfLineCount < (labelCopy.length() / 5) * 0.3D) {
+/* 833 */             lfLineCount = (labelCopy.length() / 5) * 0.3D;
 /*     */           }
-/* 830 */           if (lfLineCount < (artToPrinter.length() / 5) * 0.3D) {
-/* 831 */             lfLineCount = (artToPrinter.length() / 5) * 0.3D;
+/* 835 */           if (lfLineCount < (artToPrinter.length() / 5) * 0.3D) {
+/* 836 */             lfLineCount = (artToPrinter.length() / 5) * 0.3D;
 /*     */           }
-/* 833 */           if (lfLineCount < (audioToUMS.length() / 5) * 0.3D) {
-/* 834 */             lfLineCount = (audioToUMS.length() / 5) * 0.3D;
+/* 838 */           if (lfLineCount < (audioToUMS.length() / 5) * 0.3D) {
+/* 839 */             lfLineCount = (audioToUMS.length() / 5) * 0.3D;
 /*     */           }
-/* 836 */           if (lfLineCount < (productionStatus.length() / 5) * 0.3D) {
-/* 837 */             lfLineCount = (productionStatus.length() / 5) * 0.3D;
+/* 841 */           if (lfLineCount < (productionStatus.length() / 5) * 0.3D) {
+/* 842 */             lfLineCount = (productionStatus.length() / 5) * 0.3D;
 /*     */           }
-/* 839 */           if (lfLineCount < (bom.length() / 5) * 0.3D) {
-/* 840 */             lfLineCount = (bom.length() / 5) * 0.3D;
+/* 844 */           if (lfLineCount < (bom.length() / 5) * 0.3D) {
+/* 845 */             lfLineCount = (bom.length() / 5) * 0.3D;
 /*     */           }
-/* 842 */           body.setHeight((float)lfLineCount);
+/* 847 */           body.setHeight((float)lfLineCount);
 /*     */         
 /*     */         }
 /*     */         else {
 /*     */           
-/* 847 */           body.setHeight(1.0F);
+/* 852 */           body.setHeight(1.0F);
 /*     */         } 
 /*     */         
-/* 850 */         body.setBottomBorder(0);
-/* 851 */         body.setTopBorder(0);
-/* 852 */         body.setShrinkToFit(true);
-/* 853 */         body.setVisible(true);
+/* 855 */         body.setBottomBorder(0);
+/* 856 */         body.setTopBorder(0);
+/* 857 */         body.setShrinkToFit(true);
+/* 858 */         body.setVisible(true);
 /*     */         
-/* 855 */         group = new DefaultSectionLens(null, group, body);
+/* 860 */         group = new DefaultSectionLens(null, group, body);
 /*     */       } 
 /*     */       
-/* 858 */       group = new DefaultSectionLens(hbandType, group, footer);
-/* 859 */       report.addSection(group, rowCountTable);
-/* 860 */       group = null;
+/* 863 */       group = new DefaultSectionLens(hbandType, group, footer);
+/* 864 */       report.addSection(group, rowCountTable);
+/* 865 */       group = null;
 /*     */ 
 /*     */ 
 /*     */     
 /*     */     }
-/* 865 */     catch (Exception e) {
+/* 870 */     catch (Exception e) {
 /*     */       
-/* 867 */       System.out.println(">>>>>>>>ReportHandler.fillCarolineProductionUpdateForPrint(): exception: " + e);
-/* 868 */       e.printStackTrace();
+/* 872 */       System.out.println(">>>>>>>>ReportHandler.fillCarolineProductionUpdateForPrint(): exception: " + e);
+/* 873 */       e.printStackTrace();
 /*     */     } 
 /*     */ 
 /*     */     
-/* 872 */     statusJSPupdate = null;
+/* 877 */     statusJSPupdate = null;
 /*     */   }
 /*     */ }
 

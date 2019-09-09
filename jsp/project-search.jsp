@@ -150,10 +150,11 @@ function UpdateSortingDirection(cn)
 function searchProjects(){
 
         if (validateFields() ) {
+        	window.console && console.log(searchCommand);
             showWaitMsg();   // msc its 966 show please wait message
             document.forms[0].sortDirection.value = "Descending";
             document.forms[0].sortColumn.value = "6";
-	    document.forms[0].cmd.value = searchCommand;
+	    	document.forms[0].cmd.value = searchCommand;
             document.forms[0].submit();
 	    return true;
 	} else {
@@ -326,7 +327,7 @@ function updateBackground(){
 function selectProject(selectedCount){
 
 	var selectionType = "<%=(String)context.getSessionValue("selectionScreenType")%>";
-	//alert("selectionType:[" + selectionType + "]" +" con"+selectedCount);
+	//alert("selectionType:[" + selectionType + "]");
 
 	if (selectionType=="new"){
 
@@ -379,7 +380,7 @@ function selectProject(selectedCount){
 
 //Updates the parent values in the Selection screen - except for ArtistFirst&LastNames and Title
 function getRevisionValues(rowId){
-	//alert("Row:  "+ rowId);
+
 	//Label
 	labelText = "document.frames.searchResultsFrame.document.all.Label" + rowId + ".innerText";
 	parent.document.all.labeldiv.innerText = eval(labelText);
@@ -387,15 +388,10 @@ function getRevisionValues(rowId){
 	parent.document.all.label.value = eval(labelId);
 
 	//Company
-	//alert("companyIdold:  "+eval(parent.document.all.company.value));
 	companyText = "document.frames.searchResultsFrame.document.all.Company" + rowId + ".value";
 	parent.document.all.companydiv.innerText = eval(companyText);
-	//alert("Company:  "+eval(companyText));
 	companyId = "document.frames.searchResultsFrame.document.all.CompanyId" + rowId + ".value";
-	//parent.document.all.company.value="0";
 	parent.document.all.company.value = eval(companyId);
-	//alert("companyId:  "+eval(companyId));
-	
 
 	//Division
 	divisionText = "document.frames.searchResultsFrame.document.all.Division" + rowId + ".value";
@@ -406,11 +402,9 @@ function getRevisionValues(rowId){
 	//Environment
 	environmentText = "document.frames.searchResultsFrame.document.all.Environment" + rowId + ".value";
 	parent.document.all.environmentdiv.innerText = eval(environmentText);
-	//alert("enviroment:  "+eval(environmentText));
 	environmentId = "document.frames.searchResultsFrame.document.all.EnvironmentId" + rowId + ".value";
-	parent.document.all.environment.value = eval(environmentId);
-	//alert("enviromentId:  "+eval(environmentId));
-//sajdlsadaslndklnasklndklasn
+	parent.document.all.environment.value = eval(environmentId)
+
 	//ProjectID
 	projectIdText = "document.frames.searchResultsFrame.document.all.ProjectId" + rowId + ".innerText";
 	parent.document.all.projectId.value = eval(projectIdText);
@@ -553,7 +547,7 @@ function removeSearchBoxesForUMVD(){
 
 
 
-<form name="projectSearchForm" action="/milestone2/home" method="POST">
+<form name="projectSearchForm" action="<%=inf.getServletURL()%>" method="POST">
 
 <%=form.getElement("cmd")%>
 

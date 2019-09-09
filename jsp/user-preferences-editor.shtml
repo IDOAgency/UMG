@@ -99,19 +99,21 @@ function clickReleasingFamily(famObj, envObj)
   }
 }
 </script>
-
+<!-- 
 <% String secureUP = ((String)context.getSessionValue("userInfo"));
 if((secureUP != null && secureUP.equals("true")) )  {
   // MC ITS 462 Make all users active
   //if((userSS != null && userSS.getPreferences() != null && userSS.getPreferences().getActive()))
   if(userSS != null && userSS.getPreferences() != null )
   {%><STYLE TYPE="text/css">
+  	 BODY { background: red; }
      TD.secureUP    {visibility=visible}
      TABLE.secureUP {visibility=visible}
      DIV.secureUP {visibility=visible}
      </STYLE>
   <%} else { %>
     <STYLE TYPE="text/css">
+     BODY { background: blue; }
      TD.secureUP    {display=none}
      TABLE.secureUP {display=none}
      DIV.secureUP {display=none}
@@ -119,14 +121,24 @@ if((secureUP != null && secureUP.equals("true")) )  {
 <%}
 } else { %>
     <STYLE TYPE="text/css">
+     BODY { background: black; }
      TD.secureUP    {display=none}
      TABLE.secureUP {display=none}
      DIV.secureUP {display=none}
     </STYLE>
 <%}%>
-
+ -->
 
 <div id="preferencesLayer" style="visibility:visible">
+<script type="text/javascript">
+var readyStateCheckInterval = setInterval(function() {
+    if (document.readyState === "complete") {
+        clearInterval(readyStateCheckInterval);
+        loadPreferences();
+    }
+}, 10);   
+</script>
+
 <table class="secureUP" width="765" cellpadding="12">
 <tr>
 <td>
@@ -423,6 +435,16 @@ if((secureUP != null && secureUP.equals("true")) )  {
 </div>
 
 <script>
+function loadPreferences(){
+    if (document.getElementById('notePadMainTable') !== null) 
+    {
+        document.getElementById('userInfoTable').style.display = 'none';
+    }
+    else
+    {
+    	document.getElementById('preferencesLayer').style.display = 'none';
+    }
+}
 function checkShortcutUserInfo()
 {
   var lEvent = window.event;
@@ -473,3 +495,4 @@ if(document.all.envMenuReports)
   setValuesIndex(document.all.envMenuReports,envMenuReportsValue);
 }
 </script>
+

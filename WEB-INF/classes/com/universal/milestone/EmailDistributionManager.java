@@ -13,16 +13,16 @@
 /*     */ import com.universal.milestone.Label;
 /*     */ import com.universal.milestone.MilestoneConstants;
 /*     */ import com.universal.milestone.MilestoneHelper;
+/*     */ import com.universal.milestone.MilestoneHelper_2;
 /*     */ import com.universal.milestone.Notepad;
 /*     */ import com.universal.milestone.SessionUserEmail;
 /*     */ import com.universal.milestone.SessionUserEmailObj;
 /*     */ import com.universal.milestone.User;
 /*     */ import java.util.ArrayList;
 /*     */ import java.util.Hashtable;
+/*     */ import java.util.Properties;
 /*     */ import java.util.StringTokenizer;
 /*     */ import java.util.Vector;
-/*     */ 
-/*     */ 
 /*     */ 
 /*     */ 
 /*     */ 
@@ -497,12 +497,12 @@
 /*     */       } 
 /*     */       
 /* 499 */       if (MilestoneHelper.isStringNotEmpty(firstNameSearch)) {
-/* 500 */         query = String.valueOf(query) + 
-/* 501 */           MilestoneHelper.addQueryParams(query, " vi_email_distribution_header.first_Name " + MilestoneHelper.setWildCardsEscapeSingleQuotes(firstNameSearch));
+/* 500 */         query = String.valueOf(query) + MilestoneHelper.addQueryParams(query, " vi_email_distribution_header.first_Name " + 
+/* 501 */             MilestoneHelper.setWildCardsEscapeSingleQuotes(firstNameSearch));
 /*     */       }
 /* 503 */       if (MilestoneHelper.isStringNotEmpty(lastNameSearch)) {
-/* 504 */         query = String.valueOf(query) + 
-/* 505 */           MilestoneHelper.addQueryParams(query, " vi_email_distribution_header.last_Name " + MilestoneHelper.setWildCardsEscapeSingleQuotes(lastNameSearch));
+/* 504 */         query = String.valueOf(query) + MilestoneHelper.addQueryParams(query, " vi_email_distribution_header.last_Name " + 
+/* 505 */             MilestoneHelper.setWildCardsEscapeSingleQuotes(lastNameSearch));
 /*     */       }
 /* 507 */       if (MilestoneHelper.isStringNotEmpty(formTypeSearch) && !formTypeSearch.equals("-1")) {
 /* 508 */         if (formTypeSearch.equals("pfm")) {
@@ -670,48 +670,58 @@
 /* 670 */             if (releasingFamilies != null) {
 /* 671 */               for (int i = 0; i < releasingFamilies.size(); i++) {
 /* 672 */                 EmailDistributionReleasingFamily releasingFamily = (EmailDistributionReleasingFamily)releasingFamilies.get(i);
-/* 673 */                 if (releasingFamily != null && releasingFamily.getReleasingFamilyId() == releaseFamilyId) {
-/* 674 */                   found = true;
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */                 
+/* 678 */                 if (releasingFamily != null && releasingFamily.getReleasingFamilyId() == releaseFamilyId) {
+/* 679 */                   found = true;
 /*     */                   
 /*     */                   break;
 /*     */                 } 
 /*     */               } 
 /*     */             }
+/* 685 */             System.out.println("EMailDistributionManager::getEmailTo:found = ");
+/* 686 */             System.out.print(found);
+/*     */ 
 /*     */             
-/* 681 */             if (found)
-/*     */             {
+/* 689 */             if (found) {
+/*     */ 
 /*     */ 
 /*     */ 
 /*     */               
-/* 686 */               if (releaseFamilyId != 1052 || 
-/* 687 */                 label_distribution == 2) {
+/* 694 */               if (releaseFamilyId != 1052 || 
+/* 695 */                 label_distribution == 2) {
 /*     */                 
-/* 689 */                 if (checkDigital(IsDigital, product_type)) {
-/* 690 */                   emailTo.append(String.valueOf(connector.getField("email", "")) + ";");
+/* 697 */                 if (checkDigital(IsDigital, product_type)) {
+/* 698 */                   emailTo.append(String.valueOf(connector.getField("email", "")) + ";");
 /*     */                 
 /*     */                 }
 /*     */               
 /*     */               }
-/* 695 */               else if (label_distribution != 3 && 
-/* 696 */                 label.getDistribution() == label_distribution) {
+/* 703 */               else if (label_distribution != 3 && 
+/* 704 */                 label.getDistribution() == label_distribution) {
 /*     */                 
-/* 698 */                 if (checkDigital(IsDigital, product_type)) {
-/* 699 */                   emailTo.append(String.valueOf(connector.getField("email", "")) + ";");
+/* 706 */                 if (checkDigital(IsDigital, product_type)) {
+/* 707 */                   emailTo.append(String.valueOf(connector.getField("email", "")) + ";");
 /*     */                 }
 /*     */               } 
-/*     */             }
+/* 710 */               System.out.println("EMailDistributionManager::getEmailTo:connector.getField('email', '')= ");
+/* 711 */               System.out.print(connector.getField("email", ""));
+/*     */             } 
 /*     */           } 
 /*     */         }
 /*     */       }
 /*     */ 
 /*     */       
-/* 708 */       connector.next();
+/* 718 */       connector.next();
 /*     */     } 
 /*     */     
-/* 711 */     connector.close();
+/* 721 */     connector.close();
 /*     */ 
 /*     */     
-/* 714 */     return emailTo.toString();
+/* 724 */     return emailTo.toString();
 /*     */   }
 /*     */ 
 /*     */ 
@@ -720,17 +730,17 @@
 /*     */ 
 /*     */   
 /*     */   public static boolean checkDigital(boolean IsDigital, int product_type) {
-/* 723 */     if (product_type == 2) {
-/* 724 */       return true;
+/* 733 */     if (product_type == 2) {
+/* 734 */       return true;
 /*     */     }
-/* 726 */     if (IsDigital && product_type == 0) {
-/* 727 */       return true;
+/* 736 */     if (IsDigital && product_type == 0) {
+/* 737 */       return true;
 /*     */     }
-/* 729 */     if (!IsDigital && product_type == 1) {
-/* 730 */       return true;
+/* 739 */     if (!IsDigital && product_type == 1) {
+/* 740 */       return true;
 /*     */     }
 /*     */     
-/* 733 */     return false;
+/* 743 */     return false;
 /*     */   }
 /*     */ 
 /*     */ 
@@ -739,7 +749,7 @@
 /*     */ 
 /*     */   
 /*     */   public static boolean sendEmailDistribution(String subject, String body, String recipients, String copyRecipients, String attachment) {
-/* 742 */     boolean result = false;
+/* 752 */     boolean result = false;
 /*     */ 
 /*     */ 
 /*     */ 
@@ -753,22 +763,22 @@
 /*     */ 
 /*     */     
 /*     */     try {
-/* 756 */       StringTokenizer valueTokenizer = new StringTokenizer(recipients, ";");
-/* 757 */       ArrayList destList = new ArrayList();
+/* 766 */       StringTokenizer valueTokenizer = new StringTokenizer(recipients, ";");
+/* 767 */       ArrayList destList = new ArrayList();
 /*     */       
-/* 759 */       while (valueTokenizer.hasMoreTokens()) {
-/* 760 */         destList.add(new SessionUserEmailObj(valueTokenizer.nextToken().trim(), true));
+/* 769 */       while (valueTokenizer.hasMoreTokens()) {
+/* 770 */         destList.add(new SessionUserEmailObj(valueTokenizer.nextToken().trim(), true));
 /*     */       }
 /*     */       
-/* 763 */       StringTokenizer ccValueTokenizer = new StringTokenizer(copyRecipients, ";");
-/* 764 */       ArrayList ccList = new ArrayList();
+/* 773 */       StringTokenizer ccValueTokenizer = new StringTokenizer(copyRecipients, ";");
+/* 774 */       ArrayList ccList = new ArrayList();
 /*     */       
-/* 766 */       while (ccValueTokenizer.hasMoreTokens()) {
-/* 767 */         ccList.add(new SessionUserEmailObj(ccValueTokenizer.nextToken().trim(), true));
+/* 776 */       while (ccValueTokenizer.hasMoreTokens()) {
+/* 777 */         ccList.add(new SessionUserEmailObj(ccValueTokenizer.nextToken().trim(), true));
 /*     */       }
-/* 769 */       SessionUserEmail sue = new SessionUserEmail();
-/* 770 */       body = "<font face='arial'>" + body + "</font>";
-/* 771 */       result = sue.sendEmail(destList, body, subject, attachment, ccList);
+/* 779 */       SessionUserEmail sue = new SessionUserEmail();
+/* 780 */       body = "<font face='arial'>" + body + "</font>";
+/* 781 */       result = sue.sendEmail(destList, body, subject, attachment, ccList);
 /*     */ 
 /*     */ 
 /*     */ 
@@ -784,46 +794,70 @@
 /*     */ 
 /*     */ 
 /*     */       
-/* 787 */       if (!result)
+/* 797 */       if (!result)
 /*     */       {
 /*     */         
-/* 790 */         String emailAuditSQL = "INSERT INTO [dbo].[Email_Distribution_audit] ";
-/* 791 */         emailAuditSQL = String.valueOf(emailAuditSQL) + " ([subject], [body], [recipients], [copyRecipients], ";
-/* 792 */         emailAuditSQL = String.valueOf(emailAuditSQL) + " [fileName], [serverName], [errorCode]) ";
-/* 793 */         emailAuditSQL = String.valueOf(emailAuditSQL) + " VALUES('" + MilestoneHelper.escapeSingleQuotes(subject) + "',";
-/* 794 */         emailAuditSQL = String.valueOf(emailAuditSQL) + "'" + MilestoneHelper.escapeSingleQuotes(body) + "',";
-/* 795 */         emailAuditSQL = String.valueOf(emailAuditSQL) + "'" + MilestoneHelper.escapeSingleQuotes(recipients) + "',";
-/* 796 */         emailAuditSQL = String.valueOf(emailAuditSQL) + "'" + MilestoneHelper.escapeSingleQuotes(copyRecipients) + "',";
-/* 797 */         emailAuditSQL = String.valueOf(emailAuditSQL) + "'" + MilestoneHelper.escapeSingleQuotes(attachment) + "',";
-/* 798 */         emailAuditSQL = String.valueOf(emailAuditSQL) + "'" + JdbcConnector.PROVIDER_URL + "','1')";
+/* 800 */         String emailAuditSQL = "INSERT INTO [dbo].[Email_Distribution_audit] ";
+/* 801 */         emailAuditSQL = String.valueOf(emailAuditSQL) + " ([subject], [body], [recipients], [copyRecipients], ";
+/* 802 */         emailAuditSQL = String.valueOf(emailAuditSQL) + " [fileName], [serverName], [errorCode]) ";
+/* 803 */         emailAuditSQL = String.valueOf(emailAuditSQL) + " VALUES('" + MilestoneHelper.escapeSingleQuotes(subject) + "',";
+/* 804 */         emailAuditSQL = String.valueOf(emailAuditSQL) + "'" + MilestoneHelper.escapeSingleQuotes(body) + "',";
+/* 805 */         emailAuditSQL = String.valueOf(emailAuditSQL) + "'" + MilestoneHelper.escapeSingleQuotes(recipients) + "',";
+/* 806 */         emailAuditSQL = String.valueOf(emailAuditSQL) + "'" + MilestoneHelper.escapeSingleQuotes(copyRecipients) + "',";
+/* 807 */         emailAuditSQL = String.valueOf(emailAuditSQL) + "'" + MilestoneHelper.escapeSingleQuotes(attachment) + "',";
+/* 808 */         emailAuditSQL = String.valueOf(emailAuditSQL) + "'" + JdbcConnector.PROVIDER_URL + "','1')";
 /*     */         
-/* 800 */         JdbcConnector connector = MilestoneHelper.getConnector(emailAuditSQL);
-/* 801 */         connector.runQuery();
-/* 802 */         connector.close();
+/* 810 */         JdbcConnector connector = MilestoneHelper.getConnector(emailAuditSQL);
+/* 811 */         connector.runQuery();
+/* 812 */         connector.close();
 /*     */         
-/* 804 */         SessionUserEmail sueFailed = new SessionUserEmail();
-/* 805 */         ArrayList destListMilestone = new ArrayList();
-/* 806 */         destListMilestone.add(new SessionUserEmailObj("mark.cole@umusic.com", true));
-/* 807 */         destListMilestone.add(new SessionUserEmailObj("marla.hall@umusic.com", true));
-/*     */         
-/* 809 */         String bodyFailed = "<b>The following message failed to send:</b><P><b>Subject:</b>" + 
-/* 810 */           subject + "<BR>" + 
-/* 811 */           "<b>Body:</b>" + body + "<BR>" + 
-/* 812 */           "<b>To:</b>" + recipients + "<BR>" + 
-/* 813 */           "<b>CC:</b>" + copyRecipients + "<BR>" + 
-/* 814 */           "<b>Attachment:</b>" + attachment;
+/* 814 */         SessionUserEmail sueFailed = new SessionUserEmail();
+/* 815 */         ArrayList destListMilestone = new ArrayList();
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
 /*     */ 
 /*     */         
-/* 817 */         ArrayList cc = new ArrayList();
-/* 818 */         sueFailed.sendEmail(destListMilestone, bodyFailed, "Email failed to send", "", cc);
+/* 822 */         String userEmail = "";
+/* 823 */         Properties fileProps = MilestoneHelper_2.readConfigFile(MilestoneHelper_2.MILESTONE_CONFIG_FILE);
+/* 824 */         if (fileProps != null) {
+/*     */           
+/* 826 */           userEmail = fileProps.getProperty("EmailDistributionSessionUserEmail");
+/* 827 */           if (userEmail == null)
+/*     */           {
+/* 829 */             log.debug("EmailDistributionManager: sendEmailDistribution: no email is sent out because of no property 'EmailDistributionSessionUserEmail' in " + MilestoneHelper_2.MILESTONE_CONFIG_FILE);
+/* 830 */             return result;
+/*     */           }
+/*     */         
+/*     */         } else {
+/*     */           
+/* 835 */           log.debug("EmailDistributionManager: sendEmailDistribution: failed to get property 'EmailDistributionSessionUserEmail' from" + MilestoneHelper_2.MILESTONE_CONFIG_FILE);
+/* 836 */           return result;
+/*     */         } 
+/*     */         
+/* 839 */         StringTokenizer userEmailTokenizer = new StringTokenizer(userEmail, ";");
+/* 840 */         while (userEmailTokenizer.hasMoreTokens()) {
+/* 841 */           destListMilestone.add(new SessionUserEmailObj(userEmailTokenizer.nextToken().trim(), true));
+/*     */         }
+/* 843 */         String bodyFailed = "<b>The following message failed to send:</b><P><b>Subject:</b>" + 
+/* 844 */           subject + "<BR>" + 
+/* 845 */           "<b>Body:</b>" + body + "<BR>" + 
+/* 846 */           "<b>To:</b>" + recipients + "<BR>" + 
+/* 847 */           "<b>CC:</b>" + copyRecipients + "<BR>" + 
+/* 848 */           "<b>Attachment:</b>" + attachment;
+/*     */ 
+/*     */         
+/* 851 */         ArrayList cc = new ArrayList();
+/* 852 */         sueFailed.sendEmail(destListMilestone, bodyFailed, "Email failed to send", "", cc);
 /*     */       }
 /*     */     
 /*     */     }
-/* 822 */     catch (Exception e) {
+/* 856 */     catch (Exception e) {
 /*     */       
-/* 824 */       System.out.println("send email exception...");
+/* 858 */       System.out.println("send email exception...");
 /*     */     } 
-/* 826 */     return result;
+/* 860 */     return result;
 /*     */   }
 /*     */ 
 /*     */ 
@@ -833,38 +867,38 @@
 /*     */ 
 /*     */   
 /*     */   public static Vector getAssignedEnvironments(int distributionId) {
-/* 836 */     Vector assignedEnvironments = null;
-/* 837 */     String userQuery = "SELECT * FROM vi_Email_Distribution_Detail WHERE distribution_id = " + distributionId + ";";
+/* 870 */     Vector assignedEnvironments = null;
+/* 871 */     String userQuery = "SELECT * FROM vi_Email_Distribution_Detail WHERE distribution_id = " + distributionId + ";";
 /*     */ 
 /*     */     
-/* 840 */     JdbcConnector connector = MilestoneHelper.getConnector(userQuery);
-/* 841 */     connector.runQuery();
+/* 874 */     JdbcConnector connector = MilestoneHelper.getConnector(userQuery);
+/* 875 */     connector.runQuery();
 /*     */     
-/* 843 */     while (connector.more()) {
+/* 877 */     while (connector.more()) {
 /*     */       
-/* 845 */       if (assignedEnvironments == null) {
-/* 846 */         assignedEnvironments = new Vector();
+/* 879 */       if (assignedEnvironments == null) {
+/* 880 */         assignedEnvironments = new Vector();
 /*     */       }
 /*     */       
-/* 849 */       int environmentId = connector.getInt("structure_id", -1);
-/* 850 */       if (environmentId != -1) {
+/* 883 */       int environmentId = connector.getInt("structure_id", -1);
+/* 884 */       if (environmentId != -1) {
 /*     */ 
 /*     */         
-/* 853 */         Environment environment = MilestoneHelper.getEnvironmentById(environmentId);
-/* 854 */         if (environment != null)
+/* 887 */         Environment environment = MilestoneHelper.getEnvironmentById(environmentId);
+/* 888 */         if (environment != null)
 /*     */         {
 /*     */           
-/* 857 */           if (!assignedEnvironments.contains(environment))
-/* 858 */             assignedEnvironments.add(environment); 
+/* 891 */           if (!assignedEnvironments.contains(environment))
+/* 892 */             assignedEnvironments.add(environment); 
 /*     */         }
 /*     */       } 
-/* 861 */       connector.next();
+/* 895 */       connector.next();
 /*     */     } 
 /*     */ 
 /*     */     
-/* 865 */     connector.close();
+/* 899 */     connector.close();
 /*     */     
-/* 867 */     return assignedEnvironments;
+/* 901 */     return assignedEnvironments;
 /*     */   }
 /*     */ }
 

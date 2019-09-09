@@ -6192,7 +6192,7 @@
 /*      */       
 /* 6193 */       table_contents.setSpan(nextRow, 4, new Dimension(4, 1));
 /* 6194 */       table_contents.setFont(nextRow, 4, plainFont);
-/* 6195 */       table_contents.setObject(nextRow, 4, selection.getFamily().getName());
+/* 6195 */       table_contents.setObject(nextRow, 4, selection.getCompany().getName());
 /* 6196 */       table_contents.setRowBorderColor(nextRow, 13, Color.white);
 /*      */       
 /* 6198 */       table_contents.setSpan(nextRow, 10, new Dimension(4, 1));

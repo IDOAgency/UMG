@@ -191,7 +191,7 @@
 /*     */     
 /* 192 */     String[] columnNames = { "Name", "Start Date", "End Date" };
 /* 193 */     contents = ReleaseWeekManager.getInstance().getReleaseWeekNotepadList(userId, null);
-/* 194 */     return new Notepad(contents, 0, 7, "Release Week", 15, columnNames);
+/* 194 */     return new Notepad(contents, 0, 15, "Release Week", 15, columnNames);
 /*     */   }
 /*     */ 
 /*     */ 

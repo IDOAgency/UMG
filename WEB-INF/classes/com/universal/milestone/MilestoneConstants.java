@@ -1016,6 +1016,7 @@
 /*     */   public static final String CMD_PROJECT_SEARCH_CANCEL = "project-search-cancel";
 /*     */   public static final String CMD_PROJECT_SEARCH_CLEAR = "project-search-clear";
 /*     */   public static final String JSP_PROJECT_SEARCH = "project-search.jsp";
+/*     */   public static final String JSP_PROJECT_SEARCH_RESULTS = "project-search-results.jsp";
 /*     */   public static final int PHYSICAL = 0;
 /*     */   public static final int DIGITAL = 1;
 /*     */   public static final int BOTH = 2;

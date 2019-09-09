@@ -216,7 +216,7 @@
 /*     */     
 /* 217 */     String[] columnNames = { "Environment", "Family" };
 /* 218 */     contents = MilestoneHelper.sortCorporateVectorByName(EnvironmentManager.getInstance().getEnvironmentNotepadList(userId, null));
-/* 219 */     return new Notepad(contents, 0, 7, "Environment", 21, columnNames);
+/* 219 */     return new Notepad(contents, 0, 15, "Environment", 21, columnNames);
 /*     */   }
 /*     */ 
 /*     */ 

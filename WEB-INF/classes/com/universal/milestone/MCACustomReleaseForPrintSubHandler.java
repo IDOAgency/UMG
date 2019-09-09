@@ -88,7 +88,7 @@
 /*  88 */     int NUM_COLUMNS = 8;
 /*     */     
 /*  90 */     double ldLineVal = 0.3D;
-/*  91 */     StyleSheet[] sheets = (StyleSheet[])null;
+/*  91 */     StyleSheet[] sheets = null;
 /*  92 */     ComponentLog log = context.getApplication().getLog("hCProd");
 /*     */ 
 /*     */ 

@@ -824,8 +824,8 @@
 /*      */         }
 /*      */         else {
 /*      */           
-/*  827 */           taskObj.dueDates = 
-/*  828 */             computeDueDates(effDateFrom, effDateTo, taskObj.weeksToRelease, taskObj.dayOfWeek, weekDayConv, templateObj.streetDates.size());
+/*  827 */           taskObj.dueDates = computeDueDates(effDateFrom, effDateTo, taskObj.weeksToRelease, 
+/*  828 */               taskObj.dayOfWeek, weekDayConv, templateObj.streetDates.size());
 /*      */         } 
 /*      */ 
 /*      */         

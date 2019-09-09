@@ -298,8 +298,8 @@
 /*      */             
 /*  299 */             FormElement lastUpdated = form.getElement("lastupdatedon");
 /*  300 */             if (savedEmailDist.getLastUpdateOn() != null) {
-/*  301 */               lastUpdated.setValue(MilestoneHelper.getLongDate(
-/*  302 */                     savedEmailDist.getLastUpdateOn()));
+/*  301 */               lastUpdated.setValue(MilestoneHelper.getLongDate(savedEmailDist
+/*  302 */                     .getLastUpdateOn()));
 /*      */             }
 /*  304 */             savedEmailDist = EmailDistributionManager.getInstance()
 /*  305 */               .getEmailDistribution(savedEmailDist.getDistributionId(), true);
@@ -384,8 +384,8 @@
 /*      */ 
 /*      */     
 /*  386 */     if (emailDist != null) {
-/*  387 */       EmailDistributionManager.getInstance().deleteEmailDistribution(
-/*  388 */           emailDist.getDistributionId());
+/*  387 */       EmailDistributionManager.getInstance().deleteEmailDistribution(emailDist
+/*  388 */           .getDistributionId());
 /*      */       
 /*  390 */       notepad.setAllContents(null);
 /*  391 */       notepad.setSelected(null);
@@ -549,14 +549,14 @@
 /*      */     
 /*  550 */     FormTextField lastUpdated = new FormTextField("lastUpdatedOn", false, 50);
 /*  551 */     if (emailDist.getLastUpdateOn() != null)
-/*  552 */       lastUpdated.setValue(MilestoneHelper.getLongDate(
-/*  553 */             emailDist.getLastUpdateOn())); 
+/*  552 */       lastUpdated.setValue(MilestoneHelper.getLongDate(emailDist
+/*  553 */             .getLastUpdateOn())); 
 /*  554 */     emailDistForm.addElement(lastUpdated);
 /*      */     
 /*  556 */     FormTextField lastUpdatedBy = new FormTextField("lastUpdatedBy", false, 50);
 /*  557 */     if (UserManager.getInstance().getUser(emailDist.getLastUpdateBy(), true) != null)
-/*  558 */       lastUpdatedBy.setValue(
-/*  559 */           UserManager.getInstance().getUser(emailDist.getLastUpdateBy(), true).getLogin()); 
+/*  558 */       lastUpdatedBy.setValue(UserManager.getInstance().getUser(emailDist
+/*  559 */             .getLastUpdateBy(), true).getLogin()); 
 /*  560 */     emailDistForm.addElement(lastUpdatedBy);
 /*      */ 
 /*      */     
@@ -629,7 +629,7 @@
 /*  629 */     EmailDistributionManager.getInstance(); contents = 
 /*  630 */       EmailDistributionManager.getDistributionNotepadList(null);
 /*      */     
-/*  632 */     Notepad notepad = new Notepad(contents, 0, 7, 
+/*  632 */     Notepad notepad = new Notepad(contents, 0, 15, 
 /*  633 */         "Email Distribution", 
 /*  634 */         20, columnNames);
 /*  635 */     EmailDistributionManager.getInstance().setEmailDistributionNotepadQuery(
@@ -789,9 +789,9 @@
 /*  789 */         20, context);
 /*      */     
 /*  791 */     if (notepad.getSearchQuery() == null || notepad.getSearchQuery().equals("")) {
-/*  792 */       notepad.setSearchQuery(
-/*  793 */           EmailDistributionManager.getInstance().getDefaultQuery());
-/*      */     }
+/*  792 */       EmailDistributionManager.getInstance(); notepad.setSearchQuery(
+/*  793 */           EmailDistributionManager.getDefaultQuery());
+/*      */     } 
 /*  795 */     notepad.setOrderBy(" ORDER BY [" + 
 /*  796 */         MilestoneConstants.SORT_EMAIL_DISTRIBUTION[sort] + "]");
 /*      */ 
@@ -1153,14 +1153,14 @@
 /*      */     
 /* 1154 */     FormTextField lastUpdated = new FormTextField("lastUpdatedOn", false, 50);
 /* 1155 */     if (emailDist.getLastUpdateOn() != null)
-/* 1156 */       lastUpdated.setValue(MilestoneHelper.getLongDate(
-/* 1157 */             emailDist.getLastUpdateOn())); 
+/* 1156 */       lastUpdated.setValue(MilestoneHelper.getLongDate(emailDist
+/* 1157 */             .getLastUpdateOn())); 
 /* 1158 */     emailDistForm.addElement(lastUpdated);
 /*      */     
 /* 1160 */     FormTextField lastUpdatedBy = new FormTextField("lastUpdatedBy", false, 50);
 /* 1161 */     if (UserManager.getInstance().getUser(emailDist.getLastUpdateBy(), true) != null)
-/* 1162 */       lastUpdatedBy.setValue(
-/* 1163 */           UserManager.getInstance().getUser(emailDist.getLastUpdateBy(), true).getLogin()); 
+/* 1162 */       lastUpdatedBy.setValue(UserManager.getInstance().getUser(emailDist
+/* 1163 */             .getLastUpdateBy(), true).getLogin()); 
 /* 1164 */     emailDistForm.addElement(lastUpdatedBy);
 /*      */ 
 /*      */     

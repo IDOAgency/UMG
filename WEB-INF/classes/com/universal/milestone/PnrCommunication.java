@@ -47,8 +47,8 @@
 /*     */ {
 /*     */   public static final String COMPONENT_CODE = "Pnr";
 /*     */   protected static final String configFile = "pnrbean.conf";
-/*  50 */   protected static String destEmailAddr = "mark.cole@umusic.com";
-/*  51 */   protected static String ccEmailAddr = "marla.hall@umusic.com; tommy.thomas@umusic.com";
+/*  50 */   protected static String destEmailAddr = "LCSSupport@umusic.com";
+/*  51 */   protected static String ccEmailAddr = "milestone@umusic.com";
 /*  52 */   protected static String emailHostServer = "usushntws51";
 /*  53 */   protected static String adminEmailAddr = "Milestone";
 /*  54 */   protected static String adminEmailName = "Milestone";

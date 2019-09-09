@@ -7,8 +7,9 @@
   */
 %>
 
-<%@ page import="com.universal.milestone.MilestoneConstants"%>
 <%@ include file="template-top-page.shtml"%>
+<%-- <%@ page errorPage="error.jsp" %> --%>
+<%@ page import="com.universal.milestone.MilestoneConstants"%>
 <%@ include file="callHelp.js"%>
 
 <%
@@ -39,6 +40,7 @@
 
 <% //-- includes the top header -- %>
 <%@ include file="template-top-html.shtml" %>
+
 
 <script type="text/javascript" language="JavaScript">
 //global variables needed in include selection-editor-javascript.js
@@ -234,8 +236,18 @@ var loaded = 0;
        </b>
        </font>
        </center>
-<% } %>
+<% } if(context.getSessionValue("atlasFailureException") != null) {%>
 
+	   <center>
+       <br>
+       <font color="red">
+       <b>
+       Project search Webservice failure. Please contact Milestone Business Support.               
+       </b>
+       </font>
+       </center>
+       
+<% } %>
 
 <form name="projectSearchResultsForm">
 

@@ -1111,8 +1111,8 @@
 /* 1111 */       scheduledTask.setTaskID(connector.getIntegerField("task_id"));
 /*      */ 
 /*      */       
-/* 1114 */       scheduledTask.setOwner(
-/* 1115 */           (Family)MilestoneHelper.getStructureObject(connector.getIntegerField("owner")));
+/* 1114 */       scheduledTask.setOwner((Family)MilestoneHelper.getStructureObject(connector.getIntegerField(
+/* 1115 */               "owner")));
 /*      */ 
 /*      */       
 /* 1118 */       int weeks = connector.getIntegerField("weeks_to_release");
@@ -1640,7 +1640,7 @@
 /* 1640 */     if (selectionNo > 0) {
 /* 1641 */       StringBuffer sql = new StringBuffer();
 /*      */       
-/* 1643 */       sql.append("select release_id, task_id, order_no, completion_date, last_updated_on, last_updated_by from MultCompleteDates where release_id = " + 
+/* 1643 */       sql.append("select release_id, task_id, order_no, completion_date, last_updated_on, last_updated_by from MultCompleteDates with (nolock) where release_id = " + 
 /* 1644 */           selectionNo + " and task_id = " + taskId + 
 /* 1645 */           " order by order_no desc");
 /*      */ 

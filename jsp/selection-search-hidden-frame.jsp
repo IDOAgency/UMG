@@ -83,14 +83,14 @@ var submitParentSearchCommand = ""; // default to blanks
    else if (parent.document.forms[0].ProdType[1].checked)
      document.forms[0].ProdType.value = "digital";
 
-   if (parent.document.forms[0].company2[0].checked)
+   if (parent.document.forms[0].company[0].checked)
 	     document.forms[0].ProdType.value = "All";
-	   else if (parent.document.forms[0].company2[1].checked)
+	   else if (parent.document.forms[0].company[1].checked)
 	     document.forms[0].ProdType.value = "Select";
 
-   if (parent.document.forms[0].Label2[0].checked)
+   if (parent.document.forms[0].Label[0].checked)
 	     document.forms[0].ProdType.value = "All";
-	   else if (parent.document.forms[0].Label2[1].checked)
+	   else if (parent.document.forms[0].Label[1].checked)
 	     document.forms[0].ProdType.value = "Select";
 
    

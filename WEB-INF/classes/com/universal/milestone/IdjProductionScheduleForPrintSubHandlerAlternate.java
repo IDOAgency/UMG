@@ -201,7 +201,7 @@
 /*      */         
 /*  202 */         while (typeTableCEnum.hasMoreElements()) {
 /*  203 */           SelectionsVectorC.add((String)typeTableCEnum.nextElement());
-/*  204 */           Object[] SelectionsArrayC = (Object[])null;
+/*  204 */           Object[] SelectionsArrayC = null;
 /*  205 */           SelectionsArrayC = SelectionsVectorC.toArray();
 /*  206 */           totalCount += SelectionsArrayC.length;
 /*      */         } 

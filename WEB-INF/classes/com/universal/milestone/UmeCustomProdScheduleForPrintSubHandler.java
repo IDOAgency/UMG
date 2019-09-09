@@ -293,7 +293,7 @@
 /*     */           }
 /*     */ 
 /*     */           
-/* 296 */           Object[] monthArray = (Object[])null;
+/* 296 */           Object[] monthArray = null;
 /* 297 */           monthArray = monthVector.toArray();
 /* 298 */           Arrays.sort(monthArray, new MonthYearComparator());
 /*     */           

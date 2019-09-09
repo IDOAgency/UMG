@@ -298,7 +298,7 @@
 /*  298 */         while (months.hasMoreElements()) {
 /*  299 */           monthVector.add((String)months.nextElement());
 /*      */         }
-/*  301 */         Object[] monthArray = (Object[])null;
+/*  301 */         Object[] monthArray = null;
 /*  302 */         monthArray = monthVector.toArray();
 /*      */         
 /*  304 */         Arrays.sort(monthArray, new MonthYearComparator());
@@ -337,7 +337,7 @@
 /*  337 */             while (dateSort.hasMoreElements()) {
 /*  338 */               dateVector.add((String)dateSort.nextElement());
 /*      */             }
-/*  340 */             Object[] dateArray = (Object[])null;
+/*  340 */             Object[] dateArray = null;
 /*  341 */             dateArray = dateVector.toArray();
 /*  342 */             Arrays.sort(dateArray, new StringDateComparator());
 /*      */ 
@@ -355,7 +355,7 @@
 /*  355 */                 while (divSort.hasMoreElements()) {
 /*  356 */                   divVector.add((String)divSort.nextElement());
 /*      */                 }
-/*  358 */                 Object[] divArray = (Object[])null;
+/*  358 */                 Object[] divArray = null;
 /*  359 */                 divArray = divVector.toArray();
 /*  360 */                 Arrays.sort(divArray, new StringDateComparator());
 /*      */ 
@@ -448,7 +448,7 @@
 /*  448 */             while (dateSort.hasMoreElements()) {
 /*  449 */               dateVector.add((String)dateSort.nextElement());
 /*      */             }
-/*  451 */             Object[] dateArray = (Object[])null;
+/*  451 */             Object[] dateArray = null;
 /*      */             
 /*  453 */             dateArray = dateVector.toArray();
 /*  454 */             Arrays.sort(dateArray, new StringDateComparator());
@@ -516,7 +516,7 @@
 /*  516 */                 while (divSort.hasMoreElements()) {
 /*  517 */                   divVector.add((String)divSort.nextElement());
 /*      */                 }
-/*  519 */                 Object[] divArray = (Object[])null;
+/*  519 */                 Object[] divArray = null;
 /*      */                 
 /*  521 */                 divArray = divVector.toArray();
 /*  522 */                 Arrays.sort(divArray, new StringDateComparator());

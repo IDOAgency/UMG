@@ -432,7 +432,7 @@
 /*  432 */             monthVector.add(elem);
 /*      */           } 
 /*      */           
-/*  435 */           Object[] monthArray = (Object[])null;
+/*  435 */           Object[] monthArray = null;
 /*      */           
 /*  437 */           monthArray = monthVector.toArray();
 /*      */ 

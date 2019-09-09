@@ -405,7 +405,7 @@
 /* 405 */               while (monthSort.hasMoreElements()) {
 /* 406 */                 monthVector.add((String)monthSort.nextElement());
 /*     */               }
-/* 408 */               Object[] monthArray = (Object[])null;
+/* 408 */               Object[] monthArray = null;
 /*     */               
 /* 410 */               monthArray = monthVector.toArray();
 /*     */               
@@ -480,7 +480,7 @@
 /* 480 */                   while (dateSort.hasMoreElements()) {
 /* 481 */                     dateVector.add((String)dateSort.nextElement());
 /*     */                   }
-/* 483 */                   Object[] dateArray = (Object[])null;
+/* 483 */                   Object[] dateArray = null;
 /*     */                   
 /* 485 */                   dateArray = dateVector.toArray();
 /* 486 */                   Arrays.sort(dateArray, new StringDateComparator());

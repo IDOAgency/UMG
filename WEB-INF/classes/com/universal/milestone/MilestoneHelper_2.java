@@ -17,20 +17,15 @@
 /*     */ import com.universal.milestone.SelectionManager;
 /*     */ import com.universal.milestone.User;
 /*     */ import com.universal.milestone.projectSearchSvcClient;
+/*     */ import java.io.FileInputStream;
+/*     */ import java.io.InputStream;
 /*     */ import java.io.UnsupportedEncodingException;
 /*     */ import java.text.SimpleDateFormat;
 /*     */ import java.util.Calendar;
 /*     */ import java.util.Enumeration;
 /*     */ import java.util.Hashtable;
+/*     */ import java.util.Properties;
 /*     */ import java.util.Vector;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
 /*     */ 
 /*     */ 
 /*     */ 
@@ -47,7 +42,12 @@
 /*     */   implements MilestoneConstants
 /*     */ {
 /*     */   public static final String COMPONENT_CODE = "help_2";
+/*  45 */   public static String MILESTONE_CONFIG_FILE = "milestone.conf";
+/*     */ 
+/*     */   
 /*     */   protected static ComponentLog log;
+/*     */ 
+/*     */   
 /*  51 */   protected static int[] UPC_SSG_Dashes = { 1, 6, 13 };
 /*     */   
 /*  53 */   protected static int[] ISRC_Dashes = { 2, 5, 7 };
@@ -851,6 +851,24 @@
 /* 851 */         description = String.valueOf(lookupObject.getAbbreviation()) + ":" + lookupObject.getName(); 
 /*     */     } 
 /* 853 */     return description;
+/*     */   }
+/*     */ 
+/*     */ 
+/*     */   
+/*     */   public static Properties readConfigFile(String configFile) throws Exception {
+/* 859 */     InputStream in = ClassLoader.getSystemResourceAsStream(configFile);
+/*     */ 
+/*     */     
+/* 862 */     if (in == null) {
+/* 863 */       in = new FileInputStream(configFile);
+/*     */     }
+/* 865 */     Properties defaultProps = new Properties();
+/* 866 */     defaultProps.load(in);
+/*     */     
+/* 868 */     if (in != null) {
+/* 869 */       in.close();
+/*     */     }
+/* 871 */     return defaultProps;
 /*     */   }
 /*     */ }
 

@@ -73,7 +73,7 @@
 /*     */   public void ejbCreate() {
 /*  74 */     log("ejbCreate called");
 /*     */     try {
-/*  76 */       InitialContext ic = new InitialContext();
+/*  76 */       InitialContext initialContext = new InitialContext();
 /*  77 */     } catch (NamingException ne) {
 /*  78 */       throw new CreateException("Failed to find environment value " + ne);
 /*     */     } 

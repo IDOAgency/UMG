@@ -621,8 +621,8 @@ alert('<%=alertMessage%>');
 </table>
 </div>
 
-<div class="search" id="emailDistReleasingFamilyLayer" style="position:absolute; border: inset; visibility:hidden; width:620px;height:380px;z-index:150;left:300px;top:60px;">
-        <IFRAME HEIGHT="380" width="100%" ID="emailDistReleasingFamilyFrame" name="emailDistReleasingFamilyFrame"  FRAMEBORDER=0 SCROLLING=NO >">
+<div class="search" id="emailDistReleasingFamilyLayer" style="position:absolute; border: inset; visibility:hidden; width:620px;height:360px;z-index:150;left:300px;top:60px;">
+        <IFRAME HEIGHT="480" width="100%" ID="emailDistReleasingFamilyFrame" name="emailDistReleasingFamilyFrame"  FRAMEBORDER=0 SCROLLING=NO >">
         </IFRAME>
 </div>
 

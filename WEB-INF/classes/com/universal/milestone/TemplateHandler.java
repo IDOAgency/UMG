@@ -378,7 +378,7 @@
 /*      */     
 /*  379 */     String[] columnNames = { "Template", "Format", "Owner" };
 /*  380 */     contents = TemplateManager.getInstance().getTemplateNotepadList(context, null);
-/*  381 */     return new Notepad(contents, 0, 7, "Templates", 5, columnNames);
+/*  381 */     return new Notepad(contents, 0, 15, "Templates", 5, columnNames);
 /*      */   }
 /*      */ 
 /*      */ 
@@ -577,8 +577,8 @@
 /*      */     }
 /*      */     else {
 /*      */       
-/*  580 */       context.putDelivery("AlertMessage", 
-/*  581 */           MilestoneMessage.getMessage(5, new String[] { "Template", template.getTempateName() }));
+/*  580 */       context.putDelivery("AlertMessage", MilestoneMessage.getMessage(5, 
+/*  581 */             new String[] { "Template", template.getTempateName() }));
 /*  582 */       return edit(dispatcher, context, command);
 /*      */     } 
 /*      */ 
@@ -727,8 +727,8 @@
 /*      */       
 /*      */       } else {
 /*      */         
-/*  730 */         context.putDelivery("AlertMessage", 
-/*  731 */             MilestoneMessage.getMessage(5, new String[] { "Template", template.getTempateName() }));
+/*  730 */         context.putDelivery("AlertMessage", MilestoneMessage.getMessage(5, 
+/*  731 */               new String[] { "Template", template.getTempateName() }));
 /*      */       }
 /*      */     
 /*      */     } else {
@@ -1304,7 +1304,7 @@
 /*      */     
 /* 1305 */     String[] columnNames = { "Task Name", "Wks", "Own", "Dpt" };
 /* 1306 */     contents = TemplateManager.getInstance().getTemplateTaskNotepadList(templateId, userId, null, context);
-/* 1307 */     return new Notepad(contents, 0, 7, "Unassigned Tasks", 19, columnNames);
+/* 1307 */     return new Notepad(contents, 0, 15, "Unassigned Tasks", 19, columnNames);
 /*      */   }
 /*      */ 
 /*      */ 

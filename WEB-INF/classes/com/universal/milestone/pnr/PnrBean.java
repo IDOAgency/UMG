@@ -146,7 +146,7 @@
 /*     */ 
 /*     */     
 /*     */     try {
-/* 149 */       InitialContext ic = new InitialContext();
+/* 149 */       InitialContext initialContext = new InitialContext();
 /* 150 */     } catch (NamingException ne) {
 /* 151 */       throw new CreateException("Failed to find environment value " + ne);
 /*     */     } 
@@ -201,27 +201,29 @@
 /*     */ 
 /*     */       
 /* 203 */       log("pMessage: " + pMessage);
-/*     */       
+/* 204 */       sendJavaMailOpt("BROKER ERROR: mail test for alert when can not connect to legacy", userID);
 /* 205 */       return sendRequest(pMessage, userID);
 /*     */     }
 /* 207 */     catch (BrokerException bE) {
 /* 208 */       System.out.println(bE.toString());
 /* 209 */       sendJavaMailOpt(bE.toString(), userID);
+/* 210 */       sendJavaMailOpt(bE.toString(), userID);
+/*     */ 
 /*     */ 
 /*     */ 
 /*     */ 
 /*     */       
-/* 214 */       return "BROKER ERROR: " + bE.toString();
+/* 216 */       return "BROKER ERROR: " + bE.toString();
 /*     */     }
-/* 216 */     catch (Exception ae) {
+/* 218 */     catch (Exception ae) {
 /*     */       
-/* 218 */       System.out.println(ae.getMessage());
-/* 219 */       sendJavaMailOpt(ae.getMessage(), userID);
+/* 220 */       System.out.println(ae.getMessage());
+/* 221 */       sendJavaMailOpt(ae.getMessage(), userID);
 /*     */ 
 /*     */ 
 /*     */ 
 /*     */       
-/* 224 */       return "BROKER ERROR: " + ae.getMessage();
+/* 226 */       return "BROKER ERROR: " + ae.getMessage();
 /*     */     } 
 /*     */   }
 /*     */ 
@@ -236,22 +238,22 @@
 /*     */ 
 /*     */   
 /*     */   private String formatData(String p1, int length, String filler) {
-/* 239 */     String r1 = "";
+/* 241 */     String r1 = "";
 /*     */ 
 /*     */ 
 /*     */     
-/* 243 */     if (p1 == null || p1.equalsIgnoreCase("")) {
+/* 245 */     if (p1 == null || p1.equalsIgnoreCase("")) {
 /*     */       
-/* 245 */       for (int i = 0; i < length; i++)
-/* 246 */         r1 = String.valueOf(r1) + " "; 
-/* 247 */       return r1;
+/* 247 */       for (int i = 0; i < length; i++)
+/* 248 */         r1 = String.valueOf(r1) + " "; 
+/* 249 */       return r1;
 /*     */     } 
 /*     */ 
 /*     */ 
 /*     */     
-/* 252 */     if (p1.length() > length)
+/* 254 */     if (p1.length() > length)
 /*     */     {
-/* 254 */       return p1.substring(0, length);
+/* 256 */       return p1.substring(0, length);
 /*     */     }
 /*     */ 
 /*     */ 
@@ -259,13 +261,13 @@
 /*     */ 
 /*     */ 
 /*     */     
-/* 262 */     for (int i = 0; i < length - p1.length(); i++) {
-/* 263 */       r1 = String.valueOf(r1) + filler;
+/* 264 */     for (int i = 0; i < length - p1.length(); i++) {
+/* 265 */       r1 = String.valueOf(r1) + filler;
 /*     */     }
-/* 265 */     if (filler.equalsIgnoreCase("0")) {
-/* 266 */       return String.valueOf(r1) + p1;
+/* 267 */     if (filler.equalsIgnoreCase("0")) {
+/* 268 */       return String.valueOf(r1) + p1;
 /*     */     }
-/* 268 */     return String.valueOf(p1) + r1;
+/* 270 */     return String.valueOf(p1) + r1;
 /*     */   }
 /*     */ 
 /*     */ 
@@ -289,58 +291,58 @@
 /*     */ 
 /*     */   
 /*     */   private String sendRequest(String pMessage, String userID) throws BrokerException {
-/* 292 */     Broker broker = new Broker(this.brokerID, "JavaUser");
+/* 294 */     Broker broker = new Broker(this.brokerID, "JavaUser");
 /*     */ 
 /*     */ 
 /*     */ 
 /*     */ 
 /*     */     
-/* 298 */     BrokerService bService = new BrokerService(broker, this.sServer);
+/* 300 */     BrokerService bService = new BrokerService(broker, this.sServer);
 /*     */ 
 /*     */     
-/* 301 */     bService.setDefaultWaittime(this.defaultWaitTime);
+/* 303 */     bService.setDefaultWaittime(this.defaultWaitTime);
 /*     */ 
 /*     */     
-/* 304 */     BrokerMessage bRequest = new BrokerMessage();
+/* 306 */     BrokerMessage bRequest = new BrokerMessage();
 /*     */     
-/* 306 */     bService.setMaxReceiveLen(this.maxReceiveLen);
-/*     */ 
-/*     */     
-/* 309 */     broker.logon();
-/*     */ 
-/*     */ 
-/*     */ 
+/* 308 */     bService.setMaxReceiveLen(this.maxReceiveLen);
 /*     */ 
 /*     */     
-/* 315 */     Conversation conv = new Conversation(bService);
-/*     */     
-/* 317 */     bRequest.setMessage(pMessage);
-/*     */ 
-/*     */ 
-/*     */     
-/* 321 */     BrokerMessage bReply = conv.sendReceive(bRequest);
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */     
-/* 326 */     conv.end();
-/* 327 */     broker.logoff();
-/* 328 */     broker.disconnect();
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+/* 311 */     broker.logon();
 /*     */ 
 /*     */ 
 /*     */ 
 /*     */ 
 /*     */     
-/* 343 */     return bReply.toString();
+/* 317 */     Conversation conv = new Conversation(bService);
+/*     */     
+/* 319 */     bRequest.setMessage(pMessage);
+/*     */ 
+/*     */ 
+/*     */     
+/* 323 */     BrokerMessage bReply = conv.sendReceive(bRequest);
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */     
+/* 328 */     conv.end();
+/* 329 */     broker.logoff();
+/* 330 */     broker.disconnect();
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */     
+/* 345 */     return bReply.toString();
 /*     */   }
 /*     */ 
 /*     */ 
@@ -350,99 +352,99 @@
 /*     */ 
 /*     */   
 /*     */   public boolean sendJavaMailOpt(String brokerExcMsg, String userID) {
-/* 353 */     boolean sendStatus = false;
+/* 355 */     boolean sendStatus = false;
 /*     */ 
 /*     */     
-/* 356 */     StringTokenizer Addrtokenizer = new StringTokenizer(this.destEmailAddr, ";");
-/* 357 */     StringTokenizer ccAddrtokenizer = new StringTokenizer(this.ccEmailAddr, ";");
+/* 358 */     StringTokenizer Addrtokenizer = new StringTokenizer(this.destEmailAddr, ";");
+/* 359 */     StringTokenizer ccAddrtokenizer = new StringTokenizer(this.ccEmailAddr, ";");
 /*     */     
-/* 359 */     InternetAddress[] iAddresses = new InternetAddress[Addrtokenizer.countTokens()];
-/* 360 */     InternetAddress[] ccAddresses = new InternetAddress[ccAddrtokenizer.countTokens()];
+/* 361 */     InternetAddress[] iAddresses = new InternetAddress[Addrtokenizer.countTokens()];
+/* 362 */     InternetAddress[] ccAddresses = new InternetAddress[ccAddrtokenizer.countTokens()];
 /*     */     
-/* 362 */     int x = 0;
-/* 363 */     while (Addrtokenizer.hasMoreTokens()) {
+/* 364 */     int x = 0;
+/* 365 */     while (Addrtokenizer.hasMoreTokens()) {
 /*     */       try {
-/* 365 */         iAddresses[x] = new InternetAddress(Addrtokenizer.nextToken());
-/* 366 */         x++;
-/* 367 */       } catch (Exception e) {
-/* 368 */         System.out.println(e.toString());
-/* 369 */         return sendStatus;
+/* 367 */         iAddresses[x] = new InternetAddress(Addrtokenizer.nextToken());
+/* 368 */         x++;
+/* 369 */       } catch (Exception e) {
+/* 370 */         System.out.println(e.toString());
+/* 371 */         return sendStatus;
 /*     */       } 
 /*     */     } 
 /*     */ 
 /*     */     
-/* 374 */     x = 0;
-/* 375 */     while (ccAddrtokenizer.hasMoreTokens()) {
+/* 376 */     x = 0;
+/* 377 */     while (ccAddrtokenizer.hasMoreTokens()) {
 /*     */       try {
-/* 377 */         ccAddresses[x] = new InternetAddress(ccAddrtokenizer.nextToken());
-/* 378 */         x++;
-/* 379 */       } catch (Exception e) {
-/* 380 */         System.out.println(e.toString());
-/* 381 */         return sendStatus;
+/* 379 */         ccAddresses[x] = new InternetAddress(ccAddrtokenizer.nextToken());
+/* 380 */         x++;
+/* 381 */       } catch (Exception e) {
+/* 382 */         System.out.println(e.toString());
+/* 383 */         return sendStatus;
 /*     */       } 
 /*     */     } 
 /*     */ 
 /*     */     
 /*     */     try {
-/* 387 */       Properties props = System.getProperties();
+/* 389 */       Properties props = System.getProperties();
 /*     */ 
 /*     */ 
 /*     */       
-/* 391 */       props.put("mail.smtp.host", this.emailHostServer.trim());
+/* 393 */       props.put("mail.smtp.host", this.emailHostServer.trim());
 /*     */ 
 /*     */       
-/* 394 */       Session session = Session.getDefaultInstance(props, null);
+/* 396 */       Session session = Session.getDefaultInstance(props, null);
 /*     */ 
 /*     */       
-/* 397 */       MimeMessage message = new MimeMessage(session);
+/* 399 */       MimeMessage message = new MimeMessage(session);
 /*     */ 
 /*     */       
-/* 400 */       message.setFrom(new InternetAddress(this.adminEmailAddr, this.adminEmailName));
+/* 402 */       message.setFrom(new InternetAddress(this.adminEmailAddr, this.adminEmailName));
 /*     */ 
 /*     */ 
 /*     */       
-/* 404 */       String subject = this.emailSubject;
-/* 405 */       if (subject != null && subject.length() > 0) {
-/* 406 */         message.setSubject(subject, "utf-8");
+/* 406 */       String subject = this.emailSubject;
+/* 407 */       if (subject != null && subject.length() > 0) {
+/* 408 */         message.setSubject(subject, "utf-8");
 /*     */       } else {
-/* 408 */         message.setSubject(this.emailSubject, "utf-8");
+/* 410 */         message.setSubject(this.emailSubject, "utf-8");
 /*     */       } 
 /*     */       
-/* 411 */       String emailBody = "<b>" + this.emailMessage + "</b><BR><BR>" + 
-/* 412 */         "<font color='#0000FF'><B> MainFrame Server: " + this.sServer + "</B>:</font><BR>" + 
-/* 413 */         "<BR><BR><font color='#0000FF'><B> Milestone Server: " + MilestoneServer + "</B>:</font>" + 
-/* 414 */         "<BR><BR><font color='#0000FF'><B> User:   " + userID + "</B>:</font>" + 
-/* 415 */         "<BR><BR><b>" + brokerExcMsg + "</b>";
+/* 413 */       String emailBody = "<b>" + this.emailMessage + "</b><BR><BR>" + 
+/* 414 */         "<font color='#0000FF'><B> MainFrame Server: " + this.sServer + "</B>:</font><BR>" + 
+/* 415 */         "<BR><BR><font color='#0000FF'><B> Milestone Server: " + MilestoneServer + "</B>:</font>" + 
+/* 416 */         "<BR><BR><font color='#0000FF'><B> User:   " + userID + "</B>:</font>" + 
+/* 417 */         "<BR><BR><b>" + brokerExcMsg + "</b>";
 /*     */ 
 /*     */ 
 /*     */       
-/* 419 */       message.setContent(emailBody, this.emailContentType);
+/* 421 */       message.setContent(emailBody, this.emailContentType);
 /*     */ 
 /*     */ 
 /*     */       
 /*     */       try {
-/* 424 */         message.addRecipients(Message.RecipientType.CC, ccAddresses);
+/* 426 */         message.addRecipients(Message.RecipientType.CC, ccAddresses);
 /*     */ 
 /*     */         
-/* 427 */         message.addRecipients(Message.RecipientType.TO, iAddresses);
+/* 429 */         message.addRecipients(Message.RecipientType.TO, iAddresses);
 /*     */ 
 /*     */         
-/* 430 */         Transport.send(message);
+/* 432 */         Transport.send(message);
 /*     */ 
 /*     */         
-/* 433 */         sendStatus = true;
+/* 435 */         sendStatus = true;
 /*     */       }
-/* 435 */       catch (Exception e) {
-/* 436 */         e.printStackTrace();
-/* 437 */         System.out.println("<<< Session Email Transport exception " + e.getMessage() + ", " + e.toString());
-/* 438 */         sendStatus = false;
+/* 437 */       catch (Exception e) {
+/* 438 */         e.printStackTrace();
+/* 439 */         System.out.println("<<< Session Email Transport exception " + e.getMessage() + ", " + e.toString());
+/* 440 */         sendStatus = false;
 /*     */       } 
-/* 440 */     } catch (Exception e) {
-/* 441 */       System.out.println("<<< Session Email Transport exception " + e.getMessage());
-/* 442 */       sendStatus = false;
+/* 442 */     } catch (Exception e) {
+/* 443 */       System.out.println("<<< Session Email Transport exception " + e.getMessage());
+/* 444 */       sendStatus = false;
 /*     */     } 
 /*     */     
-/* 445 */     return sendStatus;
+/* 447 */     return sendStatus;
 /*     */   }
 /*     */ }
 

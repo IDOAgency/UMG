@@ -6,6 +6,7 @@
 %>
 <%@ include file="template-top-html.shtml"%>
 <%@ include file="callHelp.js"%>
+
 <script language="javascript">
 liLoginOn = new Image( 81, 45 );
 liLoginOn.src = "<%= inf.getImageDirectory() %>Login_On.gif";

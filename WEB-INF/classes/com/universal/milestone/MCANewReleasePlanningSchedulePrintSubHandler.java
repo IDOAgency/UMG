@@ -192,7 +192,7 @@
 /*  192 */       int count = 0;
 /*      */ 
 /*      */       
-/*  195 */       Object[] monthArray = (Object[])null;
+/*  195 */       Object[] monthArray = null;
 /*  196 */       monthArray = sortedConfigVector.toArray();
 /*  197 */       Arrays.sort(monthArray, new MonthYearComparator());
 /*      */       
