@@ -1,0 +1,90 @@
+<% // get the Notepad Object out of the session
+//	Notepad notepad = (Notepad)context.getSessionValue(MilestoneConstants.NOTEPAD_SESSION_NAMES[MilestoneConstants.NOTEPAD_TEMPLATES]);
+
+  %>
+
+                    <!--  navigation buttons start here  -->
+          <td width="25%" align="center">
+       				<% // check to see if First Button should be visible
+						if (notepad.isFirstButtonVisible())
+						{
+					%>
+						<a href="JavaScript:submitFirst()"
+										onMouseOver="Javascript:mtbFirst.over();return true;"
+										onMouseOut="Javascript:mtbFirst.out()"
+										onClick="Javascript:mtbFirst.click(); return true;">
+										<img name="First" id="First" src="<%= inf.getImageDirectory() %>First_On.gif" width="26" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbFirst = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'First', "JavaScript:submitFirst()", 26, 14);
+						</script>
+           <%
+           }
+           else
+           {%>
+            <img name="first" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border="0">
+					<%}%>
+					</td>
+                       <td width="25%" align="center">
+                        <% // check to see if Previous Button should be visible
+						               if (notepad.isPreviousButtonVisible())
+						               {%>
+                        <a href ="Javascript:submitPagging( false )"
+                           onMouseOver="Javascript:mtbPrev.over();return true;"
+                           onMouseOut="Javascript:mtbPrev.out()"
+                           onClick="Javascript:mtbPrev.click(); return true;">
+                          <img name="Prev" src="<%= inf.getImageDirectory() %>Prev_On.gif" width=46 height=14 border=0 hspace=0 vspace=0 align="absmiddle">
+                        </a>
+                        <script type="text/javascript" language="JavaScript" >
+                          <!--
+                             var mtbPrev = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Prev', 'Javascript:submitPagging( false )', 46, 14);
+                          // -->
+                       </script>
+                     <%}
+                       else
+                       {%>
+                         <img name="Previous" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border=0>
+                     <%}%>
+                </td>
+                <td width="25%" align="center">
+                <% // check to see if Next Button should be visible
+						       if (notepad.isNextButtonVisible())
+						       {%>
+						        <a href="Javascript:submitPagging(true)"
+									     onMouseOver="Javascript:mtbNext.over();return true;"
+										   onMouseOut="Javascript:mtbNext.out()"
+										   onClick="Javascript:mtbNext.click(); return true;">
+										   <img name="Next" id="Next" src="<%= inf.getImageDirectory() %>Next_On.gif" width="46" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						        </a>
+						        <script type="text/javascript" language="JavaScript" >
+							        var mtbNext = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Next', "Javascript:submitPagging( true )", 46, 14);
+						       </script>
+					       <%}%>
+                 </td>
+					<td width="25%" align="center">
+					<% // check to see if Last Button should be visible
+						if (notepad.isLastButtonVisible())
+						{
+					%>
+						<a href="JavaScript:submitLast()"
+										onMouseOver="Javascript:mtbLast.over();return true;"
+										onMouseOut="Javascript:mtbLast.out()"
+										onClick="Javascript:mtbLast.click(); return true;">
+										<img name="Last" id="Last" src="<%= inf.getImageDirectory() %>Last_On.gif" width="26" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbLast = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Last', "JavaScript:submitLast()", 26, 14);
+						</script>
+
+
+           <%
+           }
+           else
+           {%>
+            <img name="last" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border="0">
+					<%}%>
+					</td>
+
+
+
+

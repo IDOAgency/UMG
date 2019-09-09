@@ -1,0 +1,348 @@
+<% // get the Notepad Object out of the session
+	Notepad notepad = (Notepad)context.getSessionValue(MilestoneConstants.NOTEPAD_SESSION_NAMES[MilestoneConstants.NOTEPAD_TEMPLATES]);
+
+	// gets the titles of the columns
+	String[] columnNames = notepad.getColumnNames();
+
+	// gets the contents of the search results
+	Vector pageContents = notepad.getPageContents();
+
+        // msc its 479 2/21/03
+        // get the Template note pad Sort Order object
+        NotepadSortOrderTemplate notepadSortOrder = NotepadSortOrder.getNotepadSortOrderFromSession(context).getNotepadSortOrderTemplate();
+        // msc its 479 2/21/03
+
+
+  %>
+
+<script type="text/javascript" language="javascript">
+function submitFirst()
+{
+	parent.top.bottomFrame.location = "home?cmd=notepad-first&notepadType=<%=MilestoneConstants.NOTEPAD_TEMPLATES%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+}
+
+function submitLast()
+{
+	parent.top.bottomFrame.location = "home?cmd=notepad-last&notepadType=<%=MilestoneConstants.NOTEPAD_TEMPLATES%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+}
+
+function quickSearch(x)
+{
+  if (x==0)
+    document.forms[0].ProdTypeSearch[1].checked = true;
+  else if (x==1)
+    document.forms[0].ProdTypeSearch[0].checked = true;
+  else
+    document.forms[0].ProdTypeSearch[2].checked = true;
+
+  submitSearch();
+}
+
+</script>
+
+	<table width="100%" cellpadding=0 cellspacing=0 border=0>
+       <tr valign="top">
+         <td><img src="<%= inf.getImageDirectory() %>Notepad_Top_280.gif" width="280" border=0></td>
+       </tr>
+       <tr>
+         <td>
+           <table width="100%" cellpadding=0 cellspacing=0 border=0>
+             <tr valign="top">
+               <td>
+                 <table width="100%" cellpadding=0 cellspacing=0 border=0>
+                   <tr bgcolor="lavender">
+                     <td align="left">
+                     <% // check to see if search button should be visible
+		           if (notepad.isSearchButtonVisible())
+						           {%>
+                       <a href ="Javascript:toggle( 'templateSearchLayer', 'templateNameSrch' )"
+                          onMouseOver="Javascript:mtbSearch.over();return true;"
+                          onMouseOut="Javascript:mtbSearch.out()"
+                          onClick="Javascript:mtbSearch.click(); return true;">
+                          <img name="Search" src="<%= inf.getImageDirectory() %>Search_On.gif" width=66 height=14 border=0 hspace=0 vspace=0 align="absmiddle">
+                        </a>
+                        <script type="text/javascript" language="JavaScript">
+                             var mtbSearch = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Search', "Javascript:toggle( 'templateSearchLayer', 'templateNameSrch' )", 66, 14);
+                        </script>
+                        <script type="text/javascript" language="JavaScript">
+                          function toggleSearch()
+                          {
+                             toggle( 'templateSearchLayer', 'templateNameSrch' );
+                          }
+                        </script>
+                       <%}%>
+                      </td>
+                      <td align="right">
+                        <SPAN Class="title"><% if (notepad.getTitle() != null){%> <%= notepad.getTitle() %> <%}%></SPAN>
+                      </td>
+                    </tr>
+
+                    <!--  navigation buttons start here  -->
+                   <table width="100%" cellpadding=5 cellspacing=0 border=0 bgcolor="lavender">
+                     <tr valign=top>
+					<td width="25%" align="center">
+					<% // check to see if First Button should be visible
+						if (notepad.isFirstButtonVisible())
+						{
+					%>
+						<a href="JavaScript:submitFirst()"
+										onMouseOver="Javascript:mtbFirst.over();return true;"
+										onMouseOut="Javascript:mtbFirst.out()"
+										onClick="Javascript:mtbFirst.click(); return true;">
+										<img name="First" id="First" src="<%= inf.getImageDirectory() %>First_On.gif" width="26" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbFirst = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'First', "JavaScript:submitFirst()", 26, 14);
+						</script>
+           <%
+           }
+           else
+           {%>
+            <img name="first" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border="0">
+					<%}%>
+					</td>
+                       <td width="25%" align="center">
+                        <% // check to see if Previous Button should be visible
+						               if (notepad.isPreviousButtonVisible())
+						               {%>
+                        <a href ="Javascript:submitPagging( false )"
+                           onMouseOver="Javascript:mtbPrev.over();return true;"
+                           onMouseOut="Javascript:mtbPrev.out()"
+                           onClick="Javascript:mtbPrev.click(); return true;">
+                          <img name="Prev" src="<%= inf.getImageDirectory() %>Prev_On.gif" width=46 height=14 border=0 hspace=0 vspace=0 align="absmiddle">
+                        </a>
+                        <script type="text/javascript" language="JavaScript" >
+                          <!--
+                             var mtbPrev = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Prev', 'Javascript:submitPagging( false )', 46, 14);
+                          // -->
+                       </script>
+                     <%}
+                       else
+                       {%>
+                         <img name="Previous" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border=0>
+                     <%}%>
+                </td>
+                <td width="25%" align="center">
+                <% // check to see if Next Button should be visible
+						       if (notepad.isNextButtonVisible())
+						       {%>
+						        <a href="Javascript:submitPagging(true)"
+									     onMouseOver="Javascript:mtbNext.over();return true;"
+										   onMouseOut="Javascript:mtbNext.out()"
+										   onClick="Javascript:mtbNext.click(); return true;">
+										   <img name="Next" id="Next" src="<%= inf.getImageDirectory() %>Next_On.gif" width="46" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						        </a>
+						        <script type="text/javascript" language="JavaScript" >
+							        var mtbNext = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Next', "Javascript:submitPagging( true )", 46, 14);
+						       </script>
+					       <%}%>
+                 </td>
+					<td width="25%" align="center">
+					<% // check to see if Last Button should be visible
+						if (notepad.isLastButtonVisible())
+						{
+					%>
+						<a href="JavaScript:submitLast()"
+										onMouseOver="Javascript:mtbLast.over();return true;"
+										onMouseOut="Javascript:mtbLast.out()"
+										onClick="Javascript:mtbLast.click(); return true;">
+										<img name="Last" id="Last" src="<%= inf.getImageDirectory() %>Last_On.gif" width="26" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbLast = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Last', "JavaScript:submitLast()", 26, 14);
+						</script>
+
+
+           <%
+           }
+           else
+           {%>
+            <img name="last" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border="0">
+					<%}%>
+					</td>
+
+                    </tr>
+
+	           </table>
+
+
+                   <!--  navigation buttons start here  -->
+
+
+
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <table class="list" cellspacing=0 width="100%">
+                    <tr>
+                    <% // this gets the columnNames for the search results (Template, Config, Owner)
+		    for (int i = 0 ; i < columnNames.length; i++)
+		    {%>
+                       <!-- <th bgColor="white" width="30%"> -->
+                     <td nowrap align="left" valign="top" width="30%">
+                       <b>
+                        <a href="Javascript:submitList('<%=columnNames[i]%>')">
+                        <% if (columnNames[i] != null)
+                        {%> <%= columnNames[i] %>
+                         <%@ include file="include-sortorder-notepad.shtml" %>
+                         <%}%>
+                         </a>
+                        </b>
+                       <!-- </th> -->
+                   <%}%>
+                    </td>
+                    </tr>
+                    <tr>
+                      <td colspan=3><hr noshade></td>
+                    </tr>
+										<% if (notepad.getAllContents().size() <= 0)
+											{
+										%>
+										<tr><td colspan="3"><%= notepad.getErrorMessage() %></td></tr>
+										<%}
+										else
+											{
+										%>
+	                    <%
+						          // this checks to see which link was clicked and changes the background color
+						          // also, this will default the first link to be highlighted when the user first lands
+						          // on the page
+	                    int templateId = 0;
+
+						          for (int i=0 ; i < pageContents.size(); i++)
+						          {
+	                      Template template = (Template)pageContents.get(i);
+	                      templateId = template.getTemplateID();
+	                      int selectedTemplate = ((Template)notepad.getSelected()).getTemplateID();
+
+                       String productCategory = "";
+                       if (template.getProductCategory() != null)
+                       {
+                         productCategory = template.getProductCategory().getName();
+                       }
+
+                       String releaseType = "";
+                       if (template.getReleaseType() != null)
+                       {
+                         releaseType = template.getReleaseType().getName();
+                       }
+
+                       String configTip = "";
+                       if (template.getSelectionConfig() != null)
+                       {
+                         configTip = template.getSelectionConfig().getSelectionConfigurationName();
+                       }
+
+                       String subconfig = "";
+                       if (template.getSelectionSubConfig() != null)
+                       {
+                         subconfig = template.getSelectionSubConfig().getSelectionSubConfigurationName();
+                       }
+
+
+                      String selectedClass = "selected";
+                      if (template.getProdType() == 1)
+                        selectedClass = "selectedDigital";
+
+                      String linkClass = "";
+                      if (template.getProdType() == 1)
+                        linkClass = "pinkLink";
+
+					            %>
+
+	                    <tr <%if (selectedTemplate == templateId){%> class="<%=selectedClass%>"<%}%>>
+	                      <td width="50%">
+	                        <a class='<%=linkClass%>' href="Javascript:submitGet('<%= templateId%>')" title="Type: <%= MilestoneHelper.escapeDoubleQuotesForHtml(productCategory)%>/ <%= MilestoneHelper.escapeDoubleQuotesForHtml(releaseType)%> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(configTip)%> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(subconfig)%>">
+	                          <% if (template.getTempateName() != null)
+	                          {%>
+	                            <%= template.getTempateName()%>
+	                        <%}%>
+	                        </a>
+	                      </td>
+	                      <td align="left" width="35%">
+	                        <a class='<%=linkClass%>' href="Javascript:submitGet('<%= templateId%>')" title="Type: <%= MilestoneHelper.escapeDoubleQuotesForHtml(productCategory)%>/ <%= MilestoneHelper.escapeDoubleQuotesForHtml(releaseType)%> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(configTip)%> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(subconfig)%>">
+	                        <% if(template.getSelectionConfig() != null)
+	                           {%>
+	                           <%= template.getSelectionConfig().getSelectionConfigurationName()%>
+	                         <%}%>
+	                        </a>
+	                      </td>
+	                      <td align="left" width="15%">
+	                        <a class='<%=linkClass%>' href="Javascript:submitGet('<%= templateId%>')" title="Type: <%= MilestoneHelper.escapeDoubleQuotesForHtml(productCategory)%>/ <%= MilestoneHelper.escapeDoubleQuotesForHtml(releaseType)%> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(configTip)%> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(subconfig)%>">
+	                        <% if(template.getOwner() != null)
+	                           {%>
+	                             <%= template.getOwner().getStructureAbbreviation()%>
+	                            <%}%>
+	                        </a>
+	                      </td>
+	                    </tr>
+						          <tr><td colspan="4"><img src="<%= inf.getImageDirectory() %>pixelshim.gif" width="100%" height="1" class="separator"></td></tr>
+	                    <%} //end for loop%>
+										<%} //end else%>
+                     <tr>
+					             <td colspan="4">
+						             <hr noshade>
+                           <center class="footer">
+							               <% if (notepad.getPageStatus() != null)
+							                  {
+							               %>
+							                     <%= notepad.getPageStatus() %>
+							               <% }%>
+							             </center>
+						             </td>
+					             </tr>
+                    </table>
+                 </td>
+               </tr>
+               <tr>
+                 <td>
+
+                <table width="100%" cellpadding=5 cellspacing=0 border=0>
+              	<tr>
+                 <td align="center">
+                 <% // check to see if Switch to Task Button should be visible
+						        if (notepad.isSwitchToTaskButtonVisible())
+						        {%>
+                       <a href ="JavaScript:submitShow( false )"
+                          onMouseOver="Javascript:mtbSwitch_Task.over();return true;"
+                          onMouseOut="Javascript:mtbSwitch_Task.out()"
+                          onClick="Javascript:mtbSwitch_Task.click(); return true;">
+                          <img name="Switch_Task" src="<%= inf.getImageDirectory() %>Switch_Task_On.gif" width=135 height=14 border=0 hspace=0 vspace=0 align="absmiddle">
+                        </a>
+                        <script type="text/javascript" language="JavaScript">
+                              var mtbSwitch_Task = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Switch_Task', 'JavaScript:submitShow( false )', 135, 14);
+                        </script>
+                   <% }%>
+                      </td>
+
+				</tr>
+
+                </td>
+              </tr>
+
+            </table>
+          </td>
+        </tr>
+
+<tr>
+	<td>
+
+        <table width=282 height=24 background="<%= inf.getImageDirectory() %>Notepad_Bottom_280_new.gif">
+         <tr>
+         <td  align=center nowrap>
+         <a href="javascript:quickSearch(1)" class=physical>Physical Products</a>
+         </td>
+         <td  align=center nowrap>
+         <a href="javascript:quickSearch(2)" class=all>All</a>
+         </td>
+         <td  align=center nowrap>
+         <a href="javascript:quickSearch(0)" class=digital>Digital Products</a>
+         </td>
+         </tr>
+        </table>
+
+        </td>
+</tr>
+      </table>

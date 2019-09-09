@@ -1,0 +1,264 @@
+<%
+	// get the Notepad Object out of the session
+	Notepad notepad = (Notepad)context.getSessionValue(MilestoneConstants.NOTEPAD_SESSION_NAMES[MilestoneConstants.NOTEPAD_REPORTS]);
+
+	// gets the titles of the columns
+	String[] columnNames = notepad.getColumnNames();
+
+	// gets the contents of the search results
+	Vector pageContents = notepad.getPageContents();
+%>
+
+<script type="text/javascript" language="javascript">
+function submitFirst()
+{
+  // MSC ITS 630 change the target of the form to the default
+  document.forms[0].target= "_self";  // change target to the hiddenframe
+
+  parent.top.bottomFrame.location = "home?cmd=notepad-first&notepadType=<%=MilestoneConstants.NOTEPAD_REPORTS%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+}
+
+function submitLast()
+{
+  // MSC ITS 630 change the target of the form to the default
+  document.forms[0].target= "_self";  // change target to the hiddenframe
+
+  parent.top.bottomFrame.location = "home?cmd=notepad-last&notepadType=<%=MilestoneConstants.NOTEPAD_REPORTS%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+}
+
+</script>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr valign="top">
+	<td><img src="images/Notepad_Top_280.gif" width="280" border="0"></td>
+</tr>
+<tr>
+	<td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr valign="top">
+		<td>
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+			<tr bgcolor="lavender">
+				<!-- JR - ITS 213 -->
+					<td align=left>
+						<%
+							// check to see if search button should be visible
+							if (notepad.isSearchButtonVisible())
+							{
+						%>
+						<a href="Javascript:toggle( 'SearchLayer', 'ReportNameSearch');if(document.all['SearchLayer'].style.visibility == 'visible' || document.all['SearchLayer'].style.visibility == 'Visible'){document.forms[0].ReportDescriptionSearch.focus();}"
+						onMouseOver="Javascript:mtbSearch.over();return true;"
+						onMouseOut="Javascript:mtbSearch.out()"
+						onClick="Javascript:mtbSearch.click(); return true;">
+						<img name="Search" src="<%= inf.getImageDirectory() %>Search_On.gif" width="66" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+						var mtbSearch = new ToggleButton(document,'<%= inf.getImageDirectory() %>','Search','Javascript:toggle( "SearchLayer", "ReportNameSearch" )',66,14);
+						</script>
+						<%}%>
+					</td>
+				<!-- JR - ITS 213 -->
+				<td align="right">
+					<span class="title"><% if (notepad.getTitle() != null){%> <%= notepad.getTitle() %> <%}%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+
+
+                <!-- static navigation buttons starts here   -->
+
+			<table width="100%" cellpadding="5" cellspacing="0" border="0" bgcolor="lavender">
+			<tr valign="top" bgcolor="lavender">
+					<td width="25%" align="center">
+					<% // check to see if First Button should be visible
+						if (notepad.isFirstButtonVisible())
+						{
+					%>
+						<a href="JavaScript:submitFirst()"
+										onMouseOver="Javascript:mtbFirst.over();return true;"
+										onMouseOut="Javascript:mtbFirst.out()"
+										onClick="Javascript:mtbFirst.click(); return true;">
+										<img name="First" id="First" src="<%= inf.getImageDirectory() %>First_On.gif" width="26" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbFirst = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'First', "JavaScript:submitFirst()", 26, 14);
+						</script>
+           <%
+           }
+           else
+           {%>
+            <img name="first" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border="0">
+					<%}%>
+					</td>
+				<td width="25%" align="center">
+					<% // check to see if Previous Button should be visible
+						if (notepad.isPreviousButtonVisible())
+						{
+					%>
+					<a href ="Javascript:submitPagging( false )"
+					onMouseOver="Javascript:mtbPrev.over();return true;"
+					onMouseOut="Javascript:mtbPrev.out()"
+					onClick="Javascript:mtbPrev.click(); return true;">
+					<img name="Prev" src="images/Prev_On.gif" width="46" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+					</a>
+					<script type="text/javascript" language="JavaScript">
+					var mtbPrev = new ToggleButton(document, 'images/', 'Prev', 'Javascript:submitPagging( false )', 46, 14);
+					</script>
+					<%}
+					else
+					{%>
+						<img name="Previous" src="images/Blank_Image.gif" border="0">
+					<%}%>
+				</td>
+				<td width="25%" align="center">
+					<% // check to see if Next Button should be visible
+						if (notepad.isNextButtonVisible())
+						{
+					%>
+					<a href="Javascript:submitPagging(true)"
+					onMouseOver="Javascript:mtbNext.over();return true;"
+					onMouseOut="Javascript:mtbNext.out()"
+					onClick="Javascript:mtbNext.click(); return true;">
+					<img name="Next" id="Next" src="images/Next_On.gif" width="46" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+					</a>
+					<script type="text/javascript" language="JavaScript" >
+					var mtbNext = new ToggleButton(document, 'images/', 'Next', "Javascript:submitPagging( true )", 46, 14);
+					</script>
+					<%}%>
+				</td>
+					<td width="25%" align="center">
+					<% // check to see if Last Button should be visible
+						if (notepad.isLastButtonVisible())
+						{
+					%>
+						<a href="JavaScript:submitLast()"
+										onMouseOver="Javascript:mtbLast.over();return true;"
+										onMouseOut="Javascript:mtbLast.out()"
+										onClick="Javascript:mtbLast.click(); return true;">
+										<img name="Last" id="Last" src="<%= inf.getImageDirectory() %>Last_On.gif" width="26" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbLast = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Last', "JavaScript:submitLast()", 26, 14);
+						</script>
+
+
+           <%
+           }
+           else
+           {%>
+            <img name="last" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border="0">
+					<%}%>
+					</td>
+
+				</tr>
+				<tr bgcolor="lavender" >
+
+				<td bgcolor="lavender" ></td>
+				<td bgcolor="lavender"></td>
+				<td bgcolor="lavender"></td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	</table>
+
+        <!--    static naviation buttons ends here  -->
+
+
+			<table width="100%" class="list" cellspacing="0">
+			<tr bgcolor="white" >
+				<% // this gets the columnNames for the search results (family)
+					for (int i = 0 ; i < columnNames.length; i++)
+					{
+				%>
+				<td>
+					<% if (columnNames[i] != null){%>
+						<a href="Javascript:submitList('<%=columnNames[i]%>')">
+						<%
+							String gifName = "";
+							if (form.getElement("OrderByDirection").getEscapedValue().equals("0")) {
+                                gifName = "ascend.gif";
+                            } else {
+                                gifName = "descend.gif";
+                            }
+						%>
+						<b><%= columnNames[i] %> </b>
+						<img name="Ascend" id="Ascend" src="<%= inf.getImageDirectory() + gifName %>" width="14" height="7" border="0" hspace="0" vspace="0" align="absmiddle">
+
+						</a>
+					<%}%>
+				</td>
+				<%}%>
+			</tr>
+			<tr><td><hr noshade></td></tr>
+			<% if (notepad.getAllContents().size() <= 0)
+				{
+			%>
+				<tr><td colspan="3"><%= notepad.getErrorMessage() %></td></tr>
+			<%}
+			else
+				{
+			%>
+
+				<%
+				// this checks to see which link was clicked and changes the background color
+				// also, this will default the first link to be highlighted when the user first lands
+				// on the page
+				int reportId = 0;
+				Report selectedItem = (Report)notepad.getSelected();
+				int selectedReport = 0;
+
+				if(selectedItem != null)
+				{
+					selectedReport = selectedItem.getReportID();
+				}
+
+				for (int i=0 ; i < pageContents.size(); i++)
+				{
+					Report report = (Report)pageContents.get(i);
+					if (report != null)
+					{
+						reportId = report.getReportID();
+					}
+				%>
+					<tr valign="top" <%if (selectedReport == reportId){%> class="selected"<%}%>>
+					<td>
+						<a href="Javascript:submitGet(<%= reportId%>)">
+						<% if (report.getDescription() != null)
+							{
+						%>
+							<%= report.getDescription()%>
+						<%}%>
+						</a>
+					</td>
+				</tr>
+				<tr><td><img src="images/pixelshim.gif" width="100%" height="1" class="separator"></td></tr>
+			<%}//end for loop %>
+		<%} //end else%>
+			<tr>
+				<td><hr noshade><center class="footer">
+					<% if (notepad.getPageStatus() != null)
+						{%>
+							<%= notepad.getPageStatus() %>
+					<% }%>
+					</center>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+
+  </td>
+</tr>
+
+
+<tr>
+	<td><img src="images/Notepad_Bottom_280.gif" width="280" border="0"></td>
+</tr>
+</table>

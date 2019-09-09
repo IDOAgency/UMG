@@ -1,0 +1,56 @@
+<html>
+<!-- Sitemap 1.0 -->
+<object type="text/site properties">
+  <param name="FrameName" value="bsscright">
+  <param name="SiteType" value="toc">
+  <param name="Image Width" value="16">
+</object>
+<ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="About calling help pages in WebHelp projects">
+    <param name="Local" value="About_calling_pages_in_WebHelp_projects.htm">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Different methods to open pages">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Open a Webhelp page from a text link">
+      <param name="Local" value="Open_a_page_from_a_text_link.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Open a help page from an image">
+      <param name="Local" value="Open_a_Webhelp_page_from_a_clickable_image.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Open a WebHelp page from a form button">
+      <param name="Local" value="Opening_a_WebHelp_page_from_a_form_button.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Open a Webhelp page by pressing F1">
+      <param name="Local" value="Open_a_Webhelp_page_by_pressing_F1.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Open a Webhelp page in a simple window">
+      <param name="Local" value="Open_a_Webhelp_page_in_a_simple_window.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Work with the callHelp.js file">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Link to the callHelp.js file from an HTML page">
+      <param name="Local" value="Link_to_the_callHelp.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Define the strProjectFramesPagePlus variable">
+      <param name="Local" value="Define_the_strProjectFramesPagePlus_variable_in_the_callHelp_js_file.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Change the size or position of Help windows">
+      <param name="Local" value="Change_the_size_or_position_of_Help_windows.htm">
+    </object>
+    </ul>
+</ul>
+</html>

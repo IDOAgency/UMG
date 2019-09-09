@@ -1,0 +1,86 @@
+NAME=Artist
+The Name of the performing artist for the Release.
+NAME=Company
+The company (Geffen, A&M, Mercury, GRP, etc)
+NAME=Configuration (Config)
+Physical format (vinyl, compact disc, cassette, DVD, etc).
+NAME=Date Complete
+The date the task was actually completed.
+NAME=Date Due
+The date the task needs to be completed.
+NAME=Division
+P & L entity (Decca, MCA Nashville, JAKE)
+NAME=Family
+The Parent company (IGA, Island Def Jam, etc)
+NAME=Genre
+Type of music (Blues, Classics, Jazz, etc.)
+NAME=Hold
+A flag indicating a project is on hold.
+NAME=Hold Reason
+Information relating to why a project is on hold may be entered.
+NAME=ID (Selection ID)
+The selection number for the collection of tracks or masters.
+NAME=Impact Date
+The radio impact or add date.
+NAME=International (Int'l) Date
+International release date for the product.
+NAME=Key Task
+A key task is task that must be completed in order to meet the street/ship date. Key UML tasks appear in green font on the Schedule screen. Label key tasks appear in a bold font on the schedule to distinguish them from UML key tasks.
+NAME=Label
+Production entity (Republic, Booga Basement, Magic, etc).
+NAME=Label Contact
+The user responsible for the release. .
+NAME=Last Street Date Update
+The last date the street date was change.
+NAME=Last Updated
+The date and user ID of the last date a record was updated.
+NAME=Number of Units (# of Units)
+Number of units per configuration for the selection. This field is entered on the PFM form and displays on the selection screen as a Read-only field.
+NAME=Origin Date
+The date the selection was added to Milestone.
+NAME=Other Contact
+An additional contact, such as the name of a salesperson or an A&R rep.
+NAME=Packaging Specs (Pkg)
+Packaging specifications for a product.
+NAME=Prefix
+The prefix for promotional selections. In Milestone, this field is filtered by company.
+NAME=Price
+The Price of the product. This is determined by the Sell Code selected.
+NAME=Product Category
+Category of the product being produced (box set, catalog, new release or soundtrack, etc).
+NAME=Project ID
+Project ID is a required field. This number is from RMS (Label Copy). However, if the release is a P & D, then the Project ID will not be required.
+NAME=Release Week (Rls Wk)/Cycle
+The release week and cycle correlating to the street date.
+NAME=Release(Rls) Type
+Type of selection to be produced (commercial or promotional).
+NAME=Retail Code
+The retail code which is determined by the the sell code selected.
+NAME=Schedule
+A schedule is a selection with assigned itemized tasks. These tasks are necessary for the completion of a product by the determined street/ship date.
+NAME=Selection
+A selection represents the product to be manufactured for commercial or promotional use and includes basic information associated with that particular product. All selections must be identified by a title, an artist, and a selection ID or UPC.
+NAME=Selection ID (ID)
+The selection number for the collection of tracks or masters.
+NAME=Sell Code
+The sell code for the product.
+NAME=Special Packaging (Pkg)
+A flag indicating special packaging is required for this project
+NAME=Status
+Status of the release (active, TBS, cancelled or closed)
+NAME=Street/Ship Date
+Street date for commercial product or ship date for promotional product.
+NAME=Sub COnfiguration (Sub)
+The sub-configuration (full length, single, maxi, etc)
+NAME=Task
+A function that requires completion prior to a product's street/ship date. Each task has a due date, completion date, a status and "weeks or days to release".
+NAME=Template
+A template is a pre-defined set of tasks associated with a product category, release type, configuration and sub-configuration. A template must be applied to a selection in order to create a schedule.
+NAME=Title
+Release title.
+NAME=Title ID
+The product number to which this product should be linked. For audio, this field is always populated in Milestone if this is a CD release; otherwise, enter the product number of the CD with the same track list if there is one. This will be a read-only field populated by the selection number, unless it is a commercial full-length release. It will appear on the PFM form as a read-only field.
+NAME=UPC
+Universal Product Code.
+NAME=Weeks to Release (Wks to Rls)
+"Weeks to release", when defined within the scope of a task, specifies the number of weeks prior to the street/ship date that a task must be completed and the preferred day of the week on which to complete the task. Task due dates can also be calculated in days, based on the number of business days required for completion of the task. Once a task is assigned to a schedule, the due date is calculated using the weeks or days to release and the street/ship date. The following examples illustrate these calculations: Street/Ship Date: 1/11/2000, Weeks to Release = F4 (the Friday falling four weeks prior to the street date). The week in which the street date falls is considered week zero. The fourth week prior to the street date is the week of December 12th. The Friday of that week is 12/17/1999. Therefore the due date for this task is 12/17/1999. Street/Ship Date: 1/11/2000 Weeks to Release: D 3 (3 business days prior to the street date) Starting from the street date, three business days prior to 1/11 is 1/6/2000.

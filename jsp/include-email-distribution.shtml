@@ -1,0 +1,113 @@
+
+<% //start emailPFMLayer %>
+<div id="emailPFMLayer" style="position:absolute;visibility:hidden;width:375px;height:1100px;z-index:3;left:0px;top:30px;">
+<table  bgcolor="wheat" border="1" cellspacing="2" cellpadding="0">
+<tr >
+  <td align="middle" colspan="2" class="label" nowrap><h3><b>Email Distribution</b></h3></td>
+</tr>
+
+<tr>
+  <td class="label" nowrap width="5%"><b>From:</b></td>
+  <td width="95%">
+  <textarea name="emailFrom" rows="1" cols="56" wrap="virtual" ></textarea>
+  </td>
+
+  </td>
+</tr>
+
+<tr>
+  <td class="label" width="5%"  nowrap><b>To:</b></td>
+  <td width="95%">
+  <textarea name="emailTo" rows="3" cols="56" wrap="virtual" ><%=(String)context.getSessionValue("emailTo")%></textarea>
+  </td>
+
+</tr>
+
+<tr>
+  <td class="label" width="5%"  nowrap><b>cc:</b></td>
+  <td width="95%" >
+  <textarea name="emailCC" rows="1" cols="56" wrap="virtual"><%=(String)context.getSessionValue("emailCC")%></textarea>
+  </td>
+
+</tr>
+
+<tr>
+  <td class="label" width="5%"  nowrap><b>Subject:</b></td>
+  <td width="95%">
+  <textarea  name="emailSubject" rows="3" cols="56" wrap="virtual"><%=(String)context.getSessionValue("emailSubject")%></textarea>
+  </td>
+</tr>
+
+<tr>
+  <td class="label" width="5%" nowrap ><b>Body:</b></td>
+  <td  width="95%">
+    <textarea name="emailBody" rows="11" cols="56" wrap="virtual" ><%=(String)context.getSessionValue("emailBody")%></textarea>
+  </td>
+</tr>
+
+<tr>
+  <td  class="label" width="5%" nowrap>Attachment:</td>
+   <td width="95%">
+   <textarea name="emailAttach" rows="2" cols="56" wrap="virtual" ><%=(String)context.getSessionValue("emailAttach")%></textarea>
+  </td>
+</tr>
+
+<tr bgcolor="wheat">
+<td>
+	<td align="left">
+          <input type="button" name="closeButton" value="Cancel" onClick="JavaScript:toggle( 'emailPFMLayer', '' )">&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="button" name="sendButton" value="&nbsp;&nbsp;&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;&nbsp;" onClick="submitSendEmail();">&nbsp;&nbsp;
+    	</td>
+</td>
+</tr>
+</table>
+</div>
+
+</tr>
+</table>
+
+<% //end targetPFMLayer %>
+
+<script LANGUAGE="JavaScript">
+function submitSendEmail()
+{
+  document.forms[0].cmd.value = sendEmail;
+  document.forms[0].submit();
+} //end function submitSendEmai()
+</script>
+
+<%
+  // msc 09/17/02 ITS 42
+  if( context.getSessionValue("emailConfirm") != null && ((String)context.getSessionValue("emailConfirm")).equalsIgnoreCase("true") )
+   {
+   %>
+   <script>
+    document.all.emailPFMLayer.style.visibility = "Visible";
+    document.all.emailFrom.value = "SQL Service";
+    document.all.emailFrom.readOnly = "true";
+    document.all.emailTo.readOnly = "true";
+    document.all.emailCC.readOnly = "true";
+    document.all.emailSubject.readOnly = "true";
+    document.all.emailBody.readOnly = "true";
+    document.all.emailAttach.readOnly = "true";
+
+    document.all.emailFrom.style.backgroundColor = "lightgrey";
+    document.all.emailTo.style.backgroundColor = "lightgrey";
+    document.all.emailCC.style.backgroundColor = "lightgrey";
+    document.all.emailBody.style.backgroundColor = "lightgrey";
+    document.all.emailSubject.style.backgroundColor = "lightgrey";
+    document.all.emailAttach.style.backgroundColor = "lightgrey";
+
+    document.all.emailSubject.style.fontWeight="bold"
+    document.all.emailBody.style.fontWeight="bold"
+    document.all.emailFrom.style.fontWeight="bold"
+    document.all.emailTo.style.fontWeight="bold"
+    document.all.emailCC.style.fontWeight="bold"
+    document.all.emailAttach.style.fontWeight="bold"
+    document.all.sendButton.style.fontWeight="bold"
+    document.all.sendButton.style.fontSize="medium"
+
+   </script>
+ <% } %>
+
+

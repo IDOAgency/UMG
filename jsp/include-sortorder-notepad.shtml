@@ -1,0 +1,22 @@
+<%
+	// get the Notepad Object out of the session
+//	Notepad notepad = (Notepad)context.getSessionValue(MilestoneConstants.NOTEPAD_SESSION_NAMES[MilestoneConstants.NOTEPAD_SELECTION]);
+
+	// gets the titles of the columns
+//	String[] columnNames = notepad.getColumnNames();
+
+
+%>
+
+                           <%
+                            String gifName = "";
+
+                            if ( columnNames[i].equalsIgnoreCase(notepadSortOrder.getNotepadOrderCol()) )
+                            {
+                              if(notepadSortOrder.isSortAscending())
+                                gifName = "ascend.gif";
+                              else
+                                gifName = "descend.gif";
+                              %>
+                              <img name="Ascend" id="Ascend" src="<%= inf.getImageDirectory() + gifName %>" width="14" height="7" border="0" hspace="0" vspace="0" align="absmiddle">
+                           <%}%>

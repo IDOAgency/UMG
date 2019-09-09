@@ -1,0 +1,83 @@
+<%= bugTool.getBugReportLink(context) %>
+
+<script>
+//////////////////////////////////////////////////////////////////////////
+// MSC 01/28/04 Show this button now
+// This code was added due to the users pressing these buttons
+// before the page is loaded. Now these buttons are hidden util the page
+// is completely loaded.
+////////////////////////////////////////////////////////////////////////
+if(document.all.New_Selection)
+  document.all.New_Selection.style.visibility = "visible";
+if(document.all.Search)
+  document.all.Search.style.visibility = "visible";
+
+// hide wait layer div
+if(parent.top.menuFrame && parent.top.menuFrame.document.all.WaitLayerDiv)
+   hideWaitLayerDiv(parent.top.menuFrame.document.all.WaitLayerDiv);
+
+////////////////////////////////////////
+// mc its 966 hide wait layer
+////////////////////////////////////////
+function hideWaitLayerDiv(waitObj)
+{
+  if(waitObj)
+  {
+    if(waitObj.length > 1)
+    {
+      for(var x=0; x < waitObj.length; x++)
+        waitObj[x].style.display = "none";
+    }
+    else {
+      waitObj.style.display = "none";
+    }
+  }
+}
+
+///////////////////////////////////////////////////
+// These functions display the please wait message
+// and then submits the form
+//////////////////////////////////////////////////
+if(!isMacBT)
+{
+  var isMacBT = false;
+  var navComBT = navigator.platform;
+  if( navComBT.toUpperCase() == "MACPPC" || navComBT.substr(0,3).toUpperCase() == "MAC" )
+     isMacBT = true;
+}
+
+function submitFormWaitMsg(fObj)
+{
+  // display wait message
+  if(parent.top.menuFrame)
+    parent.top.menuFrame.document.all.WaitLayerDiv.style.display = "block";
+  fObj.origSubmit();  // calls the original submit function
+}
+
+// This function saves the original submit form function,
+// then assigns the form a new submit function that displays
+// the please wait message and then submits the form
+function submitFormHandler(fObj)
+{
+  fObj.origSubmit = fObj.submit;  // original submit function
+  fObj.submit = function() { submitFormWaitMsg(fObj); }
+}
+
+// mc its 966 New Submit form event handler logic
+// This functions assigns a new event handler for the form submit
+// function that displays the "please wait" message on the top
+// of the screen and then submits the form
+/*
+if(document.forms)
+{
+  for(var x=0; x < document.forms.length; x++)
+  {
+    if(!isMacBT)
+      submitFormHandler(document.forms[x]);
+  }
+}
+*/
+</script>
+
+</body>
+</html>

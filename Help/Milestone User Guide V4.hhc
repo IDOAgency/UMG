@@ -1,0 +1,163 @@
+<html>
+<!-- Sitemap 1.0 -->
+<object type="text/site properties">
+  <param name="SiteType" value="toc">
+  <param name="Image Width" value="16">
+  <param name="Window Styles" value="0x800002">
+  <param name="ExWindow Styles" value="0x100">
+</object>
+<ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="What's New">
+    <param name="Local" value="Whats_New.htm">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="FAQs">
+    <param name="Local" value="FAQs.htm">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Contact Us">
+    <param name="Local" value="Contact_Us.htm">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Getting Started">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Getting Started">
+      <param name="Local" value="Logging_On.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Navigation, the Notepad and Searching">
+      <param name="Local" value="Navigation,_the_Notepad_and_Searching.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Working with Selections">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Working with Selections">
+      <param name="Local" value="Selection.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Creating Selections">
+      <param name="Local" value="Creating_Product_Records.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Editing Selections">
+      <param name="Local" value="Editing_Product_Records1.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Saving Selections">
+      <param name="Local" value="Saving_Selections.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Copying Selections">
+      <param name="Local" value="CopyingSelections.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Deleting Selections">
+      <param name="Local" value="Deleting_Selections.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Generating Local Product Numbers">
+      <param name="Local" value="Generating_Local_Product_Numbers.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Generating temporary product numbers">
+      <param name="Local" value="Generating_temporary_product_numbers.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Field Definitions">
+      <param name="Local" value="Table_of_Field_Definitions.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Working with Schedules">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Working with Schedules">
+      <param name="Local" value="Schedule.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Creating Schedules">
+      <param name="Local" value="Creating_Schedules.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Editing Schedules">
+      <param name="Local" value="Editing_Schedules.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Closing Schedules">
+      <param name="Local" value="Closing_schedules.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Field Definitions">
+      <param name="Local" value="Field_Definitions.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Manufacturing">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Manufacturing">
+      <param name="Local" value="Manufacturing.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Field Definitions">
+      <param name="Local" value="Field_Definitions_Table.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Product File Maintenance Form (PFM)">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Product File Maintenance Form (PFM)">
+      <param name="Local" value="PFM_Form.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Field Definitions">
+      <param name="Local" value="PFM_Field_Definitions.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Bill of Materials Form (BOM)">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Bill of Materials Form (BOM)">
+      <param name="Local" value="BOM_Form.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Field Definitions">
+      <param name="Local" value="BOM_Form_Field_Definitions_Table.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Reports">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Reports">
+      <param name="Local" value="Reports.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Available Standard Reports">
+      <param name="Local" value="Available_Standard_Reports1.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="User Info">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Reviewing/Editing Your User Information">
+      <param name="Local" value="Reviewing_Editing_Your_User_Information.htm">
+    </object>
+    </ul>
+</ul>
+</html>

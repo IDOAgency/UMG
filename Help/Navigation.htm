@@ -1,0 +1,488 @@
+<HTML>
+ <HEAD>
+  <!-- $MVD$:app("RoboHELP HTML Edition by Blue Sky Software, portions by MicroVision Dev. Inc.","769") -->
+  <!-- $MVD$:template("","0","0") -->
+  <!-- $MVD$:color("15","808000","Custom #1","0") -->
+  <!-- $MVD$:fontset("Verdana","Verdana") -->
+  <!-- $MVD$:fontset("Arial","Arial") -->
+  <TITLE>System Navigation</TITLE>
+  <META NAME="generator" CONTENT="RoboHELP by Blue Sky Software www.blue-sky.com HTML Edition">
+  <SCRIPT language="javascript">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='Milest_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='Milestone.css'>");}
+//-->
+
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht1.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht2.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript"><!-- 
+//////////BSSCDHTML Section Embedded Code//////////
+var s_strAgent = navigator.userAgent.toLowerCase();
+var s_nVer	   = parseInt(navigator.appVersion);
+
+var s_bIE  = (s_strAgent.indexOf('msie') != -1);
+var s_bNS  = (s_strAgent.indexOf('mozilla') != -1) && ((s_strAgent.indexOf('spoofer') == -1) && (s_strAgent.indexOf('compatible') == -1));
+var s_bOpera	= (s_strAgent.indexOf('opera') != -1);
+
+var s_bIE3Before = ((s_bIE) && (s_nVer <= 2));
+var s_bNS3Before = ((s_bNS) && (s_nVer <= 3));
+
+var s_bNS2		= ((s_bNS) && (s_nVer <= 2));
+var s_bNS3		= ((s_bNS) && (s_nVer == 3));
+var s_bIE300301	= ((s_bIE) && (s_nVer == 2) && ((s_strAgent.indexOf("3.00") != -1)||(s_strAgent.indexOf("3.0a") != -1)||(s_strAgent.indexOf("3.0b")!=-1)||(s_strAgent.indexOf("3.01")!=-1)));
+var s_bIE302	= ((s_bIE) && (s_nVer == 2) && (s_strAgent.indexOf("3.02") != -1));
+
+
+function HasExtJs()
+{
+	if (s_bIE3Before) { return false;}
+	if (s_bNS3Before) {	return false;}
+	if (typeof (_BSSCOnLoad) == "undefined"){ return false; }
+	return true;
+}
+
+function BSSCOnLoad()
+{
+	if (HasExtJs()) { _BSSCOnLoad(); }
+}
+
+function BSSCOnUnload()
+{
+	if (HasExtJs()) { _BSSCOnUnload(); }
+}
+
+function BSSCOnClick()
+{
+	if (HasExtJs()) { _BSSCOnClick(); }
+}
+
+function WritePopupMenuLayer()
+{
+	if (HasExtJs()) {_WritePopupMenuLayer();}
+}
+
+function BSSCCreatePopupDiv()
+{
+	if (HasExtJs()) {_BSSCCreatePopupDiv();	}
+}
+
+function BSSCPopup(strURL)
+{
+	if (HasExtJs())	{ 
+		_BSSCPopup(strURL);
+	}else{
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+		// Create the real popup window
+		var wndPopup = window.open(strURL, "PopupWindow", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=300,width=400");
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		} else {
+			wndPopup.focus();
+		}
+	}
+}
+
+
+function PopupMenu_Invoke()
+{
+	if (HasExtJs()) {
+		return _PopupMenu_Invoke(PopupMenu_Invoke.arguments);
+	}
+	if (s_bNS3Before || s_bIE3Before )	{
+		var argLen 	= PopupMenu_Invoke.arguments.length;
+		if (argLen < 5) {
+			window.document.location.href = PopupMenu_Invoke.arguments[3];
+			return false;
+		}
+		var nHeight = argLen * 15;
+		var nWidth = 400;
+		var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=auto";
+		strParam += ",height=" + nHeight + ",width=200,resizable";
+		
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+
+		var wndPopupLinks = window.open("", "popuplinks", strParam);
+		wndPopupLinks.document.open("text/html");
+		wndPopupLinks.document.write("<html><head>");
+		if (s_bNS2 || s_bOpera) {
+			wndPopupLinks.document.write("<base href=\"" + location +"\">");
+		} else {
+			//YJ: IE301,302 and NS3.x works fine
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("script>");
+			wndPopupLinks.document.write("function gotoUrl(aUrl) {opener.window.location=aUrl; close();}");
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("/script>");
+		}
+		wndPopupLinks.document.write("</head><body onBlur=\'self.focus();\'>");
+		var strParaLine = "";
+		for (var i = 0; i < (argLen - 2) / 2; i++) {
+			strParaLine = "";
+			if (s_bNS2 || s_bOpera){
+				strParaLine += "<a href=\"";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\">"
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			} else {
+				strParaLine += "<a href=\"javascript:";
+				strParaLine += "gotoUrl(\'";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\');\"";
+				if (PopupMenu_Invoke.arguments[1] != '') {
+					strParaLine += " TARGET='" + PopupMenu_Invoke.arguments[1] + "'";
+				}
+				strParaLine += ">";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			}
+			strParaLine += "<br>";
+			wndPopupLinks.document.write(strParaLine);
+		}
+		wndPopupLinks.document.write("</body></html>");
+		wndPopupLinks.document.close();
+
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		}else {
+			wndPopupLinks.focus();
+		}
+
+		return true;
+	}
+	return false;
+}
+  
+
+ 
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+ 
+//-->
+  </SCRIPT></HEAD>
+  <BODY ONLOAD="BSSCOnLoad();" ONCLICK="BSSCOnClick();">
+  
+  <div id='NavBar' STYLE='position:relative;' align='right'><nobr><font size=1>
+   <script language="javascript"><!--
+ var bHomePage=false; if(document.all){if ((top)&&(top.frames)&&(top.frames.length<=1)) bHomePage=true;} if(document.layers){if((parent)&&(parent.top.frames)&&(parent.top.frames.length<=1)) bHomePage=true;}
+if (bHomePage){document.write("<a href='Milestone.htm'><img src='bsscnav1.gif' width=53 height=18 border=no></a>");}
+//-->
+   </script></font>&nbsp;&nbsp;&nbsp;</nobr>
+  </div>
+<H1>
+   <SPAN STYLE="font-size : 12.0pt;"><FONT SIZE=3>System Navigation</FONT></SPAN></H1>
+  <H2>
+   Tabs and Menus</H2>
+  <P>
+   Tabs, located across the top of the screen, provide access to the 
+   four Milestone modules. Simply click on a tab to open a module.</P>
+  <P>
+   <IMG SRC="FullTabs.gif" WIDTH="799" HEIGHT="65" VSPACE="0" HSPACE="0" BORDER="0"></P>
+  <P>
+   The menu bar below the tabs display options which are specific to the 
+   selected module. Click on one of the options to open that specific screen.</P>
+  <H2>
+   <SPAN STYLE="font-style : normal;font-weight : bold;"><B>Screens</B></SPAN></H2>
+  <P>
+   Milestone is divided into two sections on every screen:</P>
+  <UL>
+   <LI CLASS="mvd-P">
+   <P>
+    Search results listing or notepad (left-hand side of the screen)</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Data form (right-hand side of the screen)</P>
+   </UL>
+  <P>
+   The listing displayed in the search results section is determined by 
+   queries (searches) initiated by the user. The data form displays the 
+   corresponding detail associated with the highlighted item in the 
+   search results list.</P>
+  <H2>
+   <SPAN STYLE="font-style : normal;font-weight : bold;"><B>Sizing</B></SPAN></H2>
+  <P>
+   <IMG SRC="percent.gif" WIDTH="33" HEIGHT="22" VSPACE="0" HSPACE="0" BORDER="0"></P>
+  <P>
+   The &quot;%&quot; button, located just under the menu bar, on the 
+   left-hand side of the screen, changes the size of the search results 
+   section. There are two sizes:</P>
+  <P>
+   <TABLE WIDTH="80%" CELLPADDING="2" CELLSPACING="0" BORDER="0">
+    <TR>
+     <TD WIDTH="13%" VALIGN="TOP">
+      <P>
+       &nbsp; 0%</TD>
+     <TD WIDTH="87%" VALIGN="TOP">
+      <P>
+       The search results section will occupy approximately 1/3 of the full screen</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="13%" VALIGN="TOP">
+      <P>
+       &nbsp;100%</TD>
+     <TD WIDTH="87%" VALIGN="TOP">
+      <P>
+       Only the data form will be displayed</TD>
+    </TR>
+   </TABLE></P>
+  <H2>
+   <SPAN STYLE="font-style : normal;font-weight : bold;"><B>Tool Tip</B></SPAN></H2>
+  <P>
+   A tool tip bar is available on the notepad. When hovering over the 
+   Artist, Title or Street Date while selections are displayed in the 
+   notepad, additional information regarding the selection will appear. 
+   The tool tip displays the configuration, sub configuration, prefix, 
+   selection ID and UPC code.</P>
+  <P>
+   <IMG SRC="hoover.gif" WIDTH="392" HEIGHT="145" VSPACE="0" HSPACE="0" BORDER="0"></P>
+  <H2>
+   <SPAN STYLE="font-style : normal;font-weight : bold;"><B><A NAME="Searches"></A>Conducting
+    Searches</B></SPAN></H2>
+  <P>
+   <IMG SRC="searchbtn.gif" WIDTH="76" HEIGHT="24" VSPACE="0" HSPACE="0" BORDER="0"></P>
+  <P>
+   The Search button is located in the upper left-hand corner of the notepad.</P>
+  <P>
+   When the Search button is activated [by clicking the search button or 
+   by pressing the control key (Ctrl) and the letter (Q)] a dialog box 
+   appears. To close the box without actually conducting a search, click 
+   on the Search button again.</P>
+  <P>
+   The available search criteria differ depending upon the screen from 
+   which the search is initiated. When multiple search criteria are 
+   entered, an item must meet all criteria to be included in the results listing.</P>
+  <P>
+   Partial names or numbers may be used when conducting a search. For 
+   example, if a search for artist name is conducted by entering the 
+   letter &quot;V&quot; as the search criteria, all artists with 
+   &quot;V&quot; contained within the name will be displayed in the 
+   search results listing.</P>
+  <P>
+   An '*' or '%' key can be used to search for words that begin with or 
+   end with what was entered.</P>
+  <P>
+   For example:</P>
+  <UL>
+   <LI CLASS="mvd-P">
+   <P>
+    &nbsp;If &quot;xxx*&quot; is entered, the search will return all 
+    records that begin with &quot;xxx&quot; for the field selected.</P>
+   <LI CLASS="mvd-P">
+   <P>
+    &nbsp;If &quot;*xxx&quot; is entered, the search will return all 
+    records that end with &quot;xxx&quot; for the field selected.</P>
+   <LI CLASS="mvd-P">
+   <P>
+    &nbsp;If &quot;*xxx*&quot; is entered, the search returns all records 
+    with &quot;xxx&quot; occurring anywhere in the string.</P>
+   </UL>
+  <P>
+   The search results list can be sorted by clicking on any of the 
+   column titles. In this example, the list can be sorted by Artist, 
+   Title, or Street Date (Str Dt).</P>
+  <P>
+   To view the entire results set for a listing once again, click on the 
+   Search button, leave all fields blank, and click on Submit Search or 
+   press the Enter key.</P>
+  <P>
+   When searching for a selection or schedule, records with a status of 
+   &quot;cancelled&quot; or &quot;closed&quot; are not included in the 
+   search. To conduct a search for closed or cancelled records, click 
+   within the check box next to &quot;Include Closed/Cancel&quot;, 
+   located towards the bottom of the search dialog box.</P>
+  <H3>
+   <SPAN STYLE="font-weight : bold;"><B>Search Criteria</B></SPAN></H3>
+  <P>
+   <TABLE WIDTH="45%" CELLPADDING="2" CELLSPACING="0" BORDER="0">
+    <TR>
+     <TD WIDTH="40%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-weight : bold;"><B>Screen</B></SPAN></TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-weight : bold;"><B><FONT FACE="Arial">&nbsp;Search Criteria</FONT></B></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN="TOP">
+      <P>
+       Selections</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Artist</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Title</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Prefix/ID</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">UPC Code</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Street Date</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I>Company</I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Label</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I>Contact</I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Include Closed/Cancel</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN=TOP>&nbsp;</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN="TOP">
+      <P>
+       Templates</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Name</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Configuration</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Owner</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN="TOP">
+      <P>
+       Tasks</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Task Name</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Key Task</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Owner</FONT></I></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="40%" VALIGN=TOP>&nbsp;</TD>
+     <TD WIDTH="60%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-style : italic;"><I><FONT FACE="Arial">Department</FONT></I></SPAN></TD>
+    </TR>
+   </TABLE></P>
+  <P>
+   <!-- $MVD$:spaceretainer() -->&nbsp;</P>
+  <H2>
+   Copy, Save, New, and Delete Buttons</H2>
+  <P>
+   <IMG SRC="copysavenewdelbtn.gif" WIDTH="388" HEIGHT="20" VSPACE="0" HSPACE="0" BORDER="0"></P>
+  <P>
+   The Copy, Save, New and Delete buttons, are available to users with 
+   editing security rights and only for those records that pertain to 
+   their specific company. A user can copy a record, save changes made 
+   to a record, create a new record or delete a record.</P>
+  <H2>
+   <SPAN STYLE="font-style : normal;font-weight : bold;"><B>Comments</B></SPAN></H2>
+  <P>
+   <SPAN STYLE="font-style : normal;font-weight : bold;"><B><IMG SRC="blankcomments.gif" WIDTH="19" HEIGHT="20" VSPACE="0" HSPACE="0" BORDER="0"><IMG SRC="commtpencil.gif" WIDTH="23" HEIGHT="20" VSPACE="0" HSPACE="0" BORDER="0"></B></SPAN></P>
+  <P>
+   There are small icons found on several screens throughout Milestone 
+   that look like small blank sheets of paper. When clicked upon, these 
+   icons provide access to a comments text box. To enter comments that 
+   pertain to a particular record, click on the icon next to the object 
+   to which the comments are to be attached. If comments are already 
+   present, the icon will appear as a sheet of paper with text and a pencil.</P>
+  <H2>
+   <SPAN STYLE="font-style : normal;font-weight : bold;"><B>Calendars and 
+   Date fields</B></SPAN></H2>
+  <P>
+   <SPAN STYLE="font-style : normal;font-weight : bold;"><B><IMG SRC="calendar.gif" WIDTH="220" HEIGHT="261" VSPACE="0" HSPACE="0" BORDER="0"></B></SPAN></P>
+  <P>
+   All date fields in Milestone can be populated by using a pop-up 
+   calendar. To activate the pop-up calendar, simply double click the 
+   left mouse button within a date field. This allows the user to use a 
+   calendar to select a date. The pop-up calendar is provided for ease 
+   of looking up a date and entering it into the Milestone system.</P>
+  <P>
+   Milestone accepts dates entered directly into the date fields with 
+   dashes (7-25-00), dots (7.25.00) or slashes (7/25/00) for date 
+   fields. Dates will only be displayed on the screen with slashes.</P>
+  <H2>
+   <SPAN STYLE="font-style : normal;font-weight : bold;"><B>Shortcut 
+   Keyboard Commands</B></SPAN></H2>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Ctrl Q</B></SPAN> Opens the Search 
+   dialog box, (Q for query.)</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Ctrl S </B></SPAN>Acts as the 
+   &quot;Save&quot; key. When using this shortcut, all of your changes 
+   will be saved for the record selected.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Ctrl C</B></SPAN> Activates the Copy 
+   feature on the Selection screen. This shortcut only works on the 
+   Selection screen.</P>
+  <P>
+   <!-- $MVD$:spaceretainer() -->&nbsp;
+ </BODY>
+</HTML>

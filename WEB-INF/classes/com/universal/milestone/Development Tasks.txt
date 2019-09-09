@@ -1,0 +1,72 @@
+Key:
+- Incomplete task
+= Partially complete task
+X Complete task (generally, moved to the bottom)
+
+
+- Find all places where queries are executed on vi_lookup_details,
+  vi_lookup_header, vi_user, etc., and consider converting to cache
+  lookups.  Example: TableManager.getTable() queries vi_lookup_details
+  and two other queries.  Removing the vi_lookup_details query at
+  least removes one.  The other two queries could be joined into one.
+
+- All Managers that use Lookup_Details and Lookup_Subdetails should be
+  getting lookup details and subdetails from the cache.  Okay, so this
+  is repeated.
+
+- Find all comments by me (search for capital BH) and see if I've left
+  notes that you can address.
+
+- Clean up all of the Manager's notepad lists to not use many repeated
+  queries.  Issue a single query and build results from that.  Brett,
+  is this done everywhere?
+
+- Managers that affect cached details/subdetails should flush the 
+  caches (or, better yet, the effected PORTION of the cache) on 
+  update, new, and delete.  Sometimes, cached objects can be mutated
+  in-place within the cache.
+
+= JSP pages should use the Infrastructure reference for constructing 
+  references to images, the servlet URL, etc.  The Infrastructure 
+  reference is set up as "inf" by an include file that is included on
+  all JSPs.  Mariana / Reena, is this done?
+
+= JSP pages should include as few HTML comments as possible.  Move 
+  most comments to Java comments.  M/R?
+
+- JSP pages should never read request or session values.  When this
+  happens, this indicates that the Handlers are not doing what they
+  should be doing.  M/R?
+
+= Try to move as much JavaScript to included .js files to reduce the
+  load time of all pages.  M/R?
+
+- All queries should have Strings properly escaped with a call to:
+  MilestoneHelper.escapeSingleQuotes().  How is this going?
+
+= Certify that -all- database connectors are properly closed by calling
+  connector.close().  This is just an ongoing reminder.
+  
+- Let UMGIT know about the following changes:
+
+  - We made a change to the stored procedure sp_sav_Template_Header, 
+    adding "AS 'ReturnID'":
+    original:
+       SELECT @ReturnId 
+       COMMIT TRAN
+     
+    changed to:
+       SELECT @ReturnId AS 'ReturnID'
+      COMMIT TRAN
+
+  - Changed sp_sav_User (stored procedure)
+    Included "AS 'ReturnID'" in order to set the proper user id of a 
+    new user.
+
+  - Added sp_get_audits to retreive audits for a specific "table" or
+    "class" (the ID of which has to be from a row in the table named 
+    AuditTable).
+
+X All components should have a String COMPONENT_CODE that is exactly
+  four letters long.
+

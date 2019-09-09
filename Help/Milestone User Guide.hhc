@@ -1,0 +1,497 @@
+<html>
+<!-- Sitemap 1.0 -->
+<object type="text/site properties">
+  <param name="SiteType" value="toc">
+  <param name="Image Width" value="16">
+  <param name="Window Styles" value="0x800002">
+  <param name="ExWindow Styles" value="0x100">
+</object>
+<ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="What's New">
+    <param name="Local" value="What_s_New.htm">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="FAQ">
+    <param name="Local" value="FAQ.htm">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Contact Us">
+    <param name="Local" value="Contact_Us1.htm">
+  </object>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Basic Training">
+    <param name="Local" value="Manual.htm#_Toc46647411">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Getting started">
+      <param name="Local" value="Getting_started.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Getting in">
+        <param name="Local" value="Getting_started.htm#_Toc46647413">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Getting out">
+        <param name="Local" value="Getting_started.htm#_Toc46647414">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Working in Milestone">
+      <param name="Local" value="Working_in_Milestone.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Working in the Notepad">
+        <param name="Local" value="Working_in_Milestone.htm#_Toc46647416">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Using Navigation buttons to locate selections">
+        <param name="Local" value="Working_in_Milestone.htm#_Toc46647417">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Searching for Selections">
+        <param name="Local" value="Working_in_Milestone.htm#_Toc46647418">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Sorting selections in Notepad">
+        <param name="Local" value="Working_in_Milestone.htm#_Toc46647419">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Searching for tasks and templates">
+        <param name="Local" value="Working_in_Milestone.htm#_Toc46647420">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Hiding/Unhiding the Notepad">
+        <param name="Local" value="Working_in_Milestone.htm#_Toc46647421">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Reviewing/Editing Your User Information">
+        <param name="Local" value="Reviewing_Editing_Your_User_Information.htm">
+      </object>
+      </ul>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Working with Selections">
+    <param name="Local" value="Reviewing_Editing_Your_User_Information.htm#_Toc46647423">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Physical Selection screen">
+      <param name="Local" value="Reviewing_Editing_Your_User_Information.htm#_Toc46647424">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Digital Selection screen">
+        <param name="Local" value="Reviewing_Editing_Your_User_Information.htm#_Toc46647425">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Getting to the Selection Screen">
+      <param name="Local" value="Getting_to_the_Selection_Screen.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Understanding the Selection screen">
+        <param name="Local" value="Getting_to_the_Selection_Screen.htm#_Toc46647427">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Creating new product records">
+      <param name="Local" value="Creating_new_product_records.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Searching for projects: Project Search Window">
+        <param name="Local" value="Creating_new_product_records.htm#_Toc46647429">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Searching for UMVD projects (UML production users only)">
+        <param name="Local" value="Creating_new_product_records.htm#_Toc46647430">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Entering required fields">
+        <param name="Local" value="Creating_new_product_records.htm#_Toc46647431">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Entering additional comments and info (optional)">
+      <param name="Local" value="Entering_additional_supplemental_comments_and_info_(optional).htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Entering general comments (digital and physical)">
+        <param name="Local" value="Entering_additional_supplemental_comments_and_info_(optional).htm#_Toc46647433">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Entering special instructions (digital only)">
+        <param name="Local" value="Entering_additional_supplemental_comments_and_info_(optional).htm#_Toc46647434">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Adding comments to the Pkg field (physical only)">
+        <param name="Local" value="Entering_additional_supplemental_comments_and_info_(optional).htm#_Toc46647435">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Designating projects as held (optional)">
+      <param name="Local" value="Designating_projects_as_held_(optional).htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Working with international products">
+      <param name="Local" value="Working_with_international_products.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Generating temporary product numbers">
+      <param name="Local" value="Generating_temporary_product_numbers.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Entering sets in Milestone (optional)">
+      <param name="Local" value="Entering_sets_in_Milestone_(optional).htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Generating Local Product Numbers">
+      <param name="Local" value="Generating_Local_Product_Numbers_(physical_products).htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Entering Config Codes">
+        <param name="Local" value="Generating_Local_Product_Numbers_(physical_products).htm#_Toc46647441">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Entering SoundScan Group Codes">
+        <param name="Local" value="Generating_Local_Product_Numbers_(physical_products).htm#_Toc46647442">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Transferring Local Product Numbers to Legacy">
+        <param name="Local" value="Generating_Local_Product_Numbers_(physical_products).htm#_Toc46647443">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Saving Selections">
+      <param name="Local" value="Saving_Selections.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Editing Product Records">
+      <param name="Local" value="Editing_Product_Records.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Making changes to project information">
+        <param name="Local" value="Editing_Product_Records.htm#_Toc46647446">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Editing Local Product Numbers">
+        <param name="Local" value="Editing_Product_Records.htm#_Toc46647447">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="PFM and BOM Email Notification">
+        <param name="Local" value="Editing_Product_Records.htm#_Toc46647448">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Deleting Selections">
+      <param name="Local" value="Deleting_Selections.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Copying Selections">
+      <param name="Local" value="CopyingSelections.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Table of Field Definitions">
+      <param name="Local" value="Table_of_Field_Definitions.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Working with Schedules">
+    <param name="Local" value="Table_of_Field_Definitions.htm#_Toc46647452">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Opening the Schedule screen">
+      <param name="Local" value="Table_of_Field_Definitions.htm#_Toc46647453">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Understanding the Schedule screen">
+        <param name="Local" value="Table_of_Field_Definitions.htm#_Toc46647454">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="A few words about colors used on the Schedule screen">
+        <param name="Local" value="Table_of_Field_Definitions.htm#_Toc46647455">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Creating Schedules">
+      <param name="Local" value="Creating_Schedules.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Selecting a Recommended Template">
+        <param name="Local" value="Creating_Schedules.htm#_Toc46647457">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Searching for templates">
+        <param name="Local" value="Creating_Schedules.htm#_Toc46647458">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Searching for and copying existing schedules">
+        <param name="Local" value="Creating_Schedules.htm#_Toc46647459">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Working with displayed schedules">
+      <param name="Local" value="Working_with_displayed_schedules.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Applying task filters">
+        <param name="Local" value="Working_with_displayed_schedules.htm#_Toc46647461">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Sorting task displays">
+        <param name="Local" value="Working_with_displayed_schedules.htm#_Toc46647462">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Adding tasks to schedules">
+      <param name="Local" value="Adding_tasks_to_schedules.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Assigning Individual Tasks">
+        <param name="Local" value="Adding_tasks_to_schedules.htm#_Toc46647464">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Deleting assigned tasks">
+      <param name="Local" value="Deleting_assigned_tasks.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Deleting all tasks">
+        <param name="Local" value="Deleting_assigned_tasks.htm#_Toc46647466">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Deleting individual tasks">
+        <param name="Local" value="Deleting_assigned_tasks.htm#_Toc46647467">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Editing due dates assigned to tasks">
+      <param name="Local" value="Editing_due_dates_assigned_to_tasks.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Entering new due dates">
+        <param name="Local" value="Editing_due_dates_assigned_to_tasks.htm#_Toc46647469">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Changing weeks/days to release entries">
+        <param name="Local" value="Editing_due_dates_assigned_to_tasks.htm#_Toc46647470">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Maintaining Schedules">
+      <param name="Local" value="Maintaining_Schedules.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Entering task completion dates">
+        <param name="Local" value="Maintaining_Schedules.htm#_Toc46647472">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Entering comments about tasks">
+        <param name="Local" value="Maintaining_Schedules.htm#_Toc46647473">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Updating status entries (optional)">
+        <param name="Local" value="Maintaining_Schedules.htm#_Toc46647474">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Entering vendor or contact names">
+        <param name="Local" value="Maintaining_Schedules.htm#_Toc46647475">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Closing schedules">
+      <param name="Local" value="Closing_schedules.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Field Definitions">
+      <param name="Local" value="Field_Definitions.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Product File Maintenance (PFM)">
+    <param name="Local" value="Field_Definitions.htm#_Toc46647478">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Physical Product File Maintenance Form">
+      <param name="Local" value="Field_Definitions.htm#_Toc46647479">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Digital Product File Maintenance Form">
+        <param name="Local" value="Field_Definitions.htm#_Toc46647480">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Entering/Editing PFM Data">
+      <param name="Local" value="Entering_Editing_PFM_Data.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Copying PFM forms">
+        <param name="Local" value="Entering_Editing_PFM_Data.htm#_Toc46647482">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Understanding the automated e-mail notification function">
+      <param name="Local" value="Understanding_the_automated_e-mail_notification_function.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="PFM Field Definitions">
+      <param name="Local" value="PFM_Field_Definitions.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Bill of Materials">
+    <param name="Local" value="PFM_Field_Definitions.htm#_Toc46647485">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Creating/Editing Bills of Materials (BOM)">
+      <param name="Local" value="Creating_Editing_Bills_of_Materials_(BOM).htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Copying Bills of Materials (BOMs)">
+        <param name="Local" value="Creating_Editing_Bills_of_Materials_(BOM).htm#_Toc46647487">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Understanding the e-mail notification function">
+      <param name="Local" value="Understanding_the_automated_BOM_e-mail_notification_function.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="BOM Form – Field Definitions Table">
+      <param name="Local" value="BOM_Form_Field_Definitions_Table.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Manufacturing">
+    <param name="Local" value="BOM_Form_Field_Definitions_Table.htm#_Toc46647490">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Entering/Editing Manufacturing Data">
+      <param name="Local" value="Entering_Editing_Manufacturing_Data.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Adding vendor information">
+        <param name="Local" value="Entering_Editing_Manufacturing_Data.htm#_Toc46647492">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Field Definitions Table">
+      <param name="Local" value="Field_Definitions_Table.htm">
+    </object>
+    </ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Working with Reports">
+    <param name="Local" value="Field_Definitions_Table.htm#_Toc46647494">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Understanding data specifications">
+      <param name="Local" value="Field_Definitions_Table.htm#_Toc46647495">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Specifying report criteria - guidelines">
+        <param name="Local" value="Field_Definitions_Table.htm#_Toc46647496">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Locating your reports">
+      <param name="Local" value="Locating_your_reports.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Running reports">
+      <param name="Local" value="Running_reports.htm">
+    </object>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Working with your Outputs">
+      <param name="Local" value="Working_with_your_Outputs.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Scrolling through report outputs">
+        <param name="Local" value="Working_with_your_Outputs.htm#_Toc46647500">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Modifying output displays">
+        <param name="Local" value="Working_with_your_Outputs.htm#_Toc46647501">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Printing report outputs">
+        <param name="Local" value="Working_with_your_Outputs.htm#_Toc46647502">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Saving report outputs to disk">
+        <param name="Local" value="Working_with_your_Outputs.htm#_Toc46647503">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Sending report outputs via e-mail">
+        <param name="Local" value="Working_with_your_Outputs.htm#_Toc46647504">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Available standard reports">
+      <param name="Local" value="Available_standard_reports.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="ENT-Commercial Release Schedule">
+        <param name="Local" value="Available_standard_reports.htm#_Toc46647506">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="ENT-Release Schedule">
+        <param name="Local" value="Available_standard_reports.htm#_Toc46647507">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="ENT-Release Schedule by Label">
+        <param name="Local" value="Available_standard_reports.htm#_Toc46647508">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="ENT-Production Status">
+        <param name="Local" value="Available_standard_reports.htm#_Toc46647509">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="ENT-Past Due Releases">
+        <param name="Local" value="Available_standard_reports.htm#_Toc46647510">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="ENT-To Do List">
+        <param name="Local" value="Available_standard_reports.htm#_Toc46647511">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="ENT-Task Due by Title ID">
+        <param name="Local" value="Available_standard_reports.htm#_Toc46647512">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="ENT-Deadline Schedule">
+        <param name="Local" value="Available_standard_reports.htm#_Toc46647513">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="ENT-Releases Without Schedules">
+        <param name="Local" value="Available_standard_reports.htm#_Toc46647514">
+      </object>
+      </ul>
+    </ul>
+</ul>
+</html>

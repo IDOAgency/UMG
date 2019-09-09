@@ -1,0 +1,105 @@
+<tr>
+	<th colspan="2">Part</th>
+  <th>Supplier</th>
+  <th colspan="2">Ink</th>
+  <th colspan="3">Additional Information</th>
+</tr>
+<tr>
+	<td><%= form.getElement("PID5") %></td>
+  <td>C-0</td>
+  <!-- <td><input type="hidden" name="SID5" value="24">n.a.</td> -->
+  <td><%= form.getElement("SID5") %></td>
+  <td><%= form.getElement("INK15") %></td>
+  <td><%= form.getElement("INK25") %></td>
+  <td class="label">Color</td>
+  <td><%= form.getElement("SEL5") %></td>
+  <td><%= form.getElement("INF5") %><input type="hidden" name="LAB5" value=""></td>
+</tr>
+<tr>
+	<td><%= form.getElement("PID16") %></td>
+  <td>Norelco</td>
+ <!-- <td><input type="hidden" name="SID16" value="24">n.a.</td> -->
+  <td><%= form.getElement("SID16") %></td>
+  <td colspan="2">&nbsp;</td>
+  <td class="label">Color</td>
+  <td><%= form.getElement("SEL16") %></td>
+  <td>
+		<%= form.getElement("INF16") %>
+		<input type="hidden" name="LAB16" value="">
+	</td>
+</tr>
+<tr>
+	<td><%= form.getElement("PID13") %></td>
+  <td>J-Card</td>
+  <td><%= form.getElement("SID13") %></td>
+  <td><%= form.getElement("INK113") %></td>
+  <td><%= form.getElement("INK213") %></td>
+  <td class="label">Panels</td>
+  <td><%= form.getElement("SEL13") %></td>
+  <td>
+		<%= form.getElement("INF13") %>
+		<input type="hidden" name="LAB13" value="">
+	</td>
+</tr>
+<tr>
+	<td><%= form.getElement("PID24") %></td>
+  <td>U-Card</td>
+  <td><%= form.getElement("SID24") %></td>
+  <td><%= form.getElement("INK124") %></td>
+  <td><%= form.getElement("INK224") %></td>
+  <td class="label">Panels</td>
+  <td><%= form.getElement("SEL24") %></td>
+  <td>
+		<%= form.getElement("INF24") %>
+		<input type="hidden" name="LAB24" value="">
+	</td>
+</tr>
+<tr>
+<td><%= form.getElement("PID17") %></td>
+  <td>O-Card</td>
+  <td><%= form.getElement("SID17") %></td>
+  <td><%= form.getElement("INK117") %></td>
+  <td><%= form.getElement("INK217") %></td>
+  <td colspan="3">
+		<%= form.getElement("INF17") %>
+		<input type="hidden" name="LAB17" value="">
+	</td>
+</tr>
+<tr>
+	<td><%= form.getElement("PID21") %></td>
+  <td>Sticker1</td>
+  <td><%= form.getElement("SID21") %></td>
+  <td><%= form.getElement("INK121") %></td>
+  <td><%= form.getElement("INK221") %></td>
+  <td class="label">Places</td>
+  <td><%= form.getElement("SEL21") %></td>
+  <td>
+		<%= form.getElement("INF21") %>
+		<input type="hidden" name="LAB21" value="Places:">
+	</td>
+</tr>
+<tr>
+	<td><%= form.getElement("PID22") %></td>
+  <td>Sticker2</td>
+  <td><%= form.getElement("SID22") %></td>
+  <td><%= form.getElement("INK122") %></td>
+  <td><%= form.getElement("INK222") %></td>
+  <td class="label">Places</td>
+  <td><%= form.getElement("SEL22") %></td>
+  <td>
+		<%= form.getElement("INF22") %>
+		<input type="hidden" name="LAB22" value="Places:">
+	</td>
+</tr>
+<tr>
+	<td><%= form.getElement("PID18") %></td>
+  <td>Other</td>
+  <td> <%= form.getElement("SID18") %></td>
+  <td><%= form.getElement("INK118") %></td>
+  <td><%= form.getElement("INK218") %></td>
+  <td colspan="3">
+		<%= form.getElement("INF18") %>
+		<input type="hidden" name="LAB18" value="">
+	</td>
+</tr>
+

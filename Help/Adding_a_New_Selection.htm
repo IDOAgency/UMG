@@ -1,0 +1,281 @@
+<HTML>
+ <HEAD>
+  <!-- $MVD$:app("RoboHELP HTML Edition by Blue Sky Software, portions by MicroVision Dev. Inc.","769") -->
+  <!-- $MVD$:template("","0","0") -->
+  <!-- $MVD$:color("15","808000","Custom #1","0") -->
+  <!-- $MVD$:fontset("Verdana","Verdana") -->
+  <!-- $MVD$:fontset("Arial","Arial") -->
+  <TITLE>Adding a New Selection</TITLE>
+  <META NAME="generator" CONTENT="RoboHELP by Blue Sky Software www.blue-sky.com HTML Edition">
+  <SCRIPT language="javascript">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='Milest_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='Milestone.css'>");}
+//-->
+
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht1.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht2.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript"><!-- 
+//////////BSSCDHTML Section Embedded Code//////////
+var s_strAgent = navigator.userAgent.toLowerCase();
+var s_nVer	   = parseInt(navigator.appVersion);
+
+var s_bIE  = (s_strAgent.indexOf('msie') != -1);
+var s_bNS  = (s_strAgent.indexOf('mozilla') != -1) && ((s_strAgent.indexOf('spoofer') == -1) && (s_strAgent.indexOf('compatible') == -1));
+var s_bOpera	= (s_strAgent.indexOf('opera') != -1);
+
+var s_bIE3Before = ((s_bIE) && (s_nVer <= 2));
+var s_bNS3Before = ((s_bNS) && (s_nVer <= 3));
+
+var s_bNS2		= ((s_bNS) && (s_nVer <= 2));
+var s_bNS3		= ((s_bNS) && (s_nVer == 3));
+var s_bIE300301	= ((s_bIE) && (s_nVer == 2) && ((s_strAgent.indexOf("3.00") != -1)||(s_strAgent.indexOf("3.0a") != -1)||(s_strAgent.indexOf("3.0b")!=-1)||(s_strAgent.indexOf("3.01")!=-1)));
+var s_bIE302	= ((s_bIE) && (s_nVer == 2) && (s_strAgent.indexOf("3.02") != -1));
+
+
+function HasExtJs()
+{
+	if (s_bIE3Before) { return false;}
+	if (s_bNS3Before) {	return false;}
+	if (typeof (_BSSCOnLoad) == "undefined"){ return false; }
+	return true;
+}
+
+function BSSCOnLoad()
+{
+	if (HasExtJs()) { _BSSCOnLoad(); }
+}
+
+function BSSCOnUnload()
+{
+	if (HasExtJs()) { _BSSCOnUnload(); }
+}
+
+function BSSCOnClick()
+{
+	if (HasExtJs()) { _BSSCOnClick(); }
+}
+
+function WritePopupMenuLayer()
+{
+	if (HasExtJs()) {_WritePopupMenuLayer();}
+}
+
+function BSSCCreatePopupDiv()
+{
+	if (HasExtJs()) {_BSSCCreatePopupDiv();	}
+}
+
+function BSSCPopup(strURL)
+{
+	if (HasExtJs())	{ 
+		_BSSCPopup(strURL);
+	}else{
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+		// Create the real popup window
+		var wndPopup = window.open(strURL, "PopupWindow", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=300,width=400");
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		} else {
+			wndPopup.focus();
+		}
+	}
+}
+
+
+function PopupMenu_Invoke()
+{
+	if (HasExtJs()) {
+		return _PopupMenu_Invoke(PopupMenu_Invoke.arguments);
+	}
+	if (s_bNS3Before || s_bIE3Before )	{
+		var argLen 	= PopupMenu_Invoke.arguments.length;
+		if (argLen < 5) {
+			window.document.location.href = PopupMenu_Invoke.arguments[3];
+			return false;
+		}
+		var nHeight = argLen * 15;
+		var nWidth = 400;
+		var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=auto";
+		strParam += ",height=" + nHeight + ",width=200,resizable";
+		
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+
+		var wndPopupLinks = window.open("", "popuplinks", strParam);
+		wndPopupLinks.document.open("text/html");
+		wndPopupLinks.document.write("<html><head>");
+		if (s_bNS2 || s_bOpera) {
+			wndPopupLinks.document.write("<base href=\"" + location +"\">");
+		} else {
+			//YJ: IE301,302 and NS3.x works fine
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("script>");
+			wndPopupLinks.document.write("function gotoUrl(aUrl) {opener.window.location=aUrl; close();}");
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("/script>");
+		}
+		wndPopupLinks.document.write("</head><body onBlur=\'self.focus();\'>");
+		var strParaLine = "";
+		for (var i = 0; i < (argLen - 2) / 2; i++) {
+			strParaLine = "";
+			if (s_bNS2 || s_bOpera){
+				strParaLine += "<a href=\"";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\">"
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			} else {
+				strParaLine += "<a href=\"javascript:";
+				strParaLine += "gotoUrl(\'";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\');\"";
+				if (PopupMenu_Invoke.arguments[1] != '') {
+					strParaLine += " TARGET='" + PopupMenu_Invoke.arguments[1] + "'";
+				}
+				strParaLine += ">";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			}
+			strParaLine += "<br>";
+			wndPopupLinks.document.write(strParaLine);
+		}
+		wndPopupLinks.document.write("</body></html>");
+		wndPopupLinks.document.close();
+
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		}else {
+			wndPopupLinks.focus();
+		}
+
+		return true;
+	}
+	return false;
+}
+  
+
+ 
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+ 
+//-->
+  </SCRIPT></HEAD>
+  <BODY ONLOAD="BSSCOnLoad();" ONCLICK="BSSCOnClick();">
+  
+  <div id='NavBar' STYLE='position:relative;' align='right'><nobr><font size=1>
+   <script language="javascript"><!--
+ var bHomePage=false; if(document.all){if ((top)&&(top.frames)&&(top.frames.length<=1)) bHomePage=true;} if(document.layers){if((parent)&&(parent.top.frames)&&(parent.top.frames.length<=1)) bHomePage=true;}
+if (bHomePage){document.write("<a href='Milestone.htm'><img src='bsscnav1.gif' width=53 height=18 border=no></a>");}
+//-->
+   </script></font>&nbsp;&nbsp;&nbsp;</nobr>
+  </div>
+<H1>
+   Entering a New Selection</H1>
+  <P>
+   <IMG SRC="newbtn.gif" WIDTH="73" HEIGHT="20" VSPACE="0" HSPACE="0" BORDER="0"></P>
+  <P>
+   Click on the New button (just under the menu bar on the right-hand 
+   side of the screen). Enter data into the data form, using drop-down 
+   lists where available.</P>
+  <P>
+   The following fields require completion prior to saving the selection record:</P>
+  <UL>
+   <LI CLASS="mvd-P">
+   <P>
+    Project ID (unless the project is a P&amp;D)</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Artist</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Title</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Selection ID</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Family</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Company</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Division</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Label</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Product Category</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Release Type</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Configuration</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Subconfiguration</P>
+   </UL>
+  <BLOCKQUOTE>
+   <P>
+    <SPAN STYLE="font-style : italic;"><I>If a selection is created without 
+    a Selection or UPC number, Milestone generates a temporary number. 
+    This number consists of the letters MLST followed by a sequential number.</I></SPAN></P>
+   <P>
+    <SPAN STYLE="font-style : italic;"><I>If only the UPC number has been 
+    entered for a release, Milestone will generate the selection number 
+    automatically form the UPC number by striping the first and last 
+    digit of the code.</I></SPAN></P>
+   <P>
+    <SPAN STYLE="font-style : italic;"><I>Milestone will copy the selection 
+    number to the Title ID field for most configurations. If the 
+    configuration is a full length Cassette, Vinyl or an Enhanced CD, the 
+    system will ask the user if the Title ID number matches the selection 
+    number. If the user responds 'Yes', the selection number will be 
+    copied to the Title ID field. If the user responds 'No', the Title ID 
+    field needs to be filled in. The Title ID allows the user to link a 
+    selection to another selection with a different configuration. If you 
+    are not sure how to respond to the Title ID prompt, select yes.</I></SPAN></P>
+   <P>
+    <SPAN STYLE="font-style : italic;"><I>The retail code and price are 
+    determined by the system once the user selects the sales code (Sell) 
+    and saves the information.</I></SPAN></P>
+   <P>
+    <SPAN STYLE="font-style : italic;"><I>The &quot;Last Updated&quot; field 
+    reflects the last user to add or update a selection and is 
+    automatically updated by the system.</I></SPAN></P>
+   </BLOCKQUOTE>
+  <P>
+   Click the Save button to save the new selection. Once the record is 
+   saved, Milestone will automatically navigate the user to the Schedule 
+   screen for assignment of a template (refer to Assigning Task by 
+   Applying Templates in the Schedule of this document).</P>
+  <P>
+   <!-- $MVD$:spaceretainer() -->&nbsp;</P>
+  <P>
+   <!-- $MVD$:spaceretainer() -->&nbsp;
+ </BODY>
+</HTML>

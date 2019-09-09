@@ -1,0 +1,226 @@
+<%	// get the Notepad Object out of the session
+	Notepad notepad = (Notepad)context.getSessionValue(MilestoneConstants.NOTEPAD_SESSION_NAMES[MilestoneConstants.NOTEPAD_LABEL]);
+
+	// gets the titles of the columns
+	String[] columnNames = notepad.getColumnNames();
+
+	// gets the contents of the search results
+	Vector pageContents = notepad.getPageContents();
+%>
+
+<script type="text/javascript" language="javascript">
+function submitFirst()
+{
+	parent.top.bottomFrame.location = "home?cmd=notepad-first&notepadType=<%=MilestoneConstants.NOTEPAD_LABEL%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+}
+
+function submitLast()
+{
+	parent.top.bottomFrame.location = "home?cmd=notepad-last&notepadType=<%=MilestoneConstants.NOTEPAD_LABEL%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+}
+
+</script>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr valign="top">
+	<td><img src="<%= inf.getImageDirectory() %>Notepad_Top_280.gif" width="280" border="0"></td>
+</tr>
+<tr>
+	<td>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+		<tr valign="top">
+		<td>
+			<table width="100%" cellpadding=0 cellspacing=0 border=0>
+			<tr bgcolor="lavender">
+				<td align=left>
+					<% // check to see if search button should be visible
+					if (notepad.isSearchButtonVisible())
+					{%>
+					<a href='Javascript:toggle( "SearchLayer", "FamilyDescriptionSearch" )'
+					onMouseOver="Javascript:mtbSearch.over();return true;"
+					onMouseOut="Javascript:mtbSearch.out()"
+					onClick="Javascript:mtbSearch.click(); return true;">
+					<img name="Search" src="<%= inf.getImageDirectory() %>Search_On.gif" width="66" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+					</a>
+					<script type="text/javascript" language="JavaScript">
+						var mtbSearch = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Search', 'Javascript:toggle( "SearchLayer", "FamilyDescriptionSearch" )', 66,14);
+					</script>
+					<%}%>
+				</td>
+				<td align="right">
+					<span class="title"><% if (notepad.getTitle() != null){%> <%= notepad.getTitle() %> <%}%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				</td>
+			</tr>
+			</table>
+
+                        <!-- navigation buttons starts here -->
+
+                  <table width="100%" cellpadding=0 cellspacing=0 border=0 bgcolor="lavender">
+                              <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+                              <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+
+                 <tr>
+                  <td></td>
+                 </tr>
+                <tr>
+                 <%@ include file="include-navigation-notepad.shtml" %>
+                </tr>
+
+                 <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+       <tr>
+                        <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+       <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+       <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+
+                 </table>
+
+                        <!-- navigation buttons end here -->
+
+
+
+		</td>
+		</tr>
+		<tr>
+			<td>
+				<table width="100%" class="list" cellspacing="0">
+				<tr>
+					<% // this gets the columnNames for the search results (family)
+					for (int i = 0 ; i < columnNames.length; i++)
+					{%>
+					<th width="50%">
+						<a href="Javascript:submitList(<%= i%>)"><% if (columnNames[i] != null){%> <%= columnNames[i] %> <%}%></a>
+					</th>
+					<%}%>
+				</tr>
+				<tr>
+					<td colspan="4"><hr noshade></td>
+				</tr>
+				<% if (notepad.getAllContents().size() <= 0)
+				{
+				%>
+					<tr><td colspan="3"><%= notepad.getErrorMessage() %></td></tr>
+				<%}
+				else
+				{
+				%>
+
+				<%
+					// this checks to see which link was clicked and changes the background color
+					// also, this will default the first link to be highlighted when the user first lands
+					// on the page
+					int labelId = 0;
+					Label selectedItem = (Label)notepad.getSelected();
+					int selectedLabel = 0;
+					if(selectedItem != null)
+					{
+						selectedLabel = selectedItem.getStructureID();
+					}
+
+					for (int i=0 ; i < pageContents.size(); i++)
+					{
+						Label labels = (Label)pageContents.get(i);
+						labelId = labels.getStructureID();
+				%>
+					<tr valign="top" <%if (selectedLabel == labelId){%> class="selected"<%}%>>
+						<td width="55%" align="left" valign="bottom">
+							<a href="Javascript:submitGet(<%= labelId%>)" >
+							<% if (labels.getName() != null)
+								{
+							%>
+									<%= labels.getName()%>
+							<%}%>
+							</a>
+						</td>
+						<td width="45%" align="left" valign="bottom">
+							<a href="Javascript:submitGet(<%= labelId%>)" >
+							<% if (labels.getParentDivision() != null)
+							{
+							Division parentDivision = labels.getParentDivision();
+							%>
+								<%= parentDivision.getName()%>
+							<%}%>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3"><img src="<%= inf.getImageDirectory() %>pixelshim.gif" width="100%" height=1 class="separator" ></td>
+					</tr>
+				<%}//end for loop%>
+			<%} // end else%>
+					<tr>
+						<td colspan="3"><hr noshade><center class="footer">
+						<% if (notepad.getPageStatus() != null)
+							{
+						%>
+							<%= notepad.getPageStatus() %>
+						<%}%>
+						</center>
+						</td>
+					</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table width="100%" cellpadding="5" cellspacing="0" border="0">
+					<tr valign="top">
+
+
+						</tr>
+				<tr>
+
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					</table>
+				</td>
+	    </tr>
+      </table>
+    </td>
+  </tr>
+    <td><img src="<%= inf.getImageDirectory() %>Notepad_Bottom_280.gif" width="280" border=0></td>
+ </tr>
+</table>

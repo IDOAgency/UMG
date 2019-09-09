@@ -1,0 +1,135 @@
+<project name="Push PFM Receive Webservices" default="all" basedir=".">
+
+  <!-- set global properties for this build -->
+  <property name="source" value="."/>
+  <property name="milestone" value="c:\Documents and Settings\colem\workspace\Milestone\.deployables\milestone2\WEB-INF"/>
+  <property name="build" value="${source}/build"/>
+  <property name="config" value="${source}/config"/>
+  <property name="client" value="${source}/client"/>
+  <property name="war_file" value="pushReceive.war" />
+  <property name="ear_file" value="ws_pushReceive.ear" />
+  <property name="client_jar_file" value="PushReceive_client.jar"/>
+  <property name="server" value="localhost"/>
+  <property name="port" value="7001"/>
+  <property name="namespace" value="http://${server}"/>
+  <property name="wsdlUrl" value="http://usush2kvws18:7001/pushReceive/PushPFM_WS?WSDL" />
+  <property name="weblogicJar" value="c:\bea81\weblogic81\server\lib\webservices.jar;c:\bea81\weblogic81\server\lib\weblogic.jar"/>
+
+  <target name="all" depends="clean, compile, milestone, ear, client, web-inf"/>
+
+  <target name="clean">
+    <delete dir="${build}"/>
+    <delete dir="${client}"/>
+  </target>
+
+  <!-- build the milestone.jar file -->
+  <target name="milestone" depends="clean">
+    <jar destfile="${source}/milestone.jar"
+       basedir="${milestone}/classes"
+       excludes="com/universal/milestone/push/webservices/**"
+    />
+  </target>
+ 
+  <!-- compile the PushReceive class to the ${build} directory where the service
+       generator will look for it when it builds the webservice -->
+  <target name="compile" depends="milestone">
+    <mkdir dir="${build}"/>
+    <mkdir dir="${client}"/>
+    <javac srcdir="${source}" destdir="${build}" includes="PushPFM_WS.java"
+      classpath="CrossRoads.jar;milestone.jar;gemini.jar;${weblogicJar}">
+    </javac>
+  </target>
+
+  <!-- call the servicegen element within the ear task to generate and build
+       the ear into the ${apps.dir} directory.  It will be automatically
+       deployed from there -->
+  <target name="ear">
+    <servicegen
+       destEar="${build}/${ear_file}"
+       warName="${war_file}">
+       <service
+         javaClassComponents="com.universal.milestone.push.webservices.PushPFM_WS"
+         targetNamespace="${namespace}"
+         serviceName="PushPFM_WS"
+         serviceURI="/PushPFM_WS"
+		 generateTypes="True"
+		 expandMethods="True">
+         <client
+           packageName="com.universal.milestone.push.webservices"
+           clientJarName="${client_jar_file}"
+         />
+       </service>
+       
+      <classpath>
+        <pathelement path="${build}"/>
+        <pathelement path="${java.class.path}"/>
+        <pathelement location="CrossRoads.jar;milestone.jar;gemini.jar${weblogicJar}"/>
+      </classpath>
+            
+     </servicegen>
+     
+  </target>
+
+
+  <!-- generate the client jar and build the client calling class -->
+  <target name="client" depends="ear">
+    <clientgen   
+      ear="${build}/${ear_file}"
+      warName="${war_file}"
+      packageName="com.universal.milestone.push.webservices"
+      clientJar="${client}/${client_jar_file}"
+      generateAsyncMethods="true">
+      <classpath>
+        <pathelement path="${build}"/>
+        <pathelement path="CrossRoads.jar;milestone.jar;gemini.jar"/>
+        <pathelement path="${java.class.path}"/>
+      </classpath>
+    </clientgen>
+
+    <javac srcdir="${source}"
+      destdir="${client}"
+      includes="Client.java">
+      <classpath>
+        <pathelement path="${client}/${client_jar_file}"/>
+      </classpath>
+    </javac>
+  </target>
+ 
+  
+  <!-- Add the web-inf/lib jar files -->
+  <target name="web-inf" depends="client">
+    <wspackage     
+       output="${build}/${ear_file}"  
+       overwrite="false" 
+       warName="${war_file}" 
+       utilJars="CrossRoads.jar,milestone.jar,gemini.jar"/>
+ </target>
+ 
+  <!-- call the webservice to get the expected result in the server output 
+  <target name="run" depends="deploy">
+    <java classname="com.universal.milestone.push.webservices.Client"
+          fork="true">
+      <arg value="http://localhost:${port}/basic_javaclass/PushPFM_WS?WSDL"/>
+      <classpath>
+        <pathelement location="${client}/${client_jar_file}"/>
+        <pathelement path="${java.class.path}"/>
+        <pathelement path="${client}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="server">
+     <mkdir dir="config"/>
+     <wlserver dir="./config" host="localhost" port="${port}"
+      generateConfig="true" username="milestone" password="milestone"/>
+  </target>
+
+  <target name="deploy">
+    <wldeploy action="deploy" adminurl="t3://localhost:${port}" user="milestone" password="milestone" >
+     <files dir="${build}" includes="${ear_file}"/>
+    </wldeploy>
+  </target>
+  
+  -->
+  
+</project>

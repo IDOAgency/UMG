@@ -1,0 +1,549 @@
+<HTML>
+ <HEAD>
+  <!-- $MVD$:app("RoboHELP HTML Edition by Blue Sky Software, portions by MicroVision Dev. Inc.","769") -->
+  <!-- $MVD$:template("","0","0") -->
+  <!-- $MVD$:color("15","808000","Custom #1","0") -->
+  <!-- $MVD$:fontset("Verdana","Verdana") -->
+  <!-- $MVD$:fontset("Arial","Arial") -->
+  <TITLE>Selection</TITLE>
+  <META NAME="generator" CONTENT="RoboHELP by Blue Sky Software www.blue-sky.com HTML Edition">
+  <SCRIPT language="javascript">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='Milest_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='Milestone.css'>");}
+//-->
+
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht1.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht2.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript"><!-- 
+//////////BSSCDHTML Section Embedded Code//////////
+var s_strAgent = navigator.userAgent.toLowerCase();
+var s_nVer	   = parseInt(navigator.appVersion);
+
+var s_bIE  = (s_strAgent.indexOf('msie') != -1);
+var s_bNS  = (s_strAgent.indexOf('mozilla') != -1) && ((s_strAgent.indexOf('spoofer') == -1) && (s_strAgent.indexOf('compatible') == -1));
+var s_bOpera	= (s_strAgent.indexOf('opera') != -1);
+
+var s_bIE3Before = ((s_bIE) && (s_nVer <= 2));
+var s_bNS3Before = ((s_bNS) && (s_nVer <= 3));
+
+var s_bNS2		= ((s_bNS) && (s_nVer <= 2));
+var s_bNS3		= ((s_bNS) && (s_nVer == 3));
+var s_bIE300301	= ((s_bIE) && (s_nVer == 2) && ((s_strAgent.indexOf("3.00") != -1)||(s_strAgent.indexOf("3.0a") != -1)||(s_strAgent.indexOf("3.0b")!=-1)||(s_strAgent.indexOf("3.01")!=-1)));
+var s_bIE302	= ((s_bIE) && (s_nVer == 2) && (s_strAgent.indexOf("3.02") != -1));
+
+
+function HasExtJs()
+{
+	if (s_bIE3Before) { return false;}
+	if (s_bNS3Before) {	return false;}
+	if (typeof (_BSSCOnLoad) == "undefined"){ return false; }
+	return true;
+}
+
+function BSSCOnLoad()
+{
+	if (HasExtJs()) { _BSSCOnLoad(); }
+}
+
+function BSSCOnUnload()
+{
+	if (HasExtJs()) { _BSSCOnUnload(); }
+}
+
+function BSSCOnClick()
+{
+	if (HasExtJs()) { _BSSCOnClick(); }
+}
+
+function WritePopupMenuLayer()
+{
+	if (HasExtJs()) {_WritePopupMenuLayer();}
+}
+
+function BSSCCreatePopupDiv()
+{
+	if (HasExtJs()) {_BSSCCreatePopupDiv();	}
+}
+
+function BSSCPopup(strURL)
+{
+	if (HasExtJs())	{ 
+		_BSSCPopup(strURL);
+	}else{
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+		// Create the real popup window
+		var wndPopup = window.open(strURL, "PopupWindow", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=300,width=400");
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		} else {
+			wndPopup.focus();
+		}
+	}
+}
+
+
+function PopupMenu_Invoke()
+{
+	if (HasExtJs()) {
+		return _PopupMenu_Invoke(PopupMenu_Invoke.arguments);
+	}
+	if (s_bNS3Before || s_bIE3Before )	{
+		var argLen 	= PopupMenu_Invoke.arguments.length;
+		if (argLen < 5) {
+			window.document.location.href = PopupMenu_Invoke.arguments[3];
+			return false;
+		}
+		var nHeight = argLen * 15;
+		var nWidth = 400;
+		var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=auto";
+		strParam += ",height=" + nHeight + ",width=200,resizable";
+		
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+
+		var wndPopupLinks = window.open("", "popuplinks", strParam);
+		wndPopupLinks.document.open("text/html");
+		wndPopupLinks.document.write("<html><head>");
+		if (s_bNS2 || s_bOpera) {
+			wndPopupLinks.document.write("<base href=\"" + location +"\">");
+		} else {
+			//YJ: IE301,302 and NS3.x works fine
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("script>");
+			wndPopupLinks.document.write("function gotoUrl(aUrl) {opener.window.location=aUrl; close();}");
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("/script>");
+		}
+		wndPopupLinks.document.write("</head><body onBlur=\'self.focus();\'>");
+		var strParaLine = "";
+		for (var i = 0; i < (argLen - 2) / 2; i++) {
+			strParaLine = "";
+			if (s_bNS2 || s_bOpera){
+				strParaLine += "<a href=\"";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\">"
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			} else {
+				strParaLine += "<a href=\"javascript:";
+				strParaLine += "gotoUrl(\'";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\');\"";
+				if (PopupMenu_Invoke.arguments[1] != '') {
+					strParaLine += " TARGET='" + PopupMenu_Invoke.arguments[1] + "'";
+				}
+				strParaLine += ">";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			}
+			strParaLine += "<br>";
+			wndPopupLinks.document.write(strParaLine);
+		}
+		wndPopupLinks.document.write("</body></html>");
+		wndPopupLinks.document.close();
+
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		}else {
+			wndPopupLinks.focus();
+		}
+
+		return true;
+	}
+	return false;
+}
+  
+
+ 
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+ 
+//-->
+  </SCRIPT></HEAD>
+  <BODY ONLOAD="BSSCOnLoad();" ONCLICK="BSSCOnClick();">
+  
+  <div id='NavBar' STYLE='position:relative;' align='right'><nobr><font size=1>
+   <script language="javascript"><!--
+ var bHomePage=false; if(document.all){if ((top)&&(top.frames)&&(top.frames.length<=1)) bHomePage=true;} if(document.layers){if((parent)&&(parent.top.frames)&&(parent.top.frames.length<=1)) bHomePage=true;}
+if (bHomePage){document.write("<a href='Milestone.htm'><img src='bsscnav1.gif' width=53 height=18 border=no></a>");}
+//-->
+   </script></font>&nbsp;&nbsp;&nbsp;</nobr>
+  </div>
+<H1>
+   Selection</H1>
+  <P>
+   The Selection screen provides a data form in which information, 
+   specific to the manufacture of a product, is entered.</P>
+  <P>
+   When the Selection screen is first opened, the listing on the notepad 
+   (left-hand side of the screen) will include selections for the 
+   company or companies under which the user operates. The selection 
+   data form (right-hand side of the screen) will display information 
+   relative to the highlighted record in the listing on the left.</P>
+  <P>
+   <SPAN STYLE="font-style : italic;"><I>Users will have security rights to 
+   view selections for their own company only. In addition, some users 
+   will have access to create and edit selections specific to an 
+   individual's own company.</I></SPAN></P>
+  <P>
+   <TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0">
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-weight : bold;"><B>FIELD NAME</B></SPAN></TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-weight : bold;"><B>DESCRIPTION</B></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Street/Ship Date</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Street date for commercial product or ship date for promotional product</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Rls Wk/Cycle</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The release week and cycle correlating to the street date</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Int'l Date</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       International release date for the product</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Impact Date</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The radio impact or add date</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Status</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Status of the release (active, TBS, cancelled or closed)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Hold</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       A flag indicating a project is on hold</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Hold Reason</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       A hyper link that opens a pop-up window in which information relating 
+       to why a project is on hold may be entered</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       P &amp; D</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       A flag indicating that a project is a Press and Distribtion Deal</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Special Pkg</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       A flag indicating special packaging is required for this project</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Project ID</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Project Id is a required field. The number entered here should be 
+       acquired from RMS (Label Copy). However, if the release is a P &amp; 
+       D, then the Project ID will not be required.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Prefix</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The prefix for promotional selections. This is filtered by company.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       ID</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The selection number for the collection of tracks or masters</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Title ID</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The product number to which this product should be linked. For audio, 
+       this field is always populated in Milestone if this is a CD release; 
+       otherwise, enter the product number of the CD with the same track 
+       list if there is one. This will be a read-only field populated by the 
+       selection number, unless it is a commercial full-length release. It 
+       will appear on the PFM form as a read-only field.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       UPC</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Universal Product Code</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       First</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       First name of the performing artist. Enter the artist name following 
+       standard RMS procedures.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Last</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Last name of the performing artist. Enter the artist name following 
+       standard RMS procedures.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Title</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Release title. Enter the title following standard RMS procedures.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       A Side</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The title of the first side or disc</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       B Side</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The title of the second side or disc</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Product Category</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Category of the product being produced (box set, catalog, new release 
+       or soundtrack, etc)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Rls Type</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Type of selection to be produced (commercial or promotional)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Config</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Physical format (vinyl, compact disc, cassette, DVD, etc)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Sub</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The sub-configuration (full length, single, maxi, etc)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Family</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The Parent company (IGA, Island Def Jam, etc)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Company</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       &quot;Roster&quot; company (Geffen, A&amp;M, Mercury, GRP, etc)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Divison</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       P &amp; L entity (Decca, MCA Nashville, JAKE)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Label</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Production entity (Republic, Booga Basement, Magic, etc)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Sell Filter</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The sell code filter</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Retail</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The retail code which is determined by the the sell code selected.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Price</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The Price of the product. This is determined by the Sell Code selected.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       # of Units</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Number of units per configuration for the selection. Read-only field 
+       from PFM.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Genre</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Type of music (Blues, Classics, Jazz, etc.)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Pkg</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       Packaging specs. Double clicking on the field displays a pop-up text 
+       box where specific packaging details may be entered.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Label Contact</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The user responsible for the release. The name of the user adding the 
+       selection is entered automatically into this field by the system when 
+       a new selection is created. It can be changed after the selection has 
+       been saved.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Other contact</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       This field is used for any additional contact, such as the name of a 
+       salesperson or an A&amp;R rep.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Last Updated</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       User login ID of the user who entered or last updated the selection 
+       and the date the selection was last updated. Read-only field. The 
+       system automatically updates based upon user login ID.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Origin Date</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The date the selection was added to Milestone</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="26%" VALIGN="TOP">
+      <P>
+       Last Street Date Update</TD>
+     <TD WIDTH="74%" VALIGN="TOP">
+      <P>
+       The last date the street date was changed</TD>
+    </TR>
+   </TABLE></P>
+  <P>
+   <!-- $MVD$:spaceretainer() -->&nbsp;</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B><!-- $MVD$:spaceretainer() -->&nbsp;</B></SPAN>
+ </BODY>
+</HTML>

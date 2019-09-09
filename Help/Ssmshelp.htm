@@ -1,0 +1,247 @@
+<HTML>
+ <HEAD>
+  <!-- $MVD$:app("RoboHELP HTML Edition by Blue Sky Software, portions by MicroVision Dev. Inc.","769") -->
+  <!-- $MVD$:template("","0","0") -->
+  <!-- $MVD$:fontset("Verdana","Verdana") -->
+  <TITLE>SSMSHelp</TITLE>
+  <META NAME="generator" CONTENT="RoboHELP by Blue Sky Software www.blue-sky.com HTML Edition">
+  <SCRIPT language="javascript">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='MS_H_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='MS_Help.css'>");}
+//-->
+
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht1.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht2.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript"><!-- 
+//////////BSSCDHTML Section Embedded Code//////////
+var s_strAgent = navigator.userAgent.toLowerCase();
+var s_nVer	   = parseInt(navigator.appVersion);
+
+var s_bIE  = (s_strAgent.indexOf('msie') != -1);
+var s_bNS  = (s_strAgent.indexOf('mozilla') != -1) && ((s_strAgent.indexOf('spoofer') == -1) && (s_strAgent.indexOf('compatible') == -1));
+var s_bOpera	= (s_strAgent.indexOf('opera') != -1);
+
+var s_bIE3Before = ((s_bIE) && (s_nVer <= 2));
+var s_bNS3Before = ((s_bNS) && (s_nVer <= 3));
+
+var s_bNS2		= ((s_bNS) && (s_nVer <= 2));
+var s_bNS3		= ((s_bNS) && (s_nVer == 3));
+var s_bIE300301	= ((s_bIE) && (s_nVer == 2) && ((s_strAgent.indexOf("3.00") != -1)||(s_strAgent.indexOf("3.0a") != -1)||(s_strAgent.indexOf("3.0b")!=-1)||(s_strAgent.indexOf("3.01")!=-1)));
+var s_bIE302	= ((s_bIE) && (s_nVer == 2) && (s_strAgent.indexOf("3.02") != -1));
+
+
+function HasExtJs()
+{
+	if (s_bIE3Before) { return false;}
+	if (s_bNS3Before) {	return false;}
+	if (typeof (_BSSCOnLoad) == "undefined"){ return false; }
+	return true;
+}
+
+function BSSCOnLoad()
+{
+	if (HasExtJs()) { _BSSCOnLoad(); }
+}
+
+function BSSCOnUnload()
+{
+	if (HasExtJs()) { _BSSCOnUnload(); }
+}
+
+function BSSCOnClick()
+{
+	if (HasExtJs()) { _BSSCOnClick(); }
+}
+
+function WritePopupMenuLayer()
+{
+	if (HasExtJs()) {_WritePopupMenuLayer();}
+}
+
+function BSSCCreatePopupDiv()
+{
+	if (HasExtJs()) {_BSSCCreatePopupDiv();	}
+}
+
+function BSSCPopup(strURL)
+{
+	if (HasExtJs())	{ 
+		_BSSCPopup(strURL);
+	}else{
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+		// Create the real popup window
+		var wndPopup = window.open(strURL, "PopupWindow", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=300,width=400");
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		} else {
+			wndPopup.focus();
+		}
+	}
+}
+
+
+function PopupMenu_Invoke()
+{
+	if (HasExtJs()) {
+		return _PopupMenu_Invoke(PopupMenu_Invoke.arguments);
+	}
+	if (s_bNS3Before || s_bIE3Before )	{
+		var argLen 	= PopupMenu_Invoke.arguments.length;
+		if (argLen < 5) {
+			window.document.location.href = PopupMenu_Invoke.arguments[3];
+			return false;
+		}
+		var nHeight = argLen * 15;
+		var nWidth = 400;
+		var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=auto";
+		strParam += ",height=" + nHeight + ",width=200,resizable";
+		
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+
+		var wndPopupLinks = window.open("", "popuplinks", strParam);
+		wndPopupLinks.document.open("text/html");
+		wndPopupLinks.document.write("<html><head>");
+		if (s_bNS2 || s_bOpera) {
+			wndPopupLinks.document.write("<base href=\"" + location +"\">");
+		} else {
+			//YJ: IE301,302 and NS3.x works fine
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("script>");
+			wndPopupLinks.document.write("function gotoUrl(aUrl) {opener.window.location=aUrl; close();}");
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("/script>");
+		}
+		wndPopupLinks.document.write("</head><body onBlur=\'self.focus();\'>");
+		var strParaLine = "";
+		for (var i = 0; i < (argLen - 2) / 2; i++) {
+			strParaLine = "";
+			if (s_bNS2 || s_bOpera){
+				strParaLine += "<a href=\"";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\">"
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			} else {
+				strParaLine += "<a href=\"javascript:";
+				strParaLine += "gotoUrl(\'";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\');\"";
+				if (PopupMenu_Invoke.arguments[1] != '') {
+					strParaLine += " TARGET='" + PopupMenu_Invoke.arguments[1] + "'";
+				}
+				strParaLine += ">";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			}
+			strParaLine += "<br>";
+			wndPopupLinks.document.write(strParaLine);
+		}
+		wndPopupLinks.document.write("</body></html>");
+		wndPopupLinks.document.close();
+
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		}else {
+			wndPopupLinks.focus();
+		}
+
+		return true;
+	}
+	return false;
+}
+  
+
+ 
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+ 
+//-->
+  </SCRIPT></HEAD>
+  <BODY ONLOAD="BSSCOnLoad();" ONCLICK="BSSCOnClick();">
+  
+  <div id='NavBar' STYLE='position:relative;' align='right'><nobr><font size=1>
+   <script language="javascript"><!--
+ var bHomePage=false; if(document.all){if ((top)&&(top.frames)&&(top.frames.length<=1)) bHomePage=true;} if(document.layers){if((parent)&&(parent.top.frames)&&(parent.top.frames.length<=1)) bHomePage=true;}
+if (bHomePage){document.write("<a href='Milestone.htm'><img src='bsscnav1.gif' width=53 height=18 border=no></a>");}
+//-->
+   </script><img src='bsscnav7.gif' width=22 height=18 border=no><img src='bsscnav8.gif' width=22 height=18 border=no><a href='javascript:document.ehelpform.submit()'><img src='bsscnav6.gif' width=37 height=18 border=no></a></font>&nbsp;&nbsp;&nbsp;</nobr>
+  </div>
+<H1>
+   SSMSHelp</H1>
+  <H2>
+   Heading 2</H2>
+  <H3>
+   Heading 3</H3>
+  <P>
+   Milestone offers an electronic Bill of Materials form that replaces 
+   the Microsoft Word document currently being utilized.</P>
+  <LISTING>
+   bullet one</LISTING>
+  <LISTING>
+   bullet 2</LISTING>
+  <LISTING>
+   <!-- $MVD$:spaceretainer() -->&nbsp;</LISTING>
+  <LISTING>
+   <TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0">
+    <TR>
+     <TD WIDTH="33%" VALIGN="TOP">
+      <P>
+       a</TD>
+     <TD WIDTH="33%" VALIGN="TOP">
+      <P>
+       b</TD>
+     <TD WIDTH="33%" VALIGN="TOP">
+      <P>
+       x</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="33%" VALIGN="TOP">
+      <P>
+       s</TD>
+     <TD WIDTH="33%" VALIGN="TOP">
+      <P>
+       e</TD>
+     <TD WIDTH="33%" VALIGN="TOP">
+      <P>
+       r</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="33%" VALIGN="TOP">
+      <P>
+       f</TD>
+     <TD WIDTH="33%" VALIGN="TOP">
+      <P>
+       h</TD>
+     <TD WIDTH="33%" VALIGN="TOP">
+      <P>
+       j</TD>
+    </TR>
+   </TABLE>
+ <form method="POST" action="http://www.eHelp.com/ehelpapi.asp?cmd=WebSave" name="ehelpform" target="_top">
+
+  <input type="hidden" name="data" value="2A0D020000000011020B00000054657374207374796C657312020800000053534D5348656C701302090000004D696C6573746F6E6515020D0000004D696C6573746F6E652E68746D17030000000018010400000002000000702A">
+ </form></BODY>
+</HTML>

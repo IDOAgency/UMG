@@ -1,0 +1,658 @@
+<HTML>
+ <HEAD>
+  <!-- $MVD$:app("RoboHELP HTML Edition by Blue Sky Software, portions by MicroVision Dev. Inc.","769") -->
+  <!-- $MVD$:template("","0","0") -->
+  <!-- $MVD$:color("15","808000","Custom #1","0") -->
+  <!-- $MVD$:fontset("Verdana","Verdana") -->
+  <!-- $MVD$:fontset("Arial","Arial") -->
+  <TITLE>What's New</TITLE>
+  <META NAME="generator" CONTENT="RoboHELP by Blue Sky Software www.blue-sky.com HTML Edition">
+  <SCRIPT language="javascript">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='Milest_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='Milestone.css'>");}
+//-->
+
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht1.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht2.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript"><!-- 
+//////////BSSCDHTML Section Embedded Code//////////
+var s_strAgent = navigator.userAgent.toLowerCase();
+var s_nVer	   = parseInt(navigator.appVersion);
+
+var s_bIE  = (s_strAgent.indexOf('msie') != -1);
+var s_bNS  = (s_strAgent.indexOf('mozilla') != -1) && ((s_strAgent.indexOf('spoofer') == -1) && (s_strAgent.indexOf('compatible') == -1));
+var s_bOpera	= (s_strAgent.indexOf('opera') != -1);
+
+var s_bIE3Before = ((s_bIE) && (s_nVer <= 2));
+var s_bNS3Before = ((s_bNS) && (s_nVer <= 3));
+
+var s_bNS2		= ((s_bNS) && (s_nVer <= 2));
+var s_bNS3		= ((s_bNS) && (s_nVer == 3));
+var s_bIE300301	= ((s_bIE) && (s_nVer == 2) && ((s_strAgent.indexOf("3.00") != -1)||(s_strAgent.indexOf("3.0a") != -1)||(s_strAgent.indexOf("3.0b")!=-1)||(s_strAgent.indexOf("3.01")!=-1)));
+var s_bIE302	= ((s_bIE) && (s_nVer == 2) && (s_strAgent.indexOf("3.02") != -1));
+
+
+function HasExtJs()
+{
+	if (s_bIE3Before) { return false;}
+	if (s_bNS3Before) {	return false;}
+	if (typeof (_BSSCOnLoad) == "undefined"){ return false; }
+	return true;
+}
+
+function BSSCOnLoad()
+{
+	if (HasExtJs()) { _BSSCOnLoad(); }
+}
+
+function BSSCOnUnload()
+{
+	if (HasExtJs()) { _BSSCOnUnload(); }
+}
+
+function BSSCOnClick()
+{
+	if (HasExtJs()) { _BSSCOnClick(); }
+}
+
+function WritePopupMenuLayer()
+{
+	if (HasExtJs()) {_WritePopupMenuLayer();}
+}
+
+function BSSCCreatePopupDiv()
+{
+	if (HasExtJs()) {_BSSCCreatePopupDiv();	}
+}
+
+function BSSCPopup(strURL)
+{
+	if (HasExtJs())	{ 
+		_BSSCPopup(strURL);
+	}else{
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+		// Create the real popup window
+		var wndPopup = window.open(strURL, "PopupWindow", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=300,width=400");
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		} else {
+			wndPopup.focus();
+		}
+	}
+}
+
+
+function PopupMenu_Invoke()
+{
+	if (HasExtJs()) {
+		return _PopupMenu_Invoke(PopupMenu_Invoke.arguments);
+	}
+	if (s_bNS3Before || s_bIE3Before )	{
+		var argLen 	= PopupMenu_Invoke.arguments.length;
+		if (argLen < 5) {
+			window.document.location.href = PopupMenu_Invoke.arguments[3];
+			return false;
+		}
+		var nHeight = argLen * 15;
+		var nWidth = 400;
+		var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=auto";
+		strParam += ",height=" + nHeight + ",width=200,resizable";
+		
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+
+		var wndPopupLinks = window.open("", "popuplinks", strParam);
+		wndPopupLinks.document.open("text/html");
+		wndPopupLinks.document.write("<html><head>");
+		if (s_bNS2 || s_bOpera) {
+			wndPopupLinks.document.write("<base href=\"" + location +"\">");
+		} else {
+			//YJ: IE301,302 and NS3.x works fine
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("script>");
+			wndPopupLinks.document.write("function gotoUrl(aUrl) {opener.window.location=aUrl; close();}");
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("/script>");
+		}
+		wndPopupLinks.document.write("</head><body onBlur=\'self.focus();\'>");
+		var strParaLine = "";
+		for (var i = 0; i < (argLen - 2) / 2; i++) {
+			strParaLine = "";
+			if (s_bNS2 || s_bOpera){
+				strParaLine += "<a href=\"";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\">"
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			} else {
+				strParaLine += "<a href=\"javascript:";
+				strParaLine += "gotoUrl(\'";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\');\"";
+				if (PopupMenu_Invoke.arguments[1] != '') {
+					strParaLine += " TARGET='" + PopupMenu_Invoke.arguments[1] + "'";
+				}
+				strParaLine += ">";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			}
+			strParaLine += "<br>";
+			wndPopupLinks.document.write(strParaLine);
+		}
+		wndPopupLinks.document.write("</body></html>");
+		wndPopupLinks.document.close();
+
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		}else {
+			wndPopupLinks.focus();
+		}
+
+		return true;
+	}
+	return false;
+}
+  
+
+ 
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+ 
+//-->
+  </SCRIPT></HEAD>
+  <BODY ONLOAD="BSSCOnLoad();" ONCLICK="BSSCOnClick();">
+  
+  <div id='NavBar' STYLE='position:relative;' align='right'><nobr><font size=1>
+   <script language="javascript"><!--
+ var bHomePage=false; if(document.all){if ((top)&&(top.frames)&&(top.frames.length<=1)) bHomePage=true;} if(document.layers){if((parent)&&(parent.top.frames)&&(parent.top.frames.length<=1)) bHomePage=true;}
+if (bHomePage){document.write("<a href='Milestone.htm'><img src='bsscnav1.gif' width=53 height=18 border=no></a>");}
+//-->
+   </script></font>&nbsp;&nbsp;&nbsp;</nobr>
+  </div>
+<H1>
+   <SPAN STYLE="font-size : 12.0pt;"><FONT SIZE=3>What's New?</FONT></SPAN></H1>
+  <H2>
+   3/7/02</H2>
+  <H3>
+   Deadline Schedule Report</H3>
+  <P>
+   A new report has been added to Milestone that calculates future task 
+   due dates based on the templates you select. This new report, the 
+   Deadline Schedule Report, uses street dates, task owner and templates 
+   as it's selection criteria. To run this report, enter a street date 
+   range and select the templates for the report. The templates can be 
+   selected by clicking on the template names. Use the Shift key to 
+   select a series of templates that appear consecutively in the list, 
+   or the Ctrl key to select templates when they do not appear 
+   consecutively. The report will calculate the task due dates for each 
+   street date listed. The street dates that appear will be based on the 
+   selection criteria entered. For example, if your street date criteria 
+   begin with 3/12/02, and end with 4/2/02, the report will calculate 
+   the task due dates for the four street dates that fall within this 
+   range. They will be displayed with one street date per column, 
+   therefore you would see four columns, 3/12/02, 3/19/02, 3/26/02 and 
+   4/2/02. </P>
+  <H3>
+   Changes to the UML New Release Master Report</H3>
+  <P>
+   The New Release Master will only print releases that have UML tasks. 
+   If a release does not have any UML tasks, it will not appear on the 
+   report. </P>
+  <P>
+   Releases with the &quot;P&amp;D&quot; check box selected will have 
+   &quot;n/a&quot; appear in date field for the &quot;PPR&quot; column. 
+   If a release does not have the &quot;PPR received by UML&quot; task, 
+   &quot;n/a&quot; will appear in the &quot;M/C&quot; column.</P>
+  <P>
+   &quot;Sp pkg&quot; will appear below the completion date in the BOM 
+   column for releases with the &quot;Special Packaging&quot; indicator 
+   selected on the selection screen. </P>
+  <H3>
+   Additional fields copied when using the Selection copy feature</H3>
+  <P>
+   When a release is being copied, the following additional fields will 
+   be copied:</P>
+  <UL>
+   <LI CLASS="mvd-P">
+   <P>
+    Project ID</P>
+   <LI CLASS="mvd-P">
+   <P>
+    P&amp;D check box</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Product Category</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Release Type</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Config</P>
+   <LI CLASS="mvd-P">
+   <P>
+    Subconfig</P>
+   </UL>
+  <H3>
+   Changes to the BOM</H3>
+  <P>
+   The BOM type field (Retail or Promo) will default from the selection 
+   screen (Commercial = Retail, Promo = Promo). The Releasing Company 
+   field no longer needs to be entered manually, it will use the company 
+   field from the selection screen. </P>
+  <H3>
+   Label Templates are listed first when assigning a Template</H3>
+  <P>
+   When you are asked to choose a template on the schedule screen, the 
+   label templates will now appear first, all enterprise templates will 
+   appear last.</P>
+  <H2>
+   12/19/01</H2>
+  <H3>
+   Alphabet Hyper Link has been added to the Selection the Notepad</H3>
+  <P>
+   An alphabet hyper link has been added to the bottom of the search 
+   notepad. When a letter is selected from the alphabet hyperlink, the 
+   notepad will &quot;jump&quot; to first artist or title that begins 
+   with that letter. If there are no records that begin with the letter 
+   selected, the notepad will &quot;jump&quot; to the next available 
+   record. The letters in the alphabet hyperlink will correspond to 
+   primary sort of the note pad, either Artist or Title. The alphabet 
+   hyper link only appears when the notepad has a primary sort order of 
+   either Artist or Title. The underscore character that precedes the 
+   &quot;A&quot; is for numbers and special characters.</P>
+  <H3>
+   Buttons on the Notepad have moved</H3>
+  <P>
+   The beginning, previous, next, and ending buttons on the search 
+   notepad have been moved from the bottom to the top section of the 
+   note pad, above the column headings.</P>
+  <H3>
+   Sort Indicator has been added to the Selection Notepad</H3>
+  <P>
+   An triangle appears to the right of the column title for the column 
+   with the primary sort. When the triangle point points up, the primary 
+   sort for that column is ascending. When the triangle point down, the 
+   primary sort for that column in descending.</P>
+  <H3>
+   Multiple Selection Numbers</H3>
+  <P>
+   A pop-up box has been added to the Selection screen to allow the user 
+   to enter multiple user defined names and/or descriptions. To add 
+   additional names and description, click on the Other hyper link. 
+   Enter the additional names and/or descriptions in the pop-up box. 
+   After the information has been saved and the box has been closed, the 
+   Other label font will change to purple. A purple Other label 
+   indicates multiple names and/or descriptions have been entered for 
+   that selection. If no data is entered in this box then the Other font 
+   will remain in black.</P>
+  <H3>
+   Value Added and Box Set have been added to the PFM form</H3>
+  <P>
+   Two new check boxes have been added to the PFM form for a Box Set 
+   and/or Value Added. The new check boxes are located below the Import 
+   Indicator field.</P>
+  <H3>
+   Custom Reports appear at the beginning of the Report Note Pad</H3>
+  <P>
+   All Custom Reports now appear at the beginning of the Report Note 
+   Pad, instead of after the Enterprise Reports.</P>
+  <H3>
+   Additional Report Status Filter for &quot;All, excluding TBS&quot;</H3>
+  <P>
+   A new status filter called &quot;All, excluding TBS&quot; has been 
+   added to the report screen. This status filter would include the 
+   statuses of Active, Closed and Cancelled.</P>
+  <H2>
+   11/15/01</H2>
+  <H3>
+   Modification to default in the User Login ID&amp;#9;</H3>
+  <P>
+   After an initial sign-on, Milestone will save your User Login ID. 
+   Milestone will default your User Login ID on the sign-on screen for 
+   all future sign-ins into Milestone.</P>
+  <H3>
+   Multiple Selection Numbers</H3>
+  <P>
+   A pop-up box has been added to the Selection screen to allow the user 
+   to enter multiple Selection IDs and/or UPC codes. To add additional 
+   Selection IDs and/or UPC codes, click on the ID or UPC hyper link. 
+   Enter the additional Selection IDs, UPC codes and/or descriptions in 
+   the pop-up box. After the information has been saved and the box has 
+   been closed, the ID and UPC label fonts will change to purple. A 
+   purple ID or UPC label indicates multiple selection numbers and/or 
+   UPC codes have been entered for that selection. If no data is entered 
+   in this box then the ID and UPC label font will remain in black.</P>
+  <H3>
+   Explicit Ind. field on the Selection screen renamed to Parental Adv.</H3>
+  <P>
+   To be more consistent with Legacy, the Explicit Ind. field on the 
+   Selection screen has been renamed to Parental Adv.</P>
+  <H3>
+   Comp. Cd field on the PFM form has changed to Comp Sndtrack</H3>
+  <P>
+   To be more consistent with Legacy, the Comp. Cd field on the PFM 
+   screen has been renamed Comp Sndtrack.</P>
+  <H2>
+   11/1/01</H2>
+  <H3>
+   Artist First and Last Name</H3>
+  <P>
+   The Artist field in Milestone has been changed to display last name 
+   followed by a comma, then first name. For example, if an artist is 
+   entered with a first name is &#147;Sheryl&#148; and last name is 
+   &#147;Crow&#148;, it will now appear in Milestone as &#147;Crow, 
+   Sheryl&#148; instead of &quot;Sheryl Crow&quot;. The artist name will 
+   also this way on all reports, except for the custom reports that were 
+   requested to have the artist appear by first name followed by last 
+   name. If you want your customer report to not display the artist by 
+   last name, please let me know. Upon request, we can change your 
+   report to display the artist in original way.</P>
+  <H3>
+   Task Department Filter on the Schedule Screen</H3>
+  <P>
+   A department task filter has been added to the the Schedule screen. 
+   It is located above the clear button. To filter tasks on a schedule 
+   by a selected department, select the appropriate departement from the 
+   department filter drop-down list on the Schedule screen. Only the 
+   tasks assigned to that department will appear.</P>
+  <P>
+   A default filter can be set-up for each user. The filter can also be 
+   disabled for users so that the user would not have the ability to 
+   change it.</P>
+  <H3>
+   Draft/Final radio button added to BOM and PFM</H3>
+  <P>
+   A Draft and Final radio buttons has been added to the BOM and PFM 
+   screens. The forms will default to the Draft radio button. The 
+   buttons are for reference purposes only. They will not print of the 
+   PFM .</P>
+  <H2>
+   10/11/01</H2>
+  <H3>
+   Online Help</H3>
+  <P>
+   The Milestone user guide is now on-line. To open the help file in 
+   Milestone, select the question mark button. This new button appears 
+   on the login screen and on each screen in the application in the 
+   upper right hand corner below the menu bar. When the help button is 
+   selected from within the application, the file will jump to the help 
+   section that relates to the screen you are on.</P>
+  <H3>
+   FAQs &amp; What's New</H3>
+  <P>
+   FAQs and What's New information is also included in the help file. 
+   The FAQs section contains frequently asked questions regarding 
+   Milestone. The What's New section is a recent list of any Milestone 
+   updates, changes, and enhancements.</P>
+  <H3>
+   Territories field has been added</H3>
+  <P>
+   A territories field has been added to the selection screen. Data can 
+   be entered directly into this field, or you can double click the 
+   field to enter the territories in a pop-up box.</P>
+  <H3>
+   PFM comments field has been increased</H3>
+  <P>
+   The comment field in the PFM form has been increased from 80 
+   characters to 250.</P>
+  <H3>
+   Last Update has been added to the Schedule Screen</H3>
+  <P>
+   A last updated time, date, and user has been added to the Schedule 
+   screen. This information will appear at the bottom of the schedule screen.</P>
+  <H3>
+   UME Production Schedule Fix</H3>
+  <P>
+   The UME report will not print a completion date if there is no due 
+   date for a task.</P>
+  <H3>
+   Report changes made specifically for IDJ:</H3>
+  <P>
+   The comments in the Production report now appear in bold</P>
+  <H2>
+   9/27/01</H2>
+  <H3>
+   User Info Screen</H3>
+  <P>
+   This new screen has been added to Milestone to allow you to change 
+   your password and update your user information. The email address, 
+   phone number, and fax number from your user information will be used 
+   in the PFM and BOM. See below.</P>
+  <H3>
+   User Info defaults to corresponding fields on new PFMs and BOMs.</H3>
+  <P>
+   Information from your user profile will now default into new PFMs and 
+   BOMs. The email address, phone number, and fax number from your user 
+   information will default to the coresponding fields on new PFMs and 
+   BOMs. If your user information is incorrect, you can update your 
+   profile using the new User Info screen mentioned above.</P>
+  <H3>
+   Notepad can be sorted ascending and descending</H3>
+  <P>
+   The notepad now has the ability to sort records in descending order. 
+   The notepad automatically sorts records in ascending order. You can 
+   toggle back and forth between ascending and descending sort order 
+   based upon repeated pressing of a column title. This feature works on 
+   all column titles in the notepad.</P>
+  <H3>
+   A Cancel Button has been added to Search box</H3>
+  <P>
+   The cancel button on the search box is located to the right of the 
+   &quot;Submit Search&quot; button. When selected, the cancel will 
+   close the search window.</P>
+  <H3>
+   Hover help has been added to comments icons</H3>
+  <P>
+   To differentiate the comments icon, a hover help has been added. To 
+   determine what type of comment the icon represents, hover over the 
+   icon to display the name of the comment.</P>
+  <H3>
+   Enterprise To Do List Report</H3>
+  <P>
+   This report will list all tasks due for a release between a specified 
+   date range.</P>
+  <H3>
+   UML Production Status Report</H3>
+  <P>
+   This report list will list the due dates, completion dates and days 
+   late for UML tasks.</P>
+  <H2>
+   8/27/01</H2>
+  <H3>
+   Multiple Manufacturing Plants have been added to the Manufacturing screen</H3>
+  <P>
+   Multiple Vendor/Plants can now be entered on the Manufacturing screen 
+   by UML. To add a Vendor/Plant, select the Add Vendor button on the 
+   bottom left hand section of the Manufacturing screen. To delete a 
+   Vendor/Plant, select the blue &quot;del&quot; text to the right of 
+   the completed quantity field. Only UML has rights edit this screen.</P>
+  <H3>
+   Selection Comments are editable in the Schedule screen</H3>
+  <P>
+   Selection comments now can be entered or edited by a label user in 
+   the Schedule screen. Comments can still be edited in the Selection screen.</P>
+  <H3>
+   Task Due by Project Report</H3>
+  <P>
+   The Task Due by Project report will list all the tasks due for 
+   projects that are between due dates entered in the selection 
+   criteria. To run this report, enter a beginning due date and ending 
+   due date in the selection criteria. All task within the entered date 
+   range will appear on this report by project.</P>
+  <H3>
+   Report Filter excluding selections without schedules</H3>
+  <P>
+   A new report filter has been added to the report selection criteria 
+   to exclude releases without schedules applied. To run a report for 
+   only releases with schedules applied, select the &quot;Schedule 
+   Releases&quot; check box. All releases without schedules will be 
+   excluded from the report.</P>
+  <H3>
+   Report Filter by Configuration</H3>
+  <P>
+   A new report filter has been added to the report selection criteria 
+   to filter by configuration. To run a report by a specific 
+   configuration, select the configuration name from the 
+   &quot;Configuration&quot; drop-down box.</P>
+  <H3>
+   Multiple Impact Dates</H3>
+  <P>
+   Multiple Impact dates and formats can be added on the selection 
+   screen. After saving a selection, click on the underlined &quot;Impact
+    Date&quot; label hyper-link. Impact dates and formats can be entered 
+   in the pop-up box. The Impact date and format are required fields 
+   when entering multiple impact dates. The color of the &quot;Impact 
+   Date&quot; label will change from blank to purple after date has been 
+   entered in the pop-up.</P>
+  <H2>
+   <SPAN STYLE="font-weight : bold;font-size : 11.0pt;"><FONT SIZE=3><B>8/2/01</B></FONT></SPAN></H2>
+  <P>
+   Two new Enterprise Reports have been added to Milestone:</P>
+  <H3>
+   <SPAN STYLE="font-weight : bold;"><B>Enterprise Releases without 
+   Schedules Report</B></SPAN></H3>
+  <P>
+   This report will list all Selections that do not have Schedules 
+   (templates) applied.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Enterprise Past Due Releases Report</B></SPAN></P>
+  <P>
+   This report list will list all releases that are a past a selected 
+   Street Date. It will also indicates releases that have all tasks 
+   completed. The report can be used to help cancel or close the 
+   projects that are no longer active.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;font-size : 11.0pt;"><FONT SIZE=3><B>7/26/01</B></FONT></SPAN></P>
+  <P>
+   <SPAN STYLE="font-weight : normal;">An important change has been made 
+   to the File Maintenance form so please read this document carefully.</SPAN></P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Changes to the Spine Sticker and 
+   Shrink Wrap fields in the BOM!!</B></SPAN></P>
+  <P>
+   A change has been made to Spine Sticker and Shrink Wrap fields on the 
+   BOM disc screen. The &quot;NO Spine Sticker&quot; and &quot;NO Shrink 
+   Wrap&quot; check boxes have been changed to &quot;Spine Sticker&quot; 
+   and &quot;Shrink Wrap&quot; respectively. The default for these 
+   fields is yes (checked box), this indicates there is a Spine Sticker 
+   and Shrink Wrap. If the release does not have a Spine Sticker or 
+   Shrink Wrap, uncheck the selected check boxes.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>A Compilation Code has been added 
+   to the PFM</B></SPAN></P>
+  <P>
+   A new drop down has been added to the PFM form to enter a Compilation 
+   Code. It is located below the Price Point field.</P>
+  <P>
+   The values for the Compilation Code are as follows:</P>
+  <P>
+   0 - Single Artist - use if this product contains a performance by a 
+   single artist or group</P>
+  <P>
+   1 - Single Artist Compilation - use if this product is a single 
+   artist complilation (ex. Greatest Hits Album)</P>
+  <P>
+   2 - Multi-Artist Compilation - use if this product is a multi-artist 
+   complilation (ex. Various Artists Sampler)</P>
+  <P>
+   3 - Soundtrack - use if this product is a Soundtrack</P>
+  <P>
+   9 - Unknown - use if this product does not fall into any of the other 
+   categories listed above</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Search for Street Dates by Partial 
+   Dates or No Street Date</B></SPAN></P>
+  <P>
+   The street date field in the Selection search notepad has been 
+   changed to allow for partial searches using a wild card, either an 
+   asterisk(*) or percent sign(%). Selections without a street date can 
+   be searched for by entering &#147;n/a&#148; in the street date field.</P>
+  <P>
+   For example:</P>
+  <P>
+   01* returns all releases with street dates that begin with 
+   &#147;01&#148; (i.e. month=&#148;01&#148;)</P>
+  <P>
+   %01 returns all releases with street dates that end with 
+   &#147;01&#148; (i.e. year=&#148;01&#148;) &amp;#9;</P>
+  <P>
+   *01* returns all releases with street dates that contain 
+   &#147;01&#148; (i.e. month or day or year = &#147;01&#148;)</P>
+  <P>
+   n/a returns all releases with no street dates</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Explicit Indicator added to the 
+   Selection screen</B></SPAN></P>
+  <P>
+   An explicit indicator has been added to the Selection screen. This 
+   field is a check box called Explicit Ind. It is located below the 
+   label contact field on the Selection screen. This field is used for 
+   reporting purpose only, it is not a mandatory field.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Close button on the Schedule screen</B></SPAN></P>
+  <P>
+   A &quot;Close&quot; button has been added to the Schedule screen. 
+   This button will change the status of a selection to 
+   &quot;Closed&quot; if all the tasks on the schedule have been 
+   completed. If all the tasks have not been completed, a message will 
+   appear stating that all tasks must have completion dates before a 
+   selection can be closed, and the selection will maintain it&#146;s 
+   original status.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>First/Last page buttons added to 
+   Search screens</B></SPAN></P>
+  <P>
+   Two new buttons have been added to the Search screens. They are 
+   located to the left and the right of next and previous buttons. The 
+   button with the arrow pointing to the left will go to the first page 
+   of the records displayed. The button with the arrow pointing to the 
+   right will go to the last page of the records displayed.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Search by Label Contact</B></SPAN></P>
+  <P>
+   You can now search for selections by Label Contact. To search by 
+   Label Contact, select the name of the label contact from the Label 
+   Contact drop-down on the selection search.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Search by Company</B></SPAN></P>
+  <P>
+   You can now search for selections by Company. To search by Company, 
+   select the name of the company from the Company drop-down on the 
+   Selection search.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Security added to the Report screen</B></SPAN></P>
+  <P>
+   Security has been added to the report screen. Only the custom reports 
+   you have security rights to will display. This eliminates the names 
+   of custom reports for other labels displaying on the report screen. 
+   You will also still have authority to all Enterprise and UML reports.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Report changes specifically for IDJ</B></SPAN></P>
+  <P>
+   The requested changes have been made to the IDJ Production Schedule.</P>
+  <P>
+   <!-- $MVD$:spaceretainer() -->&nbsp;
+ </BODY>
+</HTML>

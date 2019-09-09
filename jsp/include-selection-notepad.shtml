@@ -1,0 +1,654 @@
+<%
+	// get the Notepad Object out of the session
+	Notepad notepad = (Notepad)context.getSessionValue(MilestoneConstants.NOTEPAD_SESSION_NAMES[MilestoneConstants.NOTEPAD_SELECTION]);
+
+	// gets the titles of the columns
+	String[] columnNames = notepad.getColumnNames();
+
+	// gets the contents of the search results
+	Vector pageContents = notepad.getPageContents();
+
+        // msc its 479 2/21/03
+        String sortStr = "0"; // default to artist
+        NotepadSortOrder notepadSortOrder = NotepadSortOrder.getNotepadSortOrderFromSession(context);
+        sortStr =  new Integer(notepadSortOrder.getSelectionOrderColNo()).toString();
+        // msc its 479 2/21/03
+	
+    // release upgrade 8.1
+    User userNP = (User) context.getSession().getAttribute("user");
+    // if use is admin or GDRS is not active
+    Boolean IsAdminNP = (userNP != null && userNP.getAdministrator() == 1)  ||  !MilestoneConstants.IsGDRSactive ? true : false;
+  int colspan = 3;
+%>
+
+<link rel=stylesheet type="text/css" href="<%= inf.getHtmlDirectory() %>global.css" title="GlobalStyle">
+
+<style>
+a.pinkLink:link {color: #990099; font-size: 8pt; font-family: "Arial","Helvetica"; text-decoration:none;}
+a.pinkLink:visited {color: #990099; font-size: 8pt; font-family: "Arial","Helvetica"; text-decoration:none;}
+a.pinkLink:active {color: #990099; font-size: 8pt; font-family: "Arial","Helvetica"; text-decoration:none;}
+a.pinkLink:hover {color: red; font-size: 8pt; font-family: "Arial","Helvetica"; text-decoration:none;}
+</style>
+
+
+<script type="text/javascript" language="javascript">
+var sOffColor = 65638;
+<% Selection myTempCurrentSelection = (Selection)context.getSessionValue("Selection"); %>
+<% if (myTempCurrentSelection != null && myTempCurrentSelection.getIsDigital()) { %>
+	top.menuFrame.MIselectionmanufacturing.style.color = sOffColor;
+	top.menuFrame.MIselectionmanufacturing.style.visibility='hidden';
+	top.menuFrame.MIbom.style.color = sOffColor;
+	top.menuFrame.MIbom.style.visibility='hidden';
+<% } else { %>
+	top.menuFrame.MIselectionmanufacturing.style.visibility='visible';
+	top.menuFrame.MIbom.style.visibility='visible';
+<% } %>
+
+/* function submitGroup( alpha, colNo )
+{
+  //alert(" alpha char " + document.forms[0].alphaGroupChr.value );
+  if( colNo == 0 || colNo == 7) // artist column
+    document.forms[0].OrderBy.value = "0";
+  if( colNo == 1 || colNo == 8 ) // title column
+    document.forms[0].OrderBy.value = "1";
+
+  document.forms[0].alphaGroupChr.value = alpha;
+  document.forms[0].cmd.value = sort;
+  document.forms[0].submit();
+} //end function submitList() */
+</script>
+
+
+<script type="text/javascript" language="javascript">
+
+function submitPagging( pForward )
+{
+	//document.forms[0].Action.value = "get";
+  if( pForward )
+  {
+  	parent.top.bottomFrame.location = "home?cmd=notepad-next&notepadType=<%=MilestoneConstants.NOTEPAD_SELECTION%>&lastCommand=<%=editorName%>";
+  }
+  else
+  {
+  	parent.top.bottomFrame.location = "home?cmd=notepad-previous&notepadType=<%=MilestoneConstants.NOTEPAD_SELECTION%>&lastCommand=<%=editorName%>";
+  }
+}//end function submitPagging()
+
+function submitFirst()
+{
+	parent.top.bottomFrame.location = "home?cmd=notepad-first&notepadType=<%=MilestoneConstants.NOTEPAD_SELECTION%>&lastCommand=<%=editorName%>";
+}
+
+function submitLast()
+{
+	parent.top.bottomFrame.location = "home?cmd=notepad-last&notepadType=<%=MilestoneConstants.NOTEPAD_SELECTION%>&lastCommand=<%=editorName%>";
+}
+
+function overGroup(gObj)
+{
+   gObj.style.color = "white";
+   gObj.style.backgroundColor = "blue"
+}
+function outGroup(gObj)
+{
+   gObj.style.color = "blue";
+   gObj.style.backgroundColor = "white"
+
+}
+
+function quickSearch(x)
+{
+  if (x==0)
+    document.forms[0].ProdType[1].checked = true;
+  else if (x==1)
+    document.forms[0].ProdType[0].checked = true;
+  else
+    document.forms[0].ProdType[2].checked = true;
+
+ // msc, Now using hidden frame to submit search results
+ // submitSearch();
+ submitSearchResults();
+}
+
+
+</script>
+
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr valign="top">
+	<td><img src="<%= inf.getImageDirectory() %>Notepad_Top_280_new.gif" width="280" border="0"></td>
+</tr>
+<tr>
+	<td>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+		<tr valign="top">
+			<td>
+				<table width="100%" cellpadding="0" cellspacing="0" border="0" background="<%= inf.getImageDirectory() %>notepad_bg.gif">
+				<tr >
+					<td align="left">
+					<% // check to see if search button should be visible
+
+            if (notepad.isSearchButtonVisible())
+						{%>
+						<a href ="Javascript:toggle( 'SearchLayer', 'ArtistSearch' )"
+											onMouseOver="Javascript:mtbSearch.over();return true;"
+											onMouseOut="Javascript:mtbSearch.out()"
+											onClick="Javascript:mtbSearch.click(); return true;">
+											<img name="Search" id="Search" src="<%= inf.getImageDirectory() %>Search_On.gif" width="66" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbSearch = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Search', "Javascript:toggle( 'SearchLayer', 'ArtistSearch')", 66, 14);
+						</script>
+					 <%}%>
+					</td>
+					<td align="left">
+						<span class="title"><% if (notepad.getTitle() != null){%> <%= notepad.getTitle() %> <%}%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</td>
+				</tr>
+				</table>
+
+              <!--  Place static navigation buttons start here  -->
+
+				<table width="100%" cellpadding="5" cellspacing="0" border="0" background="<%= inf.getImageDirectory() %>notepad_bg.gif">
+				<tr valign="top" >
+					<td width="25%" align="center">
+					<% // check to see if First Button should be visible
+						if (notepad.isFirstButtonVisible())
+						{
+					%>
+						<a href="JavaScript:submitFirst()"
+										onMouseOver="Javascript:mtbFirst.over();return true;"
+										onMouseOut="Javascript:mtbFirst.out()"
+										onClick="Javascript:mtbFirst.click(); return true;">
+										<img name="First" id="First" src="<%= inf.getImageDirectory() %>First_On.gif" width="26" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbFirst = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'First', "JavaScript:submitFirst()", 26, 14);
+						</script>
+           <%
+           }
+           else
+           {%>
+            <img name="first" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border="0">
+					<%}%>
+					</td>
+
+					<td width="25%" align="center">
+					<% // check to see if Previous Button should be visible
+						if (notepad.isPreviousButtonVisible())
+						{
+					%>
+						<A HREF ='Javascript:submitPagging( false )'
+              onMouseOver="Javascript:mtbPrev.over();return true;"
+              onMouseOut="Javascript:mtbPrev.out()"
+              onClick="Javascript:mtbPrev.click(); return true;">
+             <IMG NAME='Prev' SRC="<%= inf.getImageDirectory() %>Prev_On.gif" WIDTH=46 HEIGHT=14 BORDER=0 HSPACE=0 VSPACE=0 ALIGN="absmiddle">
+           </A>
+          <SCRIPT type="text/javascript" language="JavaScript" >
+            var mtbPrev = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Prev', 'Javascript:submitPagging( false )', 46, 14);
+          </SCRIPT>
+           <%
+           }
+           else
+           {%>
+            <img name="Previous" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border="0">
+					<%}%>
+					</td>
+					<td width="25%" align="center">
+					<% // check to see if Next Button should be visibles
+						if (notepad.isNextButtonVisible())
+						{
+					%>
+						<a href="Javascript:submitPagging(true)"
+										onMouseOver="Javascript:mtbNext.over();return true;"
+										onMouseOut="Javascript:mtbNext.out()"
+										onClick="Javascript:mtbNext.click(); return true;">
+										<img name="Next" id="Next" src="<%= inf.getImageDirectory() %>Next_On.gif" width="46" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript" >
+							var mtbNext = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Next', "Javascript:submitPagging( true )", 46, 14);
+						</script>
+					<%}%>
+					</td>
+
+					<td width="25%" align="center">
+					<% // check to see if Last Button should be visible
+						if (notepad.isLastButtonVisible())
+						{
+					%>
+						<a href="JavaScript:submitLast()"
+										onMouseOver="Javascript:mtbLast.over();return true;"
+										onMouseOut="Javascript:mtbLast.out()"
+										onClick="Javascript:mtbLast.click(); return true;">
+										<img name="Last" id="Last" src="<%= inf.getImageDirectory() %>Last_On.gif" width="26" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbLast = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Last', "JavaScript:submitLast()", 26, 14);
+						</script>
+
+
+           <%
+           }
+           else
+           {%>
+            <img name="last" src="<%= inf.getImageDirectory() %>Blank_Image.gif" border="0">
+					<%}%>
+					</td>
+
+
+
+				</tr>
+
+        	</table>
+
+              <!--  Place static navigation buttons here (end)  -->
+
+              <!--  Column names logic starts here  -->
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table width="100%" class="list" cellspacing="0" border="0">
+				<tr>
+					<% // this gets the columnNames for the search results (Artist, Title, Str Dt)
+						for (int i = 0 ; i < columnNames.length; i++)
+						{%>
+					<!--th NOWRAP width="30%"-->
+                                        <% if (columnNames[i].equals("Str Dt")) {%>
+                                            <td nowrap align="right" valign="top" width="30%">
+                                        <% } else if (columnNames[i].equals("Local Prod #")) { // JP %>
+                                            <td nowrap align="left" valign="top" width="30%" colspan=2>
+                                        <% } else { %>
+                                            <td nowrap align="left" valign="top" width="30%">
+                                        <% } %>
+                                                <b>
+						<a href="Javascript:submitList('<%=columnNames[i]%>')">
+                                                    <% if (columnNames[i] != null){%>
+                                                        <%=columnNames[i] %>
+                                                           <%@ include file="include-sortorder-notepad.shtml" %>
+                                                   <%}%>
+                                                </a>
+                                                </b>
+                                        </td>
+					<!--/th-->
+					  <%}%>
+				</tr>
+				<tr><td colspan="5"><hr noshade></td></tr>
+				<% if (notepad.getAllContents().size() <= 0)
+					{
+				%>
+					<tr><td colspan="3"><%= notepad.getErrorMessage() %></td></tr>
+				<%}
+					else
+					{
+				%>
+
+					<%
+						// this checks to see which link was clicked and changes the background color
+						// also, this will default the first link to be highlighted when the user first lands
+						// on the page
+
+
+	          int selectionId = 0;
+	          Selection selectItem = (Selection)notepad.getSelected();
+
+
+	          if(selectItem != null)
+	          {
+	            int selectedSelection = selectItem.getSelectionID();
+
+	  					for (int i=0 ; i < pageContents.size(); i++)
+	  					{
+
+	              Selection selection = (Selection)pageContents.get(i);
+	  						selectionId = selection.getSelectionID();
+
+								SelectionConfiguration notepadCfg = (SelectionConfiguration)selection.getSelectionConfig();
+								SelectionSubConfiguration notepadSubCfg = (SelectionSubConfiguration)selection.getSelectionSubConfig();
+
+								String notepadPrefix = "";
+								if (selection.getPrefixID() != null)
+								{
+									notepadPrefix = selection.getPrefixID().getAbbreviation();
+								}
+
+								String notepadUpc = "";
+								if (selection.getUpc() != null)
+								{
+									notepadUpc = selection.getUpc();
+								}
+
+								String notepadSelectionNo = "";
+								if(selection.getSelectionNo() != null)
+								{
+									notepadSelectionNo = selection.getSelectionNo();
+								}
+
+                                                            String linkClass = "";
+                                                            if (selection.getIsDigital())
+                                                              linkClass = "pinkLink";
+
+	  				%>
+	  				<tr valign="top" <%if (selectedSelection == selectionId && !selection.getIsDigital()){%> class="selected"<%} else if (selectedSelection == selectionId && selection.getIsDigital()) {%> class="selectedDigital"<%}%>>
+	  					<td align="left" valign="top" width="30%">
+	  						<a class='<%=linkClass%>' href="Javascript:submitGet('<%= selection.getSelectionID() %>')" title="Cfg: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadCfg.getSelectionConfigurationName()) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSubCfg.getSelectionSubConfigurationName()) %>; UPC: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadUpc) %>; Prefix/Local Prod #: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadPrefix) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSelectionNo) %>">
+                                                            <!-- JP Digital AFE -->
+	  							<% if (selection.getArtist() != null){%> <%= selection.getArtist() %> <%}%>
+	  						</a>
+	  					</td>
+	  					<td align="left" valign="top" width="50%">
+	  						<a class='<%=linkClass%>' href="Javascript:submitGet('<%= selection.getSelectionID() %>')" title="Cfg: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadCfg.getSelectionConfigurationName()) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSubCfg.getSelectionSubConfigurationName()) %>; UPC: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadUpc) %>; Prefix/Local Prod #: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadPrefix) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSelectionNo) %>">
+
+	  							<% if (selection.getTitle() != null){%> <%= selection.getTitle() %> <%}%>
+
+	  						</a>
+	  					</td>
+
+	  					<%if (columnNames[2].equalsIgnoreCase("Local Prod #"))
+	  					{
+	  					%>
+	  					<td align="right" valign="top" width="20%">
+	  						<a class='<%=linkClass%>' href="Javascript:submitGet('<%= selection.getSelectionID() %>')" title="Cfg: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadCfg.getSelectionConfigurationName()) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSubCfg.getSelectionSubConfigurationName()) %>; UPC: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadUpc) %>; Prefix/Local Prod #: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadPrefix) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSelectionNo) %>">
+
+	  						<%
+	  						  if (notepadPrefix.length() > 0 && notepadSelectionNo.length() >0)
+	  						    notepadSelectionNo = " " + notepadSelectionNo;
+
+                                                            out.println(notepadPrefix + notepadSelectionNo);
+                                                            colspan = 5;
+
+	  						%>
+
+	  						</a>
+	  					</td>
+                                                <td>
+                                                &nbsp;
+                                                </td>
+	  					<%}
+	  					else if (columnNames[2].equalsIgnoreCase("Upc"))
+	  					{%>
+	  					<td align="right" valign="top" width="20%">
+	  						<a class='<%=linkClass%>' href="Javascript:submitGet('<%= selection.getSelectionID() %>')" title="Cfg: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadCfg.getSelectionConfigurationName()) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSubCfg.getSelectionSubConfigurationName()) %>; UPC: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadUpc) %>; Prefix/Local Prod #: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadPrefix) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSelectionNo) %>">
+
+	  						<%
+ 								out.println(notepadUpc);
+ 								colspan = 4;
+	  						%>
+
+	  						</a>
+	  					</td>
+	  					<%}
+	  					else if (columnNames[2].equalsIgnoreCase("Prefix"))
+	  					{%>
+	  					<td NOWRAP align="right" valign="top" width="20%">
+	  						<a class='<%=linkClass%>' href="Javascript:submitGet('<%= selection.getSelectionID() %>')" title="Cfg: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadCfg.getSelectionConfigurationName()) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSubCfg.getSelectionSubConfigurationName()) %>; UPC: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadUpc) %>; Prefix/Local Prod #: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadPrefix) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSelectionNo) %>">
+
+	  						<%
+	  						if (notepadPrefix.length() > 0 && notepadSelectionNo.length() >0)
+	  						  notepadSelectionNo = " " + notepadSelectionNo;
+ 								out.println(notepadPrefix + notepadSelectionNo);
+ 								colspan = 4;
+	  						%>
+
+	  						</a>
+	  					</td>
+              <%}%>
+	  					<td align="right" valign="top" width="20%">
+	  						<a class='<%=linkClass%>' href="Javascript:submitGet('<%= selection.getSelectionID() %>')" title="Cfg: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadCfg.getSelectionConfigurationName()) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSubCfg.getSelectionSubConfigurationName()) %>; UPC: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadUpc) %>; Prefix/Local Prod #: <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadPrefix) %> / <%= MilestoneHelper.escapeDoubleQuotesForHtml(notepadSelectionNo) %>">
+
+	  						<%
+                                                        // JR - ITS# 710
+	  							if (!selection.getIsDigital() &&  selection.getStreetDate() != null)
+	                {
+	  								out.println(MilestoneHelper.getFormatedDate(selection.getStreetDate()));
+	                }
+                        else if (selection.getIsDigital() &&  selection.getDigitalRlsDate() != null)
+                        {
+	  								out.println(MilestoneHelper.getFormatedDate(selection.getDigitalRlsDate()));
+                        }
+	                else
+	                {
+	                	out.println("n/a");
+	                }
+	  						%>
+
+	  						</a>
+	  					</td>
+	  				</tr>
+	  				<tr><td colspan="<%=colspan%>"><img src="<%= inf.getImageDirectory() %>pixelshim.gif" width="100%" height="1" class="separator"></td></tr>
+	  				<%
+	          } //end for loop
+
+
+        }//end selections
+			} //end else%>
+				<tr>
+					<td colspan="<%=colspan%>">
+						<hr noshade><center class="footer">
+            <% if (notepad.getPageStatus() != null)
+            	 {
+					  %>
+            <%= notepad.getPageStatus() %>
+            <% }%>
+            </center>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" >
+
+                                                <!-- add grouping buttons here -->
+
+                  		<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+       	                	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                     		<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                     		<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                                        	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                         	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                        	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                        	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+
+                                <tr align="center" >
+                          	<% // check to see if Switch to Task Button should be visible
+                                // msc its479
+				//if ( (String)context.getSessionValue("showGroupButtons") == null || ((String)context.getSessionValue("showGroupButtons")).equalsIgnoreCase("true") )
+				if (notepadSortOrder.getShowGroupButtons())
+				{%>
+                                  <% String groupStyle = "FONT-SIZE: 8pt;COLOR: blue;FONT-FAMILY: Arial,Helvetica;font-weight: lighter;TEXT-DECORATION: underline;"; %>
+                                  <td><b><a title="_ represents numbers and special characters" id="Grp"  style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup(' ','<%=sortStr%>')">_</a></b></td>
+                                  <td><b><a title="A" id="GrpA" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('A','<%=sortStr%>')">A</a></b></td>
+                                  <td><b><a title="B" id="GrpB" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('B','<%=sortStr%>')">B</a></b></td>
+                                  <td><b><a title="C" id="GrpC" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('C','<%=sortStr%>')">C</a></b></td>
+                                  <td><b><a title="D" id="GrpD" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('D','<%=sortStr%>')">D</a></b></td>
+                                  <td><b><a title="E" id="GrpE" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('E','<%=sortStr%>')">E</a></b></td>
+                                  <td><b><a title="F" id="GrpF" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('F','<%=sortStr%>')">F</a></b></td>
+                                  <td><b><a title="G" id="GrpG" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('G','<%=sortStr%>')">G</a></b></td>
+                                  <td><b><a title="H" id="GrpH" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('H','<%=sortStr%>')">H</a></b></td>
+                                  <td><b><a title="I" id="GrpI" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('I','<%=sortStr%>')">&nbspI&nbsp</a></b></td>
+                                  <td><b><a title="J" id="GrpJ" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('J','<%=sortStr%>')">J</a></b></td>
+                                  <td><b><a title="K" id="GrpK" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('K','<%=sortStr%>')">K</a></b></td>
+                                  <td><b><a title="L" id="GrpL" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('L','<%=sortStr%>')">L</a></b></td>
+                                  <td><b><a title="M" id="GrpM" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('M','<%=sortStr%>')">M</a></b></td>
+                                  <td><b><a title="N" id="GrpN" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('N','<%=sortStr%>')">N</a></b></td>
+                                  <td><b><a title="O" id="GrpO" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('O','<%=sortStr%>')">O</a></b></td>
+                                  <td><b><a title="P" id="GrpP" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('P','<%=sortStr%>')">P</a></b></td>
+                                  <td><b><a title="Q" id="GrpQ" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('Q','<%=sortStr%>')">Q</a></b></td>
+                                  <td><b><a title="R" id="GrpR" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('R','<%=sortStr%>')">R</a></b></td>
+                                  <td><b><a title="S" id="GrpS" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('S','<%=sortStr%>')">S</a></b></td>
+                                  <td><b><a title="T" id="GrpT" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('T','<%=sortStr%>')">T</a></b></td>
+                                  <td><b><a title="U" id="GrpU" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('U','<%=sortStr%>')">U</a></b></td>
+                                  <td><b><a title="V" id="GrpV" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('V','<%=sortStr%>')">V</a></b></td>
+                                  <td><b><a title="W" id="GrpW" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('W','<%=sortStr%>')">W</a></b></td>
+                                  <td><b><a title="X" id="GrpX" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('X','<%=sortStr%>')">X</a></b></td>
+                                  <td><b><a title="Y" id="GrpY" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('Y','<%=sortStr%>')">Y</a></b></td>
+                                  <td><b><a title="Z" id="GrpZ" style="<%=groupStyle%>" onMouseOver="Javascript:overGroup(this)" onMouseOut="Javascript:outGroup(this)" href="javascript:submitGroup('Z','<%=sortStr%>')">Z</a></b></td>
+                                <%}%>
+       		<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+       		<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+       		<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                     		<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                     		<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                                              </tr>
+
+                                	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                          	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                         	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                        	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                        	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+                        	<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+
+	                            <!-- add grouping buttons here -->
+
+                                </tr>
+                               </table>
+                      	<table width="100%" cellpadding="0" cellspacing="0" border="0" >
+                  	<tr>
+
+					<td align="center">
+					<% // check to see if Switch to Task Button should be visible
+						if (notepad.isSwitchToTaskButtonVisible())
+						{
+					%>
+						<a href="JavaScript:submitShow(<%= notepad.isSwitchToTaskButtonVisible()%>)"
+										onMouseOver="Javascript:mtbSwitch_Task.over();return true;"
+										onMouseOut="Javascript:mtbSwitch_Task.out()"
+										onClick="Javascript:mtbSwitch_Task.click(); return true;">
+										<img name="Switch_Task" id="Switch_Task" src="<%= inf.getImageDirectory() %>Switch_Task_On.gif" width="135" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbSwitch_Task = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Switch_Task', "JavaScript:submitShow( true )", 66, 14);
+						</script>
+					<%}%>
+					</td>
+				</tr>
+
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				</table>
+
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+
+<%if(IsAdminNP)
+{%>
+<tr>
+	<td>
+        <table width="282" height="24" background="<%= inf.getImageDirectory() %>Notepad_Bottom_280_new.gif">
+         <tr>
+         <td  align=center nowrap>
+         <a href="javascript:quickSearch(1)" class=physical>Physical Products</a>
+         </td>
+         <td  align=center nowrap>
+         <a href="javascript:quickSearch(2)" class=all>All</a>
+         </td>
+         <td  align=center nowrap>
+         <a href="javascript:quickSearch(0)" class=digital>Digital Products</a>
+         </td>
+         </tr>
+        </table>
+		
+        </td>
+</tr>
+<%}%>
+
+</table>
+
+<script>
+//////////////////////////////////////////////////////////////////////////
+// MSC 01/28/04 Hide this button now
+// This code was added due to the users pressing these buttons
+// before the page is loaded. Now these buttons are hidden util the page
+// is completely loaded.
+////////////////////////////////////////////////////////////////////////
+if(document.all.Search)
+  document.all.Search.style.visibility = "hidden";
+</script>
+
+

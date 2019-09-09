@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+<title>Milestone Login</title>
+
+<SCRIPT language="javascript">
+<!--
+liLoginOn = new Image( 81, 45 );
+liLoginOn.src = "images/Login_On.gif";
+liLoginOff = new Image( 81, 45 );
+liLoginOff.src = "images/Login_Off.gif";
+function over() {
+  if( document.images ) {
+    document.login.src = liLoginOff.src;
+  }
+  document.forms[ 0 ].submit();
+}
+function checkInput( pKey ) {
+  if( pKey == 13 ) {
+    document.forms[ 0 ].submit();
+  }
+}
+//-->
+</SCRIPT>
+
+</head>
+
+<body onLoad="document.all[ 'name' ].focus();">
+<FONT face="arial" size="1" >
+<table border="0" width="580">
+<tr>
+<td>
+<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+codebase="http://active.macromedia.com/flash2/cabs/swflash.cab#version=4,0,0,0"
+ID=Music Splash Movie WIDTH=550 HEIGHT=300>
+<PARAM NAME=movie VALUE="images/Music Splash Movie.swf"> 
+<PARAM NAME=quality VALUE=high> 
+<PARAM NAME=bgcolor VALUE=#FFFFFF> 
+<PARAM NAME="Loop" VALUE="0">
+<EMBED src="images/Music Splash Movie.swf" quality=high bgcolor=#FFFFFF  WIDTH=550 HEIGHT=300 TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED>
+</OBJECT>
+</td>
+</tr>
+</table>
+<br>
+<FORM NAME="LayoutRegion1FORM" ACTION="loginfr.html" METHOD=POST onSubmit="over();submit();">
+<TABLE width="580" border="0">
+<TR>	
+
+    <TD align="right">User Name</TD>
+    <TD width="5"><div align="center">
+        <input type="text" name="name" size="12" tabindex=1	onKeypress="checkInput(window.event.keyCode)"></div>
+    </TD>
+    <TD width=5></TD>
+    <TD rowspan=2>
+        <A href="Javascript:over();" border=2 tabindex=3 onKeypress="over();">
+            <IMG width=81 height=45 src="images/Login_On.gif" border=0 name=login>
+        </A>
+    </TD>
+<!--    <TD rowspan="2"><input type=image name="login" src="images/Login_On.gif" tabindex=3></TD> -->
+<!--<TD rowspan="2"><img src="UMG Logo Small Revised.gif" width=107 height=60 alt="" border="0"></TD>-->
+</TR>
+<TR> 
+    <TD><div align="right">Password</div></TD>
+    <TD><div align="center">
+        <input type="password" name="password" size="12" tabindex=2 onKeypress="checkInput(window.event.keyCode)"></div>
+    </TD>
+</TR>
+</TABLE>
+
+</FORM>
+</FONT>
+</body>
+</html>

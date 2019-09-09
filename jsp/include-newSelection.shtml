@@ -1,0 +1,58 @@
+<script>
+function showNewProjectSearch()
+{
+  showNewProjectSearchInit();  // hide screen buttons
+  document.all.ProjectSearchFrame.src = "<%= inf.getServletCmdURL("project-search")%>";
+} // End function showNewProjectSearch
+</script>
+
+
+
+ <table cellpadding=0 border=0 >
+
+     <td width="35%">
+       <div align="left" id="resizeDiv">
+        <a href ="JavaScript:submitResize();"
+          onMouseOver="Javascript:mtbToggle.over();return true;"
+          onMouseOut="Javascript:mtbToggle.out()"
+          onClick="Javascript:mtbToggle.click(); return true;">
+          <img name="Toggle" id="Toggle" src="<%=inf.getImageDirectory()%>Toggle_On.gif" width=27 height=14 border=0 hspace=0 vspace=0 align="absmiddle">
+        </a>
+        <script type="text/javascript" language="JavaScript" >
+        <!--
+          var mtbToggle = new ToggleButton(document, '<%=inf.getImageDirectory()%>', 'Toggle', "JavaScript:submitResize()", 27, 14);
+        //-->
+        </script>
+      </div>
+     </td>
+
+     <td width="65%">
+      <div align="left" id="newSelectionDiv">
+      <%
+        User userSE = (User)context.getSessionValue("user");
+        if(userSE != null && userSE.newSelectionEditAccess)
+       {%>
+	<a href="JavaScript:showNewProjectSearch();"
+        	onMouseOver="Javascript:mtbNew_Selection.over();return true;"
+		onMouseOut="Javascript:mtbNew_Selection.out()">
+        	<img name="New_Selection" id="New_Selection" src="<%= inf.getImageDirectory() %>New_Selection_On.gif" width="129" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+	</a>
+	<script type="text/javascript" language="JavaScript" >
+  	 var mtbNew_Selection = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'New_Selection', 'JavaScript:showNewProjectSearch()', 66, 14);
+	</script>
+      <%}%>
+     </div>
+     </td>
+
+  </table>
+
+<script>
+//////////////////////////////////////////////////////////////////////////
+// MSC 01/28/04 Hide this button now
+// This code was added due to the users pressing these buttons
+// before the page is loaded. Now these buttons are hidden util the page
+// is completely loaded.
+////////////////////////////////////////////////////////////////////////
+if(document.all.New_Selection)
+  document.all.New_Selection.style.visibility = "hidden";
+</script>

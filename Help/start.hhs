@@ -1,0 +1,295 @@
+[TOPICS=10]
+"About calling pages in WebHelp projects","About_calling_pages_in_WebHelp_projects.htm"
+"Change the size or position of Help windows","Change_the_size_or_position_of_Help_windows.htm"
+"Define the strProjectFramesPagePlus variable in the callHelp.js file","Define_the_strProjectFramesPagePlus_variable_in_the_callHelp_js_file.htm"
+"Head tags","Head_tags.htm"
+"Link to the callHelp.js file from the HEAD of a HTML page","Link_to_the_callHelp.htm"
+"Open a Webhelp page from a text link","Open_a_page_from_a_text_link.htm"
+"Open a Webhelp page by pressing F1","Open_a_Webhelp_page_by_pressing_F1.htm"
+"Open a Webhelp page from a clickable image","Open_a_Webhelp_page_from_a_clickable_image.htm"
+"Open a Webhelp page in a simple window","Open_a_Webhelp_page_in_a_simple_window.htm"
+"Open a WebHelp page from a form button","Opening_a_WebHelp_page_from_a_form_button.htm"
+
+
+[KEYWORDS=190]
+"0", 7
+"125", 7
+"2", 4
+"30", 7
+"abov", 7, 4
+"alt", 7
+"anchor", 7, 5
+"any", 8
+"attribut", 9, 4, 1
+"automatical", 9, 7, 6, 5
+"autosync", 0
+"be", 9, 7, 6, 5, 4, 3
+"befor", 4, 0
+"below", 9, 7, 6, 5
+"bgcolor", 6
+"body", 6
+"bord", 7
+"both", 8
+"box", 8
+"brows", 4, 3, 0
+"button", 9, 7, 0
+"cal", 9, 7, 6, 5, 0
+"call", 8, 7, 6, 4, 0
+"callhelp", 9, 8, 7, 6, 5, 4, 2, 1, 0
+"callhelpsimpl", 8
+"chang", 1
+"check", 8
+"click", 5
+"clickabl", 7, 0
+"clos", 7, 5, 4, 3
+"cod", 9, 6
+"complet", 9, 7, 6, 5
+"contain", 0
+"content", 3
+"context", 0
+"copyright", 0
+"creat", 9, 7, 6, 5, 0
+"customiz", 0
+"decid", 8
+"defin", 9, 7, 6, 5, 2, 1, 0
+"describ", 0
+"differenc", 8
+"different", 4
+"directory", 4
+"display", 9, 7, 6, 5, 4, 3, 1, 0
+"document", 4
+"don", 0
+"editor", 9, 7, 6, 5, 1
+"eith", 1
+"element", 9
+"ent", 4
+"event", 9
+"exampl", 9, 8, 7, 6, 5, 4, 2, 0
+"execut", 9
+"f1", 6, 0
+"fals", 6
+"far", 1
+"featur", 0
+"ffffff", 6
+"fil", 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
+"first", 9, 7, 6, 5
+"fold", 9, 7, 6, 5
+"folder", 4
+"follow", 9, 7, 6, 5, 2
+"fram", 8, 0
+"freewar", 0
+"function", 9, 8, 7, 6, 5, 4, 0
+"generat", 9, 8, 7, 6, 5
+"gif", 7
+"head", 9, 7, 6, 5, 4, 3, 0
+"height", 7, 1
+"help", 9, 6, 4, 1, 0
+"hhc", 9, 7, 6, 5
+"hid", 8
+"how", 1, 0
+"href", 7, 5
+"htm", 9, 7, 6, 5, 2
+"html", 9, 8, 7, 6, 5, 4, 3, 0
+"if", 8, 4
+"imag", 7, 0
+"image_file_nam", 7
+"img", 7
+"includ", 8
+"information", 0
+"input", 9
+"instead", 9, 8
+"insur", 4
+"javascript", 7, 5, 4, 3, 0
+"javascript1", 4
+"js", 9, 8, 7, 6, 5, 4, 2, 1, 0
+"key", 6
+"know", 0
+"languag", 4
+"left", 1, 0
+"level", 0
+"library", 3
+"lik", 0
+"link", 9, 8, 7, 6, 5, 4, 3, 0
+"list", 9, 7, 6, 5
+"load", 4, 3
+"local", 9, 7, 6, 5
+"long", 0
+"mention", 8
+"must", 0
+"nam", 9, 7, 6, 5, 2
+"navigation", 8, 0
+"new", 1
+"not", 8, 4
+"onclick", 9
+"onhelp", 6
+"open", 9, 8, 7, 6, 5, 4, 3, 1, 0
+"open_a_webhelp_page_by_pressing_f1", 6
+"open_a_webhelp_page_from_a_clickable_imag", 7
+"opening_a_page_from_a_text_link", 9, 5
+"opening_a_webhelp_page_from_a_form_button", 9
+"pag", 9, 8, 7, 6, 5, 4, 3, 2, 0
+"pan", 8, 0
+"pap", 0
+"paramet", 9, 7, 6, 5
+"pas", 9, 7, 6, 5
+"patrick", 0
+"plac", 4, 3, 0
+"point", 4
+"position", 1, 0
+"pound", 2
+"pres", 6, 0
+"prior", 3
+"project", 9, 7, 6, 5, 2, 0
+"provid", 0
+"quick", 9, 7, 6, 5
+"relativ", 9, 7, 6, 5
+"remov", 0
+"return", 6
+"roebuck", 0
+"root", 9, 7, 6, 5
+"s", 9, 7, 6, 5, 2, 1, 0
+"sam", 4
+"sav", 1
+"screen", 1
+"script", 4
+"se", 0
+"second", 9, 7, 6, 5
+"select", 8
+"sensitiv", 0
+"separat", 0
+"setting", 1
+"show", 8, 0
+"sign", 2
+"simpl", 8, 0
+"singl", 8
+"siz", 1, 0
+"src", 7, 4
+"start", 2
+"start_page_file_nam", 2
+"strprojectframespageplu", 2, 0
+"strsinglehelpwindowoption", 1
+"strtrihelpwindowoption", 1
+"submit", 9
+"surround", 7, 5
+"tag", 7, 6, 5, 4, 3
+"text", 9, 7, 6, 5, 4, 1, 0
+"tip", 9, 7, 6, 5
+"titl", 9, 7, 6, 5
+"toc", 9, 7, 6, 5, 0
+"toolbar", 1
+"top", 1
+"tri", 8, 0
+"two", 9, 7, 6, 5
+"typ", 9, 8, 7, 6, 5, 4, 2, 1
+"url", 9, 7, 6, 5, 4
+"us", 9, 8, 6, 1, 0
+"user", 0
+"valid", 4
+"valu", 9, 7, 6, 5, 2
+"var", 2
+"variabl", 9, 7, 6, 5, 2, 1, 0
+"virtual", 0
+"want", 8, 1
+"way", 9, 7, 6, 5
+"web", 3, 0
+"webhelp", 9, 8, 7, 6, 5, 2, 0
+"what", 0
+"wheth", 1
+"whit", 0
+"width", 7, 1
+"will", 9, 7, 6, 5, 0
+"window", 8, 3, 1, 0
+"would", 4, 0
+"your", 0
+"your_project_nam", 9, 7, 6, 5
+
+
+[STOPWORDS=88]
+"a"
+"about"
+"after"
+"against"
+"all"
+"also"
+"among"
+"an"
+"and"
+"are"
+"as"
+"at"
+"be"
+"became"
+"because"
+"been"
+"between"
+"but"
+"by"
+"can"
+"come"
+"do"
+"during"
+"each"
+"early"
+"for"
+"form"
+"found"
+"from"
+"had"
+"has"
+"have"
+"he"
+"her"
+"his"
+"however"
+"in"
+"include"
+"into"
+"is"
+"it"
+"its"
+"late"
+"later"
+"made"
+"many"
+"may"
+"me"
+"med"
+"more"
+"most"
+"near"
+"no"
+"non"
+"not"
+"of"
+"on"
+"only"
+"or"
+"other"
+"over"
+"several"
+"she"
+"some"
+"such"
+"than"
+"that"
+"the"
+"their"
+"then"
+"there"
+"these"
+"they"
+"this"
+"through"
+"to"
+"under"
+"until"
+"use"
+"was"
+"we"
+"were"
+"when"
+"where"
+"which"
+"who"
+"with"
+"you"

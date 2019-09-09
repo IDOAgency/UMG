@@ -1,0 +1,115 @@
+
+ /* $MVD$:color("15","808000","Custom #1","0") */
+ /* $MVD$:fontset("Verdana","Verdana") */
+ /* $MVD$:fontset("Arial","Arial") */
+ P { font-family : "Verdana";
+     font-size : 10.0pt;
+     background-color : white;}
+ .mvd-P { font-family : "Verdana";
+          font-size : 10.0pt;
+          background-color : white;}
+ CITE.expandspot { font-style : normal;
+                   color : green;
+                   cursor: hand;}
+ .mvd-CITE-expandspot { font-style : normal;
+                        color : green;
+                        cursor: hand;}
+ DFN.collapsed { font-style : italic;
+                 font-weight : normal;
+                 display :                                      'none';
+                 color : red;}
+ .mvd-DFN-collapsed { font-style : italic;
+                      font-weight : normal;
+                      display :                                      'none';
+                      color : red;}
+ DFN.expanded { font-style : italic;
+                font-weight : normal;
+                color : red;}
+ .mvd-DFN-expanded { font-style : italic;
+                     font-weight : normal;
+                     color : red;}
+ EM.dropspot { color : green;
+               cursor: hand;}
+ .mvd-EM-dropspot { color : green;
+                    cursor: hand;}
+ CITE.glossterm { font-style : normal;
+                  color : maroon;
+                  cursor: hand;}
+ .mvd-CITE-glossterm { font-style : normal;
+                       color : maroon;
+                       cursor: hand;}
+ DFN.glosscollapsed { font-style : italic;
+                      font-weight : normal;
+                      display :                                      'none';
+                      color : blue;}
+ .mvd-DFN-glosscollapsed { font-style : italic;
+                           font-weight : normal;
+                           display :                                      'none';
+                           color : blue;}
+ DFN.glossexpanded { font-style : italic;
+                     font-weight : normal;
+                     color : blue;}
+ .mvd-DFN-glossexpanded { font-style : italic;
+                          font-weight : normal;
+                          color : blue;}
+ H1 { font-family : "Verdana";
+      font-weight : bold;
+      font-size : 12.0pt;
+      background-color : transparent;
+      text-decoration : none;
+      color : blue;}
+ .mvd-H1 { font-family : "Verdana";
+           font-weight : bold;
+           font-size : 12.0pt;
+           background-color : transparent;
+           text-decoration : none;
+           color : blue;}
+ H2 { font-family : "Verdana";
+      font-style : normal;
+      font-weight : bold;
+      font-size : 11.0pt;
+      color : black;}
+ .mvd-H2 { font-family : "Verdana";
+           font-style : normal;
+           font-weight : bold;
+           font-size : 11.0pt;
+           color : black;}
+ H3 { font-family : "Verdana";
+      font-style : normal;
+      font-size : 10.0pt;
+      text-decoration : none;
+      color : black;}
+ .mvd-H3 { font-family : "Verdana";
+           font-style : normal;
+           font-size : 10.0pt;
+           text-decoration : none;
+           color : black;}
+ ADDRESS { background-color : white;}
+ .mvd-ADDRESS { background-color : white;}
+ BODY { font-family : "Arial";
+        background-color : white;}
+ .mvd-BODY { font-family : "Arial";
+             background-color : white;}
+ LISTING { font-family : "Verdana";
+           font-size : 10.0pt;
+           text-decoration : none;
+           line-height : 10.0pt;
+           margin-top : auto;}
+ .mvd-LISTING { font-family : "Verdana";
+                font-size : 10.0pt;
+                text-decoration : none;
+                line-height : 10.0pt;
+                margin-top : auto;}
+ H4 { font-family : "Verdana";
+      font-style : italic;
+      font-weight : normal;
+      font-size : 10.0pt;}
+ .mvd-H4 { font-family : "Verdana";
+           font-style : italic;
+           font-weight : normal;
+           font-size : 10.0pt;}
+ P.Body1 { }
+ .mvd-P-Body1 { }
+ P.Body2 { }
+ .mvd-P-Body2 { }
+ 

@@ -1,0 +1,100 @@
+<%@ page buffer="16kb" %>
+<%@ page extends="com.universal.milestone.MilestoneJSP"%>
+<%@ page import="com.universal.milestone.*, com.techempower.*, com.techempower.gemini.*, java.util.*,java.text.* "%>
+<%
+  //
+  // Set up references to commonly used objects.
+  //
+
+  // The request/response Context
+  MilestoneContext        context = (MilestoneContext)request.getAttribute("Context");
+
+  // The system infrastructure (used for getting images dir, etc.)
+  MilestoneInfrastructure inf     = (MilestoneInfrastructure)context.getInfrastructure();
+
+  // The GeminiApplication reference.
+  GeminiApplication       gemApp  = context.getApplication();
+
+  // A reference to the bugtool.
+  BugTool                 bugTool = gemApp.getBugTool();
+
+  // Assuming all pages have forms, this will set up the form reference.
+  // msc its 438 Now using Form object contained in the Milestone package
+  com.universal.milestone.Form form = (com.universal.milestone.Form)context.getDelivery("Form");
+
+  // Again, assuming all pages have forms, get the validation.
+  FormValidation formValidation = (FormValidation)context.getDelivery("FormValidation");
+
+  // Assuming all pages have a String message, get that, too.
+  String message = context.getStringDelivery("Message");
+
+
+  // mc its 985 If user preferences have changed, change opening screen option
+  if(context.getSessionValue("ResetOpeningScreen") != null)
+  {
+     // Variables for Label Sub Menu access initialized to false
+     boolean selectionAccess = false;
+     boolean scheduleAccess = false;
+     boolean manufacturingAccess = false;
+     boolean pfmAccess = false;
+     boolean bomAccess = false;
+     boolean reportAccess = false;
+
+     // Get the user
+     User user = MilestoneSecurity.getUser(context);
+     // Get user acl - access list
+     Acl acl = user.getAcl();
+
+     // Get access for label submenu
+     selectionAccess     = acl.getAccessSelection();
+     scheduleAccess      = acl.getAccessSchedule();
+     manufacturingAccess = acl.getAccessManufacturing();
+     pfmAccess           = acl.getAccessPfmForm();
+     bomAccess           = acl.getAccessBomForm();
+     reportAccess        = acl.getAccessReport();
+     String labelInitSubMenu = "";
+
+     if (user.getPreferences().getOpeningScreen() > 0)
+     {
+       if (user.getPreferences().getOpeningScreen() == 1 && scheduleAccess) //release calendar
+       {
+         labelInitSubMenu = "release-calendar";
+       }
+       else if (user.getPreferences().getOpeningScreen() == 2 && scheduleAccess) //Schedule
+       {
+         labelInitSubMenu = "schedule";
+       }
+       else if (user.getPreferences().getOpeningScreen() == 3 && selectionAccess) //Selection
+       {
+         labelInitSubMenu = "selection";
+       }
+       else if (user.getPreferences().getOpeningScreen() == 4 && manufacturingAccess) //manufacturing
+       {
+         labelInitSubMenu = "selection-manufacturing";
+       }
+       else if (user.getPreferences().getOpeningScreen() == 5 && pfmAccess) //pfm
+       {
+         labelInitSubMenu = "pfm";
+       }
+       else if (user.getPreferences().getOpeningScreen() == 6 && bomAccess) //bom
+       {
+         labelInitSubMenu = "bom";
+       }
+       else if (user.getPreferences().getOpeningScreen() == 7 && reportAccess) //reports
+       {
+         labelInitSubMenu = "reports";
+       }
+
+      %>
+       <script>
+         // mc its 985 Make the user preference dynamic
+        //alert("labelInitMenuItemu before " + parent.top.menuFrame.labelInitMenuItem);
+        if(parent.top.menuFrame.labelInitMenuItem)
+           parent.top.menuFrame.labelInitMenuItem = "<%=labelInitSubMenu%>";
+        //alert("labelInitMenuItem after " + parent.top.menuFrame.labelInitMenuItem);
+      </script>
+      <%
+    }
+    context.removeSessionValue("ResetOpeningScreen");  // remove object from session
+  }
+%>

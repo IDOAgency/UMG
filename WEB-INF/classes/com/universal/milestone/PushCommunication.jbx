@@ -1,0 +1,16 @@
+[PropertyInfo]
+adminEmailAddr,String,false,false, , ,false,<default>
+adminEmailName,String,false,false, , ,false,<default>
+ccEmailAddr,String,false,false, , ,false,<default>
+destEmailAddr,String,false,false, , ,false,<default>
+emailContentType,String,false,false, , ,false,<default>
+emailHostServer,String,false,false, , ,false,<default>
+emailMessage,String,false,false, , ,false,<default>
+emailSubject,String,false,false, , ,false,<default>
+MilestoneServer,String,false,false, , ,false,<default>
+pushCommunication,PushCommunication,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

@@ -1,0 +1,394 @@
+<HTML>
+ <HEAD>
+  <!-- $MVD$:app("RoboHELP HTML Edition by Blue Sky Software, portions by MicroVision Dev. Inc.","769") -->
+  <!-- $MVD$:template("","0","0") -->
+  <!-- $MVD$:color("15","808000","Custom #1","0") -->
+  <!-- $MVD$:fontset("Verdana","Verdana") -->
+  <!-- $MVD$:fontset("Arial","Arial") -->
+  <TITLE>Selection Criteria</TITLE>
+  <META NAME="generator" CONTENT="RoboHELP by Blue Sky Software www.blue-sky.com HTML Edition">
+  <SCRIPT language="javascript">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='Milest_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='Milestone.css'>");}
+//-->
+
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht1.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht2.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript"><!-- 
+//////////BSSCDHTML Section Embedded Code//////////
+var s_strAgent = navigator.userAgent.toLowerCase();
+var s_nVer	   = parseInt(navigator.appVersion);
+
+var s_bIE  = (s_strAgent.indexOf('msie') != -1);
+var s_bNS  = (s_strAgent.indexOf('mozilla') != -1) && ((s_strAgent.indexOf('spoofer') == -1) && (s_strAgent.indexOf('compatible') == -1));
+var s_bOpera	= (s_strAgent.indexOf('opera') != -1);
+
+var s_bIE3Before = ((s_bIE) && (s_nVer <= 2));
+var s_bNS3Before = ((s_bNS) && (s_nVer <= 3));
+
+var s_bNS2		= ((s_bNS) && (s_nVer <= 2));
+var s_bNS3		= ((s_bNS) && (s_nVer == 3));
+var s_bIE300301	= ((s_bIE) && (s_nVer == 2) && ((s_strAgent.indexOf("3.00") != -1)||(s_strAgent.indexOf("3.0a") != -1)||(s_strAgent.indexOf("3.0b")!=-1)||(s_strAgent.indexOf("3.01")!=-1)));
+var s_bIE302	= ((s_bIE) && (s_nVer == 2) && (s_strAgent.indexOf("3.02") != -1));
+
+
+function HasExtJs()
+{
+	if (s_bIE3Before) { return false;}
+	if (s_bNS3Before) {	return false;}
+	if (typeof (_BSSCOnLoad) == "undefined"){ return false; }
+	return true;
+}
+
+function BSSCOnLoad()
+{
+	if (HasExtJs()) { _BSSCOnLoad(); }
+}
+
+function BSSCOnUnload()
+{
+	if (HasExtJs()) { _BSSCOnUnload(); }
+}
+
+function BSSCOnClick()
+{
+	if (HasExtJs()) { _BSSCOnClick(); }
+}
+
+function WritePopupMenuLayer()
+{
+	if (HasExtJs()) {_WritePopupMenuLayer();}
+}
+
+function BSSCCreatePopupDiv()
+{
+	if (HasExtJs()) {_BSSCCreatePopupDiv();	}
+}
+
+function BSSCPopup(strURL)
+{
+	if (HasExtJs())	{ 
+		_BSSCPopup(strURL);
+	}else{
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+		// Create the real popup window
+		var wndPopup = window.open(strURL, "PopupWindow", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=300,width=400");
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		} else {
+			wndPopup.focus();
+		}
+	}
+}
+
+
+function PopupMenu_Invoke()
+{
+	if (HasExtJs()) {
+		return _PopupMenu_Invoke(PopupMenu_Invoke.arguments);
+	}
+	if (s_bNS3Before || s_bIE3Before )	{
+		var argLen 	= PopupMenu_Invoke.arguments.length;
+		if (argLen < 5) {
+			window.document.location.href = PopupMenu_Invoke.arguments[3];
+			return false;
+		}
+		var nHeight = argLen * 15;
+		var nWidth = 400;
+		var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=auto";
+		strParam += ",height=" + nHeight + ",width=200,resizable";
+		
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+
+		var wndPopupLinks = window.open("", "popuplinks", strParam);
+		wndPopupLinks.document.open("text/html");
+		wndPopupLinks.document.write("<html><head>");
+		if (s_bNS2 || s_bOpera) {
+			wndPopupLinks.document.write("<base href=\"" + location +"\">");
+		} else {
+			//YJ: IE301,302 and NS3.x works fine
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("script>");
+			wndPopupLinks.document.write("function gotoUrl(aUrl) {opener.window.location=aUrl; close();}");
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("/script>");
+		}
+		wndPopupLinks.document.write("</head><body onBlur=\'self.focus();\'>");
+		var strParaLine = "";
+		for (var i = 0; i < (argLen - 2) / 2; i++) {
+			strParaLine = "";
+			if (s_bNS2 || s_bOpera){
+				strParaLine += "<a href=\"";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\">"
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			} else {
+				strParaLine += "<a href=\"javascript:";
+				strParaLine += "gotoUrl(\'";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\');\"";
+				if (PopupMenu_Invoke.arguments[1] != '') {
+					strParaLine += " TARGET='" + PopupMenu_Invoke.arguments[1] + "'";
+				}
+				strParaLine += ">";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			}
+			strParaLine += "<br>";
+			wndPopupLinks.document.write(strParaLine);
+		}
+		wndPopupLinks.document.write("</body></html>");
+		wndPopupLinks.document.close();
+
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		}else {
+			wndPopupLinks.focus();
+		}
+
+		return true;
+	}
+	return false;
+}
+  
+
+ 
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+ 
+//-->
+  </SCRIPT></HEAD>
+  <BODY ONLOAD="BSSCOnLoad();" ONCLICK="BSSCOnClick();">
+  
+  <div id='NavBar' STYLE='position:relative;' align='right'><nobr><font size=1>
+   <script language="javascript"><!--
+ var bHomePage=false; if(document.all){if ((top)&&(top.frames)&&(top.frames.length<=1)) bHomePage=true;} if(document.layers){if((parent)&&(parent.top.frames)&&(parent.top.frames.length<=1)) bHomePage=true;}
+if (bHomePage){document.write("<a href='Milestone.htm'><img src='bsscnav1.gif' width=53 height=18 border=no></a>");}
+//-->
+   </script></font>&nbsp;&nbsp;&nbsp;</nobr>
+  </div>
+<H1>
+   Selection Criteria</H1>
+  <P>
+   The selection criteria can vary for each report. Below is a list of 
+   all the selection criteria fields available for the reports.</P>
+  <P>
+   <IMG SRC="rptselectioncriteria.gif" WIDTH="490" HEIGHT="490" VSPACE="0" HSPACE="0" BORDER="0"></P>
+  <P>
+   <TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0">
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-weight : bold;"><B>Field Name</B></SPAN></TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-weight : bold;"><B>Description</B></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Begin Street Date</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       The first street/ship date of those releases within a date range to 
+       be included in the report</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Ending Street Date</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       The last street/ship date of those releases within a date range to be 
+       included in the report</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Beginning Due Date</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       The first task due date for releases within a date range to be 
+       included in the report</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Ending Due Date</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       The last task due date for releases within a date range to be 
+       included in the report</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Begin Effective Date</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       The first date for releases for a custom date range. It is currently 
+       used to determine if records have been added or if street dates have changed.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Ending Effective Date</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       The last date for releases for a custom date range. It is currently 
+       used to determine if records have been added or if street dates have changed.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Distribution</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view all releases sharing the same UMVD distribution region</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Release Type</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view all releases for a specified release type, commercial 
+       or promo</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Status</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view all releases sharing the same status. The options are 
+       Closed, Active (active &amp; TBS), Active excluding TBS, All (Closed, 
+       Cancelled, Active, &amp; TBS), and TBS.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Label Contact</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view all releases for a particular label contact</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       UML Contact</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view all releases for a particular UML contact</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Task Owner</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view only tasks owned by the only the label, only UML, or both.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Artist</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view all releases for a particualr artist</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Schedule Releases</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view only releases with templates applied</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Parents Only</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view only releases with only display parent records, 
+       records that have matching title ID and prefix/selection Ids</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Family</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view all releases for a specified family</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Company</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view all releases for a specified company</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Label</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view all releases for a specified Label</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="28%" VALIGN="TOP">
+      <P>
+       Configuration</TD>
+     <TD WIDTH="72%" VALIGN="TOP">
+      <P>
+       Request to view all releases for a specified family</TD>
+    </TR>
+   </TABLE></P>
+  <P>
+   <!-- $MVD$:spaceretainer() -->&nbsp;</P>
+  <P>
+   The Family name will automatically default to that under which the 
+   user operates. If a user operates under more than one Family, the 
+   Family name automatically defaults to &quot;All&quot;. The Company 
+   and Label names will also automatically default to &quot;All&quot;.</P>
+  <P>
+   When defining criteria, if Family name alone were entered as the 
+   selection criteria then release information for all artists for all 
+   companies under that family would result. Likewise, if a date range 
+   for street/ship date were entered without any other selection 
+   criteria, all releases within those defined street/ship dates would 
+   display on the report.</P>
+  <P>
+   If a user wants to view only key tasks, click in the option button 
+   next to UML to view UML key tasks or Label to view label-specific key tasks.</P>
+  <P>
+   <!-- $MVD$:spaceretainer() -->&nbsp;
+ </BODY>
+</HTML>

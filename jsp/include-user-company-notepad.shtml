@@ -1,0 +1,234 @@
+<%
+
+  // get the Notepad Object out of the session
+	Notepad notepad = (Notepad)context.getSessionValue(MilestoneConstants.NOTEPAD_SESSION_NAMES[MilestoneConstants.NOTEPAD_USER_ENVIRONMENTS]);
+
+	// gets the titles of the columns
+	String[] columnNames = notepad.getColumnNames();
+
+	// gets the contents of the search results
+	Vector pageContents = notepad.getPageContents();
+
+  %>
+
+<script type="text/javascript" language="javascript">
+function submitFirst()
+{
+	parent.top.bottomFrame.location = "home?cmd=notepad-first&notepadType=<%=MilestoneConstants.NOTEPAD_USER_ENVIRONMENTS%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+}
+
+function submitLast()
+{
+	parent.top.bottomFrame.location = "home?cmd=notepad-last&notepadType=<%=MilestoneConstants.NOTEPAD_USER_ENVIRONMENTS%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+}
+
+</script>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr valign="top">
+	<td><img src="<%= inf.getImageDirectory() %>Notepad_Top_280.gif" width="280" border="0"></td>
+</tr>
+<tr>
+	<td>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+		<tr valign="top">
+			<td>
+				<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr bgcolor="lavender">
+					<td align="left">
+					<% // check to see if search button should be visible
+						if (notepad.isSearchButtonVisible())
+						{%>
+							<a href ="Javascript:toggle( 'searchLayer', 'nameSrch' )"
+	            onMouseOver="Javascript:mtbSearch.over();return true;"
+	            onMouseOut="Javascript:mtbSearch.out()"
+	            onClick="Javascript:mtbSearch.click(); return true;">
+	            <img name="Search" id="Search" src="<%= inf.getImageDirectory() %>Search_On.gif" width=66 height=14 border=0 hspace=0 vspace=0 align="absmiddle">
+	           </a>
+	           <script type="text/javascript" language="JavaScript">
+	             var mtbSearch = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Search', "Javascript:toggle( 'searchLayer', 'nameSrch')", 66, 14);
+	           </script>
+ 						<%}%>
+					</td>
+					<td align="right">
+						<span class="title"><% if (notepad.getTitle() != null){%> <%=notepad.getTitle() %> <%}%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					</td>
+				</tr>
+				</table>
+
+                                <!-- navigation buttons start here -->
+
+                                                 <table width="100%" cellpadding=0 cellspacing=0 border=0 bgcolor="lavender">
+                              <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+                              <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+
+                 <tr>
+                  <td></td>
+                 </tr>
+                <tr>
+                 <%@ include file="include-navigation-notepad.shtml" %>
+                </tr>
+
+                 <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+       <tr>
+                        <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+       <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+       <tr>
+                  <td>
+                  </td>
+                   <td>
+                  </td>
+                   <td>
+                  </td>
+                 </tr>
+
+                 </table>
+
+                                <!-- navigation buttons end here -->
+
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table width="100%" class="list" cellspacing="0" border="0">
+				<tr>
+					<% // this gets the columnNames for the search results (LoginName, UserName)
+						for (int i = 0 ; i < columnNames.length; i++)
+						{
+          %>
+           <th width="30%">
+           	<a href="Javascript:submitList(<%=i%>)"><% if (columnNames[i] != null){%> <%= columnNames[i] %> <%}%></a>
+           </th>
+          <%}%>
+				</tr>
+				<tr><td colspan="4"><hr noshade></td></tr>
+				<% if (notepad.getAllContents().size() <= 0)
+					{
+				%>
+					<tr><td colspan="3"><%= notepad.getErrorMessage() %></td></tr>
+				<%}
+					else
+					{
+				%>
+
+					<%
+
+						// this checks to see which link was clicked and changes the background color
+						// also, this will default the first link to be highlighted when the user first lands
+						// on the page
+	          int environmentId = 0;
+	          Environment selectItem = (Environment)notepad.getSelected();
+						int selectedEnvironment = -1;
+						if (selectItem != null)
+						  selectedEnvironment = selectItem.getStructureID();
+						for (int i=0 ; i < pageContents.size(); i++)
+						{
+							Environment environments = (Environment)pageContents.get(i);
+							environmentId = environments.getStructureID();
+					%>
+					<tr valign="top" <%if (selectedEnvironment == environmentId){%> class="selected"<%}%>>
+						<td align="left" valign="bottom">
+							<a href="Javascript:submitGet('<%=environments.getStructureID() %>')" title="<%=environments.getName()%>">
+								<% if (environments.getName() != null){%> <%=environments.getName() %> <%}%>
+							</a>
+						</td>
+						<td align="center" valign="bottom">
+							<a href="Javascript:submitGet('<%=environments.getStructureID() %>')" title="<%=environments.getName()%>">
+								<%=MilestoneHelper.getStructureName(environments.getParentID()) %>
+							</a>
+						</td>
+					</tr>
+					<tr><td colspan="4"><img src="<%= inf.getImageDirectory() %>pixelshim.gif" width="100%" height="1" class="separator"></td></tr>
+					<%} //end for loop%>
+				<%} //end if%>
+				<tr>
+					<td colspan="4">
+						<hr noshade><center class="footer">
+            <% if (notepad.getPageStatus() != null)
+            	 {
+					  %>
+            <%=notepad.getPageStatus() %>
+            <% }%>
+            </center>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table width="100%" cellpadding="5" cellspacing="0" border="0">
+				<tr valign="top">
+
+				</tr>
+				<tr>
+
+
+					<td colspan=4 align="center">
+					<% // check to see if Switch to Task Button should be visible
+						if (notepad.isSwitchToUsersButtonVisible())
+						{%>
+
+							<a href ='JavaScript:submitShow( true )'
+								onMouseOver="Javascript:mtbSwitch_Users.over();return true;"
+								onMouseOut="Javascript:mtbSwitch_Users.out()"
+								onClick="Javascript:mtbSwitch_Users.click(); return true;">
+							<img name="Switch_Users" SRC="<%= inf.getImageDirectory() %>Switch_Users_On.gif" width="135" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+							</a>
+						<script type="text/javascript" language="JavaScript">
+							var mtbSwitch_Users = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Switch_Users', 'JavaScript:submitShow( true )', 135, 14);
+					</script>
+					<% } %>
+					</td>
+				</tr>
+
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td><img src="<%= inf.getImageDirectory() %>Notepad_Bottom_280.gif" width="280" border="0"></td>
+</tr>
+</table>

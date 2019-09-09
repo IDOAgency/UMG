@@ -1,0 +1,475 @@
+<%
+com.universal.milestone.Form UserPrefsForm = (com.universal.milestone.Form)context.getDelivery("UserPrefsForm");
+// get the user object from the session
+User userSS = (User)context.getSessionValue("user");
+boolean adminFlag = true; // MC ITS 462 09/17/04 admin option disabled
+if(userSS != null && userSS.getAdministrator() == 1)
+  adminFlag = true;
+%>
+
+<script>
+
+<%=context.getDelivery("corporate-array")%>
+
+function checkAll()
+{
+  document.all.statusReportsActive.checked = document.all.statusReportsAll.checked;
+  document.all.statusReportsTBS.checked = document.all.statusReportsAll.checked;
+  document.all.statusReportsClosed.checked = document.all.statusReportsAll.checked;
+  document.all.statusReportsCancelled.checked = document.all.statusReportsAll.checked;
+}
+function processCheck()
+{
+  if (!document.all.statusReportsActive.checked ||
+      !document.all.statusReportsTBS.checked ||
+      !document.all.statusReportsClosed.checked ||
+      !document.all.statusReportsCancelled.checked
+     )
+  {
+    document.all.statusReportsAll.checked = false;
+  }
+  else
+  {
+    document.all.statusReportsAll.checked = true;
+  }
+}
+
+function clearCombo(obj)
+{
+  obj.options.length = 0;
+} //end function clearCombo()
+
+function compareText (option1, option2) {
+  if (option1.text.toUpperCase() == "ALL")
+    return -1;
+  else if (option2.text.toUpperCase() == "ALL")
+    return 1;
+  else
+    return option1.text.toUpperCase() < option2.text.toUpperCase() ? -1 : option1.text.toUpperCase()  > option2.text.toUpperCase() ? 1 : 0;
+}
+
+//////////////////////////////////////////////////////
+// msc 07/22/04 ITS# 1001 Filter family environments
+// restore the values of the drop down list
+//////////////////////////////////////////////////////
+function setValuesIndex(obj,valueStr)
+{
+
+  // if null object
+  if(obj == null || obj.options.length == 0)
+     return;
+
+  // return if empty value
+  if(valueStr == "" || valueStr == "0" || valueStr == "-1")
+  {
+    obj.options[0].selected = true;
+    return;
+  }
+
+  var opts = obj.options;
+  for(var i=0; i < opts.length; i++)
+  {
+    if(opts[i].value == valueStr)
+    {
+      opts[i].selected = true;
+      return;
+    }
+  }
+}
+
+function populateEnvironment(obj, index)
+{
+   var j = 0;
+   for(var i=0; i < familyArray[index].length; i=i+2)
+   {
+       obj.options[j] = new Option(familyArray[index][i+1], familyArray[index][i]);
+       j++;
+   }
+
+   sortSelect(obj,compareText);
+   obj.options[0].selected=true;
+} //end function populateEnvironment()
+
+function clickReleasingFamily(famObj, envObj)
+{
+  if(envObj)
+  {
+    clearCombo(envObj);
+    populateEnvironment(envObj, famObj[famObj.selectedIndex].value);
+  }
+}
+</script>
+
+<% String secureUP = ((String)context.getSessionValue("userInfo"));
+if((secureUP != null && secureUP.equals("true")) )  {
+  // MC ITS 462 Make all users active
+  //if((userSS != null && userSS.getPreferences() != null && userSS.getPreferences().getActive()))
+  if(userSS != null && userSS.getPreferences() != null )
+  {%><STYLE TYPE="text/css">
+     TD.secureUP    {visibility=visible}
+     TABLE.secureUP {visibility=visible}
+     DIV.secureUP {visibility=visible}
+     </STYLE>
+  <%} else { %>
+    <STYLE TYPE="text/css">
+     TD.secureUP    {display=none}
+     TABLE.secureUP {display=none}
+     DIV.secureUP {display=none}
+    </STYLE>
+<%}
+} else { %>
+    <STYLE TYPE="text/css">
+     TD.secureUP    {display=none}
+     TABLE.secureUP {display=none}
+     DIV.secureUP {display=none}
+    </STYLE>
+<%}%>
+
+
+<div id="preferencesLayer" style="visibility:visible">
+<table class="secureUP" width="765" cellpadding="12">
+<tr>
+<td>
+<table class="secureUP" width="765" cellpadding="0" border="0" cellspacing=0>
+<tr valign="middle" align="left">
+    <td width="170" align=left><span class="title">Preferences</span></td>
+</tr>
+
+
+<!-- SELECTION SEARCH / NOTEPAD -->
+<tr  height=10>
+  <td style="color: purple;" bgcolor="#cccccc" valign="top" colspan="6" width="100%" class="label">
+    &nbsp;&nbsp;SELECTION SEARCH / NOTEPAD
+  </td>
+</tr>
+<tr>
+  <td bgcolor="lavender" valign="top" colspan="6" width="100%">
+    <table cellpadding="2" border="0">
+
+    <tr>
+     <td class="label" width=110 NOWRAP>
+     Opening Screen
+     </td>
+     <td>
+      <%=UserPrefsForm.getElement("openingScreen")%>
+     </td>
+    </tr>
+
+    <% // msc 03/09/04 If the user has administrator priviledges
+    if(adminFlag)
+    {%>
+    <tr>
+    <td class="label" width=110 NOWRAP>
+    Releasing Family
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("releasingFamilies")%>
+    </td>
+    </tr>
+
+    <tr>
+    <td class="label">
+    Environment
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("envMenu")%>
+    </td>
+    </tr>
+    <%}%>
+
+    <tr>
+    <td class="label">
+    Label Contact
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("contactList")%>
+    </td>
+    </tr>
+
+    <tr>
+    <td class="label">
+    Product Type
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("selectionProductType")%>
+    </td>
+    </tr>
+
+    <tr>
+    <td class="label">
+    Status
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("status")%>
+    </td>
+    </tr>
+
+    <!-- NOTEPAD
+    <tr  height=10>
+    <td style="color: purple;" bgcolor="#cccccc" valign="top" colspan="6" width="100%" class="label">
+      &nbsp;&nbsp;SELECTION NOTEPAD
+    </td>
+    </tr>
+    <tr>
+    <td bgcolor="lavender" valign="top" colspan="6" width="100%">
+    <table cellpadding="2" border="0"> -->
+
+     <tr>
+      <td class="label" width=110 NOWRAP>
+      Sort Results By
+      </td>
+      <td>
+       <%=UserPrefsForm.getElement("sortBy")%>
+      </td>
+     </tr>
+
+     <tr>
+      <td class="label">
+      Order Results By
+      </td>
+      <td>
+      <%=UserPrefsForm.getElement("order")%>
+      </td>
+     </tr>
+
+    <!-- </table>
+    </td>
+    </tr>  -->
+    <!-- END NOTEPAD -->
+
+    <tr>
+    <td class="label">
+    Override Prefs
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("priorCriteria")%>
+    </td>
+    </tr>
+
+    </table>
+  </td>
+</tr>
+<!-- END SELECTION SEARCH -->
+
+
+<!-- PHYSICAL / DIGITAL SCHEDULE -->
+<tr  height=10>
+  <td style="color: purple;" bgcolor="#cccccc" valign="top" colspan="6" width="100%" class="label">
+    &nbsp;&nbsp;PHYSICAL / DIGITAL SCHEDULE
+  </td>
+</tr>
+<tr>
+  <td bgcolor="lavender" valign="top" colspan="6" width="100%">
+    <table cellpadding="2" border="0">
+    <tr>
+    <td class="label" width=110 NOWRAP>
+    Sort By
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("sortBySchedule")%>
+    </td>
+    </tr>
+
+    <tr>
+    <td class="label">
+    Physical Task Owner
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("ownerSchedule")%>
+    </td>
+    </tr>
+
+    <tr>
+    <td class="label">
+    Digital Task Owner
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("ownerDigitalSchedule")%>
+    </td>
+    </tr>
+
+
+    </table>
+  </td>
+</tr>
+<!-- END PHYSICAL SCHEDULE -->
+
+<!-- GENERAL -->
+<tr  height=10>
+  <td style="color: purple;" bgcolor="#cccccc" valign="top" colspan="6" width="100%" class="label">
+    &nbsp;&nbsp;AUTO CLOSE
+  </td>
+</tr>
+<tr>
+  <td bgcolor="lavender" valign="top" colspan="6">
+    <table cellpadding="2" border="0">
+
+    <tr>
+    <td class="label">
+    Auto-Close
+    </td>
+    <td>
+    <%
+    FormRadioButtonGroup ac = (FormRadioButtonGroup)UserPrefsForm.getElement("autoCloseRadio");
+    %>
+    <%=ac.renderSingle(0)%><BR>
+    <%=ac.renderSingle(1)%>&nbsp;<%=UserPrefsForm.getElement("autoCloseDays")%>&nbsp;days after Street/Ship / Digital Release Date<BR>
+    <%=ac.renderSingle(2)%>
+
+    </td>
+    </tr>
+
+    </table>
+  </td>
+</tr>
+<!-- END GENERAL -->
+
+
+<!-- REPORTS -->
+<tr  height=10>
+  <td style="color: purple;" bgcolor="#cccccc" valign="top" colspan="6" width="100%"  class="label">
+    &nbsp;&nbsp;REPORTS
+  </td>
+</tr>
+<tr>
+  <td bgcolor="lavender" valign="top" colspan="6" width="100%">
+    <table cellpadding="2" border="0">
+    <tr>
+    <td class="label" width=110 NOWRAP>
+    Release Type
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("releaseType")%>
+    </td>
+    </tr>
+
+    <% // msc 03/09/04 If the user has administrator priviledges
+    if(adminFlag)
+    {%>
+    <tr>
+    <td class="label">
+    Releasing Family
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("releasingFamiliesReports")%>
+    </td>
+    </tr>
+
+    <tr>
+    <td class="label">
+    Environment
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("envMenuReports")%>
+    </td>
+    </tr>
+    <%}%>
+
+    <tr>
+    <td class="label">
+    Label Contact
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("ContactListReports")%>
+    </td>
+    </tr>
+
+    <tr>
+    <td class="label">
+    UML Contact
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("umlContact")%>
+    </td>
+    </tr>
+
+    <tr>
+    <td class="label">
+    Status
+    </td>
+    <td>
+    <%=UserPrefsForm.getElement("statusReportsAll")%><BR>
+    &nbsp;&nbsp;&nbsp;
+    <%=UserPrefsForm.getElement("statusReportsActive")%>&nbsp;
+    <%=UserPrefsForm.getElement("statusReportsTBS")%>&nbsp;
+    <%=UserPrefsForm.getElement("statusReportsClosed")%>&nbsp;
+    <%=UserPrefsForm.getElement("statusReportsCancelled")%>
+    </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+
+ <tr><td>&nbsp</td></tr>
+ <tr align="center">
+
+     <td width=100%>
+      <div align="center">
+	<a href="JavaScript:submitSave('Save')"
+          onMouseOver="Javascript:mtbSaveBot.over();return true;"
+          onMouseOut="Javascript:mtbSaveBot.out()"
+          onClick="Javascript:mtbSaveBot.click(); return true;">
+          <img name="SaveBot" id="SaveBot" SRC="<%= inf.getImageDirectory() %>Save_On.gif" width="66" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+        </a>
+       <script type="text/javascript" language="JavaScript">
+        var mtbSaveBot = new ToggleButton(document, '<%= inf.getImageDirectory() %>', 'Save', "JavaScript:submitSave( 'Save' )", 66, 14 );
+       </script>
+      </div>
+    </td>
+ </tr>
+
+ </table>
+</table>
+</div>
+
+<script>
+function checkShortcutUserInfo()
+{
+  var lEvent = window.event;
+  if ( lEvent.ctrlKey )
+  {
+    switch( lEvent.keyCode )
+    {
+      case 83:
+        if( typeof( doSave ) == 'function' )
+          doSave();
+        break;
+      // Prevent CTRL+N from opening multiple windows of the same instance
+      case 78:
+        this.blur();
+        alert( 'Open multiple windows of the same instance is not allowed!' );
+        this.focus();
+    }  // end switch
+  }  // end lEvent
+}  // End function checkShortcutUserInfo
+
+
+// mc its 985 Make user pref dynamic
+// synchronize the physical and digital sort by radio buttons
+function synchronizeSortBy(obj,cObj)
+{
+  for(var i=0; i < obj.length; i++)
+  {
+    if(obj[i].checked == true)
+    {
+      cObj[i].checked = true;  // change the other sort object
+      break;
+    }
+  }
+}
+/////////////////////////////////////////////////////
+// msc 07/22/04 ITS# 1001 Filter family environments
+////////////////////////////////////////////////////
+if(document.all.envMenu)
+{
+  var envMenuValue = document.all.envMenu[document.all.envMenu.selectedIndex].value
+  clickReleasingFamily(document.all.releasingFamilies, document.all.envMenu)
+  setValuesIndex(document.all.envMenu,envMenuValue);
+}
+if(document.all.envMenuReports)
+{
+  var envMenuReportsValue = document.all.envMenuReports[document.all.envMenuReports.selectedIndex].value
+  clickReleasingFamily(document.all.releasingFamiliesReports, document.all.envMenuReports)
+  setValuesIndex(document.all.envMenuReports,envMenuReportsValue);
+}
+</script>

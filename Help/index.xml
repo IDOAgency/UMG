@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE index PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN" "http://java.sun.com/products/javahelp/index_1_0.dtd">
+<index>
+ <indexitem text="Bill of Materials" target="bom_form_htm" />
+ <indexitem text="Manufacturing" target="manufacturing_htm" />
+ <indexitem text="Product File Maintenance" target="pfm_form_htm" />
+ <indexitem text="Reports" target="reports_htm" />
+ <indexitem text="Schedule Screen" target="schedule_htm" />
+ <indexitem text="Selection Screen" target="selection_htm" />
+ <indexitem text="User Info" target="user_info_htm" />
+</index>

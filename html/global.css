@@ -1,0 +1,283 @@
+/* General settings for elements in the page */
+BODY {
+  background-color: white;
+	background-attachment: fixed;
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+}
+
+/* Settings to all elements with the class "menu" */
+.menu {
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+	color: #000000;
+}
+
+/* Link if it is not visited or the mouse is over it */
+A:link {
+	font-size: 8pt;
+	color: blue;
+	font-family: "Arial","Helvetica";
+	text-decoration:none;
+}
+/* Link if it is visited */
+A:visited {
+	font-size: 8pt;
+	color: blue;
+	font-family: "Arial","Helvetica";
+	text-decoration:none;
+}
+/* Link if the mouse is over it */
+A:hover {
+	font-size: 8pt;
+	color: red;
+	font-family: "Arial","Helvetica";
+	text-decoration:none;
+}
+/* Link if it is not visited or the mouse is over it */
+A.releaseFamily:link {
+	font-size: 8pt;
+	color: red;
+	font-family: "Arial","Helvetica";
+	text-decoration:none;
+}
+A.releaseFamily:visited {
+	font-size: 8pt;
+	color: red;
+	font-family: "Arial","Helvetica";
+	text-decoration:none;
+}
+/* Link of a key task (only if it is not overwritten by A:hover) */
+A.key {
+	color: forestgreen;
+}
+/* Link of a key UML task (only if it is not overwritten by A:hover) */
+A.umlKey {
+	color: forestgreen;
+}
+/* Table column of a key task */
+TD.key {
+	color: forestgreen;
+}
+/* Table column of an UML key task */
+TD.umlKey {
+	color: forestgreen;
+}
+/* Table column of an UML key task */
+TD.nonUmlKey {
+	/* color: forestgreen;  msc 01/07/02 item 2109 - change color to bold black */
+        color: forestgreen;
+	font-weight: bold;
+}
+/* General layout of any table header */
+TH {
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+}
+/* General layout of any table column */
+TD {
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+}
+/* General layout of a drop down box or a selection list */
+SELECT {
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+}
+/* General layout of an item in a drop down box or selection list */
+OPTION {
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+}
+/* General layout of an input element */
+INPUT {
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+}
+/* General layout of a text area */
+TEXTAREA {
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+}
+/* General layout of a unsorted list */
+UL {
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+}
+/* Layout of a SPAN element with class "title": title text */
+SPAN.title {
+	font-size: 14pt;
+	font-family: "Arial", "Helvetica";
+	font-weight: bold;
+	color: #010066;
+}
+/* Layout of a SPAN element with class "indicator": indication text */
+SPAN.indicator {
+	font-weight: bold;
+	color: purple;
+}
+/* Layout of a DIV element with class "formTitle": title in the detail part */
+DIV.formTitle {
+	font-size: 12pt;
+	font-family: "Arial", "Helvetica";
+	font-weight: bold;
+	text-align: center;
+	color: #010066;
+}
+/* Layout of a DIV with class "search": hidden search layer */
+DIV.search {
+	position:absolute;
+	left: 100px;
+	top: 20px;
+	font-weight: bold;
+	visibility:visible;
+	width:210px;
+	z-index:2;
+	background-color: wheat;
+}
+
+DIV.search2 {
+	position:absolute;
+	left: 0px;
+	top: 0px;
+	font-weight: bold;
+	visibility:visible;
+	width:210px;
+	z-index:0;
+	background-color: wheat;
+}
+
+
+DIV.search TH {
+	font-weight: bold;
+	background-color: #bbbbbb;
+
+}
+
+/* Table settings for a detail table (normally with a border) */
+TABLE.detailList {
+	text-align: left;
+}
+TABLE.detailList TR {
+	text-align: left;
+	padding-left: 5px;
+}
+TABLE.detailList TH {
+	text-align: left;
+	font-weight: bold;
+	background-color: #cccccc;
+    color: purple;
+}
+/* Table settings for a tight detail table (normally w/o a border) */
+TABLE.tightDetailList {
+	padding: 0px;
+}
+TABLE.tightDetailList TH {
+	font-weight: bold;
+	background-color: #cccccc;
+}
+/* Settings for the Notepad-List. Please note that you have to set cellspacing
+   to 0 otherwise the header contains white borders around the cells */
+TABLE.list {
+	padding: 0px;
+	margin: 0px;
+}
+/* Header settings for the Notepad-List */
+TABLE.list TH {
+	font-weight: bold;
+	background-color: "lavender";
+}
+/* Settings for a selected row in the Notepad-List. Just add the row to hightlight
+   the class "selected" */
+TABLE.list TR.selected {
+	background-color: "lavender";
+}
+TABLE.list TR.selectedDigital {
+	background-color: "#F3DBDF";
+}
+/* Settings for a Divider row (white line) */
+TR.divider {
+	background-color: #ffffff;
+}
+/* Settings for all table cells being a label. Just set this class to all the
+   cells */
+TD.label {
+	font-weight: bold;
+}
+CENTER.footer {
+	color: #004499;
+}
+/* Settings for the notepad list separator */
+IMG.separator {
+	background-color: gray;
+}
+
+.ctrlShort
+{
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+	width: 60px
+}
+.ctrlSmall
+{
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+	width: 90px
+}
+.ctrlMedium
+{
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+	width: 130px
+}
+.ctrlLarge
+{
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+	width: 250px
+}
+.ctrlXLarge
+{
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+	width: 400px
+}
+.ctrlMediumGrayBG
+{
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+	width: 130px;
+        background-color: #CCCCCC;
+}
+.ctrlShortGrayBG
+{
+	font-size: 8pt;
+	font-family: "Arial","Helvetica";
+	width: 60px;
+        background-color: #CCCCCC;
+}
+
+#specialIntructionsBox textarea {
+	height : 150px; 
+}
+
+a.digital:link {font-size: 8pt;	font-family: "Arial","Helvetica"; color: #990099;text-decoration:underline;}
+a.digital:visited {font-size: 8pt;font-family: "Arial","Helvetica"; color: #990099;text-decoration:underline;}
+a.digital:active {font-size: 8pt;font-family: "Arial","Helvetica"; color: #990099;text-decoration:underline;}
+a.digital:hover {font-size: 8pt;font-family: "Arial","Helvetica"; color: #990099;text-decoration:underline;}
+
+a.all:link {font-size: 8pt;	font-family: "Arial","Helvetica"; color: #003399;text-decoration:underline;}
+a.all:visited {font-size: 8pt;font-family: "Arial","Helvetica"; color: #003399;text-decoration:underline;}
+a.all:active {font-size: 8pt;font-family: "Arial","Helvetica"; color: #003399;text-decoration:underline;}
+a.all:hover {font-size: 8pt;font-family: "Arial","Helvetica"; color: #003399;text-decoration:underline;}
+
+a.physical:link {font-size: 8pt;	font-family: "Arial","Helvetica"; color: #0033FF;text-decoration:underline;}
+a.physical:visited {font-size: 8pt;font-family: "Arial","Helvetica"; color: #0033FF;text-decoration:underline;}
+a.physical:active {font-size: 8pt;font-family: "Arial","Helvetica"; color: #0033FF;text-decoration:underline;}
+a.physical:hover {font-size: 8pt;font-family: "Arial","Helvetica"; color: #0033FF;text-decoration:underline;}
+
+a.pinkLink:link {color: #990099; font-size: 8pt; font-family: "Arial","Helvetica"; text-decoration:none;}
+a.pinkLink:visited {color: #990099; font-size: 8pt; font-family: "Arial","Helvetica"; text-decoration:none;}
+a.pinkLink:active {color: #990099; font-size: 8pt; font-family: "Arial","Helvetica"; text-decoration:none;}
+a.pinkLink:hover {color: red; font-size: 8pt; font-family: "Arial","Helvetica"; text-decoration:none;}
+

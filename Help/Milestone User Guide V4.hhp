@@ -1,0 +1,59 @@
+[OPTIONS]
+Compiled File=Milestone User Guide V4.chm
+Title=Milestone User Guide V4.0
+Contents File=Milestone User Guide V4.hhc
+Index File=Milestone User Guide V4.hhk
+Default topic=Whats_New.htm
+Default Window=NewWindow
+Error log file=
+Display compile progress=No
+Display compile notes=No
+Full-text search=Yes
+Binary Index=Yes
+Auto Index=No
+Enhanced decompilation=No
+Binary TOC=No
+Flat=No
+
+[WINDOWS]
+NewWindow="Milestone User Guide V3.0","Milestone User Guide V4.hhc","Milestone User Guide V4.hhk","","",,,,,0x420,0,0x200e,[0,0,500,400],0x0,0x0,,0,0,0
+
+[FILES]
+Reviewing_Editing_Your_User_Information.htm
+Generating_temporary_product_numbers.htm
+Saving_Selections.htm
+Deleting_Selections.htm
+CopyingSelections.htm
+Table_of_Field_Definitions.htm
+Closing_schedules.htm
+Field_Definitions.htm
+PFM_Field_Definitions.htm
+Field_Definitions_Table.htm
+BOM_Form_Field_Definitions_Table.htm
+Selection.htm
+Creating_Product_Records.htm
+Editing_Product_Records1.htm
+Generating_Local_Product_Numbers.htm
+Schedule.htm
+Navigation,_the_Notepad_and_Searching.htm
+PFM_Form.htm
+BOM_Form.htm
+Manufacturing.htm
+Reports.htm
+FAQs.htm
+Contact_Us.htm
+Available_Standard_Reports1.htm
+Whats_New.htm
+Editing_Schedules.htm
+Logging_On.htm
+Creating_Schedules.htm
+
+Milestone User Guide V4.brs
+[ALIAS]
+#include Milestone User Guide V4.ali
+
+[MAP]
+
+[TEXT POPUPS]
+
+

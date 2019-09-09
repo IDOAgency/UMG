@@ -1,0 +1,659 @@
+<HTML>
+ <HEAD>
+  <!-- $MVD$:app("RoboHELP HTML Edition by Blue Sky Software, portions by MicroVision Dev. Inc.","769") -->
+  <!-- $MVD$:template("","0","0") -->
+  <!-- $MVD$:color("15","808000","Custom #1","0") -->
+  <!-- $MVD$:fontset("Verdana","Verdana") -->
+  <!-- $MVD$:fontset("Arial","Arial") -->
+  <TITLE>PFM Form</TITLE>
+  <META NAME="generator" CONTENT="RoboHELP by Blue Sky Software www.blue-sky.com HTML Edition">
+  <SCRIPT language="javascript">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='Milest_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='Milestone.css'>");}
+//-->
+
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht1.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht2.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript"><!-- 
+//////////BSSCDHTML Section Embedded Code//////////
+var s_strAgent = navigator.userAgent.toLowerCase();
+var s_nVer	   = parseInt(navigator.appVersion);
+
+var s_bIE  = (s_strAgent.indexOf('msie') != -1);
+var s_bNS  = (s_strAgent.indexOf('mozilla') != -1) && ((s_strAgent.indexOf('spoofer') == -1) && (s_strAgent.indexOf('compatible') == -1));
+var s_bOpera	= (s_strAgent.indexOf('opera') != -1);
+
+var s_bIE3Before = ((s_bIE) && (s_nVer <= 2));
+var s_bNS3Before = ((s_bNS) && (s_nVer <= 3));
+
+var s_bNS2		= ((s_bNS) && (s_nVer <= 2));
+var s_bNS3		= ((s_bNS) && (s_nVer == 3));
+var s_bIE300301	= ((s_bIE) && (s_nVer == 2) && ((s_strAgent.indexOf("3.00") != -1)||(s_strAgent.indexOf("3.0a") != -1)||(s_strAgent.indexOf("3.0b")!=-1)||(s_strAgent.indexOf("3.01")!=-1)));
+var s_bIE302	= ((s_bIE) && (s_nVer == 2) && (s_strAgent.indexOf("3.02") != -1));
+
+
+function HasExtJs()
+{
+	if (s_bIE3Before) { return false;}
+	if (s_bNS3Before) {	return false;}
+	if (typeof (_BSSCOnLoad) == "undefined"){ return false; }
+	return true;
+}
+
+function BSSCOnLoad()
+{
+	if (HasExtJs()) { _BSSCOnLoad(); }
+}
+
+function BSSCOnUnload()
+{
+	if (HasExtJs()) { _BSSCOnUnload(); }
+}
+
+function BSSCOnClick()
+{
+	if (HasExtJs()) { _BSSCOnClick(); }
+}
+
+function WritePopupMenuLayer()
+{
+	if (HasExtJs()) {_WritePopupMenuLayer();}
+}
+
+function BSSCCreatePopupDiv()
+{
+	if (HasExtJs()) {_BSSCCreatePopupDiv();	}
+}
+
+function BSSCPopup(strURL)
+{
+	if (HasExtJs())	{ 
+		_BSSCPopup(strURL);
+	}else{
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+		// Create the real popup window
+		var wndPopup = window.open(strURL, "PopupWindow", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=300,width=400");
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		} else {
+			wndPopup.focus();
+		}
+	}
+}
+
+
+function PopupMenu_Invoke()
+{
+	if (HasExtJs()) {
+		return _PopupMenu_Invoke(PopupMenu_Invoke.arguments);
+	}
+	if (s_bNS3Before || s_bIE3Before )	{
+		var argLen 	= PopupMenu_Invoke.arguments.length;
+		if (argLen < 5) {
+			window.document.location.href = PopupMenu_Invoke.arguments[3];
+			return false;
+		}
+		var nHeight = argLen * 15;
+		var nWidth = 400;
+		var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=auto";
+		strParam += ",height=" + nHeight + ",width=200,resizable";
+		
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+
+		var wndPopupLinks = window.open("", "popuplinks", strParam);
+		wndPopupLinks.document.open("text/html");
+		wndPopupLinks.document.write("<html><head>");
+		if (s_bNS2 || s_bOpera) {
+			wndPopupLinks.document.write("<base href=\"" + location +"\">");
+		} else {
+			//YJ: IE301,302 and NS3.x works fine
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("script>");
+			wndPopupLinks.document.write("function gotoUrl(aUrl) {opener.window.location=aUrl; close();}");
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("/script>");
+		}
+		wndPopupLinks.document.write("</head><body onBlur=\'self.focus();\'>");
+		var strParaLine = "";
+		for (var i = 0; i < (argLen - 2) / 2; i++) {
+			strParaLine = "";
+			if (s_bNS2 || s_bOpera){
+				strParaLine += "<a href=\"";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\">"
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			} else {
+				strParaLine += "<a href=\"javascript:";
+				strParaLine += "gotoUrl(\'";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\');\"";
+				if (PopupMenu_Invoke.arguments[1] != '') {
+					strParaLine += " TARGET='" + PopupMenu_Invoke.arguments[1] + "'";
+				}
+				strParaLine += ">";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			}
+			strParaLine += "<br>";
+			wndPopupLinks.document.write(strParaLine);
+		}
+		wndPopupLinks.document.write("</body></html>");
+		wndPopupLinks.document.close();
+
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		}else {
+			wndPopupLinks.focus();
+		}
+
+		return true;
+	}
+	return false;
+}
+  
+
+ 
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+ 
+//-->
+  </SCRIPT></HEAD>
+  <BODY ONLOAD="BSSCOnLoad();" ONCLICK="BSSCOnClick();">
+  
+  <div id='NavBar' STYLE='position:relative;' align='right'><nobr><font size=1>
+   <script language="javascript"><!--
+ var bHomePage=false; if(document.all){if ((top)&&(top.frames)&&(top.frames.length<=1)) bHomePage=true;} if(document.layers){if((parent)&&(parent.top.frames)&&(parent.top.frames.length<=1)) bHomePage=true;}
+if (bHomePage){document.write("<a href='Milestone.htm'><img src='bsscnav1.gif' width=53 height=18 border=no></a>");}
+//-->
+   </script></font>&nbsp;&nbsp;&nbsp;</nobr>
+  </div>
+<H1>
+   <SPAN STYLE="font-style : normal;font-size : 12.0pt;"><FONT SIZE=3>Product File 
+   Maintenance (PFM) Form</FONT></SPAN></H1>
+  <P>
+   The PFM form is an electronic form that replaces the Microsoft Word 
+   document currently being utilized. Once data is entered into the 
+   form, the PFM form can be printed or sent as an e-mail attachment.</P>
+  <P>
+   When the PFM screen is first opened, the listing on the left-hand 
+   side of the screen will include selections for the company under 
+   which the user operates. The PFM form (right-hand side of the screen) 
+   will display information relative to the highlighted record in the 
+   listing on the left.</P>
+  <P>
+   <TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0">
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-weight : bold;"><B>Field Name</B></SPAN></TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       <SPAN STYLE="font-weight : bold;"><B>Description</B></SPAN></TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Prepared By</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The user who entered data into the PFM form. The name of the user 
+       entering the PFM is automatically entered into this field by the 
+       system when a new PFM is created. IT can be changed after the PFM has 
+       been saved.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Email</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The e-mail address of the user who entered data into the PFM form</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Phone</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The phone number of the user who entered data into the PFM from</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Fax Number</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The facsimile number of the user who entered data into the PFM form</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Comments</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       A hyper-link that opens a pop-up window in which comments may be entered</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Add</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Select this radio button if this is the first submission of the PFM 
+       form for this release</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Modify</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Indicates a modification has been made to the PFM form</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Oper Co.</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Operating Company. The code that identifies the treatment of 
+       royalties for this release. Can be an appropriate two character 
+       alphanumeric code. Since the OpCo. is uniquely linked to the Label , 
+       selection of athe incorrect label code, will result in sales' passing 
+       to the wrong royalty system. The selected label code must be set up 
+       in that OpCo. If uncertain of the correct OpCo, please consult the 
+       appropriate controller.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Prod. No.</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Product Number. The selection number for this release (the middle 10 
+       digits of the 12 digit UPC number for commercial releases) This 
+       number is entered on the selection screen in the prefix and selection 
+       ID fields. It is a read-only field.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Conf. Cd.</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Configuration Code. Select from the drop-down the best description of 
+       this release. To determine the appropriate Configuration Code, 
+       contact UML Inventory Accounting (818-866-9115)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Modifier</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Modifier. Used to determine price export and record club sales.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Title</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The title of the release. Automatically populated from the selection screen.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Artist</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The name of the principal Artist (last name, first name). The artist 
+       field on the PFM form defaults to display the last name followed by 
+       first name of the artist based on the data entered on the selection 
+       screen. Please refer to the RMS guidelines for rules regarding artist 
+       name data entry.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Title ID</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The product number to which this product should be linked. For audio, 
+       this field may remain blank if this is a CD release; otherwise, enter 
+       the product number of the CD to which this product is linked. This 
+       number is entered on the selection screen. It is a read-only field.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Release Date</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The in-store date of this release. This is entered on the selection 
+       screen. It is a read-only field.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Super Label</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Super Label</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       label Co.</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Label Code. The code of the label making this release. Since the OpCo 
+       is uniquely linked to the label, it is very important to select the 
+       correct label code and ensure that the label code is set up in the 
+       appropriate OpCo. If uncertain of athe correct label code, please 
+       consult the appropriate controller.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Co. Cd</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Select from the drop-down the best description of this release. It is 
+       important that &quot;9000&quot; is used if Operating Company 
+       &quot;PR&quot; or &quot;IS&quot; are already selected AND if this is 
+       a distributed label release which should be excluded from the Royalty Systems.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Proj ID</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       &nbsp;Project ID. The label copy (RMS) number associated with this release.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       PO Merge Cd</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       This field should reflect the label making the release; otherwise, 
+       select &quot;99: UMG Labels&quot;</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Units per Set</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The number of discs or tapes per set. This appears as a read-only 
+       field on the selection screen's# of units field.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Sets per Crtn</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Sets per Crtn. The number of sets shipped in each carton (30 is the 
+       standard for single unit albums in all configurations)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Suppliers</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       This field should reflect Cinram, Gloversville, Kings Mtn and/or 
+       Pinckneyville if this release is being manufactured at one of these 
+       suppliers. If the release is being manufactured at another facility, 
+       enter that supplier's numeric code. Contact UML Inventory Accounting 
+       (818-866-9115) to obtain the correct supplier code.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Imp. Ind</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Import Indicator. Determines if the release is US Made or Imported.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       UPC</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Universal Product Code. This number is entered on the selection 
+       screen. It is read-only field.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Music LNn</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Music Line. Select from the drop-down the best description of this 
+       release. If &quot;9000&quot; was indicated for the Co. Code, 
+       &quot;9000&quot; should also be indicated here. Contact UML Inventory 
+       Accounting (818-866-9115) to obtain the correct music line code.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Rep. Owner</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Repertoire Owner. The best description for this release. If unsure, 
+       contact A&amp;R Administration or Business Affairs.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Rep. Class</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Repertoire Class</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Rtrn/Scrap Co.</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Return/Scrap Code. The description of the return policy for this release.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Exp. Ind.</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Export Indicator. The exports that are allowed for this release 
+       (if&quot;E&quot; or &quot;I&quot; are selected, also completed the 
+       next field). Contact Business Affairs for appropriate indicator if uncertain.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Incd/Exd Cnty</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Included or Excluded Countries. The three-digit numeric code for each 
+       of the countries for which exports are to be included or excluded, if applicable.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Spine Title</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The title of the release, including &quot;(ED)&quot;, &quot;(EN)&quot;
+        or &quot;(EX)&quot;, if applicable the system will automatically 
+       populate the first 37 characters using the information from the 
+       Selection screen's Title field.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Spine Artist</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The name of the principal Artist (last name, first name). Please 
+       refer to the RMS guidelines for rules regarding Artist name data 
+       entry. The system will automatically populate the first 37 characters 
+       using information entered in the Artist field on the Selection screen.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Price Cd</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Price Code. The code which best corresponds to the pricing for this 
+       release (&quot;Release Code&quot; should not be used). Consult the 
+       Internal Pricing Table for the most common codes; if unsure, contact 
+       Sales Administration (818-777-8817). This number is entered on the 
+       selection screen in the sell code field. It is a read-only field.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Guar Cd</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Gaurantee Code. Check &quot;All penalties &amp; bonuses apply / 
+       N&quot; if this release is NOT IMI / IMP exempt; check &quot;No 
+       penalties and bonuses apply / Y&quot; if this release is IMI / IMP exempt.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       IMP Rate Cd</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Select &quot;FL: Default&quot; unless another description applies to 
+       this release. This field will be used -- along with Config Code -- to 
+       determine the incentive and disincentive values (bonuses and 
+       penalties) to be applied to this release's sales.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Music Type</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Select from the drop-down the best description of this release. This 
+       is used to determine which sales reps will have responsibility for 
+       marketing this product, a responsibility that is usually defined by 
+       genre. If unsure, contact Sales Administration (818-777-8817). This 
+       number defaults in from what is on the selection screen in the genre 
+       field, but it can be changed for this form.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       NARM Extract Ind</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       The Narm Extract Indicator. The values are &quot;Yes&quot; or 
+       &quot;No&quot;. Choose &quot;Yes&quot; or the default &quot;No&quot;. 
+       Products that should always be set to &quot;No&quot;:</P>
+      <P>
+       Value added SKUs</P>
+      <P>
+       Customer specific Prepack SKUs</P>
+      <P>
+       Premium SKUs</P>
+      <P>
+       Custom manufactured SKUs</P>
+      <P>
+       There may be other types of products that should also be set to 'No'. 
+       The theory is that any SKU that is not to be made available to ALL 
+       customers should be flagged as 'N'.</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Price Point</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       Select from the drop-down the best description of this release. If 
+       unsure, contact Sales Administration (818-777-8817)</TD>
+    </TR>
+    <TR>
+     <TD WIDTH="24%" VALIGN="TOP">
+      <P>
+       Last Updated</TD>
+     <TD WIDTH="76%" VALIGN="TOP">
+      <P>
+       User login ID of the user who entered or last updated the screen, and 
+       the date the screen was last updated. Read-only field. The system 
+       automatically updates based upon user login ID.</TD>
+    </TR>
+   </TABLE></P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>Entering PFM Data</B></SPAN></P>
+  <P>
+   Conduct a search to find the selection (refer to Conducting Searches 
+   in the System Navigation section of this document).</P>
+  <P>
+   Click on the record in the search results list to access the 
+   appropriate information.</P>
+  <P>
+   Enter data into the data form, using drop-down lists where available.</P>
+  <P>
+   Click the Save button to save the PFM form.</P>
+  <P>
+   <SPAN STYLE="font-weight : bold;"><B>PFM Copy Feature</B></SPAN></P>
+  <P>
+   <IMG SRC="pfmcopy.gif" WIDTH="335" HEIGHT="79" VSPACE="0" HSPACE="0" BORDER="0"></P>
+  <P>
+   Click on the 'Copy' paper icon above the &quot;Prepared By&quot; field.</P>
+  <UL>
+   <LI CLASS="mvd-P">
+   <P>
+    <SPAN STYLE="font-style : italic;"><I>The 'Copy' paper icon only appears 
+    on PFM forms that have been saved.</I></SPAN></P>
+   </UL>
+  <P>
+   Conduct a search to find the PFM form to paste this information to by 
+   using the Selection Search.</P>
+  <P>
+   <IMG SRC="pfmpaste.gif" WIDTH="280" HEIGHT="82" VSPACE="0" HSPACE="0" BORDER="0"></P>
+  <P>
+   Click on the &quot;Paste&quot; clipboard icon to paste information 
+   from the previous PFM form to the new PFM form. Click on the Save 
+   button to save the PFM form.</P>
+  <UL>
+   <LI CLASS="mvd-P">
+   <P>
+    <SPAN STYLE="font-style : italic;"><I>Only PFM forms that have not been 
+    previously saved will display the &quot;Paste&quot; clipboard icon.</I></SPAN>
+ </BODY>
+</HTML>

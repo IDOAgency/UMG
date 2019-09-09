@@ -1,0 +1,840 @@
+<%
+ /**
+  * Contains the search div elements for the selection page
+ **/
+// get the user object from the session
+User userSS = (User)context.getSessionValue("user");
+String adminDisplayStyle = (!MilestoneConstants.IsGDRSactive || (userSS != null && userSS.getAdministrator() == 1)) ? "block" : "none";
+%>
+<script>
+function HideLayer()
+{
+ toggle( 'SearchLayer', 'ArtistSearch' );
+ mtbSearch.click();
+}
+</script>
+
+<% //-- include js file, the COS building class methods--%>
+<script type="text/javascript" language="javascript" src="<%= inf.getHtmlDirectory() %>include-jscript-clickCOS.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+<!-- START DIV DEFINITIONS -->
+<!-- start search div -->
+<div class="search" id="SearchLayer" onKeyPress="checkForEnter( 'submitSearchResults()' );" style="left:50px;z-index:150;visibility:hidden">
+<table width="100%" border="1" cellspacing="0" cellpadding="1">
+<tr><td>
+	<table width="100%">
+	<tr>
+		<th colspan="2">Selection Search</th>
+	</tr>
+	<tr>
+		<td>Artist</td>
+		<td><%= form.getElement("ArtistSearch") %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Title</td>
+		<td><%= form.getElement("TitleSearch") %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td nowrap>Prefix/Local Prod #</td>
+		<td NO WRAP>
+			<%= form.getElement("PrefixSearch") %>&nbsp;<%= form.getElement("SelectionSearch") %>
+		</td>
+	</tr>
+	<tr>
+		<td>UPC Code</td>
+		<td><%= form.getElement("UPCSearch") %></td>
+		<td></td>
+	</tr>
+	<!-- JR - ITS #169 -->
+	<tr>
+		<td>Start Street Date</td>
+		<td><%= form.getElement("StreetDateSearch") %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>End Street Date</td>
+		<td><%= form.getElement("StreetEndDateSearch") %></td>
+		<td></td>
+	</tr>
+	<!-- release upgrade 8.1 -->
+	<tr>
+	<!-- JP Digital AFE -->
+	    <td style='display:<%=adminDisplayStyle%>'>Product Type</td>
+		<td style='display:<%=adminDisplayStyle%>'><%= form.getElement("ProdType") %></td>
+		<td></td>
+	</tr>
+	<!-- JR - ITS #169 -->
+	<!-- JR - ITS#70 -->
+	<tr>
+	<!-- JR ITS - 277 -->
+		<td nowrap>
+                 <SPAN ID="formatLabel">
+                  Format/Schedule Type
+                 </SPAN>
+                </td>
+		<td><%= form.getElement("ConfigSearch") %></td>
+		<td></td>
+	</tr>
+	<tr>
+	<!-- JR ITS - 277 -->
+		<td nowrap>Sub-Format</td>
+		<td><%= form.getElement("SubconfigSearch") %></td>
+		<td></td>
+	</tr>
+	<!-- JR - ITS#70 -->
+	<tr>
+		<td>Releasing Family</td>
+		<td><%= form.getElement("FamilySearch") %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Environment</td>
+		<td><%= form.getElement("EnvironmentSearch") %></td>
+		<td></td>
+	</tr>
+	<!-- <tr>
+		<td>Company</td>
+		<td><%= form.getElement("CompanySearch") %></td>
+		<td></td>
+	</tr> -->
+	<tr>
+	<td>Company</td>
+	<td><input type="radio" id="allCompany" onclick="javascript:yesnoCheck(); "name="company2" value="all"> All
+   <input type="radio" id="selectCompany" onclick="javascript:yesnoCheck();" name="company2" value="select"> Select</td>
+    </tr>
+	
+	<tr id="selectCompanydiv" style="display:none;">
+	
+		<td></td>
+		<td><%= form.getElement("CompanySearch") %></td>
+		<td></td>
+		
+	</tr>
+	
+		<tr>
+		<td>Label</td>
+	<td><input type="radio" id="allLabel" onclick="javascript:yesnoCheckLabel(); "name="Label2" value="allLabel"> All
+    <input type="radio" id="selectLabel" onclick="javascript:yesnoCheckLabel(); "name="Label2" value="selectLabel"> Select</td>
+    </tr>
+    
+	<tr id="selectLabeldiv" style="display:none;">
+	
+		<td></td>
+		<td><%= form.getElement("LabelSearch") %></td>
+		<td></td>
+	
+	</tr>
+	
+	<tr>
+		<td>Project ID</td>
+		<td><%= form.getElement("ProjectIDSearch") %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Label Contact</td>
+		<td><%= form.getElement("ContactSearch") %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td colspan="2">Include Closed/Cancel<%= form.getElement("ShowAllSearch") %></td>
+	</tr>
+	<tr>
+
+                <td colspan="2">
+		<input type=hidden name="macArtistSearch" value="">
+		<input type=hidden name="macTitleSearch" value="">
+		<input type=hidden name="macPrefixSearch" value="">
+		<input type=hidden name="macSelectionSearch" value="">
+		<input type=hidden name="macUPCSearch" value="">
+		<input type=hidden name="macStreetDateSearch" value="">
+		<input type=hidden name="macStreetEndDateSearch" value="">
+		<input type=hidden name="macSubconfigSearch" value="">
+		<input type=hidden name="macCompanySearch" value="">
+		<input type=hidden name="macLabelSearch" value="">
+		<input type=hidden name="macContactSearch" value="">
+
+                <input type="button" name="SubmitSearch" id="SubmitSearch" value="Submit Search" onClick="Javascript:submitSearchResults()">
+                <input type="button" name="SubmitCancel" id="SubmitCancel" value="Cancel" onClick="Javascript:cancelSearch();HideLayer();">
+		<input type="button" name="Clear"  value="Clear"  onClick="clearSearch();">
+
+                <%
+                // MC ITS 462 Make all users active
+                //if(userSS != null && userSS.getPreferences() != null && userSS.getPreferences().getActive())
+                if(userSS != null && userSS.getPreferences() != null )
+                {%>
+	          <input type="button" name="ResetDefaults"  value="Reset Prefs"  onClick="resetDefaults();">
+                <%}%>
+
+           </td>
+	</tr>
+	</table>
+</td></tr>
+</table>
+</div>
+
+
+<% //search results %>
+<div class="search" id="selectionSearchResultsLayer" style="z-index:160;visibility:hidden;left:350px;top:360px;">
+<table width="210" border="1" cellspacing="0" cellpadding="5">
+<tr><td>
+	<table width="100%">
+	<tr>
+		<th colspan="2" align="center"><b>Search Results</b></th>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+		&nbsp;No selection records found...please alter </td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+		<input type="button" name="srok" value="Ok" onClick="JavaScript:document.all.selectionSearchResultsLayer.style.visibility = 'hidden'" style="width:70px">
+		</td>
+	</tr>
+	</table>
+</td></tr>
+</table>
+</div>
+
+
+
+
+<% //Selection Search process %>
+<IFRAME style="visibility:hidden" HEIGHT="100" width="200" ID="SelectionSearchFrame" name="SelectionSearchFrame"  FRAMEBORDER=0 SCROLLING=NO>
+</IFRAME>
+<style>
+.ui-front {
+	z-index: 168;
+}
+</style>
+<script>
+
+//function to show or filter contains
+function yesnoCheck() {
+    if (document.getElementById('selectCompany').checked) {
+        document.getElementById('selectCompanydiv').style.display = 'block';
+    }
+    else 
+    	document.getElementById('selectCompanydiv').style.display = 'none';
+
+}
+function yesnoCheckLabel() {
+    if (document.getElementById('selectLabel').checked) {
+        document.getElementById('selectlabeldiv').style.display = 'block';
+    }
+    else 
+    	document.getElementById('selectLabeldiv').style.display = 'none';
+
+}
+// save the selected values
+var famSelValue = "0";
+var envSelValue = "0";
+var coSelValue = "0"
+var labSelValue = "0";
+var bites = document.cookie.split("; "); // break cookie into array of bites
+
+
+function getCookie(name) { // use: getCookie("name");
+    for (var i=0; i < bites.length; i++) {
+      nextbite = bites[i].split("="); // break into name and value
+      if (nextbite[0] == name) // if name matches
+        return unescape(nextbite[1]); // return value
+    }
+    return "";
+  }
+
+function setCookie(name, value) { // use: setCookie("name", value);
+    // set the cookie value
+    if (value != null && value != "")
+      document.cookie=name + "=" + escape(value);
+    // remove the cookie if empty string
+    if (value != null && value == "")
+      document.cookie=name + "=" + escape(value) + "; expires=Fri, 02-Jan-1970 00:00:00 GMT";
+    bites = document.cookie.split("; "); // update cookie bites
+  }
+
+// JP - 10/28/03
+var currentConfig = "";
+var currentSubConfig = "";
+var priorCriteria = false;  // mc its 462 default to false
+
+<%  // Get search results if true search was successfull
+ String searchResults = (String)context.getDelivery("selectionSearchResults");
+    if(searchResults == null)
+       searchResults = "true";  // if object is null, default to true
+%>
+
+
+<% if(searchResults.equals("true") && userSS != null && userSS.getPreferences() != null && userSS.getPreferences().getSelectionPriorCriteria() == 1)
+ {%>
+    priorCriteria = true;
+<%}%>
+
+
+    <%
+    //////////////////////////////////////////////////////////////////////
+    // Restore the search criteria if user proferences prior flag is set
+    // or this is the first time this screen has been displayed
+    /////////////////////////////////////////////////////////////////////
+    // get the search elements first time flag
+    String searchElementsInit = (String)context.getSessionValue("searchElementsInit");
+    // get the user object from the session
+    //if(userSS != null && ((userSS.getPreferences() != null &&
+    //       userSS.getPreferences().getSelectionPriorCriteria() == 1) || searchElementsInit == null))
+
+    /////////////////////////////////////////////////////////////
+    // MC ITS 975 - If search unsuccessful,  show user input
+    /////////////////////////////////////////////////////////////
+    if(userSS != null && userSS.getPreferences() != null &&
+      (userSS.getPreferences().getSelectionPriorCriteria() == 1 || searchResults.equals("false")))
+    {
+    %>
+       famSelValue = "<%=userSS.SS_familySearch%>";
+       envSelValue = "<%=userSS.SS_environmentSearch%>";
+       coSelValue = "<%=userSS.SS_companySearch%>"
+       labSelValue = "<%=userSS.SS_labelSearch%>";
+       document.all.ArtistSearch.value = "<%=userSS.SS_artistSearch%>";
+       document.all.TitleSearch.value = "<%=userSS.SS_titleSearch%>";
+       document.all.PrefixSearch.value = "<%=userSS.SS_prefixIDSearch%>";
+       document.all.SelectionSearch.value = "<%=userSS.SS_selectionNoSearch%>";
+       document.all.UPCSearch.value = "<%=userSS.SS_upcSearch%>";
+       document.all.StreetDateSearch.value = "<%=userSS.SS_streetDateSearch%>";
+       document.all.StreetEndDateSearch.value = "<%=userSS.SS_streetEndDateSearch%>";
+       <%if(userSS.SS_productTypeSearch.equalsIgnoreCase("physical"))
+       {%>
+         document.all.ProdType[0].checked = true;
+       <%}
+       else if(userSS.SS_productTypeSearch.equalsIgnoreCase("digital"))
+      {%>
+         document.all.ProdType[1].checked = true;
+       <%}
+       else {%>
+         document.all.ProdType[2].checked = true;  // default to both
+       <%}%>
+
+       // MC ITS 462 09/22/04
+       //COS.setValuesIndex(document.all.ConfigSearch,"<%=userSS.SS_configSearch%>");
+       //COS.setValuesIndex(document.all.SubconfigSearch,"<%=userSS.SS_subconfigSearch%>");
+
+       currentConfig = "<%=userSS.SS_configSearch%>";
+       currentSubConfig = "<%=userSS.SS_subconfigSearch%>";
+       document.all.ProjectIDSearch.value = "<%=userSS.SS_projectIDSearch%>";
+       COS.setValuesIndex(document.all.ContactSearch,"<%=userSS.SS_contactSearch%>");
+       document.all.ShowAllSearch.checked = false;
+       <%if(userSS.SS_showAllSearch != null && userSS.SS_showAllSearch.equals("true"))
+       {%>
+         document.all.ShowAllSearch.checked = true;
+      <%}%>
+
+       ///////////////////////////////////////////////////////////////////////////
+       // if invalid search, restore previous search values to user search values
+       ///////////////////////////////////////////////////////////////////////////
+       <%if(searchResults.equals("false"))
+       {
+         Hashtable prevSearchValues = (Hashtable)context.getDelivery("prevSearchValues");
+         if(prevSearchValues != null)
+         {
+           userSS.SS_artistSearch = (String)prevSearchValues.get("SS_artistSearch");
+           userSS.SS_titleSearch = (String)prevSearchValues.get("SS_titleSearch ");
+           userSS.SS_selectionNoSearch = (String)prevSearchValues.get("SS_selectionNoSearch");
+           userSS.SS_prefixIDSearch = (String)prevSearchValues.get("SS_prefixIDSearch");
+           userSS.SS_upcSearch = (String)prevSearchValues.get("SS_upcSearch");
+           userSS.SS_streetDateSearch = (String)prevSearchValues.get("SS_streetDateSearch");
+           userSS.SS_streetEndDateSearch = (String)prevSearchValues.get("SS_streetEndDateSearch");
+           userSS.SS_configSearch = (String)prevSearchValues.get("SS_configSearch");
+           userSS.SS_subconfigSearch = (String)prevSearchValues.get("SS_subconfigSearch");
+           userSS.SS_labelSearch = (String)prevSearchValues.get("SS_labelSearch");
+           userSS.SS_companySearch = (String)prevSearchValues.get("SS_companySearch");
+           userSS.SS_contactSearch = (String)prevSearchValues.get("SS_contactSearch");
+           userSS.SS_familySearch = (String)prevSearchValues.get("SS_familySearch");
+           userSS.SS_environmentSearch = (String)prevSearchValues.get("SS_environmentSearch");
+           userSS.SS_projectIDSearch = (String)prevSearchValues.get("SS_projectIDSearch");
+           userSS.SS_productTypeSearch = (String)prevSearchValues.get("SS_productTypeSearch");
+           userSS.SS_showAllSearch = (String)prevSearchValues.get("SS_showAllSearch");
+         }
+       }%>
+
+   <%}%>
+
+    ////////////////////////////////////////////////////////////
+    // if successfull search save search critier into cookies
+    ///////////////////////////////////////////////////////////
+    <%if(searchResults.equals("true"))
+    {%>
+       // if successfull search save search critier into cookies
+       // MC ITS 462 09/22/04
+       //setCookie("famSelValue","<%=userSS.SS_familySearch%>");
+       //setCookie("envSelValue","<%=userSS.SS_environmentSearch%>");
+       //setCookie("coSelValue","<%=userSS.SS_companySearch%>");
+       //setCookie("labSelValue","<%=userSS.SS_labelSearch%>");
+       //setCookie("ArtistSearch","<%=userSS.SS_artistSearch%>");
+       //setCookie("TitleSearch","<%=userSS.SS_titleSearch%>");
+       //setCookie("PrefixSearch","<%=userSS.SS_prefixIDSearch%>");
+       //setCookie("SelectionSearch","<%=userSS.SS_selectionNoSearch%>");
+       //setCookie("UPCSearch","<%=userSS.SS_upcSearch%>");
+       //setCookie("StreetDateSearch","<%=userSS.SS_streetDateSearch%>");
+       //setCookie("StreetEndDateSearch","<%=userSS.SS_streetEndDateSearch%>");
+       //setCookie("ProductTypeSearch","<%=userSS.SS_productTypeSearch%>");
+       //setCookie("ConfigSearch","<%=userSS.SS_configSearch%>");
+       //setCookie("SubconfigSearch","<%=userSS.SS_subconfigSearch%>");
+       //setCookie("ProjectIDSearch","<%=userSS.SS_projectIDSearch%>");
+       //setCookie("ContactSearch","<%=userSS.SS_contactSearch%>");
+       //setCookie("ShowAllSearch","<%=userSS.SS_showAllSearch%>");
+
+   <%}%>
+
+////////////////////////////////////////////////////////////
+// msc, rebuild the drop down boxes with the selected values
+////////////////////////////////////////////////////////////
+
+//////////////////////////////////
+// Instantiate a new COS object
+/////////////////////////////////
+var searchCOS = new COS(document.all.FamilySearch,document.all.EnvironmentSearch,
+                        document.all.CompanySearch,document.all.DivisionSearch,
+                        document.all.LabelSearch,false)
+
+// MC ITS 462 RESET user pref if prior criteria save is not set and successful search
+<%if(searchResults.equals("true"))
+{%>
+if(!priorCriteria)
+{
+   resetDefaults();
+}
+<%}%>
+
+// family value
+COS.setValuesIndex(document.all.FamilySearch,famSelValue);
+if(document.all.FamilySearch && document.all.FamilySearch.selectedIndex > 0)
+  searchCOS.clickFamilySearch(document.all.FamilySearch);
+
+// environment value
+COS.setValuesIndex(document.all.EnvironmentSearch,envSelValue);
+if(document.all.EnvironmentSearch && document.all.EnvironmentSearch.selectedIndex > 0)
+  searchCOS.clickEnvironmentSearch(document.all.EnvironmentSearch);
+
+// company value
+COS.setValuesIndex(document.all.CompanySearch,coSelValue);
+if(document.all.CompanySearch && document.all.CompanySearch.selectedIndex > 0)
+  searchCOS.clickCompanySearch(document.all.CompanySearch);
+
+// label value
+if(document.all.LabelSearch)
+  COS.setValuesIndex(document.all.LabelSearch,labSelValue);
+
+
+
+
+
+function submitSearchResults()
+{
+
+  // submit the hidden form
+  document.all.SelectionSearchFrame.src = "<%=inf.getStandardDomain() + inf.getJspDirectory()%>"
+                + "selection-search-hidden-frame.jsp";
+
+} //end function submitSearchResults()
+
+// clear the search elements Helper function
+function clearSearchHelper()
+{
+  document.body.style.cursor="wait";
+  document.all.ArtistSearch.value = "";
+  document.all.TitleSearch.value = "";
+  document.all.PrefixSearch.value = "";
+  document.all.SelectionSearch.value = "";
+  document.all.UPCSearch.value = "";
+  document.all.StreetDateSearch.value = "";
+  document.all.StreetEndDateSearch.value = "";
+  document.all.ProdType[2].checked = true;
+  COS.clearSelectedValue(document.all.ConfigSearch);
+  COS.clearSelectedValue(document.all.SubconfigSearch);
+  currentConfig = "";
+  currentSubConfig = "";
+  COS.clearSelectedValue(document.all.FamilySearch);
+  document.all.ProjectIDSearch.value = "";
+  COS.clearSelectedValue(document.all.ContactSearch);
+  document.all.ShowAllSearch.checked = false;
+
+  buildFormats(); // build the format/sub-format drop down list
+
+  // mc its 975 Save search elements
+  setCookie("famSelValue","");
+  setCookie("envSelValue","");
+  setCookie("coSelValue","");
+  setCookie("labSelValue","");
+  setCookie("ArtistSearch","");
+  setCookie("TitleSearch","");
+  setCookie("PrefixSearch","");
+  setCookie("SelectionSearch","");
+  setCookie("UPCSearch","");
+  setCookie("StreetDateSearch","");
+  setCookie("StreetEndDateSearch","");
+  setCookie("ProductTypeSearch","");
+  setCookie("ConfigSearch","");
+  setCookie("SubconfigSearch","");
+  setCookie("ProjectIDSearch","");
+  setCookie("ContactSearch","");
+  setCookie("ShowAllSearch","");
+
+  document.body.style.cursor="default";
+}
+
+
+// clear the search elements
+function clearSearch()
+{
+  showWaitMsg();
+  clearSearchHelper();
+
+  // Clear the user search elements
+  document.all.SelectionSearchFrame.src = "<%=inf.getStandardDomain() + inf.getJspDirectory()%>"
+                + "selection-search-results-clear.jsp";
+
+  // reset the label structure drop down boxes
+  // if family selected
+  if(document.all.FamilySearch)
+    searchCOS.clickFamilySearch(document.all.FamilySearch);
+
+
+  document.body.style.cursor="default";
+  hideWaitMsg();   // msc its 966 show please wait message
+
+}
+
+$(function() {
+  var availableTags = [
+    "ActionScript",
+    "AppleScript",
+    "Asp",
+    "BASIC",
+    "C",
+    "C++",
+    "Clojure",
+    "COBOL",
+    "ColdFusion",
+    "Erlang",
+    "Fortran",
+    "Groovy",
+    "Haskell",
+    "Java",
+    "JavaScript",
+    "Lisp",
+    "Perl",
+    "PHP",
+    "Python",
+    "Ruby",
+    "Scala",
+    "Scheme"
+  ];
+  $( "#tags" ).autocomplete({
+    source: availableTags
+  });
+});
+
+function resetSearchElements()
+{
+  showWaitMsg();   // msc its 966 show please wait message
+
+       /////////////////////////////////////////////////
+       // if successful search, set the search values
+       /////////////////////////////////////////////////
+       <%
+       if(searchResults.equals("true"))
+       {
+       %>
+
+         famSelValue = "<%=userSS.SS_familySearch%>";
+         envSelValue = "<%=userSS.SS_environmentSearch%>";
+         coSelValue = "<%=userSS.SS_companySearch%>"
+         labSelValue = "<%=userSS.SS_labelSearch%>";
+         // MC ITS 975 Restore these value is successfuly search
+         document.all.ArtistSearch.value = "<%=userSS.SS_artistSearch%>";
+         document.all.TitleSearch.value = "<%=userSS.SS_titleSearch%>";
+         document.all.PrefixSearch.value = "<%=userSS.SS_prefixIDSearch%>";
+         document.all.SelectionSearch.value = "<%=userSS.SS_selectionNoSearch%>";
+         document.all.UPCSearch.value = "<%=userSS.SS_upcSearch%>";
+         document.all.StreetDateSearch.value = "<%=userSS.SS_streetDateSearch%>";
+         document.all.StreetEndDateSearch.value = "<%=userSS.SS_streetEndDateSearch%>";
+         <%if(userSS.SS_productTypeSearch.equalsIgnoreCase("physical"))
+         {%>
+           document.all.ProdType[0].checked = true;
+         <%}
+         else if(userSS.SS_productTypeSearch.equalsIgnoreCase("digital"))
+         {%>
+           document.all.ProdType[1].checked = true;
+         <%}
+         else {%>
+           document.all.ProdType[2].checked = true;  // default to both
+         <%}%>
+
+         COS.setValuesIndex(document.all.ConfigSearch,"<%=userSS.SS_configSearch%>");
+         COS.setValuesIndex(document.all.SubconfigSearch,"<%=userSS.SS_subconfigSearch%>");
+         currentConfig = "<%=userSS.SS_configSearch%>";
+         currentSubConfig = "<%=userSS.SS_subconfigSearch%>";
+         document.all.ProjectIDSearch.value = "<%=userSS.SS_projectIDSearch%>";
+         COS.setValuesIndex(document.all.ContactSearch,"<%=userSS.SS_contactSearch%>");
+
+         document.all.ShowAllSearch.checked = false;
+         <%if(userSS.SS_showAllSearch != null && userSS.SS_showAllSearch.equals("true"))
+         {%>
+           document.all.ShowAllSearch.checked = true;
+         <%}%>
+
+
+
+      <%} else {%>
+
+         /////////////////////////////////////////////////////////////////
+         // if search not found restore last successfull search variables
+         /////////////////////////////////////////////////////////////////
+         // MC ITS 462 09/22/04
+         //restoreCookies()
+
+
+      <%}%>
+
+      // family value
+      COS.setValuesIndex(document.all.FamilySearch,famSelValue);
+      if(document.all.FamilySearch && document.all.FamilySearch.selectedIndex > 0)
+         searchCOS.clickFamilySearch(document.all.FamilySearch);
+
+      // environment value
+      COS.setValuesIndex(document.all.EnvironmentSearch,envSelValue);
+      if(document.all.EnvironmentSearch && document.all.EnvironmentSearch.selectedIndex > 0)
+        searchCOS.clickEnvironmentSearch(document.all.EnvironmentSearch);
+
+      // company value
+      COS.setValuesIndex(document.all.CompanySearch,coSelValue);
+      if(document.all.CompanySearch && document.all.CompanySearch.selectedIndex > 0)
+         searchCOS.clickCompanySearch(document.all.CompanySearch);
+
+      // label value
+      if(document.all.LabelSearch)
+         COS.setValuesIndex(document.all.LabelSearch,labSelValue);
+
+      // MC its 984 reset format drop down list
+      buildFormats();
+
+      hideWaitMsg();   // msc its 966 show please wait message
+
+}
+
+///////////////////////////////////////////
+// Restore Cookie values
+//////////////////////////////////////////
+function restoreCookies()
+{
+   famSelValue = getCookie("famSelValue");
+   envSelValue = getCookie("envSelValue");
+   coSelValue = getCookie("coSelValue");
+   labSelValue = getCookie("labSelValue");
+   document.all.ArtistSearch.value = getCookie("ArtistSearch");
+   document.all.TitleSearch.value = getCookie("TitleSearch");
+   document.all.PrefixSearch.value = getCookie("PrefixSearch");
+   document.all.SelectionSearch.value = getCookie("SelectionSearch");
+   document.all.UPCSearch.value = getCookie("UPCSearch");
+   document.all.StreetDateSearch.value = getCookie("StreetDateSearch");
+   document.all.StreetEndDateSearch.value = getCookie("StreetEndDateSearch");
+
+   document.all.ProdType[2].checked = true;  // default to both
+   if(getCookie("ProductTypeSearch") == "physical")
+   {
+     document.all.ProdType[0].checked = true;
+   }
+   if(getCookie("ProductTypeSearch") == "digital")
+   {
+     document.all.ProdType[1].checked = true;
+   }
+
+   COS.setValuesIndex(document.all.ConfigSearch,getCookie("ConfigSearch"));
+   COS.setValuesIndex(document.all.SubconfigSearch,getCookie("SubconfigSearch"));
+   currentConfig = getCookie("ConfigSearch");
+   currentSubConfig = getCookie("SubconfigSearch");
+   document.all.ProjectIDSearch.value = getCookie("ProjectIDSearch");
+   COS.setValuesIndex(document.all.ContactSearch,getCookie("ContactSearch"));
+
+   document.all.ShowAllSearch.checked = false;
+   if(getCookie("ShowAllSearch") == "true")
+   {
+     document.all.ShowAllSearch.checked = true;
+   }
+
+   // MC its 984 reset format drop down list
+   buildFormats();
+
+}
+
+
+// cancel Search, clear the search elements
+function cancelSearch()
+{
+  showWaitMsg();   // msc its 966 show please wait message
+
+  ////////////////////////////////////////////////////////////////////
+  // clear the search elements if users prior criteria flag is not set to 1
+  //  else restore the user defaults
+  ////////////////////////////////////////////////////////////////////
+  <%
+  if(userSS == null || userSS.getPreferences() == null || userSS.getPreferences().getSelectionPriorCriteria() != 1)
+  {%>
+
+    // MC 462 new logic to display user prefs
+    //clearSearchHelper();
+    resetDefaults();
+
+  <%} else {%>
+
+    // restore the search elements
+    resetSearchElements();
+
+  <%}%>
+
+  hideWaitMsg();   // msc its 966 show please wait message
+
+}
+
+/////////////////////////////////////////
+// Restore user default values
+/////////////////////////////////////////
+function resetDefaults()
+{
+
+  showWaitMsg();   // msc its 966 show please wait message
+
+  famSelValue = "0";
+  envSelValue = "0";
+  coSelValue = "0"
+  labSelValue = "0";
+
+  clearSearchHelper();
+
+  ////////////////////////////////////////////////////////////////////
+  // reset the search elements with the default values
+  //  else restore the user defaults
+  ////////////////////////////////////////////////////////////////////
+  <%
+  if(userSS != null && userSS.getPreferences() != null)
+  {
+
+       String defaultStr = "";
+
+       // show selection status
+       if (userSS.getPreferences().getSelectionStatus() > 0)
+       {%>
+         document.all.ShowAllSearch.checked = true;
+       <%} else { %>
+         document.all.ShowAllSearch.checked = false;
+       <%}
+
+
+       // default releasing family
+       if (userSS.getPreferences().getSelectionReleasingFamily() > 0) {
+         defaultStr = String.valueOf(userSS.getPreferences().getSelectionReleasingFamily());
+         %> famSelValue = "<%=defaultStr%>";
+       <%}
+       // default environment
+       if (userSS.getPreferences().getSelectionEnvironment() > 0) {
+         defaultStr = String.valueOf(userSS.getPreferences().getSelectionEnvironment());
+         %> envSelValue = "<%=defaultStr%>";
+       <%}
+       // default label contact
+       if (userSS.getPreferences().getSelectionLabelContact() > 0) {
+         defaultStr = String.valueOf(userSS.getPreferences().getSelectionLabelContact());
+         %> COS.setValuesIndex(document.all.ContactSearch,"<%=defaultStr%>");
+       <%}
+       // default product type
+       if (userSS.getPreferences().getSelectionProductType() > -1) {
+           if (userSS.getPreferences().getSelectionProductType() == 0)
+          %> document.all.ProdType[0].checked = true;
+         <%if (userSS.getPreferences().getSelectionProductType() == 1)
+          %> document.all.ProdType[1].checked = true;
+         <%if (userSS.getPreferences().getSelectionProductType() == 2)
+          %> document.all.ProdType[2].checked = true;  // default to both
+      <%}%>
+
+         // family value
+         COS.setValuesIndex(document.all.FamilySearch,famSelValue);
+         if(document.all.FamilySearch)
+           searchCOS.clickFamilySearch(document.all.FamilySearch);
+
+         // environment value
+         COS.setValuesIndex(document.all.EnvironmentSearch,envSelValue);
+         if(document.all.EnvironmentSearch && document.all.EnvironmentSearch.selectedIndex > 0)
+           searchCOS.clickEnvironmentSearch(document.all.EnvironmentSearch);
+
+         // company value
+         COS.setValuesIndex(document.all.CompanySearch,coSelValue);
+         if(document.all.CompanySearch && document.all.CompanySearch.selectedIndex > 0)
+           searchCOS.clickCompanySearch(document.all.CompanySearch);
+
+         // label value
+         if(document.all.LabelSearch)
+           COS.setValuesIndex(document.all.LabelSearch,labSelValue);
+
+         // MC its 984 reset format drop down list
+         buildFormats();
+
+
+  <%}%>
+
+  hideWaitMsg();   // msc its 966 show please wait message
+
+}
+
+
+// msc 01/12/04 if object exists build configurations/formats
+// jo  04/21/04 - ITS 960 - Check that configs exist before
+// calling function
+// mc 05/25/04 was document.all.configsProdType, this object will never exist
+function buildFormats()
+{
+  if(document.all.ProdType && typeof configsProdType == "object")
+  {
+    buildSearchConfigs(document.all.ProdType);
+
+    // select the format
+    if (document.all.ConfigSearch && !document.all.ConfigSearch.disabled)
+    {
+      for (j = 1; j < document.all.ConfigSearch.length; j++)
+      {
+        if (document.all.ConfigSearch.options[j].value == currentConfig)
+        {
+          document.all.ConfigSearch.selectedIndex = j;
+          break;
+        }
+     }
+      document.all.SubconfigSearch.disabled = false;
+      buildSearchSubConfigs(document.all.ConfigSearch.selectedIndex);
+    }
+
+    // select the sub-format
+    if (document.all.SubconfigSearch && !document.all.SubconfigSearch.disabled)
+    {
+      for (j = 1; j < document.all.SubconfigSearch.length; j++)
+      {
+        if (document.all.SubconfigSearch.options[j].value == currentSubConfig)
+        {
+          document.all.SubconfigSearch.selectedIndex = j;
+          break;
+        }
+      }
+    }
+  }
+}
+
+// Change the corporate search elements onChange event handlers functions
+// to point the new Class methods
+document.all.FamilySearch.onchange = function() { return(searchCOS.clickFamilySearch(this)); }
+document.all.EnvironmentSearch.onchange = function() { return(searchCOS.clickEnvironmentSearch(this)); }
+document.all.CompanySearch.onchange = function() { return(searchCOS.clickCompanySearch(this)); }
+
+buildFormats();  // build the format/sub-format drop down list
+
+</script>
+
+

@@ -1,0 +1,86 @@
+
+<% //this variable should be set in each page the file is included
+   //String htmlTitle = "";
+
+   //the head is not closed here because in the page this file is included may hava
+   //java script that is going to be placed between the <head> tags</head>.
+%>
+<html>
+  <head>
+    <title><%= htmlTitle%></title>
+
+    <%  //this should take the real value when the back end is done
+        //for now the page the file is included is calling the style list%>
+<%//= MilestoneInfrastructure.getStyleLink() %>
+
+
+<script>
+var isMacBT = false;
+var navComBT = navigator.platform;
+if( navComBT.toUpperCase() == "MACPPC" || navComBT.substr(0,3).toUpperCase() == "MAC" )
+  isMacBT = true;
+
+function showWaitMsg()
+{
+
+  // mc its 966 show please wait message on screen
+  if(parent.top.menuFrame)
+     parent.top.menuFrame.document.all.WaitLayerDiv.style.display = "block";
+}
+function hideWaitMsg()
+{
+  // mc its 966 hide please wait message
+  if(parent.top.menuFrame)
+    parent.top.menuFrame.document.all.WaitLayerDiv.style.display = "none";
+}
+
+</script>
+
+
+<script for=document event=onclick language="JavaScript">
+
+/*
+ alert("ID (" + window.event.srcElement.id + ") Name (" + window.event.srcElement.name
+       + ") Object (" +  window.event.srcElement + ")"
+       + " Type (" + window.event.srcElement.type
+       + ") tAg (" + window.event.srcElement.tagName
+       + ")");
+*/
+
+// menuFrame object must exist
+if(parent.top.menuFrame)
+{
+  if(window.event.srcElement.tagName != "FORM" && (window.event.srcElement.tagName == "A"
+      || (window.event.srcElement.type == "button" || window.event.srcElement.type == "" || window.event.srcElement.type == "submit")
+      || (!window.event.srcElement.type && window.event.srcElement.name)) )
+  {
+    var eId = window.event.srcElement.id;
+    if(eId == "") // if id is blank use name
+       eId = window.event.srcElement.name;
+    if(eId == "") // if name is blank use object
+       eId = window.event.srcElement;
+    //alert(eId)
+    // skip specific events
+    if(parent.top.menuFrame.document.all.WaitLayerDiv && eId != "" && eId != "Search"
+        && eId != "Search_PS" && eId != "Help"
+        && eId != "Print" &&  eId != "SubmitCancel" && eId != "SubmitCancel3"
+        && eId != "accept" && eId != "cancel" && eId != "Cancel" && eId != "releasingFamilyAnchor"
+        && eId != "closeButton" && eId != "buttonClose" && eId != "Clear" && eId != "ResetDefaults"
+        && eId != "closeHoldReason" && eId != "anchorImpactDate" && eId != "anchorMultOther"
+        && eId != "anchorMultSelectionsA" && eId != "labelFamlilyAnchor"
+        && eId != "commentsImage" && eId != "holdReasonImage"
+        && eId != "closeButtom" && eId != "Save" && eId != "tp" && eId != "glp"
+        && eId != "Save_Send" && eId != "Delete" && eId != "SaveIFrame"
+        && eId != "success" && eId != "failure" && eId != "ok" )
+        parent.top.menuFrame.document.all.WaitLayerDiv.style.display = "block";
+    else if(parent.top.menuFrame.document.all.WaitLayerDiv && (eId == "SubmitCancel" || eId == "cancel"
+        || eId == "accept" || eId == "Cancel" || eId == "buttonClose" || eId == "closeButton" || eId == "Clear" || eId == "ResetDefaults"
+        || eId == "closeHoldReason" || eId  == "closeButtom" || eId == "SubmitCancel3"
+        || eId == "button_cancel" || eId == "SaveIFrame"))
+        parent.top.menuFrame.document.all.WaitLayerDiv.style.display = "none";
+  }
+}
+
+</script>
+
+

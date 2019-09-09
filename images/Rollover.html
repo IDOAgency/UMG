@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script language="JavaScript">
+<!--
+function swapImgRestore() { //v3.0
+  var i,x,a=document.sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.p) d.p=new Array();
+    var i,j=d.p.length,a=preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.p[j]=new Image; d.p[j++].src=a[i];}}
+}
+
+function findObj(n, d) { //v3.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=findObj(n,d.layers[i].document); return x;
+}
+
+function swapImage() { //v3.0
+  var i,j=0,x,a=swapImage.arguments; document.sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=findObj(a[i]))!=null){document.sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" topmargin=0 leftmargin=0 onLoad="preloadImages('Toggle_Over.gif','Search_Over.gif','Save_Over.gif','New_Over.gif','Delete_Over.gif')">
+
+<table width="779" border="0" cellspacing="0" cellpadding="0" scrollbar="yes">
+  <tr> 
+    <td width="49"> 
+      <div align="center"><a href="http://www.buy.com" onMouseOut="swapImgRestore()" onMouseOver="swapImage('Toggle Button','','Toggle_Over.gif',1)" onclick="swapImage('Toggle Button','','Toggle_Off.gif',1)"><img name="Toggle Button" border="0" src="Toggle_On.gif" width="27" height="14"></a></div>
+    </td>
+    <td width="115"> 
+      <div align="center"><a href="http://www.buy.com" onMouseOut="swapImgRestore()" onMouseOver="swapImage('Search Button','','Search_Over.gif',1)" onclick="swapImage('Search Button','','Search_Off.gif',1)"><img name="Search Button" border="0" src="Search_On.gif" width="66" height="14"></a></div>
+    </td>
+    <td width="169"><img src="clearpixel.gif" width="435" height="8"></td>
+    <td width="115"> 
+      <div align="center"><a href="http://www.buy.com" onMouseOut="swapImgRestore()" onMouseOver="swapImage('Save Button','','Save_Over.gif',1)" onclick="swapImage('Save Button','','Save_Off.gif',1)"><img name="Save Button" border="0" src="Save_On.gif" width="66" height="14"></a></div>
+    </td>
+    <td width="115"> 
+      <div align="center"><a href="http://www.buy.com" onMouseOut="swapImgRestore()" onMouseOver="swapImage('New Button','','New_Over.gif',1)" onclick="swapImage('New Button','','New_Off.gif',1)"><img name="New Button" border="0" src="New_On.gif" width="66" height="14"></a></div>
+    </td>
+    <td width="117"> 
+      <div align="center"><a href="http://www.buy.com" onMouseOut="swapImgRestore()" onMouseOver="swapImage('Delete Button','','Delete_Over.gif',1)" onclick="swapImage('Delete Button','','Delete_Off.gif',1)"><img name="Delete Button" border="0" src="Delete_On.gif" width="66" height="14"></a></div>
+    </td>
+  </tr>
+</table>
+
+<img src="Horiz_Bar.gif" width=779 height=5 alt="" border="0">
+
+</body>
+</html>

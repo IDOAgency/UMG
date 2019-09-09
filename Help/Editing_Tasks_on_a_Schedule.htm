@@ -1,0 +1,288 @@
+<HTML>
+ <HEAD>
+  <!-- $MVD$:app("RoboHELP HTML Edition by Blue Sky Software, portions by MicroVision Dev. Inc.","769") -->
+  <!-- $MVD$:template("","0","0") -->
+  <!-- $MVD$:color("15","808000","Custom #1","0") -->
+  <!-- $MVD$:fontset("Verdana","Verdana") -->
+  <!-- $MVD$:fontset("Arial","Arial") -->
+  <TITLE>Editing Tasks on a Schedule</TITLE>
+  <META NAME="generator" CONTENT="RoboHELP by Blue Sky Software www.blue-sky.com HTML Edition">
+  <SCRIPT language="javascript">
+<!--
+if (navigator.appName=="Netscape")
+{   document.write("<LINK rel='StyleSheet' href='Milest_ns.css'>");}
+else
+{   document.write("<LINK rel='StyleSheet' href='Milestone.css'>");}
+//-->
+
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht1.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript" src="bsscdht2.js">
+  </SCRIPT>
+  <SCRIPT language="JavaScript"><!-- 
+//////////BSSCDHTML Section Embedded Code//////////
+var s_strAgent = navigator.userAgent.toLowerCase();
+var s_nVer	   = parseInt(navigator.appVersion);
+
+var s_bIE  = (s_strAgent.indexOf('msie') != -1);
+var s_bNS  = (s_strAgent.indexOf('mozilla') != -1) && ((s_strAgent.indexOf('spoofer') == -1) && (s_strAgent.indexOf('compatible') == -1));
+var s_bOpera	= (s_strAgent.indexOf('opera') != -1);
+
+var s_bIE3Before = ((s_bIE) && (s_nVer <= 2));
+var s_bNS3Before = ((s_bNS) && (s_nVer <= 3));
+
+var s_bNS2		= ((s_bNS) && (s_nVer <= 2));
+var s_bNS3		= ((s_bNS) && (s_nVer == 3));
+var s_bIE300301	= ((s_bIE) && (s_nVer == 2) && ((s_strAgent.indexOf("3.00") != -1)||(s_strAgent.indexOf("3.0a") != -1)||(s_strAgent.indexOf("3.0b")!=-1)||(s_strAgent.indexOf("3.01")!=-1)));
+var s_bIE302	= ((s_bIE) && (s_nVer == 2) && (s_strAgent.indexOf("3.02") != -1));
+
+
+function HasExtJs()
+{
+	if (s_bIE3Before) { return false;}
+	if (s_bNS3Before) {	return false;}
+	if (typeof (_BSSCOnLoad) == "undefined"){ return false; }
+	return true;
+}
+
+function BSSCOnLoad()
+{
+	if (HasExtJs()) { _BSSCOnLoad(); }
+}
+
+function BSSCOnUnload()
+{
+	if (HasExtJs()) { _BSSCOnUnload(); }
+}
+
+function BSSCOnClick()
+{
+	if (HasExtJs()) { _BSSCOnClick(); }
+}
+
+function WritePopupMenuLayer()
+{
+	if (HasExtJs()) {_WritePopupMenuLayer();}
+}
+
+function BSSCCreatePopupDiv()
+{
+	if (HasExtJs()) {_BSSCCreatePopupDiv();	}
+}
+
+function BSSCPopup(strURL)
+{
+	if (HasExtJs())	{ 
+		_BSSCPopup(strURL);
+	}else{
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+		// Create the real popup window
+		var wndPopup = window.open(strURL, "PopupWindow", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=300,width=400");
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		} else {
+			wndPopup.focus();
+		}
+	}
+}
+
+
+function PopupMenu_Invoke()
+{
+	if (HasExtJs()) {
+		return _PopupMenu_Invoke(PopupMenu_Invoke.arguments);
+	}
+	if (s_bNS3Before || s_bIE3Before )	{
+		var argLen 	= PopupMenu_Invoke.arguments.length;
+		if (argLen < 5) {
+			window.document.location.href = PopupMenu_Invoke.arguments[3];
+			return false;
+		}
+		var nHeight = argLen * 15;
+		var nWidth = 400;
+		var strParam = "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=auto";
+		strParam += ",height=" + nHeight + ",width=200,resizable";
+		
+		//Create a temporary window first to ensure the real popup comes up on top
+		var wndTemp = null;
+		if (!s_bNS3) {
+			wndTemp = window.open("", "temp", "titlebar=no,toolbar=no,status=no,location=no,menubar=no,resizable=yes,scrollbars=yes,height=3,width=4");
+		}
+
+		var wndPopupLinks = window.open("", "popuplinks", strParam);
+		wndPopupLinks.document.open("text/html");
+		wndPopupLinks.document.write("<html><head>");
+		if (s_bNS2 || s_bOpera) {
+			wndPopupLinks.document.write("<base href=\"" + location +"\">");
+		} else {
+			//YJ: IE301,302 and NS3.x works fine
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("script>");
+			wndPopupLinks.document.write("function gotoUrl(aUrl) {opener.window.location=aUrl; close();}");
+			wndPopupLinks.document.write("<");
+			wndPopupLinks.document.write("/script>");
+		}
+		wndPopupLinks.document.write("</head><body onBlur=\'self.focus();\'>");
+		var strParaLine = "";
+		for (var i = 0; i < (argLen - 2) / 2; i++) {
+			strParaLine = "";
+			if (s_bNS2 || s_bOpera){
+				strParaLine += "<a href=\"";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\">"
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			} else {
+				strParaLine += "<a href=\"javascript:";
+				strParaLine += "gotoUrl(\'";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 3];
+				strParaLine += "\');\"";
+				if (PopupMenu_Invoke.arguments[1] != '') {
+					strParaLine += " TARGET='" + PopupMenu_Invoke.arguments[1] + "'";
+				}
+				strParaLine += ">";
+				strParaLine += PopupMenu_Invoke.arguments[2 * i + 2];
+				strParaLine += "</a>";
+			}
+			strParaLine += "<br>";
+			wndPopupLinks.document.write(strParaLine);
+		}
+		wndPopupLinks.document.write("</body></html>");
+		wndPopupLinks.document.close();
+
+		// Close the temporary
+		if (!s_bNS3) {
+			wndTemp.close();
+		}else {
+			wndPopupLinks.focus();
+		}
+
+		return true;
+	}
+	return false;
+}
+  
+
+ 
+function reDo() {
+  if (innerWidth != origWidth || innerHeight != origHeight)
+     location.reload();
+}
+if ((parseInt(navigator.appVersion) >= 4) && (navigator.appName == "Netscape")) {
+	origWidth = innerWidth;
+	origHeight = innerHeight;
+	onresize = reDo;
+}
+ 
+//-->
+  </SCRIPT></HEAD>
+  <BODY ONLOAD="BSSCOnLoad();" ONCLICK="BSSCOnClick();">
+  
+  <div id='NavBar' STYLE='position:relative;' align='right'><nobr><font size=1>
+   <script language="javascript"><!--
+ var bHomePage=false; if(document.all){if ((top)&&(top.frames)&&(top.frames.length<=1)) bHomePage=true;} if(document.layers){if((parent)&&(parent.top.frames)&&(parent.top.frames.length<=1)) bHomePage=true;}
+if (bHomePage){document.write("<a href='Milestone.htm'><img src='bsscnav1.gif' width=53 height=18 border=no></a>");}
+//-->
+   </script></font>&nbsp;&nbsp;&nbsp;</nobr>
+  </div>
+<H1>
+   Editing Task on a Schedule</H1>
+  <P>
+   <IMG SRC="Scheduletitle.gif" WIDTH="522" HEIGHT="84" VSPACE="0" HSPACE="0" BORDER="0"></P>
+  <P>
+   After tasks are assigned, the user has the option of editing the 
+   dates calculated by Milestone. Task dates can be changed on an 
+   individual basis by deleting and typing in a new date. When a due 
+   date is changed, the weeks to release field is deleted for that task. 
+   This reduces the possibility of re-calculating a changed due date in 
+   the schedule.</P>
+  <H2>
+   <SPAN STYLE="font-weight : bold;"><B><B>Updating an Existing Schedule</B></B></SPAN></H2>
+  <P>
+   As production of a release progresses, the completion date and status 
+   should be updated for each task. UML will be responsible for updating 
+   tasks that are specific to UML.</P>
+  <H3>
+   <SPAN STYLE="font-style : normal;">Wks (Weeks or Days to Release)</SPAN></H3>
+  <P>
+   The week or days to release field can be changed. To change the days 
+   to release, a number or the letter &quot;D&quot; followed by a number 
+   can be entered into this field. The weeks to release can be changed 
+   by entering the letter of the day (M,T,W,TH,F) followed by the number 
+   of weeks into this field. To calculate the new due date after 
+   changing this field, the &quot;RECAL&quot; button must be selected 
+   after saving the changes.</P>
+  <H3>
+   <SPAN STYLE="font-style : normal;">Completion and Due Dates</SPAN></H3>
+  <P>
+   Completion or Due Dates can be entered into the schedule by entering 
+   a date using slashes (1/1/00) dashes (1-1-00) or dots (1.1.00) into 
+   the date field. Dates can also be entered into these fields by using 
+   the pop-up calendar. To activate the pop-up calendar, double click on 
+   the date field.</P>
+  <UL>
+   <LI CLASS="mvd-P">
+   <P>
+    <SPAN STYLE="font-style : italic;"><I><I>If the due date is past today's 
+    date, the background of the due date field will be pink.</I></I></SPAN></P>
+   <LI CLASS="mvd-P">
+   <P>
+    <SPAN STYLE="font-style : italic;"><I><I>If the completion date is past 
+    the due date, the background of the completion date field will be pink.</I></I></SPAN></P>
+   <LI CLASS="mvd-P">
+   <P>
+    <SPAN STYLE="font-style : italic;"><I><I>Completion dates can not be 
+    entered that are 7 days beyond today's date.</I></I></SPAN></P>
+   </UL>
+  <H3>
+   <SPAN STYLE="font-style : normal;">Task Comments <IMG SRC="blankcomments.gif" WIDTH="19" HEIGHT="20" VSPACE="0" HSPACE="0" BORDER="0"> <IMG SRC="commtpencil.gif" WIDTH="23" HEIGHT="20" VSPACE="0" HSPACE="0" BORDER="0"></SPAN></H3>
+  <P>
+   Task comments are entered into Milestone by double clicking the icon 
+   to the right of the completion date field. After a task comment has 
+   been saved, a pencil will appear in the icon.</P>
+  <UL>
+   <LI CLASS="mvd-P">
+   <P>
+    Comments can only be entered for a task for which the user has edit 
+    rights assigned.</P>
+   </UL>
+  <H3>
+   Status</H3>
+  <P>
+   The status drop down is an optional field. The 'Hold' and 'Pend' 
+   status are display only.</P>
+  <UL>
+   <LI CLASS="mvd-P">
+   <P>
+    When the 'Done' status is selected, a dummy date of 9/9/99 will be 
+    entered into the completion date field when the record is saved, 
+    (unless a completion date has been entered).</P>
+   <LI CLASS="mvd-P">
+   <P>
+    If &quot;N/A&quot; (not applicable) is selected a dummy date of 
+    9/9/99 will be entered into the completion date field when the record 
+    is saved.</P>
+   <LI CLASS="mvd-P">
+   <P>
+    If the status 'Today' is selected, the date the status is selected 
+    will be entered into the completion date field when the record is 
+    saved, (unless a completion date has been entered).</P>
+   </UL>
+  <H3>
+   Vendor</H3>
+  <P>
+   The vendor field is optional. It can be used to enter a vendor name 
+   for a task or a contact name. The vendor's or contact's name is 
+   entered in this field by typing in the vendor box. They can also be 
+   entered by double clicking the vendor field and entering the name 
+   into the pop-up text box.</P>
+  <P>
+   <!-- $MVD$:spaceretainer() -->&nbsp;
+ </BODY>
+</HTML>

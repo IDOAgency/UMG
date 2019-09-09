@@ -1,0 +1,316 @@
+<%
+	// get the Notepad Object out of the session
+	Notepad notepad = (Notepad)context.getSessionValue(MilestoneConstants.NOTEPAD_SESSION_NAMES[MilestoneConstants.NOTEPAD_SCHEDULE_TASKS]);
+
+	// gets the titles of the columns
+	String[] columnNames = notepad.getColumnNames();
+
+	// gets the contents of the search results
+	Vector pageContents = notepad.getPageContents();
+%>
+
+<script type="text/javascript" language="javascript">
+function submitPagging( pForward )
+{
+  if( pForward )
+  {
+  	parent.top.bottomFrame.location = "home?cmd=notepad-next&notepadType=<%=MilestoneConstants.NOTEPAD_SCHEDULE_TASKS%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+  }
+  else
+  {
+  	parent.top.bottomFrame.location = "home?cmd=notepad-previous&notepadType=<%=MilestoneConstants.NOTEPAD_SCHEDULE_TASKS%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+  }
+}//end function submitPagging()
+</script>
+
+<script type="text/javascript" language="javascript">
+function submitFirst()
+{
+	parent.top.bottomFrame.location = "home?cmd=notepad-first&notepadType=<%=MilestoneConstants.NOTEPAD_SCHEDULE_TASKS%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+}
+
+function submitLast()
+{
+	parent.top.bottomFrame.location = "home?cmd=notepad-last&notepadType=<%=MilestoneConstants.NOTEPAD_SCHEDULE_TASKS%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
+}
+
+</script>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr valign="top">
+	<td><img src="images/Notepad_Top_280.gif" width="280" border="0"></td>
+</tr>
+<tr>
+	<td>
+		<table width="100%" cellpadding="0" cellspacing="0" border="0">
+		<tr valign="top">
+			<td>
+				<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr bgcolor="lavender">
+					<td align="left">
+						<%
+							// check to see if search button should be visible
+							if (notepad.isSearchButtonVisible())
+							{
+						%>
+						<a href="Javascript:toggle( 'SearchLayer', 'TaskNameSearch' )"
+						onMouseOver="Javascript:mtbSearch.over();return true;"
+						onMouseOut="Javascript:mtbSearch.out()"
+						onClick="Javascript:mtbSearch.click(); return true;">
+						<img name="Search" id="Search" src="images/Search_On.gif" width="66" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+						</a>
+						<script type="text/javascript" language="JavaScript">
+						var mtbSearch = new ToggleButton(document, 'images/', 'Search', 'Javascript:toggle( "SearchLayer", "TaskNameSearch" )', 66, 14 );
+						</script>
+						<script type="text/javascript" language="JavaScript" >
+						function toggleSearch()
+						{
+							toggle( 'SearchLayer', 'TaskNameSearch' );
+						}
+						</script>
+						<%}%>
+					</td>
+					<td align="right"><span class="title"><% if (notepad.getTitle() != null){%> <%= notepad.getTitle() %> <%}%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				</tr>
+				</table>
+
+                        <!-- navigation buttons start here -->
+                                       <table width="100%" cellpadding=0 cellspacing=0 border=0 bgcolor="lavender">
+                                                      <tr>
+                                          <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                         </tr>
+                                                      <tr>
+                                          <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                         </tr>
+
+                                         <tr>
+                                          <td></td>
+                                         </tr>
+                                        <tr>
+                                         <%@ include file="include-navigation-notepad.shtml" %>
+                                        </tr>
+
+                                         <tr>
+                                          <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                         </tr>
+                               <tr>
+                                                <tr>
+                                          <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                         </tr>
+                               <tr>
+                                          <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                         </tr>
+                               <tr>
+                                          <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                           <td>
+                                          </td>
+                                         </tr>
+
+                                         </table>
+
+                        <!-- navigation buttons end here -->
+
+                  <td>
+		</tr>
+		<tr>
+			<td>
+				<table class="list" cellspacing="0" width="100%">
+				<tr>
+					<%
+						// this gets the columnNames for the search results (Artist, Title, Str Dt)
+						for (int i = 0 ; i < columnNames.length; i++)
+						{
+					%>
+					<th width="60%">
+						<a href="Javascript:submitList(<%= i %>)"><% if (columnNames[i] != null){%> <%= columnNames[i] %> <%}%></a>
+					</th>
+					<%}%>
+				</tr>
+				<tr>
+					<td colspan="4"><hr noshade></td>
+				</tr>
+				<% if (notepad.getAllContents().size() <= 0)
+					{
+				%>
+				<tr><td colspan="3"><%= notepad.getErrorMessage() %></td></tr>
+				<%
+					}
+					else
+					{
+				%>
+
+				<%
+					int taskId = 0;
+					for (int i=0 ; i < pageContents.size(); i++)
+					{
+						Task notepadTask = (Task)pageContents.get(i);
+						if (notepadTask != null)
+						{
+							taskId = notepadTask.getTaskID();
+						}
+				%>
+				<tr>
+          <%
+              String fontColor = "";
+              String fontColor1 = "";
+              boolean isNotepadKeyTask = false;
+              boolean isNotepadLabelOwner = false;
+
+              isNotepadKeyTask = notepadTask.getIsKeyTask();
+              isNotepadLabelOwner = !MilestoneHelper.isUml(notepadTask);
+
+              if (isNotepadKeyTask)
+              {
+                 if (isNotepadLabelOwner)
+                 {
+                    fontColor = "class=\"nonUmlKey\"";
+                 }
+                 else
+                 {
+                   fontColor = "class=\"umlKey\"";
+                 }
+              }
+              else
+              {
+                fontColor = "";
+              }
+         %>
+					<td <%= fontColor%>><%=form.getElement(String.valueOf(taskId))%><%= notepadTask.getTaskName()%></td>
+					<td align="center">
+					<%
+					if (notepadTask.getWeeksToRelease() == MilestoneConstants.SOL)
+					{
+					%>
+					<%= MilestoneConstants.SOL_LABEL%>
+					<%
+					}
+					else
+					{
+					%>
+					<%= notepadTask.getDayOfTheWeek().getDay()%>&nbsp;<%= notepadTask.getWeeksToRelease()%>
+					<%
+					}
+					%>
+					</td>
+					<td>
+					<% if (notepadTask.getOwner() != null && notepadTask.getOwner().getStructureAbbreviation() != null){%> <%= notepadTask.getOwner().getStructureAbbreviation() %> <%}%>
+					</td>
+					<td><%= (!notepadTask.getDepartment().equals("-1") ? notepadTask.getDepartment() : "")%></td>
+				</tr>
+				<tr>
+					<td colspan="4"><img src="images/pixelshim.gif" width="100%" height="1" class="separator"></td>
+				</tr>
+				<%} //end for%>
+			<%}// end else%>
+			</tr>
+			<tr><td colspan="4"><HR noshade></td></tr>
+			<tr>
+				<td colspan="4"><center class="footer">
+					<% if (notepad.getPageStatus() != null)
+						{
+					%>
+						<%= notepad.getPageStatus() %>
+					<%}%>
+					</center>
+				</td>
+			</tr>
+		</td>
+	<tr>
+	</table>
+</td>
+</tr>
+<tr>
+	<td>
+		<table width="100%" cellpadding="5" cellspacing="0" border="0">
+		<tr valign="top">
+
+		</tr>
+		<tr>
+
+			<td colspan="2" align="center">
+				<%
+					// check to see if Assign Tasks Button should be visible
+					if (notepad.isAssignTasksButtonVisible())
+					{
+				%>
+				<a href="JavaScript:submitAssign()"
+				onMouseOver="Javascript:mtbAssign_Task.over();return true;"
+				onMouseOut="Javascript:mtbAssign_Task.out()"
+				onClick="Javascript:mtbAssign_Task.click(); return true;">
+				<img name="Assign_Task" src="images/Assign_Task_On.gif" width="96" height="14" border="0" hspace="0" vspace="0" align="absmiddle">
+				</a>
+				<script type="text/javascript" language="JavaScript" >
+				var mtbAssign_Task = new ToggleButton(document, 'images/', 'Assign_Task', 'JavaScript:submitAssign()', 96, 14);
+				</script>
+				<%
+					}
+					else
+					{
+				%>
+				<img name="AssignTasks" src="images/Blank_Image.gif" border="0">
+				<%}%>
+			</td>
+			<td colspan="2" align="center">
+				<%
+					// check to see if Switch to Selection Button should be visible
+					if (notepad.isSwitchToSelectionButtonVisible())
+					{
+				%>
+				<a href="JavaScript:submitShow( true )"
+				onMouseOver="Javascript:mtbSwitch_Selection.over();return true;"
+				onMouseOut="Javascript:mtbSwitch_Selection.out()"
+				onClick="Javascript:mtbSwitch_Selection.click(); return true;">
+				<img name="Switch_Selection" src="images/Switch_Selection_On.gif" width=135 height=14 border=0 hspace=0 vspace=0 align="absmiddle">
+				</a>
+				<script type="text/javascript" language="JavaScript" >
+				var mtbSwitch_Selection = new ToggleButton(document, 'images/', 'Switch_Selection', 'JavaScript:submitShow( true )', 135, 14);
+				</script>
+				<%
+					}
+					else
+					{
+				%>
+					<img name="Selection" src="images/Blank_Image.gif" border="0">
+				<%}%>
+			</td>
+		</tr>
+
+		</table>
+	</td>
+	</tr>
+	</table>
+	</td>
+</tr>
+<tr valign="bottom">
+	<td><img src="images/Notepad_Bottom_280.gif" width="280" border="0"></td>
+</tr>
+</table>
+

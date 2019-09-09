@@ -1,0 +1,77 @@
+[PropertyInfo]
+allUsers,Vector,false,false, , ,false,<default>
+allUsersHash,Hashtable,false,false, , ,false,<default>
+bomSuppliers,Vector,false,false, , ,false,<default>
+cache,Cache,false,false, , ,false,<default>
+cachedCompanies,Vector,false,false, , ,false,<default>
+cachedCorporateStructure,Vector,false,false, , ,false,<default>
+cachedDivisions,Vector,false,false, , ,false,<default>
+cachedEnvironments,Vector,false,false, , ,false,<default>
+cachedEnvironmentsByFamily,Vector,false,false, , ,false,<default>
+cachedFamilies,Vector,false,false, , ,false,<default>
+cachedLabels,Vector,false,false, , ,false,<default>
+cachedLabelsUsed,Vector,false,false, , ,false,<default>
+cachedProductRelFamilies,Hashtable,false,false, , ,false,<default>
+companyCodes,Vector,false,false, , ,false,<default>
+compilationCodes,Vector,false,false, , ,false,<default>
+configCodes,Vector,false,false, , ,false,<default>
+datePeriods,Vector,false,false, , ,false,<default>
+dayTypes,Vector,false,false, , ,false,<default>
+distributionCodes,Vector,false,false, , ,false,<default>
+encryptionFlags,Vector,false,false, , ,false,<default>
+exportFlags,Vector,false,false, , ,false,<default>
+formats,Vector,false,false, , ,false,<default>
+genres,Vector,false,false, , ,false,<default>
+guaranteeCodes,Vector,false,false, , ,false,<default>
+importIndicators,Vector,false,false, , ,false,<default>
+impRateCodes,Vector,false,false, , ,false,<default>
+javaScriptConfigArray,String,false,false, , ,false,<default>
+javaScriptPriceCodeArray,String,false,false, , ,false,<default>
+javaScriptSubConfigArray,String,false,false, , ,false,<default>
+labelUsers,Vector,false,false, , ,false,<default>
+lockObject,Object,false,false, , ,false,<default>
+log,ComponentLog,false,false, , ,false,<default>
+lookupObjects,Hashtable,false,false, , ,false,<default>
+loosePickExemptCodes,Vector,false,false, , ,false,<default>
+modifiers,Vector,false,false, , ,false,<default>
+musicLines,Vector,false,false, , ,false,<default>
+musicTypes,Vector,false,false, , ,false,<default>
+narm,Vector,false,false, , ,false,<default>
+operatingCompanies,Vector,false,false, , ,false,<default>
+poMergeCodes,Vector,false,false, , ,false,<default>
+prefixCodes,Vector,false,false, , ,false,<default>
+priceCodes,Vector,false,false, , ,false,<default>
+pricePoints,Vector,false,false, , ,false,<default>
+productCategories,Vector,false,false, , ,false,<default>
+RefreshServers,Vector,false,false, , ,false,<default>
+releaseCompanies,Vector,false,false, , ,false,<default>
+releaseTypes,Vector,false,false, , ,false,<default>
+repClasses,Vector,false,false, , ,false,<default>
+reportConfigFormats,Vector,false,false, , ,false,<default>
+reportConfigStatuses,Vector,false,false, , ,false,<default>
+reportConfigTypes,Vector,false,false, , ,false,<default>
+repOwners,Vector,false,false, , ,false,<default>
+returnCodes,Vector,false,false, , ,false,<default>
+selectionConfigs,Vector,false,false, , ,false,<default>
+selectionStatusList,Vector,false,false, , ,false,<default>
+sellCodes,Vector,false,false, , ,false,<default>
+sortLookupTableByValueDesc,Hashtable,false,false, , ,false,<default>
+suppliers,Vector,false,false, , ,false,<default>
+taskAbbreviations,Vector,false,false, , ,false,<default>
+theCompanies,Vector,false,false, , ,false,<default>
+theCompanyList,Vector,false,false, , ,false,<default>
+theDivisions,Vector,false,false, , ,false,<default>
+theEnvironmentList,Vector,false,false, , ,false,<default>
+theEnvironments,Vector,false,false, , ,false,<default>
+theFamilies,Vector,false,false, , ,false,<default>
+theFamilyList,Vector,false,false, , ,false,<default>
+theLabels,Vector,false,false, , ,false,<default>
+umlUsers,Vector,false,false, , ,false,<default>
+userCompaniesTable,Hashtable,false,false, , ,false,<default>
+userEnvironmentsTable,Hashtable,false,false, , ,false,<default>
+vendors,Vector,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

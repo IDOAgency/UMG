@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+  <servlet>
+    <servlet-name>MilestoneServlet</servlet-name>
+    <display-name>Milestone</display-name>
+    <servlet-class>com.universal.milestone.MilestoneServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>MilestoneUsersServlet</servlet-name>
+    <display-name>MilestoneUsers</display-name>
+    <jsp-file>/jsp/session-user.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MilestoneServlet</servlet-name>
+    <url-pattern>/home</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MilestoneUsersServlet</servlet-name>
+    <url-pattern>/users</url-pattern>
+  </servlet-mapping>
+</web-app>
