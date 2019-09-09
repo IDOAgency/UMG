@@ -11,7 +11,7 @@ function toggle( pLayer, pFirstFocus )
   if ( ( typeof layer ) != "object" )
   {
     // msc 12/17/03 stop message from displaying
-    //alert( "Layer to show up is not available." );
+    //alert( "Layer to show up is not available." );	
     return;
   }
   if ( layer.style.visibility == "visible" )
@@ -23,7 +23,7 @@ function toggle( pLayer, pFirstFocus )
     layer.style.visibility = "visible";
     if ( typeof( pFirstFocus ) == "string" && pFirstFocus != "" )
     {
-      field = eval( layer.all[ pFirstFocus ] );
+      field = eval( document.all[ pFirstFocus ] );
       // Check to see if the field was found otherwise it will not focus
       if ( ( typeof field ) == "object" )
       {

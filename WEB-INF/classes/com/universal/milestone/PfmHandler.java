@@ -2818,31 +2818,29 @@
 /* 2818 */           String streetDateString = form.getStringValue("releaseDate");
 /*      */           try {
 /* 2820 */             Calendar streetDate = MilestoneHelper.getDate(streetDateString);
-/* 2821 */             selection.setStreetDate(streetDate);
-/* 2822 */             selection.setStreetDateString(streetDateString);
-/* 2823 */             pfm.setStreetDate(streetDate);
+/* 2821 */             pfm.setStreetDate(streetDate);
 /*      */           }
-/* 2825 */           catch (Exception e) {
-/* 2826 */             pfm.setStreetDate(null);
+/* 2823 */           catch (Exception e) {
+/* 2824 */             pfm.setStreetDate(null);
 /*      */           } 
 /*      */ 
 /*      */           
-/* 2830 */           String strStatus = form.getStringValue("status");
-/* 2831 */           pfm.setStatus(strStatus);
+/* 2828 */           String strStatus = form.getStringValue("status");
+/* 2829 */           pfm.setStatus(strStatus);
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */           
-/* 2837 */           String projectIDtoValidate = "";
-/* 2838 */           if (pfm.getProjectID().trim().indexOf("-") > -1) {
-/* 2839 */             for (int j = 1; j < pfm.getProjectID().trim().length(); j++) {
-/* 2840 */               if (pfm.getProjectID().trim().charAt(j) != '-') {
-/* 2841 */                 projectIDtoValidate = String.valueOf(projectIDtoValidate) + pfm.getProjectID().trim().charAt(j);
+/* 2835 */           String projectIDtoValidate = "";
+/* 2836 */           if (pfm.getProjectID().trim().indexOf("-") > -1) {
+/* 2837 */             for (int j = 1; j < pfm.getProjectID().trim().length(); j++) {
+/* 2838 */               if (pfm.getProjectID().trim().charAt(j) != '-') {
+/* 2839 */                 projectIDtoValidate = String.valueOf(projectIDtoValidate) + pfm.getProjectID().trim().charAt(j);
 /*      */               }
 /*      */             } 
 /*      */           } else {
-/* 2845 */             projectIDtoValidate = pfm.getProjectID().trim();
+/* 2843 */             projectIDtoValidate = pfm.getProjectID().trim();
 /*      */           } 
 /*      */ 
 /*      */ 
@@ -2857,130 +2855,124 @@
 /*      */ 
 /*      */ 
 /*      */           
-/* 2860 */           if (command.equalsIgnoreCase("selectionSave")) {
-/* 2861 */             pfm.setParentalGuidance(selection.getParentalGuidance());
+/* 2858 */           if (command.equalsIgnoreCase("selectionSave")) {
+/* 2859 */             pfm.setParentalGuidance(selection.getParentalGuidance());
 /*      */           } else {
-/* 2863 */             pfm.setParentalGuidance(((FormCheckBox)form.getElement("ParentalAdv")).isChecked());
+/* 2861 */             pfm.setParentalGuidance(((FormCheckBox)form.getElement("ParentalAdv")).isChecked());
 /*      */           } 
-/* 2865 */           Form emailDistForm = form;
+/* 2863 */           Form emailDistForm = form;
 /*      */           
-/* 2867 */           form = buildForm(context, pfm, command);
+/* 2865 */           form = buildForm(context, pfm, command);
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */           
-/* 2874 */           if (sendEmail)
+/* 2872 */           if (sendEmail)
 /*      */           {
-/* 2876 */             if (context.getSessionValue("originalComment") != null) {
+/* 2874 */             if (context.getSessionValue("originalComment") != null) {
 /*      */               
-/* 2878 */               ((FormTextArea)form.getElement("comments")).setStartingValue((String)context.getSessionValue("originalComment"));
-/* 2879 */               ((FormTextArea)emailDistForm.getElement("comments")).setStartingValue((String)context.getSessionValue("originalComment"));
+/* 2876 */               ((FormTextArea)form.getElement("comments")).setStartingValue((String)context.getSessionValue("originalComment"));
+/* 2877 */               ((FormTextArea)emailDistForm.getElement("comments")).setStartingValue((String)context.getSessionValue("originalComment"));
 /*      */             } 
 /*      */           }
 /*      */           
-/* 2883 */           form.addElement(new FormHidden("cmd", "pfm-edit-save", true));
+/* 2881 */           form.addElement(new FormHidden("cmd", "pfm-edit-save", true));
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */           
-/* 2888 */           FormValidation formValidation = form.validate();
-/* 2889 */           if (formValidation.isGood()) {
+/* 2886 */           FormValidation formValidation = form.validate();
+/* 2887 */           if (formValidation.isGood()) {
 /*      */ 
 /*      */ 
 /*      */             
-/* 2893 */             Pfm savedPfm = SelectionManager.getInstance().savePfm(pfm, user, selection.getIsDigital());
+/* 2891 */             Pfm savedPfm = SelectionManager.getInstance().savePfm(pfm, user, selection.getIsDigital());
 /*      */ 
 /*      */ 
 /*      */             
-/* 2897 */             if (selection.getIsDigital()) {
+/* 2895 */             if (selection.getIsDigital()) {
 /*      */               
-/* 2899 */               SelectionManager.getInstance().saveSelectionDataFromDigitalPfm(
-/* 2900 */                   pfm.getReleaseId(), 
-/* 2901 */                   pfm.getPrefixID(), 
-/* 2902 */                   pfm.getSelectionNo(), 
+/* 2897 */               SelectionManager.getInstance().saveSelectionDataFromDigitalPfm(
+/* 2898 */                   pfm.getReleaseId(), 
+/* 2899 */                   pfm.getPrefixID(), 
+/* 2900 */                   pfm.getSelectionNo(), 
 /*      */                   
-/* 2904 */                   MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getUpc(), "UPC", selection.getIsDigital(), true), 
-/* 2905 */                   pfm.getConfigCode(), 
+/* 2902 */                   MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getUpc(), "UPC", selection.getIsDigital(), true), 
+/* 2903 */                   pfm.getConfigCode(), 
 /*      */                   
-/* 2907 */                   MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getSoundScanGrp(), "SSG", selection.getIsDigital(), true));
+/* 2905 */                   MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getSoundScanGrp(), "SSG", selection.getIsDigital(), true));
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */               
-/* 2913 */               if (messageObject != null && messageObject.selectionObj != null) {
+/* 2911 */               if (messageObject != null && messageObject.selectionObj != null) {
 /*      */                 
-/* 2915 */                 messageObject.selectionObj.setUpc(pfm.getUpc());
-/* 2916 */                 messageObject.selectionObj.setConfigCode(pfm.getConfigCode());
-/* 2917 */                 messageObject.selectionObj.setSoundScanGrp(pfm.getSoundScanGrp());
+/* 2913 */                 messageObject.selectionObj.setUpc(pfm.getUpc());
+/* 2914 */                 messageObject.selectionObj.setConfigCode(pfm.getConfigCode());
+/* 2915 */                 messageObject.selectionObj.setSoundScanGrp(pfm.getSoundScanGrp());
 /*      */               } 
 /*      */             } 
 /*      */ 
 /*      */ 
 /*      */             
-/* 2923 */             FormElement lastUpdated = form.getElement("lastUpdatedDate");
-/* 2924 */             lastUpdated.addFormEvent("onClick", "hidePrintButtons('printWindow','');");
-/* 2925 */             lastUpdated.setValue(MilestoneHelper.getLongDate(savedPfm.getLastUpdatedDate()));
+/* 2921 */             FormElement lastUpdated = form.getElement("lastUpdatedDate");
+/* 2922 */             lastUpdated.addFormEvent("onClick", "hidePrintButtons('printWindow','');");
+/* 2923 */             lastUpdated.setValue(MilestoneHelper.getLongDate(savedPfm.getLastUpdatedDate()));
 /*      */             
-/* 2927 */             context.putSessionValue("Pfm", savedPfm);
-/* 2928 */             context.putDelivery("Form", form);
-/*      */ 
-/*      */             
-/* 2931 */             notepad.setAllContents(null);
-/* 2932 */             notepad = SelectionManager.getInstance().getSelectionNotepad(context, user.getUserId(), 0);
-/* 2933 */             notepad.goToSelectedPage();
-/*      */             
-/* 2935 */             Boolean IsSaveSend = Boolean.valueOf(false);
-/*      */ 
-/*      */ 
-/*      */ 
+/* 2925 */             context.putSessionValue("Pfm", savedPfm);
+/* 2926 */             context.putDelivery("Form", form);
 /*      */ 
 /*      */             
-/* 2941 */             if ((finalFlag && 
-/* 2942 */               !context.getCommand().equals("selection-send-cancel") && 
-/* 2943 */               !command.equalsIgnoreCase("pfm-edit-save-comment")) || firstTimeFinal) {
-/* 2944 */               String lastUpdatedDate = "";
-/* 2945 */               String lastUpdatedBy = "";
+/* 2929 */             notepad.setAllContents(null);
+/* 2930 */             notepad = SelectionManager.getInstance().getSelectionNotepad(context, user.getUserId(), 0);
+/* 2931 */             notepad.goToSelectedPage();
+/*      */             
+/* 2933 */             Boolean IsSaveSend = Boolean.valueOf(false);
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */             
+/* 2939 */             if ((finalFlag && 
+/* 2940 */               !context.getCommand().equals("selection-send-cancel") && 
+/* 2941 */               !command.equalsIgnoreCase("pfm-edit-save-comment")) || firstTimeFinal) {
+/* 2942 */               String lastUpdatedDate = "";
+/* 2943 */               String lastUpdatedBy = "";
 /*      */               
-/* 2947 */               if (savedPfm.getLastUpdatedDate() != null) {
-/* 2948 */                 lastUpdatedDate = MilestoneHelper.getCustomFormatedDate(savedPfm.getLastUpdatedDate(), "M/d/yyyy hh:mm:ss a 'ET'");
+/* 2945 */               if (savedPfm.getLastUpdatedDate() != null) {
+/* 2946 */                 lastUpdatedDate = MilestoneHelper.getCustomFormatedDate(savedPfm.getLastUpdatedDate(), "M/d/yyyy hh:mm:ss a 'ET'");
 /*      */               }
-/* 2950 */               if (UserManager.getInstance().getUser(savedPfm.getLastUpdatingUser()) != null) {
-/* 2951 */                 lastUpdatedBy = UserManager.getInstance().getUser(savedPfm.getLastUpdatingUser()).getName();
+/* 2948 */               if (UserManager.getInstance().getUser(savedPfm.getLastUpdatingUser()) != null) {
+/* 2949 */                 lastUpdatedBy = UserManager.getInstance().getUser(savedPfm.getLastUpdatingUser()).getName();
 /*      */               }
-/* 2953 */               if (messageObject.selectionObj != null) {
-/*      */                 
-/* 2955 */                 messageObject.selectionObj.setStreetDate(pfm.getStreetDate());
-/* 2956 */                 messageObject.selectionObj.setStreetDateString(streetDateString);
-/*      */               } 
-/*      */ 
 /*      */               
-/* 2960 */               if (sendEmail && (EmailDistribution.putEmailBody(emailDistForm, context, selection, lastUpdatedDate, lastUpdatedBy, "PFM", messageObject) || 
-/* 2961 */                 messageObject.IsPushOnDemand)) {
+/* 2952 */               if (sendEmail && (EmailDistribution.putEmailBody(emailDistForm, context, selection, lastUpdatedDate, lastUpdatedBy, "PFM", messageObject) || 
+/* 2953 */                 messageObject.IsPushOnDemand)) {
 /*      */ 
 /*      */                 
 /*      */                 try {
 /*      */                   
-/* 2966 */                   messageObject.pfmObj = (Pfm)savedPfm.clone();
-/* 2967 */                 } catch (CloneNotSupportedException ce) {
+/* 2958 */                   messageObject.pfmObj = (Pfm)savedPfm.clone();
+/* 2959 */                 } catch (CloneNotSupportedException ce) {
 /*      */                   
-/* 2969 */                   messageObject.pfmObj = savedPfm;
+/* 2961 */                   messageObject.pfmObj = savedPfm;
 /*      */                 } 
-/* 2971 */                 print(dispatcher, context, command, 2, true, messageObject);
+/* 2963 */                 print(dispatcher, context, command, 2, true, messageObject);
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */                 
-/* 2977 */                 if (messageObject.IsPushPFM || messageObject.IsPushOnDemand) {
-/* 2978 */                   PushCommunication.pushPFMLegacyAppendMessge(messageObject, PushCommunication.pushPFMLegacy(pfm, selection, context));
+/* 2969 */                 if (messageObject.IsPushPFM || messageObject.IsPushOnDemand) {
+/* 2970 */                   PushCommunication.pushPFMLegacyAppendMessge(messageObject, PushCommunication.pushPFMLegacy(pfm, selection, context));
 /*      */                 }
-/* 2980 */                 EmailDistribution.sendEmail(dispatcher, context, "", messageObject);
-/* 2981 */                 EmailDistribution.removeSessionValues(context);
+/* 2972 */                 EmailDistribution.sendEmail(dispatcher, context, "", messageObject);
+/* 2973 */                 EmailDistribution.removeSessionValues(context);
 /*      */                 
-/* 2983 */                 IsSaveSend = Boolean.valueOf(true);
+/* 2975 */                 IsSaveSend = Boolean.valueOf(true);
 /*      */               } 
 /*      */             } 
 /*      */ 
@@ -2992,124 +2984,124 @@
 /*      */ 
 /*      */ 
 /*      */             
-/* 2995 */             DcGDRSResults dcGDRSResults = SelectionHandler.GDRSProductStatusGet(selection, selection.getCompany().getParentEnvironment().getStructureID());
-/* 2996 */             boolean IsGDRSactive = (!dcGDRSResults.getStatus().equals("") && !dcGDRSResults.getStatus().equals("DELETE"));
-/* 2997 */             if (!selection.getNoDigitalRelease()) {
+/* 2987 */             DcGDRSResults dcGDRSResults = SelectionHandler.GDRSProductStatusGet(selection, selection.getCompany().getParentEnvironment().getStructureID());
+/* 2988 */             boolean IsGDRSactive = (!dcGDRSResults.getStatus().equals("") && !dcGDRSResults.getStatus().equals("DELETE"));
+/* 2989 */             if (!selection.getNoDigitalRelease()) {
 /*      */ 
 /*      */               
-/* 3000 */               if (!dcGDRSResults.getForceNoDigitalRelease().booleanValue())
+/* 2992 */               if (!dcGDRSResults.getForceNoDigitalRelease().booleanValue())
 /*      */               {
-/* 3002 */                 String status = IsSaveSend.booleanValue() ? "SAVE_SEND" : "CREATE_EDIT";
-/* 3003 */                 SelectionManager.GDRS_QueueAddReleaseId(selection, status);
+/* 2994 */                 String status = IsSaveSend.booleanValue() ? "SAVE_SEND" : "CREATE_EDIT";
+/* 2995 */                 SelectionManager.GDRS_QueueAddReleaseId(selection, status);
 /*      */               }
 /*      */             
-/* 3006 */             } else if (IsGDRSactive) {
-/* 3007 */               SelectionManager.GDRS_QueueAddReleaseId(selection, "DELETE");
+/* 2998 */             } else if (IsGDRSactive) {
+/* 2999 */               SelectionManager.GDRS_QueueAddReleaseId(selection, "DELETE");
 /*      */             } 
 /*      */ 
 /*      */ 
 /*      */             
-/* 3012 */             if (!command.equalsIgnoreCase("pfm-edit-save-comment")) {
-/* 3013 */               context.putSessionValue("originalComment", savedPfm.getComments());
+/* 3004 */             if (!command.equalsIgnoreCase("pfm-edit-save-comment")) {
+/* 3005 */               context.putSessionValue("originalComment", savedPfm.getComments());
 /*      */             }
-/* 3015 */             context.putSessionValue("originalCommentRelId", new Integer(savedPfm.getReleaseId()));
+/* 3007 */             context.putSessionValue("originalCommentRelId", new Integer(savedPfm.getReleaseId()));
 /*      */           }
 /*      */           else {
 /*      */             
-/* 3019 */             context.putDelivery("FormValidation", formValidation);
+/* 3011 */             context.putDelivery("FormValidation", formValidation);
 /*      */           } 
 /*      */         } 
-/* 3022 */         form.addElement(new FormHidden("OrderBy", "", true));
-/* 3023 */         context.putDelivery("Form", form);
+/* 3014 */         form.addElement(new FormHidden("OrderBy", "", true));
+/* 3015 */         context.putDelivery("Form", form);
 /*      */         
-/* 3025 */         if (!command.equalsIgnoreCase("selectionSave")) {
-/* 3026 */           return edit(dispatcher, context, command);
+/* 3017 */         if (!command.equalsIgnoreCase("selectionSave")) {
+/* 3018 */           return edit(dispatcher, context, command);
 /*      */         }
-/* 3028 */         return true;
+/* 3020 */         return true;
 /*      */       } 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3033 */       context.putDelivery("AlertMessage", "The record is unavailable for editing at this time.  Please refresh your screen and edit it at a later time.");
+/* 3025 */       context.putDelivery("AlertMessage", "The record is unavailable for editing at this time.  Please refresh your screen and edit it at a later time.");
 /*      */ 
 /*      */       
-/* 3036 */       context.putDelivery("Form", form);
+/* 3028 */       context.putDelivery("Form", form);
 /*      */       
-/* 3038 */       if (!command.equalsIgnoreCase("selectionSave")) {
-/* 3039 */         return context.includeJSP("pfm-editor.jsp");
+/* 3030 */       if (!command.equalsIgnoreCase("selectionSave")) {
+/* 3031 */         return context.includeJSP("pfm-editor.jsp");
 /*      */       }
-/* 3041 */       return true;
+/* 3033 */       return true;
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3046 */     Form form = buildForm(context, null, command);
-/* 3047 */     form.addElement(new FormHidden("cmd", "pfm-edit-save", true));
-/* 3048 */     form.addElement(new FormHidden("copyPaste", "copy", true));
+/* 3038 */     Form form = buildForm(context, null, command);
+/* 3039 */     form.addElement(new FormHidden("cmd", "pfm-edit-save", true));
+/* 3040 */     form.addElement(new FormHidden("copyPaste", "copy", true));
 /*      */ 
 /*      */     
-/* 3051 */     if (!command.equalsIgnoreCase("selectionSave")) {
-/* 3052 */       form.setValues(context);
+/* 3043 */     if (!command.equalsIgnoreCase("selectionSave")) {
+/* 3044 */       form.setValues(context);
 /*      */     }
-/* 3054 */     pfm = new Pfm();
+/* 3046 */     pfm = new Pfm();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3059 */     String printOption = form.getStringValue("printOption");
-/* 3060 */     if (printOption.equalsIgnoreCase("Draft")) {
-/* 3061 */       pfm.setPrintOption("Draft");
+/* 3051 */     String printOption = form.getStringValue("printOption");
+/* 3052 */     if (printOption.equalsIgnoreCase("Draft")) {
+/* 3053 */       pfm.setPrintOption("Draft");
 /*      */ 
 /*      */ 
 /*      */       
-/* 3065 */       String mode = form.getStringValue("mode");
-/* 3066 */       if (!mode.equalsIgnoreCase("Add")) {
-/* 3067 */         mode = "Change";
-/* 3068 */         pfm.setMode(mode);
-/* 3069 */         pfm.setReleaseType("M");
+/* 3057 */       String mode = form.getStringValue("mode");
+/* 3058 */       if (!mode.equalsIgnoreCase("Add")) {
+/* 3059 */         mode = "Change";
+/* 3060 */         pfm.setMode(mode);
+/* 3061 */         pfm.setReleaseType("M");
 /*      */       
 /*      */       }
 /*      */       else {
 /*      */         
-/* 3074 */         pfm.setMode(mode);
-/* 3075 */         pfm.setReleaseType("A");
+/* 3066 */         pfm.setMode(mode);
+/* 3067 */         pfm.setReleaseType("A");
 /*      */         
-/* 3077 */         pfm.setChangeNumber("-1");
+/* 3069 */         pfm.setChangeNumber("-1");
 /*      */       } 
 /*      */ 
 /*      */       
-/* 3081 */       pfm.setMode("Add");
-/* 3082 */       pfm.setReleaseType("A");
-/* 3083 */       pfm.setChangeNumber("-1");
-/* 3084 */       FormTextField changeField = (FormTextField)form.getElement("ChangeNumber");
-/* 3085 */       changeField.setValue("-1");
-/* 3086 */       FormRadioButtonGroup modeField = (FormRadioButtonGroup)form.getElement("mode");
-/* 3087 */       modeField.setValue("Add");
+/* 3073 */       pfm.setMode("Add");
+/* 3074 */       pfm.setReleaseType("A");
+/* 3075 */       pfm.setChangeNumber("-1");
+/* 3076 */       FormTextField changeField = (FormTextField)form.getElement("ChangeNumber");
+/* 3077 */       changeField.setValue("-1");
+/* 3078 */       FormRadioButtonGroup modeField = (FormRadioButtonGroup)form.getElement("mode");
+/* 3079 */       modeField.setValue("Add");
 /*      */     
 /*      */     }
 /*      */     else {
 /*      */       
-/* 3092 */       pfm.setPrintOption("Final");
+/* 3084 */       pfm.setPrintOption("Final");
 /*      */       
-/* 3094 */       finalFlag = true;
-/* 3095 */       sendEmail = false;
+/* 3086 */       finalFlag = true;
+/* 3087 */       sendEmail = false;
 /*      */ 
 /*      */       
-/* 3098 */       int changeNumberInt = -1;
+/* 3090 */       int changeNumberInt = -1;
 /*      */       
 /*      */       try {
-/* 3101 */         changeNumberInt = Integer.parseInt(form.getStringValue("ChangeNumber"));
+/* 3093 */         changeNumberInt = Integer.parseInt(form.getStringValue("ChangeNumber"));
 /*      */       }
-/* 3103 */       catch (Exception e) {
-/* 3104 */         changeNumberInt = -1;
+/* 3095 */       catch (Exception e) {
+/* 3096 */         changeNumberInt = -1;
 /*      */       } 
 /*      */       
-/* 3107 */       String newMode = "";
+/* 3099 */       String newMode = "";
 /*      */ 
 /*      */       
-/* 3110 */       if (changeNumberInt >= 0) {
+/* 3102 */       if (changeNumberInt >= 0) {
 /*      */         
-/* 3112 */         StringBuffer changedFields = new StringBuffer();
+/* 3104 */         StringBuffer changedFields = new StringBuffer();
 /*      */ 
 /*      */ 
 /*      */ 
@@ -3120,103 +3112,103 @@
 /*      */ 
 /*      */ 
 /*      */         
-/* 3123 */         String upcStripped = MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(form.getStringValue("upc"), "UPC", selection.getIsDigital(), true);
-/* 3124 */         form.getElement("upc").setValue(upcStripped);
-/* 3125 */         String ssgStripped = MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(form.getStringValue("sound_scan_code"), "SSG", selection.getIsDigital(), true);
-/* 3126 */         form.getElement("sound_scan_code").setValue(ssgStripped);
+/* 3115 */         String upcStripped = MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(form.getStringValue("upc"), "UPC", selection.getIsDigital(), true);
+/* 3116 */         form.getElement("upc").setValue(upcStripped);
+/* 3117 */         String ssgStripped = MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(form.getStringValue("sound_scan_code"), "SSG", selection.getIsDigital(), true);
+/* 3118 */         form.getElement("sound_scan_code").setValue(ssgStripped);
 /*      */         
-/* 3128 */         if (!command.equalsIgnoreCase("pfm-edit-save-comment") && 
-/* 3129 */           EmailDistribution.isFormChanged(form.getChangedElements(), changedFields, true, false, form, messageObject))
+/* 3120 */         if (!command.equalsIgnoreCase("pfm-edit-save-comment") && 
+/* 3121 */           EmailDistribution.isFormChanged(form.getChangedElements(), changedFields, true, false, form, messageObject))
 /*      */         {
-/* 3131 */           sendEmail = true;
+/* 3123 */           sendEmail = true;
 /*      */           
-/* 3133 */           changeNumberInt++;
+/* 3125 */           changeNumberInt++;
 /*      */           
-/* 3135 */           pfm.setMode("Change");
-/* 3136 */           pfm.setReleaseType("M");
-/* 3137 */           newMode = "Change";
+/* 3127 */           pfm.setMode("Change");
+/* 3128 */           pfm.setReleaseType("M");
+/* 3129 */           newMode = "Change";
 /*      */           
-/* 3139 */           pfm.setChangeNumber(Integer.toString(changeNumberInt));
-/* 3140 */           FormTextField changeField = (FormTextField)form.getElement("ChangeNumber");
-/* 3141 */           changeField.setValue(Integer.toString(changeNumberInt));
-/* 3142 */           FormRadioButtonGroup modeField = (FormRadioButtonGroup)form.getElement("mode");
-/* 3143 */           modeField.setValue(newMode);
+/* 3131 */           pfm.setChangeNumber(Integer.toString(changeNumberInt));
+/* 3132 */           FormTextField changeField = (FormTextField)form.getElement("ChangeNumber");
+/* 3133 */           changeField.setValue(Integer.toString(changeNumberInt));
+/* 3134 */           FormRadioButtonGroup modeField = (FormRadioButtonGroup)form.getElement("mode");
+/* 3135 */           modeField.setValue(newMode);
 /*      */         }
 /*      */       
 /*      */       }
 /*      */       else {
 /*      */         
-/* 3149 */         firstTimeFinal = true;
+/* 3141 */         firstTimeFinal = true;
 /*      */ 
 /*      */ 
 /*      */         
-/* 3153 */         sendEmail = true;
+/* 3145 */         sendEmail = true;
 /*      */         
-/* 3155 */         changeNumberInt++;
+/* 3147 */         changeNumberInt++;
 /*      */         
-/* 3157 */         pfm.setMode("Add");
-/* 3158 */         pfm.setReleaseType("A");
-/* 3159 */         newMode = "Add";
+/* 3149 */         pfm.setMode("Add");
+/* 3150 */         pfm.setReleaseType("A");
+/* 3151 */         newMode = "Add";
 /*      */         
-/* 3161 */         pfm.setChangeNumber(Integer.toString(changeNumberInt));
-/* 3162 */         FormTextField changeField = (FormTextField)form.getElement("ChangeNumber");
-/* 3163 */         changeField.setValue(Integer.toString(changeNumberInt));
-/* 3164 */         FormRadioButtonGroup modeField = (FormRadioButtonGroup)form.getElement("mode");
-/* 3165 */         modeField.setValue(newMode);
+/* 3153 */         pfm.setChangeNumber(Integer.toString(changeNumberInt));
+/* 3154 */         FormTextField changeField = (FormTextField)form.getElement("ChangeNumber");
+/* 3155 */         changeField.setValue(Integer.toString(changeNumberInt));
+/* 3156 */         FormRadioButtonGroup modeField = (FormRadioButtonGroup)form.getElement("mode");
+/* 3157 */         modeField.setValue(newMode);
 /*      */       } 
 /*      */     } 
 /*      */ 
 /*      */     
-/* 3170 */     if (form.getStringValue("selectionID") != null) {
+/* 3162 */     if (form.getStringValue("selectionID") != null) {
 /*      */       
 /*      */       try {
 /*      */         
-/* 3174 */         selectionID = Integer.parseInt(form.getStringValue("selectionID"));
+/* 3166 */         selectionID = Integer.parseInt(form.getStringValue("selectionID"));
 /*      */       }
-/* 3176 */       catch (NumberFormatException e) {
+/* 3168 */       catch (NumberFormatException e) {
 /*      */         
-/* 3178 */         selectionID = -1;
+/* 3170 */         selectionID = -1;
 /*      */       } 
 /*      */     }
-/* 3181 */     pfm.setReleaseId(selectionID);
+/* 3173 */     pfm.setReleaseId(selectionID);
 /*      */ 
 /*      */     
-/* 3184 */     String preparedBy = "";
-/* 3185 */     if (form.getStringValue("prepared_by") != null)
+/* 3176 */     String preparedBy = "";
+/* 3177 */     if (form.getStringValue("prepared_by") != null)
 /*      */     {
-/* 3187 */       preparedBy = form.getStringValue("prepared_by");
+/* 3179 */       preparedBy = form.getStringValue("prepared_by");
 /*      */     }
-/* 3189 */     pfm.setPreparedBy(preparedBy);
+/* 3181 */     pfm.setPreparedBy(preparedBy);
 /*      */ 
 /*      */     
-/* 3192 */     String phone = form.getStringValue("phone");
-/* 3193 */     pfm.setPhone(phone);
+/* 3184 */     String phone = form.getStringValue("phone");
+/* 3185 */     pfm.setPhone(phone);
 /*      */ 
 /*      */     
-/* 3196 */     String email = form.getStringValue("email");
-/* 3197 */     pfm.setEmail(email);
+/* 3188 */     String email = form.getStringValue("email");
+/* 3189 */     pfm.setEmail(email);
 /*      */ 
 /*      */     
-/* 3200 */     String fax = "";
-/* 3201 */     if (form.getStringValue("fax") != null)
+/* 3192 */     String fax = "";
+/* 3193 */     if (form.getStringValue("fax") != null)
 /*      */     {
-/* 3203 */       fax = form.getStringValue("fax");
+/* 3195 */       fax = form.getStringValue("fax");
 /*      */     }
-/* 3205 */     pfm.setFaxNumber(fax);
+/* 3197 */     pfm.setFaxNumber(fax);
 /*      */ 
 /*      */     
-/* 3208 */     String comments = "";
-/* 3209 */     if (form.getStringValue("comments") != null)
+/* 3200 */     String comments = "";
+/* 3201 */     if (form.getStringValue("comments") != null)
 /*      */     {
-/* 3211 */       comments = form.getStringValue("comments");
+/* 3203 */       comments = form.getStringValue("comments");
 /*      */     }
-/* 3213 */     pfm.setComments(comments);
+/* 3205 */     pfm.setComments(comments);
 /*      */ 
 /*      */     
-/* 3216 */     String mode = "";
-/* 3217 */     if (form.getStringValue("mode") != null) {
+/* 3208 */     String mode = "";
+/* 3209 */     if (form.getStringValue("mode") != null) {
 /*      */       
-/* 3219 */       mode = form.getStringValue("mode");
+/* 3211 */       mode = form.getStringValue("mode");
 /*      */ 
 /*      */ 
 /*      */ 
@@ -3224,129 +3216,129 @@
 /*      */ 
 /*      */ 
 /*      */       
-/* 3227 */       if (!mode.equalsIgnoreCase("Add")) {
+/* 3219 */       if (!mode.equalsIgnoreCase("Add")) {
 /*      */ 
 /*      */         
-/* 3230 */         pfm.setMode(mode);
-/* 3231 */         pfm.setReleaseType("M");
+/* 3222 */         pfm.setMode(mode);
+/* 3223 */         pfm.setReleaseType("M");
 /*      */       }
 /*      */       else {
 /*      */         
-/* 3235 */         pfm.setMode(mode);
-/* 3236 */         pfm.setReleaseType("A");
+/* 3227 */         pfm.setMode(mode);
+/* 3228 */         pfm.setReleaseType("A");
 /*      */       } 
 /*      */     } 
 /*      */ 
 /*      */     
-/* 3241 */     String soundScanGroup = "";
+/* 3233 */     String soundScanGroup = "";
 /*      */     
-/* 3243 */     if (selection.getIsDigital()) {
-/* 3244 */       soundScanGroup = form.getStringValue("sound_scan_code");
+/* 3235 */     if (selection.getIsDigital()) {
+/* 3236 */       soundScanGroup = form.getStringValue("sound_scan_code");
 /*      */     } else {
-/* 3246 */       soundScanGroup = selection.getSoundScanGrp();
+/* 3238 */       soundScanGroup = selection.getSoundScanGrp();
 /*      */     } 
-/* 3248 */     pfm.setSoundScanGrp(soundScanGroup);
+/* 3240 */     pfm.setSoundScanGrp(soundScanGroup);
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3253 */     String operatingCompany = form.getStringValue("operating_company");
-/* 3254 */     pfm.setOperatingCompany(operatingCompany);
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/* 3260 */     String productNumber = form.getStringValue("product_number");
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
+/* 3245 */     String operatingCompany = form.getStringValue("operating_company");
+/* 3246 */     pfm.setOperatingCompany(operatingCompany);
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3278 */     pfm.setProductNumber(productNumber);
+/* 3252 */     String productNumber = form.getStringValue("product_number");
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
 /*      */ 
 /*      */     
-/* 3281 */     String musicLine = "";
-/* 3282 */     if (form.getStringValue("music_line") != null)
+/* 3270 */     pfm.setProductNumber(productNumber);
+/*      */ 
+/*      */     
+/* 3273 */     String musicLine = "";
+/* 3274 */     if (form.getStringValue("music_line") != null)
 /*      */     {
-/* 3284 */       musicLine = form.getStringValue("music_line");
+/* 3276 */       musicLine = form.getStringValue("music_line");
 /*      */     }
-/* 3286 */     pfm.setMusicLine(musicLine);
+/* 3278 */     pfm.setMusicLine(musicLine);
 /*      */ 
 /*      */     
-/* 3289 */     String prefix = "";
-/* 3290 */     if (form.getStringValue("prefix") != null)
+/* 3281 */     String prefix = "";
+/* 3282 */     if (form.getStringValue("prefix") != null)
 /*      */     {
-/* 3292 */       prefix = form.getStringValue("prefix");
+/* 3284 */       prefix = form.getStringValue("prefix");
 /*      */     }
-/* 3294 */     pfm.setPrefixID((PrefixCode)SelectionManager.getLookupObject(prefix, Cache.getPrefixCodes()));
+/* 3286 */     pfm.setPrefixID((PrefixCode)SelectionManager.getLookupObject(prefix, Cache.getPrefixCodes()));
 /*      */ 
 /*      */     
-/* 3297 */     String selectionNo = "";
-/* 3298 */     if (form.getStringValue("selectionNo") != null)
+/* 3289 */     String selectionNo = "";
+/* 3290 */     if (form.getStringValue("selectionNo") != null)
 /*      */     {
-/* 3300 */       selectionNo = form.getStringValue("selectionNo");
+/* 3292 */       selectionNo = form.getStringValue("selectionNo");
 /*      */     }
-/* 3302 */     pfm.setSelectionNo(selectionNo);
+/* 3294 */     pfm.setSelectionNo(selectionNo);
 /*      */ 
 /*      */     
-/* 3305 */     String configCode = "";
-/* 3306 */     if (form.getStringValue("config_code") != null)
+/* 3297 */     String configCode = "";
+/* 3298 */     if (form.getStringValue("config_code") != null)
 /*      */     {
-/* 3308 */       configCode = form.getStringValue("config_code");
+/* 3300 */       configCode = form.getStringValue("config_code");
 /*      */     }
-/* 3310 */     pfm.setConfigCode(configCode);
+/* 3302 */     pfm.setConfigCode(configCode);
 /*      */ 
 /*      */     
-/* 3313 */     String repertoireOwner = "";
-/* 3314 */     if (form.getStringValue("repertoire_owner") != null)
+/* 3305 */     String repertoireOwner = "";
+/* 3306 */     if (form.getStringValue("repertoire_owner") != null)
 /*      */     {
-/* 3316 */       repertoireOwner = form.getStringValue("repertoire_owner");
+/* 3308 */       repertoireOwner = form.getStringValue("repertoire_owner");
 /*      */     }
-/* 3318 */     pfm.setRepertoireOwner(repertoireOwner);
+/* 3310 */     pfm.setRepertoireOwner(repertoireOwner);
 /*      */ 
 /*      */     
-/* 3321 */     String modifier = "";
-/* 3322 */     if (form.getStringValue("modifier") != null)
+/* 3313 */     String modifier = "";
+/* 3314 */     if (form.getStringValue("modifier") != null)
 /*      */     {
-/* 3324 */       modifier = form.getStringValue("modifier");
+/* 3316 */       modifier = form.getStringValue("modifier");
 /*      */     }
-/* 3326 */     pfm.setModifier(modifier);
+/* 3318 */     pfm.setModifier(modifier);
 /*      */ 
 /*      */     
-/* 3329 */     String repertoireClass = "";
-/* 3330 */     String tempHold = "";
-/* 3331 */     Vector repOwners = Cache.getRepertoireClasses();
-/* 3332 */     for (int i = 0; i < repOwners.size(); i++) {
+/* 3321 */     String repertoireClass = "";
+/* 3322 */     String tempHold = "";
+/* 3323 */     Vector repOwners = Cache.getRepertoireClasses();
+/* 3324 */     for (int i = 0; i < repOwners.size(); i++) {
 /*      */       
-/* 3334 */       repertoireClass = ((LookupObject)repOwners.elementAt(i)).getAbbreviation();
-/* 3335 */       if (repertoireOwner.equals(repertoireClass))
+/* 3326 */       repertoireClass = ((LookupObject)repOwners.elementAt(i)).getAbbreviation();
+/* 3327 */       if (repertoireOwner.equals(repertoireClass))
 /*      */       {
-/* 3337 */         tempHold = repertoireClass;
+/* 3329 */         tempHold = repertoireClass;
 /*      */       }
 /*      */     } 
-/* 3340 */     String repClass = tempHold;
-/* 3341 */     pfm.setRepertoireClass(repClass);
+/* 3332 */     String repClass = tempHold;
+/* 3333 */     pfm.setRepertoireClass(repClass);
 /*      */ 
 /*      */     
-/* 3344 */     String upc = "";
-/* 3345 */     if (form.getStringValue("upc") != null)
+/* 3336 */     String upc = "";
+/* 3337 */     if (form.getStringValue("upc") != null)
 /*      */     {
-/* 3347 */       upc = form.getStringValue("upc");
+/* 3339 */       upc = form.getStringValue("upc");
 /*      */     }
-/* 3349 */     pfm.setUpc(upc);
+/* 3341 */     pfm.setUpc(upc);
 /*      */ 
 /*      */ 
 /*      */ 
@@ -3355,200 +3347,200 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 3358 */     String title = "";
-/* 3359 */     if (form.getStringValue("title") != null)
+/* 3350 */     String title = "";
+/* 3351 */     if (form.getStringValue("title") != null)
 /*      */     {
-/* 3361 */       title = form.getStringValue("title");
+/* 3353 */       title = form.getStringValue("title");
 /*      */     }
-/* 3363 */     pfm.setTitle(title);
+/* 3355 */     pfm.setTitle(title);
 /*      */ 
 /*      */     
-/* 3366 */     String artist = "";
-/* 3367 */     if (form.getStringValue("artist") != null)
+/* 3358 */     String artist = "";
+/* 3359 */     if (form.getStringValue("artist") != null)
 /*      */     {
-/* 3369 */       artist = form.getStringValue("artist");
+/* 3361 */       artist = form.getStringValue("artist");
 /*      */     }
-/* 3371 */     pfm.setArtist(artist);
+/* 3363 */     pfm.setArtist(artist);
 /*      */ 
 /*      */     
-/* 3374 */     String titleID = "";
-/* 3375 */     if (selection != null)
+/* 3366 */     String titleID = "";
+/* 3367 */     if (selection != null)
 /*      */     {
-/* 3377 */       titleID = selection.getTitleID();
+/* 3369 */       titleID = selection.getTitleID();
 /*      */     }
-/* 3379 */     pfm.setTitleId(titleID);
+/* 3371 */     pfm.setTitleId(titleID);
 /*      */ 
 /*      */     
-/* 3382 */     String returnCode = "";
-/* 3383 */     if (form.getStringValue("return_code") != null)
+/* 3374 */     String returnCode = "";
+/* 3375 */     if (form.getStringValue("return_code") != null)
 /*      */     {
-/* 3385 */       returnCode = form.getStringValue("return_code");
+/* 3377 */       returnCode = form.getStringValue("return_code");
 /*      */     }
 /*      */     
-/* 3388 */     if (selection.getIsDigital()) {
-/* 3389 */       returnCode = "T";
+/* 3380 */     if (selection.getIsDigital()) {
+/* 3381 */       returnCode = "T";
 /*      */     }
-/* 3391 */     pfm.setReturnCode(returnCode);
+/* 3383 */     pfm.setReturnCode(returnCode);
 /*      */ 
 /*      */     
-/* 3394 */     String exportFlag = "";
-/* 3395 */     if (form.getStringValue("export_flag") != null)
+/* 3386 */     String exportFlag = "";
+/* 3387 */     if (form.getStringValue("export_flag") != null)
 /*      */     {
-/* 3397 */       exportFlag = form.getStringValue("export_flag");
+/* 3389 */       exportFlag = form.getStringValue("export_flag");
 /*      */     }
-/* 3399 */     pfm.setExportFlag(exportFlag);
+/* 3391 */     pfm.setExportFlag(exportFlag);
 /*      */ 
 /*      */     
-/* 3402 */     String superLabel = "";
-/* 3403 */     if (form.getStringValue("super_label") != null)
+/* 3394 */     String superLabel = "";
+/* 3395 */     if (form.getStringValue("super_label") != null)
 /*      */     {
-/* 3405 */       superLabel = form.getStringValue("super_label");
+/* 3397 */       superLabel = form.getStringValue("super_label");
 /*      */     }
-/* 3407 */     pfm.setSuperLabel(superLabel);
+/* 3399 */     pfm.setSuperLabel(superLabel);
 /*      */ 
 /*      */     
-/* 3410 */     String countries = "";
-/* 3411 */     if (form.getStringValue("countries") != null)
+/* 3402 */     String countries = "";
+/* 3403 */     if (form.getStringValue("countries") != null)
 /*      */     {
-/* 3413 */       countries = form.getStringValue("countries");
+/* 3405 */       countries = form.getStringValue("countries");
 /*      */     }
-/* 3415 */     pfm.setCountries(countries);
+/* 3407 */     pfm.setCountries(countries);
 /*      */ 
 /*      */     
-/* 3418 */     String labelCode = "";
-/* 3419 */     if (form.getStringValue("label_code") != null)
+/* 3410 */     String labelCode = "";
+/* 3411 */     if (form.getStringValue("label_code") != null)
 /*      */     {
-/* 3421 */       labelCode = form.getStringValue("label_code");
+/* 3413 */       labelCode = form.getStringValue("label_code");
 /*      */     }
-/* 3423 */     pfm.setLabelCode(labelCode);
+/* 3415 */     pfm.setLabelCode(labelCode);
 /*      */ 
 /*      */     
-/* 3426 */     String spineTitle = "";
-/* 3427 */     if (form.getStringValue("spine_title") != null)
+/* 3418 */     String spineTitle = "";
+/* 3419 */     if (form.getStringValue("spine_title") != null)
 /*      */     {
-/* 3429 */       spineTitle = form.getStringValue("spine_title");
+/* 3421 */       spineTitle = form.getStringValue("spine_title");
 /*      */     }
-/* 3431 */     pfm.setSpineTitle(spineTitle);
+/* 3423 */     pfm.setSpineTitle(spineTitle);
 /*      */ 
 /*      */     
-/* 3434 */     String companyCode = "";
-/* 3435 */     if (form.getStringValue("company_code") != null)
+/* 3426 */     String companyCode = "";
+/* 3427 */     if (form.getStringValue("company_code") != null)
 /*      */     {
-/* 3437 */       companyCode = form.getStringValue("company_code");
+/* 3429 */       companyCode = form.getStringValue("company_code");
 /*      */     }
-/* 3439 */     pfm.setCompanyCode(companyCode);
+/* 3431 */     pfm.setCompanyCode(companyCode);
 /*      */ 
 /*      */     
-/* 3442 */     String spineArtist = "";
-/* 3443 */     if (form.getStringValue("spine_artist") != null)
+/* 3434 */     String spineArtist = "";
+/* 3435 */     if (form.getStringValue("spine_artist") != null)
 /*      */     {
-/* 3445 */       spineArtist = form.getStringValue("spine_artist");
+/* 3437 */       spineArtist = form.getStringValue("spine_artist");
 /*      */     }
-/* 3447 */     pfm.setSpineArtist(spineArtist);
+/* 3439 */     pfm.setSpineArtist(spineArtist);
 /*      */ 
 /*      */     
-/* 3450 */     String priceCode = "";
-/* 3451 */     if (form.getStringValue("price_code") != null)
+/* 3442 */     String priceCode = "";
+/* 3443 */     if (form.getStringValue("price_code") != null)
 /*      */     {
-/* 3453 */       priceCode = form.getStringValue("price_code");
+/* 3445 */       priceCode = form.getStringValue("price_code");
 /*      */     }
-/* 3455 */     pfm.setPriceCode(priceCode);
+/* 3447 */     pfm.setPriceCode(priceCode);
 /*      */ 
 /*      */     
-/* 3458 */     String priceCodeDPC = "";
-/* 3459 */     if (form.getStringValue("price_codeDPC") != null)
+/* 3450 */     String priceCodeDPC = "";
+/* 3451 */     if (form.getStringValue("price_codeDPC") != null)
 /*      */     {
-/* 3461 */       priceCodeDPC = form.getStringValue("price_codeDPC");
+/* 3453 */       priceCodeDPC = form.getStringValue("price_codeDPC");
 /*      */     }
-/* 3463 */     pfm.setPriceCodeDPC(priceCodeDPC);
+/* 3455 */     pfm.setPriceCodeDPC(priceCodeDPC);
 /*      */ 
 /*      */ 
 /*      */     
-/* 3467 */     String poMergeCode = "";
-/* 3468 */     if (form.getStringValue("po_merge_code") != null)
+/* 3459 */     String poMergeCode = "";
+/* 3460 */     if (form.getStringValue("po_merge_code") != null)
 /*      */     {
-/* 3470 */       poMergeCode = form.getStringValue("po_merge_code");
+/* 3462 */       poMergeCode = form.getStringValue("po_merge_code");
 /*      */     }
 /*      */     
-/* 3473 */     if (selection.getIsDigital())
-/* 3474 */       poMergeCode = "99"; 
-/* 3475 */     pfm.setPoMergeCode(poMergeCode);
+/* 3465 */     if (selection.getIsDigital())
+/* 3466 */       poMergeCode = "99"; 
+/* 3467 */     pfm.setPoMergeCode(poMergeCode);
 /*      */ 
 /*      */ 
 /*      */     
-/* 3479 */     String guaranteeCode = "";
-/* 3480 */     if (form.getStringValue("guarantee_code") != null)
+/* 3471 */     String guaranteeCode = "";
+/* 3472 */     if (form.getStringValue("guarantee_code") != null)
 /*      */     {
-/* 3482 */       guaranteeCode = form.getStringValue("guarantee_code");
+/* 3474 */       guaranteeCode = form.getStringValue("guarantee_code");
 /*      */     }
 /*      */     
-/* 3485 */     if (selection.getIsDigital())
-/* 3486 */       guaranteeCode = "N"; 
-/* 3487 */     pfm.setGuaranteeCode(guaranteeCode);
+/* 3477 */     if (selection.getIsDigital())
+/* 3478 */       guaranteeCode = "N"; 
+/* 3479 */     pfm.setGuaranteeCode(guaranteeCode);
 /*      */ 
 /*      */     
-/* 3490 */     String loosePickExemptCode = "";
-/* 3491 */     if (form.getStringValue("loose_pick_exempt") != null)
+/* 3482 */     String loosePickExemptCode = "";
+/* 3483 */     if (form.getStringValue("loose_pick_exempt") != null)
 /*      */     {
-/* 3493 */       loosePickExemptCode = form.getStringValue("loose_pick_exempt");
+/* 3485 */       loosePickExemptCode = form.getStringValue("loose_pick_exempt");
 /*      */     }
 /*      */     
-/* 3496 */     if (selection.getIsDigital())
-/* 3497 */       loosePickExemptCode = "N"; 
-/* 3498 */     pfm.setLoosePickExemptCode(loosePickExemptCode);
+/* 3488 */     if (selection.getIsDigital())
+/* 3489 */       loosePickExemptCode = "N"; 
+/* 3490 */     pfm.setLoosePickExemptCode(loosePickExemptCode);
 /*      */ 
 /*      */     
-/* 3501 */     pfm.setValueAdded(((FormCheckBox)form.getElement("ValueAdded")).isChecked());
+/* 3493 */     pfm.setValueAdded(((FormCheckBox)form.getElement("ValueAdded")).isChecked());
 /*      */ 
 /*      */     
-/* 3504 */     pfm.setBoxSet(((FormCheckBox)form.getElement("BoxSet")).isChecked());
+/* 3496 */     pfm.setBoxSet(((FormCheckBox)form.getElement("BoxSet")).isChecked());
 /*      */ 
 /*      */     
-/* 3507 */     String compilationCode = "";
-/* 3508 */     if (form.getStringValue("compilation_code") != null)
+/* 3499 */     String compilationCode = "";
+/* 3500 */     if (form.getStringValue("compilation_code") != null)
 /*      */     {
-/* 3510 */       compilationCode = form.getStringValue("compilation_code");
+/* 3502 */       compilationCode = form.getStringValue("compilation_code");
 /*      */     }
-/* 3512 */     pfm.setCompilationCode(compilationCode);
+/* 3504 */     pfm.setCompilationCode(compilationCode);
 /*      */ 
 /*      */     
-/* 3515 */     String impRateCode = "";
-/* 3516 */     if (form.getStringValue("imp_rate_code") != null)
+/* 3507 */     String impRateCode = "";
+/* 3508 */     if (form.getStringValue("imp_rate_code") != null)
 /*      */     {
-/* 3518 */       impRateCode = form.getStringValue("imp_rate_code");
+/* 3510 */       impRateCode = form.getStringValue("imp_rate_code");
 /*      */     }
-/* 3520 */     pfm.setImpRateCode(impRateCode);
+/* 3512 */     pfm.setImpRateCode(impRateCode);
 /*      */ 
 /*      */     
-/* 3523 */     String unitsString = form.getStringValue("units_per_set").trim();
-/* 3524 */     int units = 0;
+/* 3515 */     String unitsString = form.getStringValue("units_per_set").trim();
+/* 3516 */     int units = 0;
 /*      */     
 /*      */     try {
-/* 3527 */       units = Integer.parseInt(unitsString);
+/* 3519 */       units = Integer.parseInt(unitsString);
 /*      */     }
-/* 3529 */     catch (NumberFormatException numberFormatException) {}
+/* 3521 */     catch (NumberFormatException numberFormatException) {}
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3534 */     if (selection.getIsDigital())
-/* 3535 */       units = 1; 
-/* 3536 */     pfm.setUnitsPerSet(units);
+/* 3526 */     if (selection.getIsDigital())
+/* 3527 */       units = 1; 
+/* 3528 */     pfm.setUnitsPerSet(units);
 /*      */ 
 /*      */     
-/* 3539 */     int sets = 0;
+/* 3531 */     int sets = 0;
 /*      */     
 /*      */     try {
-/* 3542 */       sets = Integer.parseInt(form.getStringValue("sets_per_carton").trim());
+/* 3534 */       sets = Integer.parseInt(form.getStringValue("sets_per_carton").trim());
 /*      */     }
-/* 3544 */     catch (NumberFormatException numberFormatException) {}
+/* 3536 */     catch (NumberFormatException numberFormatException) {}
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3549 */     if (selection.getIsDigital())
-/* 3550 */       sets = 1; 
-/* 3551 */     pfm.setSetsPerCarton(sets);
+/* 3541 */     if (selection.getIsDigital())
+/* 3542 */       sets = 1; 
+/* 3543 */     pfm.setSetsPerCarton(sets);
 /*      */ 
 /*      */ 
 /*      */ 
@@ -3557,104 +3549,104 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 3560 */     String musicType = "";
-/* 3561 */     musicType = form.getStringValue("music_type");
-/* 3562 */     pfm.setMusicType((Genre)SelectionManager.getLookupObject(musicType, Cache.getMusicTypes()));
+/* 3552 */     String musicType = "";
+/* 3553 */     musicType = form.getStringValue("music_type");
+/* 3554 */     pfm.setMusicType((Genre)SelectionManager.getLookupObject(musicType, Cache.getMusicTypes()));
 /*      */ 
 /*      */     
-/* 3565 */     String suppliers = "";
-/* 3566 */     if (form.getStringValue("suppliers") != null)
+/* 3557 */     String suppliers = "";
+/* 3558 */     if (form.getStringValue("suppliers") != null)
 /*      */     {
-/* 3568 */       suppliers = form.getStringValue("suppliers");
+/* 3560 */       suppliers = form.getStringValue("suppliers");
 /*      */     }
-/* 3570 */     pfm.setSupplier(suppliers);
+/* 3562 */     pfm.setSupplier(suppliers);
 /*      */ 
 /*      */     
-/* 3573 */     String narm = "";
-/* 3574 */     if (form.getStringValue("NARM") != null)
+/* 3565 */     String narm = "";
+/* 3566 */     if (form.getStringValue("NARM") != null)
 /*      */     {
-/* 3576 */       narm = form.getStringValue("NARM");
+/* 3568 */       narm = form.getStringValue("NARM");
 /*      */     }
 /*      */     
-/* 3579 */     if (selection.getIsDigital())
-/* 3580 */       narm = "N"; 
-/* 3581 */     pfm.setNarmFlag(narm);
+/* 3571 */     if (selection.getIsDigital())
+/* 3572 */       narm = "N"; 
+/* 3573 */     pfm.setNarmFlag(narm);
 /*      */ 
 /*      */ 
 /*      */     
-/* 3585 */     String eFlag = "";
-/* 3586 */     if (form.getStringValue("encryptionFlag") != null)
-/* 3587 */       eFlag = form.getStringValue("encryptionFlag"); 
-/* 3588 */     pfm.setEncryptionFlag(eFlag);
+/* 3577 */     String eFlag = "";
+/* 3578 */     if (form.getStringValue("encryptionFlag") != null)
+/* 3579 */       eFlag = form.getStringValue("encryptionFlag"); 
+/* 3580 */     pfm.setEncryptionFlag(eFlag);
 /*      */ 
 /*      */     
-/* 3591 */     String importIndicator = "";
-/* 3592 */     if (form.getStringValue("ImportIndicator") != null)
+/* 3583 */     String importIndicator = "";
+/* 3584 */     if (form.getStringValue("ImportIndicator") != null)
 /*      */     {
-/* 3594 */       importIndicator = form.getStringValue("ImportIndicator");
+/* 3586 */       importIndicator = form.getStringValue("ImportIndicator");
 /*      */     }
-/* 3596 */     Vector importIndicators = Cache.getImportIndicators();
-/* 3597 */     String[] name = new String[importIndicators.size()];
-/* 3598 */     String[] abbreviation = new String[importIndicators.size()];
+/* 3588 */     Vector importIndicators = Cache.getImportIndicators();
+/* 3589 */     String[] name = new String[importIndicators.size()];
+/* 3590 */     String[] abbreviation = new String[importIndicators.size()];
 /*      */     
-/* 3600 */     for (int i = 0; i < importIndicators.size(); i++) {
+/* 3592 */     for (int i = 0; i < importIndicators.size(); i++) {
 /*      */       
-/* 3602 */       LookupObject lookupObject = (LookupObject)importIndicators.elementAt(i);
-/* 3603 */       name[i] = lookupObject.getName();
-/* 3604 */       abbreviation[i] = lookupObject.getAbbreviation();
-/* 3605 */       if (importIndicator.equalsIgnoreCase(name[i]))
+/* 3594 */       LookupObject lookupObject = (LookupObject)importIndicators.elementAt(i);
+/* 3595 */       name[i] = lookupObject.getName();
+/* 3596 */       abbreviation[i] = lookupObject.getAbbreviation();
+/* 3597 */       if (importIndicator.equalsIgnoreCase(name[i]))
 /*      */       {
-/* 3607 */         importIndicator = abbreviation[i];
+/* 3599 */         importIndicator = abbreviation[i];
 /*      */       }
 /*      */     } 
-/* 3610 */     pfm.setImportIndicator(importIndicator);
+/* 3602 */     pfm.setImportIndicator(importIndicator);
 /*      */ 
 /*      */     
-/* 3613 */     String pricePoint = "";
-/* 3614 */     if (form.getStringValue("price_point") != null)
+/* 3605 */     String pricePoint = "";
+/* 3606 */     if (form.getStringValue("price_point") != null)
 /*      */     {
-/* 3616 */       pricePoint = form.getStringValue("price_point");
+/* 3608 */       pricePoint = form.getStringValue("price_point");
 /*      */     }
 /*      */     
-/* 3619 */     if (selection.getIsDigital())
-/* 3620 */       pricePoint = "PS"; 
-/* 3621 */     pfm.setPricePoint(pricePoint);
+/* 3611 */     if (selection.getIsDigital())
+/* 3612 */       pricePoint = "PS"; 
+/* 3613 */     pfm.setPricePoint(pricePoint);
 /*      */ 
 /*      */ 
 /*      */     
-/* 3625 */     String projectID = form.getStringValue("projectID");
-/* 3626 */     pfm.setProjectID(projectID);
+/* 3617 */     String projectID = form.getStringValue("projectID");
+/* 3618 */     pfm.setProjectID(projectID);
 /*      */     
-/* 3628 */     String streetDateString = form.getStringValue("releaseDate");
+/* 3620 */     String streetDateString = form.getStringValue("releaseDate");
 /*      */     
 /*      */     try {
-/* 3631 */       Calendar streetDate = MilestoneHelper.getDate(streetDateString);
-/* 3632 */       pfm.setStreetDate(streetDate);
+/* 3623 */       Calendar streetDate = MilestoneHelper.getDate(streetDateString);
+/* 3624 */       pfm.setStreetDate(streetDate);
 /*      */     }
-/* 3634 */     catch (Exception e) {
+/* 3626 */     catch (Exception e) {
 /*      */       
-/* 3636 */       pfm.setStreetDate(null);
+/* 3628 */       pfm.setStreetDate(null);
 /*      */     } 
 /*      */ 
 /*      */     
-/* 3640 */     String strStatus = form.getStringValue("status");
-/* 3641 */     pfm.setStatus(strStatus);
+/* 3632 */     String strStatus = form.getStringValue("status");
+/* 3633 */     pfm.setStatus(strStatus);
 /*      */     
-/* 3643 */     pfm.setParentalGuidance(((FormCheckBox)form.getElement("ParentalAdv")).isChecked());
+/* 3635 */     pfm.setParentalGuidance(((FormCheckBox)form.getElement("ParentalAdv")).isChecked());
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3649 */     String projectIDtoValidate = "";
-/* 3650 */     if (pfm.getProjectID().trim().indexOf("-") > -1) {
-/* 3651 */       for (int j = 1; j < pfm.getProjectID().trim().length(); j++) {
-/* 3652 */         if (pfm.getProjectID().trim().charAt(j) != '-') {
-/* 3653 */           projectIDtoValidate = String.valueOf(projectIDtoValidate) + pfm.getProjectID().trim().charAt(j);
+/* 3641 */     String projectIDtoValidate = "";
+/* 3642 */     if (pfm.getProjectID().trim().indexOf("-") > -1) {
+/* 3643 */       for (int j = 1; j < pfm.getProjectID().trim().length(); j++) {
+/* 3644 */         if (pfm.getProjectID().trim().charAt(j) != '-') {
+/* 3645 */           projectIDtoValidate = String.valueOf(projectIDtoValidate) + pfm.getProjectID().trim().charAt(j);
 /*      */         }
 /*      */       } 
 /*      */     } else {
-/* 3657 */       projectIDtoValidate = pfm.getProjectID().trim();
+/* 3649 */       projectIDtoValidate = pfm.getProjectID().trim();
 /*      */     } 
 /*      */ 
 /*      */ 
@@ -3667,89 +3659,85 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 3670 */     if (!form.isUnchanged()) {
+/* 3662 */     if (!form.isUnchanged()) {
 /*      */       
-/* 3672 */       FormValidation formValidation = form.validate();
-/* 3673 */       if (formValidation.isGood()) {
+/* 3664 */       FormValidation formValidation = form.validate();
+/* 3665 */       if (formValidation.isGood()) {
 /*      */ 
 /*      */         
-/* 3676 */         Pfm savedPfm = SelectionManager.getInstance().saveNewPfm(pfm, user, selection.getIsDigital());
+/* 3668 */         Pfm savedPfm = SelectionManager.getInstance().saveNewPfm(pfm, user, selection.getIsDigital());
 /*      */ 
 /*      */ 
 /*      */         
-/* 3680 */         if (selection.getIsDigital()) {
+/* 3672 */         if (selection.getIsDigital()) {
 /*      */           
-/* 3682 */           SelectionManager.getInstance().saveSelectionDataFromDigitalPfm(
-/* 3683 */               pfm.getReleaseId(), 
-/* 3684 */               pfm.getPrefixID(), 
-/* 3685 */               pfm.getSelectionNo(), 
-/* 3686 */               pfm.getUpc(), 
-/* 3687 */               pfm.getConfigCode(), 
-/* 3688 */               pfm.getSoundScanGrp());
+/* 3674 */           SelectionManager.getInstance().saveSelectionDataFromDigitalPfm(
+/* 3675 */               pfm.getReleaseId(), 
+/* 3676 */               pfm.getPrefixID(), 
+/* 3677 */               pfm.getSelectionNo(), 
+/* 3678 */               pfm.getUpc(), 
+/* 3679 */               pfm.getConfigCode(), 
+/* 3680 */               pfm.getSoundScanGrp());
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */           
-/* 3693 */           if (messageObject != null && messageObject.selectionObj != null) {
+/* 3685 */           if (messageObject != null && messageObject.selectionObj != null) {
 /*      */             
-/* 3695 */             messageObject.selectionObj.setUpc(pfm.getUpc());
-/* 3696 */             messageObject.selectionObj.setConfigCode(pfm.getConfigCode());
-/* 3697 */             messageObject.selectionObj.setSoundScanGrp(pfm.getSoundScanGrp());
+/* 3687 */             messageObject.selectionObj.setUpc(pfm.getUpc());
+/* 3688 */             messageObject.selectionObj.setConfigCode(pfm.getConfigCode());
+/* 3689 */             messageObject.selectionObj.setSoundScanGrp(pfm.getSoundScanGrp());
 /*      */           } 
 /*      */         } 
 /*      */ 
 /*      */         
-/* 3702 */         Form emailDistForm = form;
+/* 3694 */         Form emailDistForm = form;
 /*      */         
-/* 3704 */         context.putSessionValue("Pfm", savedPfm);
-/* 3705 */         context.putDelivery("Form", form);
+/* 3696 */         context.putSessionValue("Pfm", savedPfm);
+/* 3697 */         context.putDelivery("Form", form);
 /*      */ 
 /*      */         
-/* 3708 */         notepad.setAllContents(null);
-/* 3709 */         notepad = SelectionManager.getInstance().getSelectionNotepad(context, user.getUserId(), 0);
-/* 3710 */         notepad.goToSelectedPage();
+/* 3700 */         notepad.setAllContents(null);
+/* 3701 */         notepad = SelectionManager.getInstance().getSelectionNotepad(context, user.getUserId(), 0);
+/* 3702 */         notepad.goToSelectedPage();
 /*      */         
-/* 3712 */         Boolean IsSaveSend = Boolean.valueOf(false);
+/* 3704 */         Boolean IsSaveSend = Boolean.valueOf(false);
 /*      */         
-/* 3714 */         if ((finalFlag && !command.equalsIgnoreCase("pfm-edit-save-comment")) || firstTimeFinal) {
-/* 3715 */           String lastUpdatedDate = "";
-/* 3716 */           String lastUpdatedBy = "";
+/* 3706 */         if ((finalFlag && !command.equalsIgnoreCase("pfm-edit-save-comment")) || firstTimeFinal) {
+/* 3707 */           String lastUpdatedDate = "";
+/* 3708 */           String lastUpdatedBy = "";
 /*      */           
-/* 3718 */           if (savedPfm.getLastUpdatedDate() != null) {
-/* 3719 */             lastUpdatedDate = MilestoneHelper.getCustomFormatedDate(savedPfm.getLastUpdatedDate(), "M/d/yyyy hh:mm:ss a 'ET'");
+/* 3710 */           if (savedPfm.getLastUpdatedDate() != null) {
+/* 3711 */             lastUpdatedDate = MilestoneHelper.getCustomFormatedDate(savedPfm.getLastUpdatedDate(), "M/d/yyyy hh:mm:ss a 'ET'");
 /*      */           }
-/* 3721 */           if (UserManager.getInstance().getUser(savedPfm.getLastUpdatingUser()) != null) {
-/* 3722 */             lastUpdatedBy = UserManager.getInstance().getUser(savedPfm.getLastUpdatingUser()).getName();
+/* 3713 */           if (UserManager.getInstance().getUser(savedPfm.getLastUpdatingUser()) != null) {
+/* 3714 */             lastUpdatedBy = UserManager.getInstance().getUser(savedPfm.getLastUpdatingUser()).getName();
 /*      */           }
-/* 3724 */           if (messageObject.selectionObj != null) {
-/*      */             
-/* 3726 */             messageObject.selectionObj.setStreetDate(pfm.getStreetDate());
-/* 3727 */             messageObject.selectionObj.setStreetDateString(streetDateString);
-/*      */           } 
+/*      */ 
 /*      */ 
 /*      */           
-/* 3731 */           if (sendEmail && (EmailDistribution.putEmailBody(emailDistForm, context, selection, lastUpdatedDate, lastUpdatedBy, "PFM", messageObject) || 
-/* 3732 */             messageObject.IsPushOnDemand)) {
+/* 3719 */           if (sendEmail && (EmailDistribution.putEmailBody(emailDistForm, context, selection, lastUpdatedDate, lastUpdatedBy, "PFM", messageObject) || 
+/* 3720 */             messageObject.IsPushOnDemand)) {
 /*      */ 
 /*      */             
 /*      */             try {
-/* 3736 */               messageObject.pfmObj = (Pfm)savedPfm.clone();
-/* 3737 */             } catch (CloneNotSupportedException ce) {
-/* 3738 */               messageObject.pfmObj = savedPfm;
+/* 3724 */               messageObject.pfmObj = (Pfm)savedPfm.clone();
+/* 3725 */             } catch (CloneNotSupportedException ce) {
+/* 3726 */               messageObject.pfmObj = savedPfm;
 /*      */             } 
-/* 3740 */             print(dispatcher, context, command, 2, true, messageObject);
+/* 3728 */             print(dispatcher, context, command, 2, true, messageObject);
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */             
-/* 3746 */             if (messageObject.IsPushPFM || messageObject.IsPushOnDemand) {
-/* 3747 */               PushCommunication.pushPFMLegacyAppendMessge(messageObject, PushCommunication.pushPFMLegacy(pfm, selection, context));
+/* 3734 */             if (messageObject.IsPushPFM || messageObject.IsPushOnDemand) {
+/* 3735 */               PushCommunication.pushPFMLegacyAppendMessge(messageObject, PushCommunication.pushPFMLegacy(pfm, selection, context));
 /*      */             }
-/* 3749 */             EmailDistribution.sendEmail(dispatcher, context, "", messageObject);
-/* 3750 */             EmailDistribution.removeSessionValues(context);
+/* 3737 */             EmailDistribution.sendEmail(dispatcher, context, "", messageObject);
+/* 3738 */             EmailDistribution.removeSessionValues(context);
 /*      */             
-/* 3752 */             IsSaveSend = Boolean.valueOf(true);
+/* 3740 */             IsSaveSend = Boolean.valueOf(true);
 /*      */           } 
 /*      */         } 
 /*      */ 
@@ -3758,52 +3746,52 @@
 /*      */ 
 /*      */ 
 /*      */         
-/* 3761 */         DcGDRSResults dcGDRSResults = SelectionHandler.GDRSProductStatusGet(selection, selection.getCompany().getParentEnvironment().getStructureID());
-/* 3762 */         boolean IsGDRSactive = (!dcGDRSResults.getStatus().equals("") && !dcGDRSResults.getStatus().equals("DELETE"));
-/* 3763 */         if (!command.equalsIgnoreCase("pfm-edit-save-comment") && !selection.getNoDigitalRelease()) {
+/* 3749 */         DcGDRSResults dcGDRSResults = SelectionHandler.GDRSProductStatusGet(selection, selection.getCompany().getParentEnvironment().getStructureID());
+/* 3750 */         boolean IsGDRSactive = (!dcGDRSResults.getStatus().equals("") && !dcGDRSResults.getStatus().equals("DELETE"));
+/* 3751 */         if (!command.equalsIgnoreCase("pfm-edit-save-comment") && !selection.getNoDigitalRelease()) {
 /*      */ 
 /*      */           
-/* 3766 */           if (!dcGDRSResults.getForceNoDigitalRelease().booleanValue())
+/* 3754 */           if (!dcGDRSResults.getForceNoDigitalRelease().booleanValue())
 /*      */           {
-/* 3768 */             String status = IsSaveSend.booleanValue() ? "SAVE_SEND" : "CREATE_EDIT";
-/* 3769 */             SelectionManager.GDRS_QueueAddReleaseId(selection, status);
+/* 3756 */             String status = IsSaveSend.booleanValue() ? "SAVE_SEND" : "CREATE_EDIT";
+/* 3757 */             SelectionManager.GDRS_QueueAddReleaseId(selection, status);
 /*      */           }
 /*      */         
-/* 3772 */         } else if (IsGDRSactive) {
-/* 3773 */           SelectionManager.GDRS_QueueAddReleaseId(selection, "DELETE");
+/* 3760 */         } else if (IsGDRSactive) {
+/* 3761 */           SelectionManager.GDRS_QueueAddReleaseId(selection, "DELETE");
 /*      */         } 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */         
-/* 3779 */         if (!command.equalsIgnoreCase("pfm-edit-save-comment")) {
-/* 3780 */           context.putSessionValue("originalComment", savedPfm.getComments());
+/* 3767 */         if (!command.equalsIgnoreCase("pfm-edit-save-comment")) {
+/* 3768 */           context.putSessionValue("originalComment", savedPfm.getComments());
 /*      */         }
-/* 3782 */         context.putSessionValue("originalCommentRelId", new Integer(savedPfm.getReleaseId()));
+/* 3770 */         context.putSessionValue("originalCommentRelId", new Integer(savedPfm.getReleaseId()));
 /*      */         
-/* 3784 */         if (!command.equalsIgnoreCase("selectionSave")) {
-/* 3785 */           return edit(dispatcher, context, command);
+/* 3772 */         if (!command.equalsIgnoreCase("selectionSave")) {
+/* 3773 */           return edit(dispatcher, context, command);
 /*      */         }
-/* 3787 */         return true;
+/* 3775 */         return true;
 /*      */       } 
 /*      */ 
 /*      */       
-/* 3791 */       context.putDelivery("FormValidation", formValidation);
-/* 3792 */       form.addElement(new FormHidden("OrderBy", "", true));
-/* 3793 */       context.putDelivery("Form", form);
-/* 3794 */       if (!command.equalsIgnoreCase("selectionSave")) {
-/* 3795 */         return context.includeJSP("pfm-editor.jsp");
+/* 3779 */       context.putDelivery("FormValidation", formValidation);
+/* 3780 */       form.addElement(new FormHidden("OrderBy", "", true));
+/* 3781 */       context.putDelivery("Form", form);
+/* 3782 */       if (!command.equalsIgnoreCase("selectionSave")) {
+/* 3783 */         return context.includeJSP("pfm-editor.jsp");
 /*      */       }
-/* 3797 */       return true;
+/* 3785 */       return true;
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3803 */     if (!command.equalsIgnoreCase("selectionSave")) {
-/* 3804 */       return edit(dispatcher, context, command);
+/* 3791 */     if (!command.equalsIgnoreCase("selectionSave")) {
+/* 3792 */       return edit(dispatcher, context, command);
 /*      */     }
-/* 3806 */     return true;
+/* 3794 */     return true;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4078,15 +4066,15 @@
 /*      */ 
 /*      */   
 /*      */   public boolean print(Dispatcher dispatcher, Context context, String command, int pdfRtf, boolean ie5, MessageObject messageObject) {
-/* 4081 */     Selection selection = null;
-/* 4082 */     if (command.equalsIgnoreCase("selectionSave")) {
+/* 4069 */     Selection selection = null;
+/* 4070 */     if (command.equalsIgnoreCase("selectionSave")) {
 /*      */       
-/* 4084 */       selection = (Selection)context.getSessionValue("pfmBomSelection");
+/* 4072 */       selection = (Selection)context.getSessionValue("pfmBomSelection");
 /*      */     
 /*      */     }
 /*      */     else {
 /*      */       
-/* 4089 */       selection = MilestoneHelper.getScreenSelection(context);
+/* 4077 */       selection = MilestoneHelper.getScreenSelection(context);
 /*      */     } 
 /*      */ 
 /*      */ 
@@ -4094,229 +4082,229 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 4097 */     if (messageObject != null && messageObject.selectionObj != null) {
-/* 4098 */       selection = messageObject.selectionObj;
+/* 4085 */     if (messageObject != null && messageObject.selectionObj != null) {
+/* 4086 */       selection = messageObject.selectionObj;
 /*      */     }
-/* 4100 */     Pfm pfm = (Pfm)context.getSessionValue("Pfm");
+/* 4088 */     Pfm pfm = (Pfm)context.getSessionValue("Pfm");
 /*      */     
-/* 4102 */     if (selection != null) {
+/* 4090 */     if (selection != null) {
 /*      */       
-/* 4104 */       int selectionID = selection.getSelectionID();
-/* 4105 */       pfm = SelectionManager.getInstance().getPfm(selectionID);
+/* 4092 */       int selectionID = selection.getSelectionID();
+/* 4093 */       pfm = SelectionManager.getInstance().getPfm(selectionID);
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4112 */     if (messageObject != null && messageObject.pfmObj != null) {
-/* 4113 */       pfm = messageObject.pfmObj;
+/* 4100 */     if (messageObject != null && messageObject.pfmObj != null) {
+/* 4101 */       pfm = messageObject.pfmObj;
 /*      */     }
-/* 4115 */     if (pfm != null) {
+/* 4103 */     if (pfm != null) {
 /*      */       try {
 /*      */         DefaultTableLens table_contents;
 /*      */ 
 /*      */ 
 /*      */         
-/* 4121 */         InputStream input = new FileInputStream(String.valueOf(ReportHandler.reportPath) + "\\pfmtemplate.xml");
+/* 4109 */         InputStream input = new FileInputStream(String.valueOf(ReportHandler.reportPath) + "\\pfmtemplate.xml");
 /*      */         
-/* 4123 */         XStyleSheet report = 
-/* 4124 */           (XStyleSheet)Builder.getBuilder(1, input).read(null);
+/* 4111 */         XStyleSheet report = 
+/* 4112 */           (XStyleSheet)Builder.getBuilder(1, input).read(null);
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */         
-/* 4129 */         SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy");
-/* 4130 */         String todayLong = formatter.format(new Date());
+/* 4117 */         SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy");
+/* 4118 */         String todayLong = formatter.format(new Date());
 /*      */         
-/* 4132 */         report.setElement("txtReportDate", todayLong);
-/* 4133 */         report.setElement("bottomdate", todayLong);
+/* 4120 */         report.setElement("txtReportDate", todayLong);
+/* 4121 */         report.setElement("bottomdate", todayLong);
 /*      */ 
 /*      */         
-/* 4136 */         report.setElement("txtChangeNumber", pfm.getChangeNumber());
+/* 4124 */         report.setElement("txtChangeNumber", pfm.getChangeNumber());
 /*      */         
-/* 4138 */         String mode = pfm.getMode();
-/* 4139 */         if (mode.equalsIgnoreCase("Add")) {
+/* 4126 */         String mode = pfm.getMode();
+/* 4127 */         if (mode.equalsIgnoreCase("Add")) {
 /*      */           
-/* 4141 */           report.setElement("txtAdd", "X");
-/* 4142 */           report.setElement("txtModify", "");
+/* 4129 */           report.setElement("txtAdd", "X");
+/* 4130 */           report.setElement("txtModify", "");
 /*      */         }
 /*      */         else {
 /*      */           
-/* 4146 */           report.setElement("txtAdd", "");
-/* 4147 */           report.setElement("txtModify", "X");
+/* 4134 */           report.setElement("txtAdd", "");
+/* 4135 */           report.setElement("txtModify", "X");
 /*      */         } 
 /*      */ 
 /*      */         
-/* 4151 */         if (selection.getIsDigital()) {
-/* 4152 */           report.setElement("txtProdType", "Digital");
+/* 4139 */         if (selection.getIsDigital()) {
+/* 4140 */           report.setElement("txtProdType", "Digital");
 /*      */         }
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */         
-/* 4158 */         if (selection.getIsDigital()) {
-/* 4159 */           table_contents = new DefaultTableLens(24, 8);
+/* 4146 */         if (selection.getIsDigital()) {
+/* 4147 */           table_contents = new DefaultTableLens(24, 8);
 /*      */         } else {
-/* 4161 */           table_contents = new DefaultTableLens(29, 8);
+/* 4149 */           table_contents = new DefaultTableLens(29, 8);
 /*      */         } 
 /*      */         
-/* 4164 */         table_contents.setHeaderRowCount(0);
-/* 4165 */         table_contents.setColWidth(0, 120);
-/* 4166 */         table_contents.setColWidth(1, 30);
-/* 4167 */         table_contents.setColWidth(2, 200);
-/* 4168 */         table_contents.setColWidth(3, 100);
-/* 4169 */         table_contents.setColWidth(4, 30);
-/* 4170 */         table_contents.setColWidth(5, 110);
-/* 4171 */         table_contents.setColWidth(6, 60);
-/* 4172 */         table_contents.setColWidth(7, 80);
+/* 4152 */         table_contents.setHeaderRowCount(0);
+/* 4153 */         table_contents.setColWidth(0, 120);
+/* 4154 */         table_contents.setColWidth(1, 30);
+/* 4155 */         table_contents.setColWidth(2, 200);
+/* 4156 */         table_contents.setColWidth(3, 100);
+/* 4157 */         table_contents.setColWidth(4, 30);
+/* 4158 */         table_contents.setColWidth(5, 110);
+/* 4159 */         table_contents.setColWidth(6, 60);
+/* 4160 */         table_contents.setColWidth(7, 80);
 /*      */         
-/* 4174 */         table_contents.setRowInsets(0, new Insets(1, 0, 0, 0));
-/* 4175 */         table_contents.setRowInsets(1, new Insets(0, 0, 0, 0));
-/* 4176 */         table_contents.setRowInsets(2, new Insets(0, 0, 0, 0));
-/* 4177 */         table_contents.setRowInsets(3, new Insets(1, 0, 0, 0));
-/* 4178 */         table_contents.setRowInsets(4, new Insets(1, 0, 0, 0));
-/* 4179 */         table_contents.setRowInsets(5, new Insets(1, 0, 0, 0));
-/* 4180 */         table_contents.setRowInsets(6, new Insets(1, 0, 0, 0));
-/* 4181 */         table_contents.setRowInsets(7, new Insets(1, 0, 0, 0));
-/* 4182 */         table_contents.setRowInsets(8, new Insets(1, 0, 0, 0));
-/* 4183 */         table_contents.setRowInsets(9, new Insets(1, 0, 0, 0));
-/* 4184 */         table_contents.setRowInsets(10, new Insets(1, 0, 0, 0));
-/* 4185 */         table_contents.setRowInsets(11, new Insets(1, 0, 0, 0));
-/* 4186 */         table_contents.setRowInsets(12, new Insets(1, 0, 0, 0));
-/* 4187 */         table_contents.setRowInsets(13, new Insets(1, 0, 0, 0));
-/* 4188 */         table_contents.setRowInsets(14, new Insets(1, 0, 0, 0));
-/* 4189 */         table_contents.setRowInsets(15, new Insets(1, 0, 0, 0));
-/* 4190 */         table_contents.setRowInsets(16, new Insets(1, 0, 0, 0));
-/* 4191 */         table_contents.setRowInsets(17, new Insets(1, 0, 0, 0));
-/* 4192 */         table_contents.setRowInsets(18, new Insets(1, 0, 0, 0));
-/* 4193 */         table_contents.setRowInsets(19, new Insets(1, 0, 0, 0));
-/* 4194 */         table_contents.setRowInsets(20, new Insets(1, 0, 0, 0));
-/* 4195 */         table_contents.setRowInsets(21, new Insets(1, 0, 0, 0));
-/* 4196 */         table_contents.setRowInsets(22, new Insets(1, 0, 0, 0));
-/*      */ 
-/*      */ 
-/*      */         
-/* 4200 */         table_contents.setRowBorder(-1, 0);
-/* 4201 */         table_contents.setColBorder(0);
-/* 4202 */         table_contents.setRowBorderColor(Color.lightGray);
-/* 4203 */         table_contents.setRowBorder(266240);
-/*      */         
-/* 4205 */         table_contents.setColFont(0, new Font("Arial", 1, 10));
-/* 4206 */         table_contents.setColFont(1, new Font("Arial", 1, 10));
-/* 4207 */         table_contents.setColFont(2, new Font("Arial", 0, 10));
-/* 4208 */         table_contents.setColFont(3, new Font("Arial", 1, 10));
-/* 4209 */         table_contents.setColFont(4, new Font("Arial", 1, 10));
-/* 4210 */         table_contents.setColFont(5, new Font("Arial", 0, 10));
-/* 4211 */         table_contents.setColFont(6, new Font("Arial", 1, 10));
-/* 4212 */         table_contents.setColFont(7, new Font("Arial", 0, 10));
-/*      */         
-/* 4214 */         table_contents.setColAlignment(0, 33);
-/* 4215 */         table_contents.setColAlignment(1, 33);
-/* 4216 */         table_contents.setColAlignment(2, 33);
-/* 4217 */         table_contents.setColAlignment(4, 33);
-/* 4218 */         table_contents.setColAlignment(3, 36);
-/* 4219 */         table_contents.setColAlignment(5, 33);
-/* 4220 */         table_contents.setColAlignment(6, 33);
-/* 4221 */         table_contents.setColAlignment(7, 33);
-/*      */ 
-/*      */         
-/* 4224 */         int nextRow = 0;
-/*      */         
-/* 4226 */         table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4227 */         table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4228 */         table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4229 */         table_contents.setObject(nextRow, 0, "Prepared By:");
-/* 4230 */         table_contents.setSpan(nextRow, 1, new Dimension(2, 1));
-/* 4231 */         table_contents.setObject(nextRow, 1, pfm.getPreparedBy());
-/* 4232 */         table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4233 */         table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4234 */         table_contents.setObject(nextRow, 3, "  Phone:");
-/* 4235 */         table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4236 */         table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4237 */         table_contents.setObject(nextRow, 5, pfm.getPhone());
-/* 4238 */         table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4239 */         table_contents.setRowHeight(nextRow, 17);
-/* 4240 */         nextRow++;
-/*      */         
-/* 4242 */         table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4243 */         table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4244 */         table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4245 */         table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4246 */         table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4247 */         table_contents.setObject(nextRow, 0, "Email:");
-/* 4248 */         table_contents.setSpan(nextRow, 1, new Dimension(2, 1));
-/* 4249 */         table_contents.setObject(nextRow, 1, pfm.getEmail());
-/* 4250 */         table_contents.setObject(nextRow, 3, "  Fax:");
-/* 4251 */         table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4252 */         table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4253 */         table_contents.setObject(nextRow, 5, pfm.getFaxNumber());
-/* 4254 */         table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4255 */         table_contents.setRowHeight(nextRow, 17);
-/* 4256 */         nextRow++;
-/*      */         
-/* 4258 */         table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/*      */         
-/* 4260 */         table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4261 */         table_contents.setObject(nextRow, 0, "Comments:");
-/* 4262 */         table_contents.setSpan(nextRow, 1, new Dimension(7, 4));
-/* 4263 */         table_contents.setObject(nextRow, 1, pfm.getComments());
-/* 4264 */         table_contents.setColLineWrap(1, true);
-/* 4265 */         table_contents.setRowAutoSize(true);
-/* 4266 */         table_contents.setRowHeight(nextRow, 23);
-/* 4267 */         table_contents.setAlignment(nextRow, 1, 17);
-/*      */         
-/* 4269 */         nextRow++;
-/*      */         
-/* 4271 */         table_contents.setRowHeight(nextRow, 5);
-/* 4272 */         table_contents.setRowBorderColor(nextRow, Color.white);
-/* 4273 */         nextRow++;
-/* 4274 */         table_contents.setRowHeight(nextRow, 5);
-/* 4275 */         table_contents.setRowBorderColor(nextRow, Color.white);
-/* 4276 */         nextRow++;
-/*      */ 
-/*      */         
-/* 4279 */         table_contents.setRowHeight(nextRow, 5);
-/* 4280 */         table_contents.setRowBorderColor(nextRow, Color.black);
-/*      */         
-/* 4282 */         nextRow++;
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
+/* 4162 */         table_contents.setRowInsets(0, new Insets(1, 0, 0, 0));
+/* 4163 */         table_contents.setRowInsets(1, new Insets(0, 0, 0, 0));
+/* 4164 */         table_contents.setRowInsets(2, new Insets(0, 0, 0, 0));
+/* 4165 */         table_contents.setRowInsets(3, new Insets(1, 0, 0, 0));
+/* 4166 */         table_contents.setRowInsets(4, new Insets(1, 0, 0, 0));
+/* 4167 */         table_contents.setRowInsets(5, new Insets(1, 0, 0, 0));
+/* 4168 */         table_contents.setRowInsets(6, new Insets(1, 0, 0, 0));
+/* 4169 */         table_contents.setRowInsets(7, new Insets(1, 0, 0, 0));
+/* 4170 */         table_contents.setRowInsets(8, new Insets(1, 0, 0, 0));
+/* 4171 */         table_contents.setRowInsets(9, new Insets(1, 0, 0, 0));
+/* 4172 */         table_contents.setRowInsets(10, new Insets(1, 0, 0, 0));
+/* 4173 */         table_contents.setRowInsets(11, new Insets(1, 0, 0, 0));
+/* 4174 */         table_contents.setRowInsets(12, new Insets(1, 0, 0, 0));
+/* 4175 */         table_contents.setRowInsets(13, new Insets(1, 0, 0, 0));
+/* 4176 */         table_contents.setRowInsets(14, new Insets(1, 0, 0, 0));
+/* 4177 */         table_contents.setRowInsets(15, new Insets(1, 0, 0, 0));
+/* 4178 */         table_contents.setRowInsets(16, new Insets(1, 0, 0, 0));
+/* 4179 */         table_contents.setRowInsets(17, new Insets(1, 0, 0, 0));
+/* 4180 */         table_contents.setRowInsets(18, new Insets(1, 0, 0, 0));
+/* 4181 */         table_contents.setRowInsets(19, new Insets(1, 0, 0, 0));
+/* 4182 */         table_contents.setRowInsets(20, new Insets(1, 0, 0, 0));
+/* 4183 */         table_contents.setRowInsets(21, new Insets(1, 0, 0, 0));
+/* 4184 */         table_contents.setRowInsets(22, new Insets(1, 0, 0, 0));
 /*      */ 
 /*      */ 
 /*      */         
-/* 4298 */         String operatingCompanyText = "";
-/* 4299 */         if (selection.getOperCompany() != null && !selection.getOperCompany().equals("-1")) {
-/* 4300 */           operatingCompanyText = selection.getOperCompany();
+/* 4188 */         table_contents.setRowBorder(-1, 0);
+/* 4189 */         table_contents.setColBorder(0);
+/* 4190 */         table_contents.setRowBorderColor(Color.lightGray);
+/* 4191 */         table_contents.setRowBorder(266240);
+/*      */         
+/* 4193 */         table_contents.setColFont(0, new Font("Arial", 1, 10));
+/* 4194 */         table_contents.setColFont(1, new Font("Arial", 1, 10));
+/* 4195 */         table_contents.setColFont(2, new Font("Arial", 0, 10));
+/* 4196 */         table_contents.setColFont(3, new Font("Arial", 1, 10));
+/* 4197 */         table_contents.setColFont(4, new Font("Arial", 1, 10));
+/* 4198 */         table_contents.setColFont(5, new Font("Arial", 0, 10));
+/* 4199 */         table_contents.setColFont(6, new Font("Arial", 1, 10));
+/* 4200 */         table_contents.setColFont(7, new Font("Arial", 0, 10));
+/*      */         
+/* 4202 */         table_contents.setColAlignment(0, 33);
+/* 4203 */         table_contents.setColAlignment(1, 33);
+/* 4204 */         table_contents.setColAlignment(2, 33);
+/* 4205 */         table_contents.setColAlignment(4, 33);
+/* 4206 */         table_contents.setColAlignment(3, 36);
+/* 4207 */         table_contents.setColAlignment(5, 33);
+/* 4208 */         table_contents.setColAlignment(6, 33);
+/* 4209 */         table_contents.setColAlignment(7, 33);
+/*      */ 
+/*      */         
+/* 4212 */         int nextRow = 0;
+/*      */         
+/* 4214 */         table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4215 */         table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4216 */         table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4217 */         table_contents.setObject(nextRow, 0, "Prepared By:");
+/* 4218 */         table_contents.setSpan(nextRow, 1, new Dimension(2, 1));
+/* 4219 */         table_contents.setObject(nextRow, 1, pfm.getPreparedBy());
+/* 4220 */         table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4221 */         table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4222 */         table_contents.setObject(nextRow, 3, "  Phone:");
+/* 4223 */         table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4224 */         table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4225 */         table_contents.setObject(nextRow, 5, pfm.getPhone());
+/* 4226 */         table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4227 */         table_contents.setRowHeight(nextRow, 17);
+/* 4228 */         nextRow++;
+/*      */         
+/* 4230 */         table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4231 */         table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4232 */         table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4233 */         table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4234 */         table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4235 */         table_contents.setObject(nextRow, 0, "Email:");
+/* 4236 */         table_contents.setSpan(nextRow, 1, new Dimension(2, 1));
+/* 4237 */         table_contents.setObject(nextRow, 1, pfm.getEmail());
+/* 4238 */         table_contents.setObject(nextRow, 3, "  Fax:");
+/* 4239 */         table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4240 */         table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4241 */         table_contents.setObject(nextRow, 5, pfm.getFaxNumber());
+/* 4242 */         table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4243 */         table_contents.setRowHeight(nextRow, 17);
+/* 4244 */         nextRow++;
+/*      */         
+/* 4246 */         table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/*      */         
+/* 4248 */         table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4249 */         table_contents.setObject(nextRow, 0, "Comments:");
+/* 4250 */         table_contents.setSpan(nextRow, 1, new Dimension(7, 4));
+/* 4251 */         table_contents.setObject(nextRow, 1, pfm.getComments());
+/* 4252 */         table_contents.setColLineWrap(1, true);
+/* 4253 */         table_contents.setRowAutoSize(true);
+/* 4254 */         table_contents.setRowHeight(nextRow, 23);
+/* 4255 */         table_contents.setAlignment(nextRow, 1, 17);
+/*      */         
+/* 4257 */         nextRow++;
+/*      */         
+/* 4259 */         table_contents.setRowHeight(nextRow, 5);
+/* 4260 */         table_contents.setRowBorderColor(nextRow, Color.white);
+/* 4261 */         nextRow++;
+/* 4262 */         table_contents.setRowHeight(nextRow, 5);
+/* 4263 */         table_contents.setRowBorderColor(nextRow, Color.white);
+/* 4264 */         nextRow++;
+/*      */ 
+/*      */         
+/* 4267 */         table_contents.setRowHeight(nextRow, 5);
+/* 4268 */         table_contents.setRowBorderColor(nextRow, Color.black);
+/*      */         
+/* 4270 */         nextRow++;
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */         
+/* 4286 */         String operatingCompanyText = "";
+/* 4287 */         if (selection.getOperCompany() != null && !selection.getOperCompany().equals("-1")) {
+/* 4288 */           operatingCompanyText = selection.getOperCompany();
 /*      */         }
 /*      */ 
 /*      */         
-/* 4304 */         String upc = "";
-/* 4305 */         if (selection != null && selection.getUpc() != null)
+/* 4292 */         String upc = "";
+/* 4293 */         if (selection != null && selection.getUpc() != null)
 /*      */         {
-/* 4307 */           upc = selection.getUpc();
+/* 4295 */           upc = selection.getUpc();
 /*      */         }
 /*      */ 
 /*      */         
-/* 4311 */         String musicLineText = "";
-/* 4312 */         if (pfm.getMusicLine() != null && pfm.getMusicLine().length() > 0)
+/* 4299 */         String musicLineText = "";
+/* 4300 */         if (pfm.getMusicLine() != null && pfm.getMusicLine().length() > 0)
 /*      */         {
-/* 4314 */           musicLineText = pfm.getMusicLine();
+/* 4302 */           musicLineText = pfm.getMusicLine();
 /*      */         }
-/* 4316 */         musicLineText = reportPrintHelper(Cache.getMusicLines(), String.valueOf(musicLineText));
+/* 4304 */         musicLineText = reportPrintHelper(Cache.getMusicLines(), String.valueOf(musicLineText));
 /*      */ 
 /*      */         
-/* 4319 */         String productNumber = String.valueOf(SelectionManager.getLookupObjectValue(selection.getPrefixID())) + selection.getSelectionNo();
+/* 4307 */         String productNumber = String.valueOf(SelectionManager.getLookupObjectValue(selection.getPrefixID())) + selection.getSelectionNo();
 /*      */ 
 /*      */ 
 /*      */ 
@@ -4328,234 +4316,234 @@
 /*      */ 
 /*      */ 
 /*      */         
-/* 4331 */         String configCodeText = "";
-/* 4332 */         if (selection.getConfigCode() != null && !selection.getConfigCode().equals("-1")) {
-/* 4333 */           configCodeText = selection.getConfigCode();
+/* 4319 */         String configCodeText = "";
+/* 4320 */         if (selection.getConfigCode() != null && !selection.getConfigCode().equals("-1")) {
+/* 4321 */           configCodeText = selection.getConfigCode();
 /*      */         }
-/* 4335 */         configCodeText = reportPrintHelper(Cache.getConfigCodes(), String.valueOf(configCodeText));
+/* 4323 */         configCodeText = reportPrintHelper(Cache.getConfigCodes(), String.valueOf(configCodeText));
 /*      */ 
 /*      */         
-/* 4338 */         String repertoireOwnerText = "";
-/* 4339 */         if (pfm.getRepertoireOwner() != null && pfm.getRepertoireOwner().length() > 0)
+/* 4326 */         String repertoireOwnerText = "";
+/* 4327 */         if (pfm.getRepertoireOwner() != null && pfm.getRepertoireOwner().length() > 0)
 /*      */         {
-/* 4341 */           repertoireOwnerText = pfm.getRepertoireOwner();
+/* 4329 */           repertoireOwnerText = pfm.getRepertoireOwner();
 /*      */         }
-/* 4343 */         repertoireOwnerText = reportPrintHelper(Cache.getRepertoireOwners(), String.valueOf(repertoireOwnerText));
+/* 4331 */         repertoireOwnerText = reportPrintHelper(Cache.getRepertoireOwners(), String.valueOf(repertoireOwnerText));
 /*      */ 
 /*      */         
-/* 4346 */         String modifierText = "";
-/* 4347 */         if (pfm.getModifier() != null && pfm.getModifier().length() > 0)
+/* 4334 */         String modifierText = "";
+/* 4335 */         if (pfm.getModifier() != null && pfm.getModifier().length() > 0)
 /*      */         {
-/* 4349 */           modifierText = pfm.getModifier();
+/* 4337 */           modifierText = pfm.getModifier();
 /*      */         }
-/* 4351 */         modifierText = reportPrintHelper(Cache.getModifiers(), String.valueOf(modifierText));
+/* 4339 */         modifierText = reportPrintHelper(Cache.getModifiers(), String.valueOf(modifierText));
 /*      */ 
 /*      */         
-/* 4354 */         String repertoireClassText = "";
-/* 4355 */         if (pfm.getRepertoireClass() != null && pfm.getRepertoireClass().length() > 0)
+/* 4342 */         String repertoireClassText = "";
+/* 4343 */         if (pfm.getRepertoireClass() != null && pfm.getRepertoireClass().length() > 0)
 /*      */         {
-/* 4357 */           repertoireClassText = pfm.getRepertoireClass();
+/* 4345 */           repertoireClassText = pfm.getRepertoireClass();
 /*      */         }
-/* 4359 */         repertoireClassText = reportPrintHelper(Cache.getRepertoireClasses(), String.valueOf(repertoireClassText));
+/* 4347 */         repertoireClassText = reportPrintHelper(Cache.getRepertoireClasses(), String.valueOf(repertoireClassText));
 /*      */ 
 /*      */         
-/* 4362 */         String soundScanGroupText = "";
-/* 4363 */         if (selection.getSoundScanGrp() != null) {
-/* 4364 */           soundScanGroupText = selection.getSoundScanGrp();
+/* 4350 */         String soundScanGroupText = "";
+/* 4351 */         if (selection.getSoundScanGrp() != null) {
+/* 4352 */           soundScanGroupText = selection.getSoundScanGrp();
 /*      */         }
 /*      */ 
 /*      */         
-/* 4368 */         String returnScrapCodeText = "";
-/* 4369 */         if (pfm.getReturnCode() != null && pfm.getReturnCode().length() > 0)
+/* 4356 */         String returnScrapCodeText = "";
+/* 4357 */         if (pfm.getReturnCode() != null && pfm.getReturnCode().length() > 0)
 /*      */         {
-/* 4371 */           returnScrapCodeText = pfm.getReturnCode();
+/* 4359 */           returnScrapCodeText = pfm.getReturnCode();
 /*      */         }
-/* 4373 */         returnScrapCodeText = reportPrintHelper(Cache.getReturnCodes(), String.valueOf(returnScrapCodeText));
+/* 4361 */         returnScrapCodeText = reportPrintHelper(Cache.getReturnCodes(), String.valueOf(returnScrapCodeText));
 /*      */ 
 /*      */         
-/* 4376 */         String titleText = "";
-/* 4377 */         if (selection.getTitle() != null) {
-/* 4378 */           titleText = selection.getTitle();
+/* 4364 */         String titleText = "";
+/* 4365 */         if (selection.getTitle() != null) {
+/* 4366 */           titleText = selection.getTitle();
 /*      */         }
 /*      */ 
 /*      */         
-/* 4382 */         String exportCodeText = "";
-/* 4383 */         if (pfm.getExportFlag() != null && pfm.getExportFlag().length() > 0)
+/* 4370 */         String exportCodeText = "";
+/* 4371 */         if (pfm.getExportFlag() != null && pfm.getExportFlag().length() > 0)
 /*      */         {
-/* 4385 */           exportCodeText = pfm.getExportFlag();
+/* 4373 */           exportCodeText = pfm.getExportFlag();
 /*      */         }
-/* 4387 */         exportCodeText = reportPrintHelper(Cache.getExportFlags(), String.valueOf(exportCodeText));
+/* 4375 */         exportCodeText = reportPrintHelper(Cache.getExportFlags(), String.valueOf(exportCodeText));
 /*      */ 
 /*      */         
-/* 4390 */         String artistText = "";
-/* 4391 */         if (selection.getArtist() != null) {
+/* 4378 */         String artistText = "";
+/* 4379 */         if (selection.getArtist() != null) {
 /*      */           
-/* 4393 */           artistText = selection.getArtistLastName();
-/* 4394 */           if (!selection.getArtistLastName().equals("") && !selection.getArtistFirstName().equals(""))
+/* 4381 */           artistText = selection.getArtistLastName();
+/* 4382 */           if (!selection.getArtistLastName().equals("") && !selection.getArtistFirstName().equals(""))
 /*      */           {
-/* 4396 */             artistText = String.valueOf(artistText) + ", ";
+/* 4384 */             artistText = String.valueOf(artistText) + ", ";
 /*      */           }
-/* 4398 */           artistText = String.valueOf(artistText) + selection.getArtistFirstName();
+/* 4386 */           artistText = String.valueOf(artistText) + selection.getArtistFirstName();
 /*      */         } 
 /*      */ 
 /*      */         
-/* 4402 */         String titleID = "";
-/* 4403 */         if (selection.getTitleID() != null) {
-/* 4404 */           titleID = selection.getTitleID();
+/* 4390 */         String titleID = "";
+/* 4391 */         if (selection.getTitleID() != null) {
+/* 4392 */           titleID = selection.getTitleID();
 /*      */         }
 /*      */         
-/* 4407 */         String releaseDate = "";
-/* 4408 */         if (!selection.getIsDigital() && selection.getStreetDate() != null) {
+/* 4395 */         String releaseDate = "";
+/* 4396 */         if (!selection.getIsDigital() && selection.getStreetDate() != null) {
 /*      */           
-/* 4410 */           releaseDate = MilestoneHelper.getFormatedDate(selection.getStreetDate());
-/* 4411 */         } else if (selection.getIsDigital() && selection.getDigitalRlsDate() != null) {
-/* 4412 */           releaseDate = MilestoneHelper.getFormatedDate(selection.getDigitalRlsDate());
+/* 4398 */           releaseDate = MilestoneHelper.getFormatedDate(selection.getStreetDate());
+/* 4399 */         } else if (selection.getIsDigital() && selection.getDigitalRlsDate() != null) {
+/* 4400 */           releaseDate = MilestoneHelper.getFormatedDate(selection.getDigitalRlsDate());
 /*      */         } 
 /*      */ 
 /*      */         
-/* 4416 */         String priceCodeText = "";
-/* 4417 */         if (selection.getPriceCode() != null) {
-/* 4418 */           priceCodeText = selection.getPriceCode().getSellCode();
+/* 4404 */         String priceCodeText = "";
+/* 4405 */         if (selection.getPriceCode() != null) {
+/* 4406 */           priceCodeText = selection.getPriceCode().getSellCode();
 /*      */         }
 /*      */         
-/* 4421 */         String priceCodeDPCText = "";
-/* 4422 */         if (selection.getPriceCodeDPC() != null) {
-/* 4423 */           priceCodeDPCText = selection.getPriceCodeDPC().getSellCode();
-/*      */         }
-/*      */ 
-/*      */         
-/* 4427 */         String superLabelText = "";
-/* 4428 */         if (selection.getSuperLabel() != null) {
-/* 4429 */           superLabelText = selection.getSuperLabel();
+/* 4409 */         String priceCodeDPCText = "";
+/* 4410 */         if (selection.getPriceCodeDPC() != null) {
+/* 4411 */           priceCodeDPCText = selection.getPriceCodeDPC().getSellCode();
 /*      */         }
 /*      */ 
 /*      */         
-/* 4433 */         String guaranteeCodeText = "";
-/* 4434 */         if (pfm.getGuaranteeCode() != null && pfm.getGuaranteeCode().length() > 0)
+/* 4415 */         String superLabelText = "";
+/* 4416 */         if (selection.getSuperLabel() != null) {
+/* 4417 */           superLabelText = selection.getSuperLabel();
+/*      */         }
+/*      */ 
+/*      */         
+/* 4421 */         String guaranteeCodeText = "";
+/* 4422 */         if (pfm.getGuaranteeCode() != null && pfm.getGuaranteeCode().length() > 0)
 /*      */         {
-/* 4436 */           guaranteeCodeText = pfm.getGuaranteeCode();
+/* 4424 */           guaranteeCodeText = pfm.getGuaranteeCode();
 /*      */         }
-/* 4438 */         guaranteeCodeText = reportPrintHelper(Cache.getGuaranteeCodes(), String.valueOf(guaranteeCodeText));
+/* 4426 */         guaranteeCodeText = reportPrintHelper(Cache.getGuaranteeCodes(), String.valueOf(guaranteeCodeText));
 /*      */         
-/* 4440 */         String labelCodeText = "";
-/* 4441 */         if (selection.getSubLabel() != null) {
-/* 4442 */           labelCodeText = selection.getSubLabel();
+/* 4428 */         String labelCodeText = "";
+/* 4429 */         if (selection.getSubLabel() != null) {
+/* 4430 */           labelCodeText = selection.getSubLabel();
 /*      */         }
 /*      */ 
 /*      */ 
 /*      */         
-/* 4447 */         String narmText = "";
-/* 4448 */         if (pfm.getNarmFlag() != null)
+/* 4435 */         String narmText = "";
+/* 4436 */         if (pfm.getNarmFlag() != null)
 /*      */         {
-/* 4450 */           narmText = pfm.getNarmFlag();
+/* 4438 */           narmText = pfm.getNarmFlag();
 /*      */         }
-/* 4452 */         narmText = reportPrintHelper(Cache.getNarmExtracts(), String.valueOf(narmText));
+/* 4440 */         narmText = reportPrintHelper(Cache.getNarmExtracts(), String.valueOf(narmText));
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */         
-/* 4457 */         String encryptionText = "";
-/* 4458 */         if (pfm.getEncryptionFlag() != null)
+/* 4445 */         String encryptionText = "";
+/* 4446 */         if (pfm.getEncryptionFlag() != null)
 /*      */         {
-/* 4460 */           encryptionText = pfm.getEncryptionFlag();
+/* 4448 */           encryptionText = pfm.getEncryptionFlag();
 /*      */         }
-/* 4462 */         encryptionText = reportPrintHelper(Cache.getEncryptionFlags(), String.valueOf(encryptionText));
+/* 4450 */         encryptionText = reportPrintHelper(Cache.getEncryptionFlags(), String.valueOf(encryptionText));
 /*      */ 
 /*      */         
-/* 4465 */         String musicTypeText = "";
-/* 4466 */         if (pfm.getMusicType() != null) {
-/* 4467 */           musicTypeText = SelectionManager.getLookupObjectValue(pfm.getMusicType());
-/* 4468 */           musicTypeText = reportPrintHelper(Cache.getMusicTypes(), String.valueOf(musicTypeText));
+/* 4453 */         String musicTypeText = "";
+/* 4454 */         if (pfm.getMusicType() != null) {
+/* 4455 */           musicTypeText = SelectionManager.getLookupObjectValue(pfm.getMusicType());
+/* 4456 */           musicTypeText = reportPrintHelper(Cache.getMusicTypes(), String.valueOf(musicTypeText));
 /*      */         } 
 /*      */ 
 /*      */         
-/* 4472 */         String projectID = "";
-/* 4473 */         if (selection != null && selection.getProjectID() != null)
+/* 4460 */         String projectID = "";
+/* 4461 */         if (selection != null && selection.getProjectID() != null)
 /*      */         {
-/* 4475 */           projectID = selection.getProjectID();
+/* 4463 */           projectID = selection.getProjectID();
 /*      */         }
 /*      */ 
 /*      */         
-/* 4479 */         String poMergeCodeText = "";
-/* 4480 */         if (pfm.getPoMergeCode() != null && pfm.getPoMergeCode().length() > 0)
+/* 4467 */         String poMergeCodeText = "";
+/* 4468 */         if (pfm.getPoMergeCode() != null && pfm.getPoMergeCode().length() > 0)
 /*      */         {
-/* 4482 */           poMergeCodeText = pfm.getPoMergeCode();
+/* 4470 */           poMergeCodeText = pfm.getPoMergeCode();
 /*      */         }
-/* 4484 */         poMergeCodeText = reportPrintHelper(Cache.getPoMergeCodes(), String.valueOf(poMergeCodeText));
+/* 4472 */         poMergeCodeText = reportPrintHelper(Cache.getPoMergeCodes(), String.valueOf(poMergeCodeText));
 /*      */ 
 /*      */         
-/* 4487 */         String loosePickExemptCodeText = "";
-/* 4488 */         if (pfm.getLoosePickExemptCode() != null && pfm.getLoosePickExemptCode().length() > 0)
+/* 4475 */         String loosePickExemptCodeText = "";
+/* 4476 */         if (pfm.getLoosePickExemptCode() != null && pfm.getLoosePickExemptCode().length() > 0)
 /*      */         {
-/* 4490 */           loosePickExemptCodeText = pfm.getLoosePickExemptCode();
+/* 4478 */           loosePickExemptCodeText = pfm.getLoosePickExemptCode();
 /*      */         }
-/* 4492 */         loosePickExemptCodeText = reportPrintHelper(Cache.getLoosePickExempt(), String.valueOf(loosePickExemptCodeText));
+/* 4480 */         loosePickExemptCodeText = reportPrintHelper(Cache.getLoosePickExempt(), String.valueOf(loosePickExemptCodeText));
 /*      */ 
 /*      */         
-/* 4495 */         String companyCodeText = "";
-/* 4496 */         if (pfm.getCompanyCode() != null && pfm.getCompanyCode().length() > 0)
+/* 4483 */         String companyCodeText = "";
+/* 4484 */         if (pfm.getCompanyCode() != null && pfm.getCompanyCode().length() > 0)
 /*      */         {
-/* 4498 */           companyCodeText = pfm.getCompanyCode();
+/* 4486 */           companyCodeText = pfm.getCompanyCode();
 /*      */         }
-/* 4500 */         companyCodeText = reportPrintHelper(Cache.getCompanyCodes(), String.valueOf(companyCodeText));
+/* 4488 */         companyCodeText = reportPrintHelper(Cache.getCompanyCodes(), String.valueOf(companyCodeText));
 /*      */ 
 /*      */         
-/* 4503 */         String importRateCodeText = "";
-/* 4504 */         if (pfm.getImpRateCode() != null && pfm.getImpRateCode().length() > 0)
+/* 4491 */         String importRateCodeText = "";
+/* 4492 */         if (pfm.getImpRateCode() != null && pfm.getImpRateCode().length() > 0)
 /*      */         {
-/* 4506 */           importRateCodeText = pfm.getImpRateCode();
+/* 4494 */           importRateCodeText = pfm.getImpRateCode();
 /*      */         }
-/* 4508 */         importRateCodeText = reportPrintHelper(Cache.getImpRateCodes(), String.valueOf(importRateCodeText));
+/* 4496 */         importRateCodeText = reportPrintHelper(Cache.getImpRateCodes(), String.valueOf(importRateCodeText));
 /*      */         
-/* 4510 */         String pricePointText = "";
-/* 4511 */         if (pfm.getPricePoint() != null && pfm.getPricePoint().length() > 0)
+/* 4498 */         String pricePointText = "";
+/* 4499 */         if (pfm.getPricePoint() != null && pfm.getPricePoint().length() > 0)
 /*      */         {
-/* 4513 */           pricePointText = pfm.getPricePoint();
+/* 4501 */           pricePointText = pfm.getPricePoint();
 /*      */         }
-/* 4515 */         pricePointText = reportPrintHelper(Cache.getPricePoints(), String.valueOf(pricePointText));
+/* 4503 */         pricePointText = reportPrintHelper(Cache.getPricePoints(), String.valueOf(pricePointText));
 /*      */ 
 /*      */         
-/* 4518 */         String unitsPerSetText = "";
+/* 4506 */         String unitsPerSetText = "";
 /*      */ 
 /*      */         
-/* 4521 */         if (pfm.getUnitsPerSet() > 0) {
+/* 4509 */         if (pfm.getUnitsPerSet() > 0) {
 /*      */           
 /*      */           try {
 /*      */ 
 /*      */             
-/* 4526 */             unitsPerSetText = Integer.toString(pfm.getUnitsPerSet());
+/* 4514 */             unitsPerSetText = Integer.toString(pfm.getUnitsPerSet());
 /*      */           }
-/* 4528 */           catch (NumberFormatException e) {
+/* 4516 */           catch (NumberFormatException e) {
 /*      */             
-/* 4530 */             System.out.println("Error converting Units Per Set into integer.");
+/* 4518 */             System.out.println("Error converting Units Per Set into integer.");
 /*      */           } 
 /*      */         }
 /*      */ 
 /*      */         
-/* 4535 */         String compilationCodeText = "";
-/* 4536 */         if (pfm.getCompilationCode() != null)
+/* 4523 */         String compilationCodeText = "";
+/* 4524 */         if (pfm.getCompilationCode() != null)
 /*      */         {
-/* 4538 */           compilationCodeText = pfm.getCompilationCode();
+/* 4526 */           compilationCodeText = pfm.getCompilationCode();
 /*      */         }
-/* 4540 */         compilationCodeText = reportPrintHelper(Cache.getCompilationCodes(), String.valueOf(compilationCodeText));
+/* 4528 */         compilationCodeText = reportPrintHelper(Cache.getCompilationCodes(), String.valueOf(compilationCodeText));
 /*      */ 
 /*      */         
-/* 4543 */         String supplierText = "";
-/* 4544 */         if (pfm.getSupplier() != null && pfm.getSupplier().length() > 0)
+/* 4531 */         String supplierText = "";
+/* 4532 */         if (pfm.getSupplier() != null && pfm.getSupplier().length() > 0)
 /*      */         {
-/* 4546 */           supplierText = pfm.getSupplier();
+/* 4534 */           supplierText = pfm.getSupplier();
 /*      */         }
-/* 4548 */         supplierText = reportPrintHelper(Cache.getSuppliers(), String.valueOf(supplierText));
+/* 4536 */         supplierText = reportPrintHelper(Cache.getSuppliers(), String.valueOf(supplierText));
 /*      */         
-/* 4550 */         String enteredByName = "";
-/* 4551 */         int enteredById = 0;
+/* 4538 */         String enteredByName = "";
+/* 4539 */         int enteredById = 0;
 /*      */ 
 /*      */         
 /*      */         try {
-/* 4555 */           if (pfm.getEnteredByName() != null && pfm.getEnteredByName().length() > 0) {
-/* 4556 */             enteredById = Integer.parseInt(pfm.getEnteredByName());
+/* 4543 */           if (pfm.getEnteredByName() != null && pfm.getEnteredByName().length() > 0) {
+/* 4544 */             enteredById = Integer.parseInt(pfm.getEnteredByName());
 /*      */           }
-/* 4558 */         } catch (Exception exception) {}
+/* 4546 */         } catch (Exception exception) {}
 /*      */ 
 /*      */ 
 /*      */ 
@@ -4564,86 +4552,86 @@
 /*      */ 
 /*      */ 
 /*      */         
-/* 4567 */         if (enteredById == 0) {
+/* 4555 */         if (enteredById == 0) {
 /*      */           
-/* 4569 */           User user = MilestoneSecurity.getUser(context);
-/* 4570 */           if (user != null) {
-/* 4571 */             enteredById = user.getUserId();
+/* 4557 */           User user = MilestoneSecurity.getUser(context);
+/* 4558 */           if (user != null) {
+/* 4559 */             enteredById = user.getUserId();
 /*      */           }
 /*      */         } 
-/* 4574 */         if (UserManager.getInstance().getUser(enteredById) != null) {
-/* 4575 */           enteredByName = UserManager.getInstance().getUser(enteredById).getName();
+/* 4562 */         if (UserManager.getInstance().getUser(enteredById) != null) {
+/* 4563 */           enteredByName = UserManager.getInstance().getUser(enteredById).getName();
 /*      */         }
 /*      */         
-/* 4578 */         String importCodeText = "";
-/* 4579 */         if (pfm.getImportIndicator() != null && pfm.getImportIndicator().length() > 0) {
+/* 4566 */         String importCodeText = "";
+/* 4567 */         if (pfm.getImportIndicator() != null && pfm.getImportIndicator().length() > 0) {
 /*      */           
-/* 4581 */           importCodeText = pfm.getImportIndicator().trim();
-/* 4582 */           if (importCodeText.equals("D")) {
-/* 4583 */             importCodeText = "D:US Made";
-/* 4584 */           } else if (importCodeText.equals("I")) {
-/* 4585 */             importCodeText = "I:Import";
+/* 4569 */           importCodeText = pfm.getImportIndicator().trim();
+/* 4570 */           if (importCodeText.equals("D")) {
+/* 4571 */             importCodeText = "D:US Made";
+/* 4572 */           } else if (importCodeText.equals("I")) {
+/* 4573 */             importCodeText = "I:Import";
 /*      */           } 
 /*      */         } 
-/* 4588 */         String gridNum = "";
-/* 4589 */         if (selection != null) {
-/* 4590 */           gridNum = selection.getGridNumber();
+/* 4576 */         String gridNum = "";
+/* 4577 */         if (selection != null) {
+/* 4578 */           gridNum = selection.getGridNumber();
 /*      */         }
 /*      */         
-/* 4593 */         String imprint = "";
-/* 4594 */         if (selection.getImprint() != null) {
-/* 4595 */           imprint = selection.getImprint();
+/* 4581 */         String imprint = "";
+/* 4582 */         if (selection.getImprint() != null) {
+/* 4583 */           imprint = selection.getImprint();
 /*      */         }
 /*      */ 
 /*      */         
-/* 4599 */         String statusText = selection.getSelectionStatus().getName();
+/* 4587 */         String statusText = selection.getSelectionStatus().getName();
 /*      */ 
 /*      */         
-/* 4602 */         String prefixNumber = "";
-/* 4603 */         prefixNumber = SelectionManager.getLookupObjectValue(selection.getPrefixID());
-/* 4604 */         if (!prefixNumber.equals(""))
-/* 4605 */           prefixNumber = String.valueOf(prefixNumber) + "-"; 
-/* 4606 */         String physicalPrefixCatNumber = String.valueOf(prefixNumber) + selection.getSelectionNo();
+/* 4590 */         String prefixNumber = "";
+/* 4591 */         prefixNumber = SelectionManager.getLookupObjectValue(selection.getPrefixID());
+/* 4592 */         if (!prefixNumber.equals(""))
+/* 4593 */           prefixNumber = String.valueOf(prefixNumber) + "-"; 
+/* 4594 */         String physicalPrefixCatNumber = String.valueOf(prefixNumber) + selection.getSelectionNo();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */         
-/* 4611 */         if (selection.getIsDigital()) {
-/* 4612 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4613 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4614 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4615 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4616 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4617 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4618 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4619 */           table_contents.setObject(nextRow, 0, "Imprint");
-/* 4620 */           table_contents.setObject(nextRow, 2, imprint);
-/* 4621 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4622 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4623 */           table_contents.setObject(nextRow, 3, "  UPC:");
+/* 4599 */         if (selection.getIsDigital()) {
+/* 4600 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4601 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4602 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4603 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4604 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4605 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4606 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4607 */           table_contents.setObject(nextRow, 0, "Imprint");
+/* 4608 */           table_contents.setObject(nextRow, 2, imprint);
+/* 4609 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4610 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4611 */           table_contents.setObject(nextRow, 3, "  UPC:");
 /*      */           
-/* 4625 */           table_contents.setObject(nextRow, 5, MilestoneHelper_2.getRMSReportFormat(upc, "UPC", selection.getIsDigital()));
-/* 4626 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4627 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4628 */           nextRow++;
+/* 4613 */           table_contents.setObject(nextRow, 5, MilestoneHelper_2.getRMSReportFormat(upc, "UPC", selection.getIsDigital()));
+/* 4614 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4615 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4616 */           nextRow++;
 /*      */           
-/* 4630 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4631 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4632 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4633 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4634 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4635 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4636 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4637 */           table_contents.setObject(nextRow, 0, "Operating Company:");
-/* 4638 */           table_contents.setObject(nextRow, 2, operatingCompanyText);
+/* 4618 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4619 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4620 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4621 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4622 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4623 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4624 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4625 */           table_contents.setObject(nextRow, 0, "Operating Company:");
+/* 4626 */           table_contents.setObject(nextRow, 2, operatingCompanyText);
 /*      */           
-/* 4640 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4641 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4642 */           table_contents.setObject(nextRow, 3, "  Sales Grouping Cd:");
+/* 4628 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4629 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4630 */           table_contents.setObject(nextRow, 3, "  Sales Grouping Cd:");
 /*      */           
-/* 4644 */           table_contents.setObject(nextRow, 5, MilestoneHelper_2.getRMSReportFormat(soundScanGroupText, "SSG", selection.getIsDigital()));
-/* 4645 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4646 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4632 */           table_contents.setObject(nextRow, 5, MilestoneHelper_2.getRMSReportFormat(soundScanGroupText, "SSG", selection.getIsDigital()));
+/* 4633 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4634 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
 /*      */ 
 /*      */ 
 /*      */ 
@@ -4652,668 +4640,666 @@
 /*      */ 
 /*      */ 
 /*      */           
-/* 4655 */           nextRow++;
+/* 4643 */           nextRow++;
 /*      */           
-/* 4657 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4658 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4659 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4660 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4661 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4662 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4663 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4664 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4665 */           table_contents.setObject(nextRow, 0, "Physical Prefix /\nLocal Prod #");
-/* 4666 */           table_contents.setObject(nextRow, 2, physicalPrefixCatNumber);
-/* 4667 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4668 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4669 */           table_contents.setObject(nextRow, 3, "  Music Line:");
-/* 4670 */           table_contents.setObject(nextRow, 5, musicLineText);
-/* 4671 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4672 */           nextRow++;
+/* 4645 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4646 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4647 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4648 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4649 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4650 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4651 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4652 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4653 */           table_contents.setObject(nextRow, 0, "Physical Prefix /\nLocal Prod #");
+/* 4654 */           table_contents.setObject(nextRow, 2, physicalPrefixCatNumber);
+/* 4655 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4656 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4657 */           table_contents.setObject(nextRow, 3, "  Music Line:");
+/* 4658 */           table_contents.setObject(nextRow, 5, musicLineText);
+/* 4659 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4660 */           nextRow++;
 /*      */           
-/* 4674 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4675 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4676 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4677 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4678 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4679 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4680 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4681 */           table_contents.setObject(nextRow, 0, "Config Code:");
-/* 4682 */           table_contents.setObject(nextRow, 2, configCodeText);
+/* 4662 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4663 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4664 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4665 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4666 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4667 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4668 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4669 */           table_contents.setObject(nextRow, 0, "Config Code:");
+/* 4670 */           table_contents.setObject(nextRow, 2, configCodeText);
 /*      */           
-/* 4684 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4685 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4686 */           table_contents.setObject(nextRow, 3, "  Repertoire Owner:");
-/* 4687 */           table_contents.setObject(nextRow, 5, repertoireOwnerText);
-/* 4688 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4689 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4690 */           nextRow++;
+/* 4672 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4673 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4674 */           table_contents.setObject(nextRow, 3, "  Repertoire Owner:");
+/* 4675 */           table_contents.setObject(nextRow, 5, repertoireOwnerText);
+/* 4676 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4677 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4678 */           nextRow++;
 /*      */           
-/* 4692 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4693 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4694 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4695 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4696 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4697 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4698 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4699 */           table_contents.setObject(nextRow, 0, "Title:");
-/* 4700 */           table_contents.setObject(nextRow, 2, titleText);
-/* 4701 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4702 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4703 */           table_contents.setObject(nextRow, 3, "  Repertoire Class:");
-/* 4704 */           table_contents.setObject(nextRow, 5, repertoireClassText);
-/* 4705 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4706 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4707 */           nextRow++;
+/* 4680 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4681 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4682 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4683 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4684 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4685 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4686 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4687 */           table_contents.setObject(nextRow, 0, "Title:");
+/* 4688 */           table_contents.setObject(nextRow, 2, titleText);
+/* 4689 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4690 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4691 */           table_contents.setObject(nextRow, 3, "  Repertoire Class:");
+/* 4692 */           table_contents.setObject(nextRow, 5, repertoireClassText);
+/* 4693 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4694 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4695 */           nextRow++;
 /*      */           
-/* 4709 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4710 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4711 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4712 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4713 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4714 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4697 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4698 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4699 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4700 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4701 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4702 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */           
-/* 4721 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4722 */           table_contents.setObject(nextRow, 0, "Artist:");
-/* 4723 */           table_contents.setObject(nextRow, 2, artistText);
-/* 4724 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4725 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4726 */           table_contents.setObject(nextRow, 3, "  Return/Scrap Code:");
-/* 4727 */           table_contents.setObject(nextRow, 5, returnScrapCodeText);
-/* 4728 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4729 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4730 */           nextRow++;
+/* 4709 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4710 */           table_contents.setObject(nextRow, 0, "Artist:");
+/* 4711 */           table_contents.setObject(nextRow, 2, artistText);
+/* 4712 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4713 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4714 */           table_contents.setObject(nextRow, 3, "  Return/Scrap Code:");
+/* 4715 */           table_contents.setObject(nextRow, 5, returnScrapCodeText);
+/* 4716 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4717 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4718 */           nextRow++;
 /*      */           
-/* 4732 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4733 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4734 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4735 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4736 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4737 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4738 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4739 */           table_contents.setObject(nextRow, 0, "Digital Release Date:");
-/* 4740 */           table_contents.setObject(nextRow, 2, releaseDate);
-/* 4741 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4742 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4743 */           table_contents.setRowLineWrap(nextRow, false);
-/* 4744 */           table_contents.setObject(nextRow, 3, "  Loose Pick Exempt:");
-/* 4745 */           table_contents.setObject(nextRow, 5, loosePickExemptCodeText);
-/* 4746 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4747 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4748 */           nextRow++;
+/* 4720 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4721 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4722 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4723 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4724 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4725 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4726 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4727 */           table_contents.setObject(nextRow, 0, "Digital Release Date:");
+/* 4728 */           table_contents.setObject(nextRow, 2, releaseDate);
+/* 4729 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4730 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4731 */           table_contents.setRowLineWrap(nextRow, false);
+/* 4732 */           table_contents.setObject(nextRow, 3, "  Loose Pick Exempt:");
+/* 4733 */           table_contents.setObject(nextRow, 5, loosePickExemptCodeText);
+/* 4734 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4735 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4736 */           nextRow++;
 /*      */           
-/* 4750 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4751 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4752 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4753 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4754 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4755 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4756 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4757 */           table_contents.setObject(nextRow, 0, "Status:");
-/* 4758 */           table_contents.setObject(nextRow, 2, statusText);
-/* 4759 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4760 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4761 */           table_contents.setObject(nextRow, 3, "  IMI Exempt Code:");
-/* 4762 */           table_contents.setObject(nextRow, 5, guaranteeCodeText);
-/* 4763 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4764 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4765 */           nextRow++;
+/* 4738 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4739 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4740 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4741 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4742 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4743 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4744 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4745 */           table_contents.setObject(nextRow, 0, "Status:");
+/* 4746 */           table_contents.setObject(nextRow, 2, statusText);
+/* 4747 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4748 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4749 */           table_contents.setObject(nextRow, 3, "  IMI Exempt Code:");
+/* 4750 */           table_contents.setObject(nextRow, 5, guaranteeCodeText);
+/* 4751 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4752 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4753 */           nextRow++;
 /*      */           
-/* 4767 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4768 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4769 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4770 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4771 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4772 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4773 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4774 */           table_contents.setObject(nextRow, 0, "Super Label:");
-/* 4775 */           table_contents.setObject(nextRow, 2, superLabelText);
-/* 4776 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4777 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4778 */           table_contents.setObject(nextRow, 3, "  Music Type:");
-/* 4779 */           table_contents.setObject(nextRow, 5, musicTypeText);
-/* 4780 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4781 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4782 */           nextRow++;
+/* 4755 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4756 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4757 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4758 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4759 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4760 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4761 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4762 */           table_contents.setObject(nextRow, 0, "Super Label:");
+/* 4763 */           table_contents.setObject(nextRow, 2, superLabelText);
+/* 4764 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4765 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4766 */           table_contents.setObject(nextRow, 3, "  Music Type:");
+/* 4767 */           table_contents.setObject(nextRow, 5, musicTypeText);
+/* 4768 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4769 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4770 */           nextRow++;
 /*      */           
-/* 4784 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4785 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4786 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4787 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4788 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4789 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4790 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4791 */           table_contents.setObject(nextRow, 0, "Sub Label:");
-/* 4792 */           table_contents.setObject(nextRow, 2, labelCodeText);
-/* 4793 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4794 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4795 */           table_contents.setObject(nextRow, 3, "  Price Point:");
-/* 4796 */           table_contents.setObject(nextRow, 5, pricePointText);
-/* 4797 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4798 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4799 */           nextRow++;
+/* 4772 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4773 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4774 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4775 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4776 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4777 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4778 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4779 */           table_contents.setObject(nextRow, 0, "Sub Label:");
+/* 4780 */           table_contents.setObject(nextRow, 2, labelCodeText);
+/* 4781 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4782 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4783 */           table_contents.setObject(nextRow, 3, "  Price Point:");
+/* 4784 */           table_contents.setObject(nextRow, 5, pricePointText);
+/* 4785 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4786 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4787 */           nextRow++;
 /*      */           
-/* 4801 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4802 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4803 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4804 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4805 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4806 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4807 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4808 */           table_contents.setObject(nextRow, 0, "Company Code:");
-/* 4809 */           table_contents.setObject(nextRow, 2, companyCodeText);
-/* 4810 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4811 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4812 */           table_contents.setObject(nextRow, 3, "  Narm Extract Ind:");
-/* 4813 */           table_contents.setObject(nextRow, 5, narmText);
-/* 4814 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4815 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4816 */           nextRow++;
+/* 4789 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4790 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4791 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4792 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4793 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4794 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4795 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4796 */           table_contents.setObject(nextRow, 0, "Company Code:");
+/* 4797 */           table_contents.setObject(nextRow, 2, companyCodeText);
+/* 4798 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4799 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4800 */           table_contents.setObject(nextRow, 3, "  Narm Extract Ind:");
+/* 4801 */           table_contents.setObject(nextRow, 5, narmText);
+/* 4802 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4803 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4804 */           nextRow++;
 /*      */           
-/* 4818 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4819 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4820 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4821 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4822 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4823 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4824 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4825 */           table_contents.setObject(nextRow, 0, "Project ID (9 Digits):");
-/* 4826 */           table_contents.setObject(nextRow, 2, projectID);
-/* 4827 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4828 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4829 */           table_contents.setObject(nextRow, 3, "  Compilation \n  Soundtrack:");
-/* 4830 */           table_contents.setObject(nextRow, 5, compilationCodeText);
-/* 4831 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4832 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4833 */           nextRow++;
+/* 4806 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4807 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4808 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4809 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4810 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4811 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4812 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4813 */           table_contents.setObject(nextRow, 0, "Project ID (9 Digits):");
+/* 4814 */           table_contents.setObject(nextRow, 2, projectID);
+/* 4815 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4816 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4817 */           table_contents.setObject(nextRow, 3, "  Compilation \n  Soundtrack:");
+/* 4818 */           table_contents.setObject(nextRow, 5, compilationCodeText);
+/* 4819 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4820 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4821 */           nextRow++;
 /*      */           
-/* 4835 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4836 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4837 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4838 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4839 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4840 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4841 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4842 */           table_contents.setObject(nextRow, 0, "PO Merge Code:");
-/* 4843 */           table_contents.setObject(nextRow, 2, poMergeCodeText);
+/* 4823 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4824 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4825 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4826 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4827 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4828 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4829 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4830 */           table_contents.setObject(nextRow, 0, "PO Merge Code:");
+/* 4831 */           table_contents.setObject(nextRow, 2, poMergeCodeText);
 /*      */           
-/* 4845 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4846 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4847 */           table_contents.setObject(nextRow, 3, "  Parental Adv:");
-/* 4848 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4849 */           table_contents.setObject(nextRow, 5, selection.getParentalGuidance() ? "Yes" : "");
-/* 4850 */           nextRow++;
+/* 4833 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4834 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4835 */           table_contents.setObject(nextRow, 3, "  Parental Adv:");
+/* 4836 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4837 */           table_contents.setObject(nextRow, 5, selection.getParentalGuidance() ? "Yes" : "");
+/* 4838 */           nextRow++;
 /*      */           
-/* 4852 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4853 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4854 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4855 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4856 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4857 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4858 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4859 */           table_contents.setObject(nextRow, 0, "# of Units:");
-/* 4860 */           table_contents.setObject(nextRow, 2, unitsPerSetText);
-/* 4861 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4862 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4863 */           table_contents.setObject(nextRow, 3, "  Dig. Price Code:");
-/* 4864 */           table_contents.setObject(nextRow, 5, priceCodeText);
-/* 4865 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4866 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4867 */           nextRow++;
+/* 4840 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4841 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4842 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4843 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4844 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4845 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4846 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4847 */           table_contents.setObject(nextRow, 0, "# of Units:");
+/* 4848 */           table_contents.setObject(nextRow, 2, unitsPerSetText);
+/* 4849 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4850 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4851 */           table_contents.setObject(nextRow, 3, "  Dig. Price Code:");
+/* 4852 */           table_contents.setObject(nextRow, 5, priceCodeText);
+/* 4853 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4854 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4855 */           nextRow++;
 /*      */           
-/* 4869 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4870 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4871 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4872 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4873 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4874 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4875 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4876 */           table_contents.setObject(nextRow, 0, "Sets Per Carton:");
-/* 4877 */           table_contents.setObject(nextRow, 2, String.valueOf(pfm.getSetsPerCarton()));
-/* 4878 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4879 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4880 */           table_contents.setObject(nextRow, 3, "  Entered By:");
-/* 4881 */           table_contents.setObject(nextRow, 5, enteredByName);
-/* 4882 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4883 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4884 */           nextRow++;
+/* 4857 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4858 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4859 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4860 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4861 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4862 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4863 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4864 */           table_contents.setObject(nextRow, 0, "Sets Per Carton:");
+/* 4865 */           table_contents.setObject(nextRow, 2, String.valueOf(pfm.getSetsPerCarton()));
+/* 4866 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4867 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4868 */           table_contents.setObject(nextRow, 3, "  Entered By:");
+/* 4869 */           table_contents.setObject(nextRow, 5, enteredByName);
+/* 4870 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4871 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4872 */           nextRow++;
 /*      */           
-/* 4886 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4887 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4888 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4889 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4890 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4891 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4892 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4893 */           table_contents.setObject(nextRow, 0, "Import Indicator:");
-/* 4894 */           table_contents.setObject(nextRow, 2, importCodeText);
-/* 4895 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4896 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4897 */           table_contents.setObject(nextRow, 3, "  Date:");
-/* 4898 */           table_contents.setObject(nextRow, 5, pfm.getEnteredDate());
-/* 4899 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4900 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4901 */           nextRow++;
+/* 4874 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4875 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4876 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4877 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4878 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4879 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4880 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4881 */           table_contents.setObject(nextRow, 0, "Import Indicator:");
+/* 4882 */           table_contents.setObject(nextRow, 2, importCodeText);
+/* 4883 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4884 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4885 */           table_contents.setObject(nextRow, 3, "  Date:");
+/* 4886 */           table_contents.setObject(nextRow, 5, pfm.getEnteredDate());
+/* 4887 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4888 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4889 */           nextRow++;
 /*      */ 
 /*      */ 
 /*      */           
-/* 4905 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4906 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4907 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4908 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4909 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4910 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4911 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4912 */           table_contents.setObject(nextRow, 0, "GRid #:");
-/* 4913 */           table_contents.setObject(nextRow, 2, gridNum);
-/* 4914 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4915 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4916 */           table_contents.setObject(nextRow, 3, "  Approved By:");
-/* 4917 */           table_contents.setObject(nextRow, 5, pfm.getApprovedByName());
-/* 4918 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4919 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4920 */           nextRow++;
+/* 4893 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4894 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4895 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4896 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4897 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4898 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4899 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4900 */           table_contents.setObject(nextRow, 0, "GRid #:");
+/* 4901 */           table_contents.setObject(nextRow, 2, gridNum);
+/* 4902 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4903 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4904 */           table_contents.setObject(nextRow, 3, "  Approved By:");
+/* 4905 */           table_contents.setObject(nextRow, 5, pfm.getApprovedByName());
+/* 4906 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4907 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4908 */           nextRow++;
 /*      */ 
 /*      */           
-/* 4923 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4924 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4925 */           table_contents.setRowBorderColor(nextRow, 2, Color.white);
-/* 4926 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4927 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4928 */           table_contents.setRowBorderColor(nextRow, 5, Color.white);
-/* 4929 */           table_contents.setRowBorderColor(nextRow, 6, Color.white);
-/* 4930 */           table_contents.setRowBorderColor(nextRow, 7, Color.white);
-/* 4931 */           nextRow++;
+/* 4911 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4912 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4913 */           table_contents.setRowBorderColor(nextRow, 2, Color.white);
+/* 4914 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4915 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4916 */           table_contents.setRowBorderColor(nextRow, 5, Color.white);
+/* 4917 */           table_contents.setRowBorderColor(nextRow, 6, Color.white);
+/* 4918 */           table_contents.setRowBorderColor(nextRow, 7, Color.white);
+/* 4919 */           nextRow++;
 /*      */           
-/* 4933 */           table_contents.setRowBorderColor(nextRow, Color.white);
+/* 4921 */           table_contents.setRowBorderColor(nextRow, Color.white);
 /*      */         
 /*      */         }
 /*      */         else {
 /*      */           
-/* 4938 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4939 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4940 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4941 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4942 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4943 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4944 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4945 */           table_contents.setObject(nextRow, 0, "Operating Company:");
-/* 4946 */           table_contents.setObject(nextRow, 2, operatingCompanyText);
-/* 4947 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4948 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4949 */           table_contents.setObject(nextRow, 3, "  Repertoire Owner:");
-/* 4950 */           table_contents.setObject(nextRow, 5, repertoireOwnerText);
-/* 4951 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4952 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4953 */           nextRow++;
+/* 4926 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4927 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4928 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4929 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4930 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4931 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4932 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4933 */           table_contents.setObject(nextRow, 0, "Operating Company:");
+/* 4934 */           table_contents.setObject(nextRow, 2, operatingCompanyText);
+/* 4935 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4936 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4937 */           table_contents.setObject(nextRow, 3, "  Repertoire Owner:");
+/* 4938 */           table_contents.setObject(nextRow, 5, repertoireOwnerText);
+/* 4939 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4940 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4941 */           nextRow++;
 /*      */           
-/* 4955 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4956 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4957 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4958 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4959 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4960 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4961 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4962 */           table_contents.setObject(nextRow, 0, "Local Prod #:");
-/* 4963 */           table_contents.setObject(nextRow, 2, productNumber);
-/* 4964 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4965 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4966 */           table_contents.setObject(nextRow, 3, "  Repertoire Class:");
-/* 4967 */           table_contents.setObject(nextRow, 5, repertoireClassText);
-/* 4968 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4969 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4970 */           nextRow++;
+/* 4943 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4944 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4945 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4946 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4947 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4948 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4949 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4950 */           table_contents.setObject(nextRow, 0, "Local Prod #:");
+/* 4951 */           table_contents.setObject(nextRow, 2, productNumber);
+/* 4952 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4953 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4954 */           table_contents.setObject(nextRow, 3, "  Repertoire Class:");
+/* 4955 */           table_contents.setObject(nextRow, 5, repertoireClassText);
+/* 4956 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4957 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4958 */           nextRow++;
 /*      */           
-/* 4972 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4973 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4974 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4975 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4976 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4977 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 4978 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 4979 */           table_contents.setObject(nextRow, 0, "Config Code:");
-/* 4980 */           table_contents.setObject(nextRow, 2, configCodeText);
-/* 4981 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 4982 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 4983 */           table_contents.setObject(nextRow, 3, "  Return/Scrap Code:");
-/* 4984 */           table_contents.setObject(nextRow, 5, returnScrapCodeText);
-/* 4985 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 4986 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 4987 */           nextRow++;
+/* 4960 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4961 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4962 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4963 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4964 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4965 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4966 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 4967 */           table_contents.setObject(nextRow, 0, "Config Code:");
+/* 4968 */           table_contents.setObject(nextRow, 2, configCodeText);
+/* 4969 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4970 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4971 */           table_contents.setObject(nextRow, 3, "  Return/Scrap Code:");
+/* 4972 */           table_contents.setObject(nextRow, 5, returnScrapCodeText);
+/* 4973 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4974 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4975 */           nextRow++;
 /*      */ 
 /*      */           
-/* 4990 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 4991 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 4992 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 4993 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 4994 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 4995 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 4978 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4979 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4980 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4981 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4982 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 4983 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
 /*      */ 
 /*      */ 
 /*      */           
-/* 4999 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5000 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5001 */           table_contents.setObject(nextRow, 3, "  Export Indicator:");
-/* 5002 */           table_contents.setObject(nextRow, 5, exportCodeText);
-/* 5003 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5004 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5005 */           nextRow++;
+/* 4987 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 4988 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 4989 */           table_contents.setObject(nextRow, 3, "  Export Indicator:");
+/* 4990 */           table_contents.setObject(nextRow, 5, exportCodeText);
+/* 4991 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 4992 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 4993 */           nextRow++;
 /*      */           
-/* 5007 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5008 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5009 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5010 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5011 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5012 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5013 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5014 */           table_contents.setObject(nextRow, 0, "Title:");
-/* 5015 */           table_contents.setObject(nextRow, 2, titleText);
+/* 4995 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 4996 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 4997 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 4998 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 4999 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5000 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5001 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5002 */           table_contents.setObject(nextRow, 0, "Title:");
+/* 5003 */           table_contents.setObject(nextRow, 2, titleText);
 /*      */           
-/* 5017 */           table_contents.setSpan(nextRow, 3, new Dimension(3, 1));
-/* 5018 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5019 */           table_contents.setObject(nextRow, 3, "  Included or Excluded Countries:");
-/* 5020 */           table_contents.setObject(nextRow, 6, pfm.getCountries());
-/* 5021 */           table_contents.setSpan(nextRow, 6, new Dimension(2, 1));
-/* 5022 */           table_contents.setFont(nextRow, 6, new Font("Arial", 0, 9));
-/* 5023 */           nextRow++;
+/* 5005 */           table_contents.setSpan(nextRow, 3, new Dimension(3, 1));
+/* 5006 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5007 */           table_contents.setObject(nextRow, 3, "  Included or Excluded Countries:");
+/* 5008 */           table_contents.setObject(nextRow, 6, pfm.getCountries());
+/* 5009 */           table_contents.setSpan(nextRow, 6, new Dimension(2, 1));
+/* 5010 */           table_contents.setFont(nextRow, 6, new Font("Arial", 0, 9));
+/* 5011 */           nextRow++;
 /*      */           
-/* 5025 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5026 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5027 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5028 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5029 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5030 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5031 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5032 */           table_contents.setObject(nextRow, 0, "Artist:");
-/* 5033 */           table_contents.setObject(nextRow, 2, artistText);
-/* 5034 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5035 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5036 */           table_contents.setObject(nextRow, 3, "  Spine Title:");
+/* 5013 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5014 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5015 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5016 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5017 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5018 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5019 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5020 */           table_contents.setObject(nextRow, 0, "Artist:");
+/* 5021 */           table_contents.setObject(nextRow, 2, artistText);
+/* 5022 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5023 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5024 */           table_contents.setObject(nextRow, 3, "  Spine Title:");
 /*      */           
-/* 5038 */           String spineTitle = pfm.getSpineTitle();
-/* 5039 */           if (spineTitle.length() > 37) {
-/* 5040 */             spineTitle = spineTitle.substring(0, 37);
+/* 5026 */           String spineTitle = pfm.getSpineTitle();
+/* 5027 */           if (spineTitle.length() > 37) {
+/* 5028 */             spineTitle = spineTitle.substring(0, 37);
 /*      */           }
-/* 5042 */           table_contents.setObject(nextRow, 5, spineTitle);
-/* 5043 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5044 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5045 */           nextRow++;
+/* 5030 */           table_contents.setObject(nextRow, 5, spineTitle);
+/* 5031 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5032 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5033 */           nextRow++;
 /*      */           
-/* 5047 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5048 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5049 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5050 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5051 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5052 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5053 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5054 */           table_contents.setObject(nextRow, 0, "Title ID (10 Char):");
-/* 5055 */           table_contents.setObject(nextRow, 2, titleID);
-/* 5056 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5057 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5058 */           table_contents.setObject(nextRow, 3, "  Spine Artist:");
+/* 5035 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5036 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5037 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5038 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5039 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5040 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5041 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5042 */           table_contents.setObject(nextRow, 0, "Title ID (10 Char):");
+/* 5043 */           table_contents.setObject(nextRow, 2, titleID);
+/* 5044 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5045 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5046 */           table_contents.setObject(nextRow, 3, "  Spine Artist:");
 /*      */           
-/* 5060 */           String spineArtist = pfm.getSpineArtist();
-/* 5061 */           if (spineArtist.length() > 37) {
-/* 5062 */             spineArtist = spineArtist.substring(0, 37);
+/* 5048 */           String spineArtist = pfm.getSpineArtist();
+/* 5049 */           if (spineArtist.length() > 37) {
+/* 5050 */             spineArtist = spineArtist.substring(0, 37);
 /*      */           }
-/* 5064 */           table_contents.setObject(nextRow, 5, spineArtist);
-/* 5065 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5066 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5067 */           nextRow++;
+/* 5052 */           table_contents.setObject(nextRow, 5, spineArtist);
+/* 5053 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5054 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5055 */           nextRow++;
 /*      */           
-/* 5069 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5070 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5071 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5072 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5073 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5074 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5075 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5076 */           table_contents.setObject(nextRow, 0, "Planned Release Date:");
-/* 5077 */           table_contents.setObject(nextRow, 2, releaseDate);
-/* 5078 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5079 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5080 */           table_contents.setRowLineWrap(nextRow, false);
-/* 5081 */           table_contents.setObject(nextRow, 3, "  Loose Pick Exempt:");
-/* 5082 */           table_contents.setObject(nextRow, 5, loosePickExemptCodeText);
-/* 5083 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5084 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5085 */           nextRow++;
+/* 5057 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5058 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5059 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5060 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5061 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5062 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5063 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5064 */           table_contents.setObject(nextRow, 0, "Planned Release Date:");
+/* 5065 */           table_contents.setObject(nextRow, 2, releaseDate);
+/* 5066 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5067 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5068 */           table_contents.setRowLineWrap(nextRow, false);
+/* 5069 */           table_contents.setObject(nextRow, 3, "  Loose Pick Exempt:");
+/* 5070 */           table_contents.setObject(nextRow, 5, loosePickExemptCodeText);
+/* 5071 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5072 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5073 */           nextRow++;
 /*      */           
-/* 5087 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5088 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5089 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5090 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5091 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5092 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5093 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5094 */           table_contents.setObject(nextRow, 0, "Status:");
-/* 5095 */           table_contents.setObject(nextRow, 2, statusText);
+/* 5075 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5076 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5077 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5078 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5079 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5080 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5081 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5082 */           table_contents.setObject(nextRow, 0, "Status:");
+/* 5083 */           table_contents.setObject(nextRow, 2, statusText);
 /*      */           
-/* 5097 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5098 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5099 */           table_contents.setObject(nextRow, 3, "  IMI Exempt Code:");
-/* 5100 */           table_contents.setObject(nextRow, 5, guaranteeCodeText);
-/* 5101 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5102 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5103 */           nextRow++;
+/* 5085 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5086 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5087 */           table_contents.setObject(nextRow, 3, "  IMI Exempt Code:");
+/* 5088 */           table_contents.setObject(nextRow, 5, guaranteeCodeText);
+/* 5089 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5090 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5091 */           nextRow++;
 /*      */           
-/* 5105 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5106 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5107 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5108 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5109 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5110 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5111 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5112 */           table_contents.setObject(nextRow, 0, "Super Label:");
-/* 5113 */           table_contents.setObject(nextRow, 2, superLabelText);
+/* 5093 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5094 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5095 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5096 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5097 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5098 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5099 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5100 */           table_contents.setObject(nextRow, 0, "Super Label:");
+/* 5101 */           table_contents.setObject(nextRow, 2, superLabelText);
 /*      */           
-/* 5115 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5116 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5117 */           table_contents.setObject(nextRow, 3, "  Music Type:");
-/* 5118 */           table_contents.setObject(nextRow, 5, musicTypeText);
-/* 5119 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5120 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5121 */           nextRow++;
+/* 5103 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5104 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5105 */           table_contents.setObject(nextRow, 3, "  Music Type:");
+/* 5106 */           table_contents.setObject(nextRow, 5, musicTypeText);
+/* 5107 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5108 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5109 */           nextRow++;
 /*      */           
-/* 5123 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5124 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5125 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5126 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5127 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5128 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5129 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5130 */           table_contents.setObject(nextRow, 0, "Sub Label:");
-/* 5131 */           table_contents.setObject(nextRow, 2, labelCodeText);
-/* 5132 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5133 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5134 */           table_contents.setObject(nextRow, 3, "  IMI/IMP Rate Code:");
-/* 5135 */           table_contents.setObject(nextRow, 5, importRateCodeText);
-/* 5136 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5137 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5138 */           nextRow++;
+/* 5111 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5112 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5113 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5114 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5115 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5116 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5117 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5118 */           table_contents.setObject(nextRow, 0, "Sub Label:");
+/* 5119 */           table_contents.setObject(nextRow, 2, labelCodeText);
+/* 5120 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5121 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5122 */           table_contents.setObject(nextRow, 3, "  IMI/IMP Rate Code:");
+/* 5123 */           table_contents.setObject(nextRow, 5, importRateCodeText);
+/* 5124 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5125 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5126 */           nextRow++;
 /*      */           
-/* 5140 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5141 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5142 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5143 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5144 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5145 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5146 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5147 */           table_contents.setObject(nextRow, 0, "Company Code:");
-/* 5148 */           table_contents.setObject(nextRow, 2, companyCodeText);
-/* 5149 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5150 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5151 */           table_contents.setObject(nextRow, 3, "  Price Point:");
-/* 5152 */           table_contents.setObject(nextRow, 5, pricePointText);
-/* 5153 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5154 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5155 */           nextRow++;
+/* 5128 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5129 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5130 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5131 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5132 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5133 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5134 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5135 */           table_contents.setObject(nextRow, 0, "Company Code:");
+/* 5136 */           table_contents.setObject(nextRow, 2, companyCodeText);
+/* 5137 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5138 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5139 */           table_contents.setObject(nextRow, 3, "  Price Point:");
+/* 5140 */           table_contents.setObject(nextRow, 5, pricePointText);
+/* 5141 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5142 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5143 */           nextRow++;
 /*      */           
-/* 5157 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5158 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5159 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5160 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5161 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5162 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5163 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5164 */           table_contents.setObject(nextRow, 0, "Project ID (9 Digits):");
-/* 5165 */           table_contents.setObject(nextRow, 2, projectID);
-/* 5166 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5167 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5168 */           table_contents.setObject(nextRow, 3, "  Narm Extract Ind:");
-/* 5169 */           table_contents.setObject(nextRow, 5, narmText);
-/* 5170 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5171 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5172 */           nextRow++;
+/* 5145 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5146 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5147 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5148 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5149 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5150 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5151 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5152 */           table_contents.setObject(nextRow, 0, "Project ID (9 Digits):");
+/* 5153 */           table_contents.setObject(nextRow, 2, projectID);
+/* 5154 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5155 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5156 */           table_contents.setObject(nextRow, 3, "  Narm Extract Ind:");
+/* 5157 */           table_contents.setObject(nextRow, 5, narmText);
+/* 5158 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5159 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5160 */           nextRow++;
 /*      */           
-/* 5174 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5175 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5176 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5177 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5178 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5179 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5180 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5181 */           table_contents.setObject(nextRow, 0, "PO Merge Code:");
-/* 5182 */           table_contents.setObject(nextRow, 2, poMergeCodeText);
+/* 5162 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5163 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5164 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5165 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5166 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5167 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5168 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5169 */           table_contents.setObject(nextRow, 0, "PO Merge Code:");
+/* 5170 */           table_contents.setObject(nextRow, 2, poMergeCodeText);
 /*      */           
-/* 5184 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5185 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5186 */           table_contents.setObject(nextRow, 3, "  Compilation \n  Soundtrack:");
-/* 5187 */           table_contents.setObject(nextRow, 5, compilationCodeText);
-/* 5188 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5189 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5190 */           nextRow++;
+/* 5172 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5173 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5174 */           table_contents.setObject(nextRow, 3, "  Compilation \n  Soundtrack:");
+/* 5175 */           table_contents.setObject(nextRow, 5, compilationCodeText);
+/* 5176 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5177 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5178 */           nextRow++;
 /*      */           
-/* 5192 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5193 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5194 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5195 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5196 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5197 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5198 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5199 */           table_contents.setObject(nextRow, 0, "# of Units:");
-/* 5200 */           table_contents.setObject(nextRow, 2, unitsPerSetText);
-/* 5201 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5202 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5203 */           table_contents.setObject(nextRow, 3, "  Parental Adv:");
-/* 5204 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5205 */           table_contents.setObject(nextRow, 5, selection.getParentalGuidance() ? "Yes" : "");
-/* 5206 */           nextRow++;
+/* 5180 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5181 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5182 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5183 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5184 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5185 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5186 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5187 */           table_contents.setObject(nextRow, 0, "# of Units:");
+/* 5188 */           table_contents.setObject(nextRow, 2, unitsPerSetText);
+/* 5189 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5190 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5191 */           table_contents.setObject(nextRow, 3, "  Parental Adv:");
+/* 5192 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5193 */           table_contents.setObject(nextRow, 5, selection.getParentalGuidance() ? "Yes" : "");
+/* 5194 */           nextRow++;
 /*      */           
-/* 5208 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5209 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5210 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5211 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5212 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5213 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5214 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5215 */           table_contents.setObject(nextRow, 0, "Sets Per Carton:");
-/* 5216 */           table_contents.setObject(nextRow, 2, String.valueOf(pfm.getSetsPerCarton()));
-/* 5217 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5218 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5219 */           table_contents.setObject(nextRow, 3, "  Box Set:");
-/* 5220 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5221 */           table_contents.setObject(nextRow, 5, pfm.getBoxSet() ? "Yes" : "");
-/* 5222 */           nextRow++;
+/* 5196 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5197 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5198 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5199 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5200 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5201 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5202 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5203 */           table_contents.setObject(nextRow, 0, "Sets Per Carton:");
+/* 5204 */           table_contents.setObject(nextRow, 2, String.valueOf(pfm.getSetsPerCarton()));
+/* 5205 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5206 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5207 */           table_contents.setObject(nextRow, 3, "  Box Set:");
+/* 5208 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5209 */           table_contents.setObject(nextRow, 5, pfm.getBoxSet() ? "Yes" : "");
+/* 5210 */           nextRow++;
 /*      */           
-/* 5224 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5225 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5226 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5227 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5228 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5229 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5230 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5231 */           table_contents.setObject(nextRow, 0, "Supplier:");
-/* 5232 */           table_contents.setObject(nextRow, 2, supplierText);
-/* 5233 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5234 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5235 */           table_contents.setObject(nextRow, 3, "  Value Added:");
-/* 5236 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5237 */           table_contents.setObject(nextRow, 5, pfm.getValueAdded() ? "Yes" : "");
-/* 5238 */           nextRow++;
+/* 5212 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5213 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5214 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5215 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5216 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5217 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5218 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5219 */           table_contents.setObject(nextRow, 0, "Supplier:");
+/* 5220 */           table_contents.setObject(nextRow, 2, supplierText);
+/* 5221 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5222 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5223 */           table_contents.setObject(nextRow, 3, "  Value Added:");
+/* 5224 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5225 */           table_contents.setObject(nextRow, 5, pfm.getValueAdded() ? "Yes" : "");
+/* 5226 */           nextRow++;
 /*      */           
-/* 5240 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5241 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5242 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5243 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5244 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5245 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5246 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5247 */           table_contents.setObject(nextRow, 0, "Import Indicator:");
-/* 5248 */           table_contents.setObject(nextRow, 2, importCodeText);
-/* 5249 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5250 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5251 */           table_contents.setObject(nextRow, 3, "  Encryption:");
-/* 5252 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5253 */           table_contents.setObject(nextRow, 5, encryptionText);
-/* 5254 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5255 */           nextRow++;
+/* 5228 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5229 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5230 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5231 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5232 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5233 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5234 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5235 */           table_contents.setObject(nextRow, 0, "Import Indicator:");
+/* 5236 */           table_contents.setObject(nextRow, 2, importCodeText);
+/* 5237 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5238 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5239 */           table_contents.setObject(nextRow, 3, "  Encryption:");
+/* 5240 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5241 */           table_contents.setObject(nextRow, 5, encryptionText);
+/* 5242 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5243 */           nextRow++;
 /*      */           
-/* 5257 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5258 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5259 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5260 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5261 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5262 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5263 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5264 */           table_contents.setObject(nextRow, 0, "UPC:");
+/* 5245 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5246 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5247 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5248 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5249 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5250 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5251 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5252 */           table_contents.setObject(nextRow, 0, "UPC:");
 /*      */           
-/* 5266 */           table_contents.setObject(nextRow, 2, MilestoneHelper_2.getRMSReportFormat(upc, "UPC", selection.getIsDigital()));
-/* 5267 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5268 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5269 */           table_contents.setObject(nextRow, 3, "  Price Code:");
-/* 5270 */           table_contents.setObject(nextRow, 5, priceCodeText);
-/* 5271 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5272 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5273 */           nextRow++;
+/* 5254 */           table_contents.setObject(nextRow, 2, MilestoneHelper_2.getRMSReportFormat(upc, "UPC", selection.getIsDigital()));
+/* 5255 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5256 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5257 */           table_contents.setObject(nextRow, 3, "  Price Code:");
+/* 5258 */           table_contents.setObject(nextRow, 5, priceCodeText);
+/* 5259 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5260 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5261 */           nextRow++;
 /*      */           
-/* 5275 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5276 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5277 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5278 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5279 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5280 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5281 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5263 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5264 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5265 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5266 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5267 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5268 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5269 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
 /*      */ 
 /*      */           
-/* 5284 */           table_contents.setObject(nextRow, 0, "SoundScan Grp:");
+/* 5272 */           table_contents.setObject(nextRow, 0, "SoundScan Grp:");
 /*      */           
-/* 5286 */           table_contents.setObject(nextRow, 2, MilestoneHelper_2.getRMSReportFormat(soundScanGroupText, "SSG", selection.getIsDigital()));
+/* 5274 */           table_contents.setObject(nextRow, 2, MilestoneHelper_2.getRMSReportFormat(soundScanGroupText, "SSG", selection.getIsDigital()));
 /*      */           
-/* 5288 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5289 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5290 */           table_contents.setObject(nextRow, 3, "  Dig. Price Code:");
-/* 5291 */           table_contents.setObject(nextRow, 5, priceCodeDPCText);
-/* 5292 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5293 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5294 */           nextRow++;
+/* 5276 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5277 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5278 */           table_contents.setObject(nextRow, 3, "  Dig. Price Code:");
+/* 5279 */           table_contents.setObject(nextRow, 5, priceCodeDPCText);
+/* 5280 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5281 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5282 */           nextRow++;
 /*      */           
-/* 5296 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5297 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5298 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5299 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5300 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5301 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5302 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5284 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5285 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5286 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5287 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5288 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5289 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5290 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
 /*      */           
-/* 5304 */           table_contents.setObject(nextRow, 0, "Music Line:");
-/* 5305 */           table_contents.setObject(nextRow, 2, musicLineText);
+/* 5292 */           table_contents.setObject(nextRow, 0, "Music Line:");
+/* 5293 */           table_contents.setObject(nextRow, 2, musicLineText);
 /*      */ 
 /*      */           
-/* 5308 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5309 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5310 */           table_contents.setObject(nextRow, 3, "  GRid #:");
-/* 5311 */           table_contents.setObject(nextRow, 5, gridNum);
-/* 5312 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
-/* 5313 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5314 */           nextRow++;
-/*      */ 
-/*      */ 
+/* 5296 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5297 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5298 */           table_contents.setObject(nextRow, 3, "  GRid #:");
+/* 5299 */           table_contents.setObject(nextRow, 5, gridNum);
+/* 5300 */           table_contents.setSpan(nextRow, 5, new Dimension(3, 1));
+/* 5301 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5302 */           nextRow++;
 /*      */ 
 /*      */ 
 /*      */ 
@@ -5334,92 +5320,94 @@
 /*      */ 
 /*      */ 
 /*      */ 
+/*      */ 
+/*      */ 
 /*      */           
-/* 5338 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
-/* 5339 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
-/* 5340 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
-/* 5341 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
-/* 5342 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
-/* 5343 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
-/* 5344 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
-/* 5345 */           table_contents.setObject(nextRow, 0, "Entered By:");
-/* 5346 */           table_contents.setObject(nextRow, 2, enteredByName);
+/* 5326 */           table_contents.setRowBorderColor(nextRow, 0, Color.white);
+/* 5327 */           table_contents.setRowBorderColor(nextRow, 1, Color.white);
+/* 5328 */           table_contents.setRowBorderColor(nextRow, 3, Color.white);
+/* 5329 */           table_contents.setRowBorderColor(nextRow, 4, Color.white);
+/* 5330 */           table_contents.setFont(nextRow, 1, new Font("Arial", 0, 9));
+/* 5331 */           table_contents.setFont(nextRow, 2, new Font("Arial", 0, 9));
+/* 5332 */           table_contents.setSpan(nextRow, 0, new Dimension(2, 1));
+/* 5333 */           table_contents.setObject(nextRow, 0, "Entered By:");
+/* 5334 */           table_contents.setObject(nextRow, 2, enteredByName);
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */           
-/* 5351 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
-/* 5352 */           table_contents.setAlignment(nextRow, 3, 1);
-/* 5353 */           table_contents.setObject(nextRow, 3, "  Approved By:");
-/* 5354 */           table_contents.setObject(nextRow, 5, pfm.getApprovedByName());
-/* 5355 */           table_contents.setFont(nextRow, 6, new Font("Arial", 0, 9));
-/* 5356 */           table_contents.setObject(nextRow, 6, "  Date:");
-/* 5357 */           table_contents.setRowBorderColor(nextRow, 6, Color.white);
-/* 5358 */           table_contents.setObject(nextRow, 7, pfm.getEnteredDate());
-/* 5359 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
-/* 5360 */           table_contents.setFont(nextRow, 7, new Font("Arial", 0, 9));
+/* 5339 */           table_contents.setSpan(nextRow, 3, new Dimension(2, 1));
+/* 5340 */           table_contents.setAlignment(nextRow, 3, 1);
+/* 5341 */           table_contents.setObject(nextRow, 3, "  Approved By:");
+/* 5342 */           table_contents.setObject(nextRow, 5, pfm.getApprovedByName());
+/* 5343 */           table_contents.setFont(nextRow, 6, new Font("Arial", 0, 9));
+/* 5344 */           table_contents.setObject(nextRow, 6, "  Date:");
+/* 5345 */           table_contents.setRowBorderColor(nextRow, 6, Color.white);
+/* 5346 */           table_contents.setObject(nextRow, 7, pfm.getEnteredDate());
+/* 5347 */           table_contents.setFont(nextRow, 5, new Font("Arial", 0, 9));
+/* 5348 */           table_contents.setFont(nextRow, 7, new Font("Arial", 0, 9));
 /*      */ 
 /*      */           
-/* 5363 */           nextRow++;
+/* 5351 */           nextRow++;
 /*      */           
-/* 5365 */           nextRow++;
+/* 5353 */           nextRow++;
 /*      */           
-/* 5367 */           table_contents.setRowBorderColor(nextRow, Color.white);
+/* 5355 */           table_contents.setRowBorderColor(nextRow, Color.white);
 /*      */         } 
 /*      */ 
 /*      */ 
 /*      */         
-/* 5372 */         report.setElement("table_colheaders", table_contents);
-/* 5373 */         String reportFilename = "report.pdf";
+/* 5360 */         report.setElement("table_colheaders", table_contents);
+/* 5361 */         String reportFilename = "report.pdf";
 /*      */         
-/* 5375 */         if (pdfRtf == 0) {
+/* 5363 */         if (pdfRtf == 0) {
 /*      */           
-/* 5377 */           HttpServletResponse sresponse = context.getResponse();
+/* 5365 */           HttpServletResponse sresponse = context.getResponse();
 /*      */           
-/* 5379 */           if (ie5) {
+/* 5367 */           if (ie5) {
 /*      */             
-/* 5381 */             sresponse.setHeader("extension", "pdf");
-/* 5382 */             sresponse.setContentType("application/pdf");
-/* 5383 */             sresponse.setHeader("Content-disposition", "attachment; filename=" + reportFilename);
+/* 5369 */             sresponse.setHeader("extension", "pdf");
+/* 5370 */             sresponse.setContentType("application/pdf");
+/* 5371 */             sresponse.setHeader("Content-disposition", "attachment; filename=" + reportFilename);
 /*      */           }
 /*      */           else {
 /*      */             
-/* 5387 */             sresponse.setHeader("extension", "pdf");
-/* 5388 */             sresponse.setContentType("application/force-download");
-/* 5389 */             sresponse.setHeader("Content-disposition", "attachment; filename=" + reportFilename);
+/* 5375 */             sresponse.setHeader("extension", "pdf");
+/* 5376 */             sresponse.setContentType("application/force-download");
+/* 5377 */             sresponse.setHeader("Content-disposition", "attachment; filename=" + reportFilename);
 /*      */           } 
 /*      */           
-/* 5392 */           ServletOutputStream servletOutputStream = sresponse.getOutputStream();
-/* 5393 */           servletOutputStream.flush();
+/* 5380 */           ServletOutputStream servletOutputStream = sresponse.getOutputStream();
+/* 5381 */           servletOutputStream.flush();
 /*      */           
-/* 5395 */           PDF4Generator pdfGenerator = new PDF4Generator(servletOutputStream);
-/* 5396 */           pdfGenerator.generate(report);
+/* 5383 */           PDF4Generator pdfGenerator = new PDF4Generator(servletOutputStream);
+/* 5384 */           pdfGenerator.generate(report);
 /*      */           
-/* 5398 */           servletOutputStream.close();
+/* 5386 */           servletOutputStream.close();
 /*      */         } 
 /*      */ 
 /*      */         
-/* 5402 */         if (pdfRtf == 2) {
+/* 5390 */         if (pdfRtf == 2) {
 /*      */           
-/* 5404 */           String prefix = "";
-/* 5405 */           if (selection.getPrefixID() != null && selection.getPrefixID().getAbbreviation() != null)
-/* 5406 */             prefix = selection.getPrefixID().getAbbreviation(); 
-/* 5407 */           EmailDistribution.generateFormReport(context, "PFM", report, 
-/* 5408 */               selection.getSelectionNo(), prefix, selection.getUpc(), selection.getIsDigital(), messageObject);
+/* 5392 */           String prefix = "";
+/* 5393 */           if (selection.getPrefixID() != null && selection.getPrefixID().getAbbreviation() != null)
+/* 5394 */             prefix = selection.getPrefixID().getAbbreviation(); 
+/* 5395 */           EmailDistribution.generateFormReport(context, "PFM", report, 
+/* 5396 */               selection.getSelectionNo(), prefix, selection.getUpc(), selection.getIsDigital(), messageObject);
 /*      */         } 
 /*      */ 
 /*      */         
-/* 5412 */         return true;
+/* 5400 */         return true;
 /*      */       
 /*      */       }
-/* 5415 */       catch (Exception e) {
+/* 5403 */       catch (Exception e) {
 /*      */         
-/* 5417 */         e.printStackTrace();
+/* 5405 */         e.printStackTrace();
 /*      */       } 
 /*      */     }
 /*      */ 
 /*      */     
-/* 5422 */     return edit(dispatcher, context, command);
+/* 5410 */     return edit(dispatcher, context, command);
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5434,25 +5422,25 @@
 /*      */ 
 /*      */   
 /*      */   private static String reportPrintHelper(Vector menuVector, String selectedOption) {
-/* 5437 */     String result = "";
+/* 5425 */     String result = "";
 /*      */     
-/* 5439 */     if (selectedOption == null) selectedOption = "";
+/* 5427 */     if (selectedOption == null) selectedOption = "";
 /*      */     
-/* 5441 */     if (menuVector != null)
+/* 5429 */     if (menuVector != null)
 /*      */     {
-/* 5443 */       for (int i = 0; i < menuVector.size(); i++) {
+/* 5431 */       for (int i = 0; i < menuVector.size(); i++) {
 /*      */         
-/* 5445 */         LookupObject lookupObject = (LookupObject)menuVector.elementAt(i);
-/* 5446 */         if (selectedOption.equalsIgnoreCase(lookupObject.getAbbreviation())) {
-/* 5447 */           String temporaryHold = lookupObject.getName();
-/* 5448 */           temporaryHold = temporaryHold.replace(',', ' ');
-/* 5449 */           result = String.valueOf(lookupObject.getAbbreviation()) + ":" + temporaryHold;
+/* 5433 */         LookupObject lookupObject = (LookupObject)menuVector.elementAt(i);
+/* 5434 */         if (selectedOption.equalsIgnoreCase(lookupObject.getAbbreviation())) {
+/* 5435 */           String temporaryHold = lookupObject.getName();
+/* 5436 */           temporaryHold = temporaryHold.replace(',', ' ');
+/* 5437 */           result = String.valueOf(lookupObject.getAbbreviation()) + ":" + temporaryHold;
 /*      */           
 /*      */           break;
 /*      */         } 
 /*      */       } 
 /*      */     }
-/* 5455 */     return result;
+/* 5443 */     return result;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5463,22 +5451,22 @@
 /*      */ 
 /*      */   
 /*      */   public static int getSelectionPfmPermissions(Selection selection, User user) {
-/* 5466 */     int level = 0;
+/* 5454 */     int level = 0;
 /*      */     
-/* 5468 */     if (selection != null && selection.getSelectionID() > -1) {
+/* 5456 */     if (selection != null && selection.getSelectionID() > -1) {
 /*      */ 
 /*      */ 
 /*      */       
-/* 5472 */       Environment env = selection.getEnvironment();
+/* 5460 */       Environment env = selection.getEnvironment();
 /*      */       
-/* 5474 */       CompanyAcl companyAcl = MilestoneHelper.getScreenPermissions(env, user);
-/* 5475 */       if (companyAcl != null && companyAcl.getAccessPfmForm() > level)
+/* 5462 */       CompanyAcl companyAcl = MilestoneHelper.getScreenPermissions(env, user);
+/* 5463 */       if (companyAcl != null && companyAcl.getAccessPfmForm() > level)
 /*      */       {
-/* 5477 */         level = companyAcl.getAccessPfmForm();
+/* 5465 */         level = companyAcl.getAccessPfmForm();
 /*      */       }
 /*      */     } 
 /*      */     
-/* 5481 */     return level;
+/* 5469 */     return level;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5500,16 +5488,16 @@
 /*      */ 
 /*      */   
 /*      */   public void setButtonVisibilities(Selection selection, User user, Context context, int level, String command) {
-/* 5503 */     String saveVisible = "false";
+/* 5491 */     String saveVisible = "false";
 /*      */     
-/* 5505 */     if (level > 1)
+/* 5493 */     if (level > 1)
 /*      */     {
-/* 5507 */       saveVisible = "true";
+/* 5495 */       saveVisible = "true";
 /*      */     }
 /*      */ 
 /*      */     
-/* 5511 */     context.removeSessionValue("saveVisible");
-/* 5512 */     context.putDelivery("saveVisible", saveVisible);
+/* 5499 */     context.removeSessionValue("saveVisible");
+/* 5500 */     context.putDelivery("saveVisible", saveVisible);
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5524,32 +5512,32 @@
 /*      */ 
 /*      */   
 /*      */   private boolean editCopy(Dispatcher dispatcher, Context context, String command) {
-/* 5527 */     User user = MilestoneSecurity.getUser(context);
+/* 5515 */     User user = MilestoneSecurity.getUser(context);
 /*      */     
-/* 5529 */     Notepad notepad = SelectionManager.getInstance().getSelectionNotepad(context, user.getUserId(), 0);
-/* 5530 */     MilestoneHelper.putNotepadIntoSession(notepad, context);
+/* 5517 */     Notepad notepad = SelectionManager.getInstance().getSelectionNotepad(context, user.getUserId(), 0);
+/* 5518 */     MilestoneHelper.putNotepadIntoSession(notepad, context);
 /*      */     
-/* 5532 */     Selection selection = (Selection)context.getSessionValue("Selection");
+/* 5520 */     Selection selection = (Selection)context.getSessionValue("Selection");
 /*      */     
-/* 5534 */     int selectionID = selection.getSelectionID();
+/* 5522 */     int selectionID = selection.getSelectionID();
 /*      */     
-/* 5536 */     Pfm targetPfm = SelectionManager.getInstance().getPfm(selectionID);
-/* 5537 */     Pfm copiedPfm = null;
+/* 5524 */     Pfm targetPfm = SelectionManager.getInstance().getPfm(selectionID);
+/* 5525 */     Pfm copiedPfm = null;
 /*      */     
-/* 5539 */     if (targetPfm != null) {
+/* 5527 */     if (targetPfm != null) {
 /*      */ 
 /*      */       
 /*      */       try {
-/* 5543 */         copiedPfm = (Pfm)targetPfm.clone();
+/* 5531 */         copiedPfm = (Pfm)targetPfm.clone();
 /*      */       }
-/* 5545 */       catch (CloneNotSupportedException cloneNotSupportedException) {}
+/* 5533 */       catch (CloneNotSupportedException cloneNotSupportedException) {}
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 5551 */       Form form = buildForm(context, copiedPfm, command);
-/* 5552 */       form.addElement(new FormHidden("cmd", "pfm-edit-copy", true));
+/* 5539 */       Form form = buildForm(context, copiedPfm, command);
+/* 5540 */       form.addElement(new FormHidden("cmd", "pfm-edit-copy", true));
 /*      */ 
 /*      */ 
 /*      */ 
@@ -5561,30 +5549,30 @@
 /*      */ 
 /*      */ 
 /*      */       
-/* 5564 */       String projectIDtoValidate = "";
-/* 5565 */       if (copiedPfm.getProjectID().trim().indexOf("-") > -1) {
-/* 5566 */         for (int j = 1; j < copiedPfm.getProjectID().trim().length(); j++) {
-/* 5567 */           if (copiedPfm.getProjectID().trim().charAt(j) != '-') {
-/* 5568 */             projectIDtoValidate = String.valueOf(projectIDtoValidate) + copiedPfm.getProjectID().trim().charAt(j);
+/* 5552 */       String projectIDtoValidate = "";
+/* 5553 */       if (copiedPfm.getProjectID().trim().indexOf("-") > -1) {
+/* 5554 */         for (int j = 1; j < copiedPfm.getProjectID().trim().length(); j++) {
+/* 5555 */           if (copiedPfm.getProjectID().trim().charAt(j) != '-') {
+/* 5556 */             projectIDtoValidate = String.valueOf(projectIDtoValidate) + copiedPfm.getProjectID().trim().charAt(j);
 /*      */           }
 /*      */         } 
 /*      */       } else {
-/* 5572 */         projectIDtoValidate = copiedPfm.getProjectID().trim();
+/* 5560 */         projectIDtoValidate = copiedPfm.getProjectID().trim();
 /*      */       } 
 /*      */       
-/* 5575 */       if (!ProjectSearchManager.getInstance().isProjectNumberValid(projectIDtoValidate)) {
-/* 5576 */         context.putDelivery("AlertMessage", "The Project Number on this product is invalid, please set up a new product.");
+/* 5563 */       if (!ProjectSearchManager.getInstance().isProjectNumberValid(projectIDtoValidate)) {
+/* 5564 */         context.putDelivery("AlertMessage", "The Project Number on this product is invalid, please set up a new product.");
 /*      */       }
-/* 5578 */       context.putSessionValue("copiedPfm", copiedPfm);
-/* 5579 */       context.putSessionValue("Pfm", targetPfm);
-/* 5580 */       context.putDelivery("Form", form);
+/* 5566 */       context.putSessionValue("copiedPfm", copiedPfm);
+/* 5567 */       context.putSessionValue("Pfm", targetPfm);
+/* 5568 */       context.putDelivery("Form", form);
 /*      */     } 
 /*      */ 
 /*      */     
-/* 5584 */     if (context.getSessionValue("NOTEPAD_PFM_VISIBLE") != null) {
-/* 5585 */       context.putDelivery("isNotePadVisible", (Boolean)context.getSessionValue("NOTEPAD_PFM_VISIBLE"));
+/* 5572 */     if (context.getSessionValue("NOTEPAD_PFM_VISIBLE") != null) {
+/* 5573 */       context.putDelivery("isNotePadVisible", (Boolean)context.getSessionValue("NOTEPAD_PFM_VISIBLE"));
 /*      */     }
-/* 5587 */     return edit(dispatcher, context, command);
+/* 5575 */     return edit(dispatcher, context, command);
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5594,140 +5582,140 @@
 /*      */ 
 /*      */   
 /*      */   private boolean pasteCopy(Dispatcher dispatcher, Context context, String command) {
-/* 5597 */     User user = MilestoneSecurity.getUser(context);
+/* 5585 */     User user = MilestoneSecurity.getUser(context);
 /*      */     
-/* 5599 */     Notepad notepad = SelectionManager.getInstance().getSelectionNotepad(context, user.getUserId(), 0);
-/* 5600 */     MilestoneHelper.putNotepadIntoSession(notepad, context);
+/* 5587 */     Notepad notepad = SelectionManager.getInstance().getSelectionNotepad(context, user.getUserId(), 0);
+/* 5588 */     MilestoneHelper.putNotepadIntoSession(notepad, context);
 /*      */     
-/* 5602 */     Selection selection = (Selection)context.getSessionValue("Selection");
-/* 5603 */     int selectionID = selection.getSelectionID();
+/* 5590 */     Selection selection = (Selection)context.getSessionValue("Selection");
+/* 5591 */     int selectionID = selection.getSelectionID();
 /*      */     
-/* 5605 */     Pfm copiedPfm = (Pfm)context.getSessionValue("copiedPfm");
+/* 5593 */     Pfm copiedPfm = (Pfm)context.getSessionValue("copiedPfm");
 /*      */ 
 /*      */ 
 /*      */     
-/* 5609 */     String productNumber = String.valueOf(SelectionManager.getLookupObjectValue(selection.getPrefixID())) + selection.getSelectionNo();
+/* 5597 */     String productNumber = String.valueOf(SelectionManager.getLookupObjectValue(selection.getPrefixID())) + selection.getSelectionNo();
 /*      */ 
 /*      */     
-/* 5612 */     String upc = "";
-/* 5613 */     if (selection.getUpc() != null)
+/* 5600 */     String upc = "";
+/* 5601 */     if (selection.getUpc() != null)
 /*      */     {
-/* 5615 */       upc = selection.getUpc();
+/* 5603 */       upc = selection.getUpc();
 /*      */     }
 /*      */ 
 /*      */     
-/* 5619 */     String title = "";
-/* 5620 */     if (selection.getTitle() != null)
+/* 5607 */     String title = "";
+/* 5608 */     if (selection.getTitle() != null)
 /*      */     {
-/* 5622 */       title = selection.getTitle();
+/* 5610 */       title = selection.getTitle();
 /*      */     }
 /*      */ 
 /*      */     
-/* 5626 */     String artist = "";
-/* 5627 */     if (selection.getArtist() != null) {
+/* 5614 */     String artist = "";
+/* 5615 */     if (selection.getArtist() != null) {
 /*      */       
-/* 5629 */       artist = selection.getArtistLastName();
-/* 5630 */       if (!selection.getArtistLastName().equals("") && !selection.getArtistFirstName().equals(""))
+/* 5617 */       artist = selection.getArtistLastName();
+/* 5618 */       if (!selection.getArtistLastName().equals("") && !selection.getArtistFirstName().equals(""))
 /*      */       {
-/* 5632 */         artist = String.valueOf(artist) + ", ";
+/* 5620 */         artist = String.valueOf(artist) + ", ";
 /*      */       }
-/* 5634 */       artist = String.valueOf(artist) + selection.getArtistFirstName();
+/* 5622 */       artist = String.valueOf(artist) + selection.getArtistFirstName();
 /*      */     } 
 /*      */ 
 /*      */     
-/* 5638 */     String titleID = "";
-/* 5639 */     if (selection.getTitleID() != null)
+/* 5626 */     String titleID = "";
+/* 5627 */     if (selection.getTitleID() != null)
 /*      */     {
-/* 5641 */       titleID = selection.getTitleID();
+/* 5629 */       titleID = selection.getTitleID();
 /*      */     }
 /*      */     
-/* 5644 */     String spineTitleText = "";
-/* 5645 */     if (selection != null)
+/* 5632 */     String spineTitleText = "";
+/* 5633 */     if (selection != null)
 /*      */     {
-/* 5647 */       if (selection.getTitle() != null) {
-/* 5648 */         spineTitleText = (selection.getTitle().length() > 39) ? selection.getTitle().substring(0, 38) : selection.getTitle();
+/* 5635 */       if (selection.getTitle() != null) {
+/* 5636 */         spineTitleText = (selection.getTitle().length() > 39) ? selection.getTitle().substring(0, 38) : selection.getTitle();
 /*      */       }
 /*      */     }
-/* 5651 */     String spineArtistText = "";
-/* 5652 */     if (selection != null)
+/* 5639 */     String spineArtistText = "";
+/* 5640 */     if (selection != null)
 /*      */     {
 /*      */       
-/* 5655 */       if (selection.getArtist() != null) {
-/* 5656 */         spineArtistText = (selection.getFlArtist().length() > 39) ? selection.getFlArtist().substring(0, 38) : selection.getFlArtist();
+/* 5643 */       if (selection.getArtist() != null) {
+/* 5644 */         spineArtistText = (selection.getFlArtist().length() > 39) ? selection.getFlArtist().substring(0, 38) : selection.getFlArtist();
 /*      */       }
 /*      */     }
 /*      */ 
 /*      */     
-/* 5661 */     String priceCode = "";
-/* 5662 */     if (selection.getSellCode() != null && !selection.getSellCode().equals("-1")) {
-/* 5663 */       priceCode = selection.getSellCode();
+/* 5649 */     String priceCode = "";
+/* 5650 */     if (selection.getSellCode() != null && !selection.getSellCode().equals("-1")) {
+/* 5651 */       priceCode = selection.getSellCode();
 /*      */     }
 /*      */     
-/* 5666 */     String priceCodeDPC = "";
-/* 5667 */     if (selection.getSellCodeDPC() != null && !selection.getSellCodeDPC().equals("-1")) {
-/* 5668 */       priceCodeDPC = selection.getSellCodeDPC();
+/* 5654 */     String priceCodeDPC = "";
+/* 5655 */     if (selection.getSellCodeDPC() != null && !selection.getSellCodeDPC().equals("-1")) {
+/* 5656 */       priceCodeDPC = selection.getSellCodeDPC();
 /*      */     }
-/* 5670 */     copiedPfm.setUpc(upc);
-/* 5671 */     copiedPfm.setProductNumber(productNumber);
-/* 5672 */     copiedPfm.setTitle(title);
-/* 5673 */     copiedPfm.setArtist(artist);
-/* 5674 */     copiedPfm.setTitleId(titleID);
-/* 5675 */     copiedPfm.setSpineTitle(spineTitleText);
+/* 5658 */     copiedPfm.setUpc(upc);
+/* 5659 */     copiedPfm.setProductNumber(productNumber);
+/* 5660 */     copiedPfm.setTitle(title);
+/* 5661 */     copiedPfm.setArtist(artist);
+/* 5662 */     copiedPfm.setTitleId(titleID);
+/* 5663 */     copiedPfm.setSpineTitle(spineTitleText);
 /*      */     
-/* 5677 */     copiedPfm.setSpineArtist(spineArtistText.trim());
-/* 5678 */     copiedPfm.setPriceCode(priceCode);
-/* 5679 */     copiedPfm.setPriceCodeDPC(priceCodeDPC);
+/* 5665 */     copiedPfm.setSpineArtist(spineArtistText.trim());
+/* 5666 */     copiedPfm.setPriceCode(priceCode);
+/* 5667 */     copiedPfm.setPriceCodeDPC(priceCodeDPC);
 /*      */ 
 /*      */     
-/* 5682 */     copiedPfm.setStreetDate(selection.getDigitalRlsDate());
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/* 5687 */     Pfm pfm = SelectionManager.getInstance().getPfm(selectionID);
-/*      */ 
-/*      */ 
-/*      */     
-/* 5691 */     copiedPfm.setPrintOption("Draft");
-/* 5692 */     copiedPfm.setComments("");
-/* 5693 */     copiedPfm.setMode("Add");
-/* 5694 */     User currentUser = (User)context.getSessionValue("user");
-/* 5695 */     copiedPfm.setPreparedBy(currentUser.getName());
-/* 5696 */     copiedPfm.setPhone(currentUser.getPhone());
-/* 5697 */     copiedPfm.setEmail(currentUser.getEmail());
-/* 5698 */     copiedPfm.setFaxNumber(currentUser.getFax());
-/* 5699 */     copiedPfm.setLastUpdatedDate(null);
-/*      */     
-/* 5701 */     copiedPfm.setLastUpdatingUser(99999);
-/*      */     
-/* 5703 */     copiedPfm.setModifier("-1");
+/* 5670 */     copiedPfm.setStreetDate(selection.getDigitalRlsDate());
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 5708 */     int releaseId = -1;
-/* 5709 */     long timestamp = -1L;
-/* 5710 */     int lastUser = -1;
+/* 5675 */     Pfm pfm = SelectionManager.getInstance().getPfm(selectionID);
+/*      */ 
 /*      */ 
 /*      */     
-/* 5713 */     Form form = buildForm(context, copiedPfm, command);
-/* 5714 */     form.addElement(new FormHidden("cmd", "pfm-paste-copy", true));
-/* 5715 */     form.addElement(new FormHidden("copyPaste", "copy", true));
+/* 5679 */     copiedPfm.setPrintOption("Draft");
+/* 5680 */     copiedPfm.setComments("");
+/* 5681 */     copiedPfm.setMode("Add");
+/* 5682 */     User currentUser = (User)context.getSessionValue("user");
+/* 5683 */     copiedPfm.setPreparedBy(currentUser.getName());
+/* 5684 */     copiedPfm.setPhone(currentUser.getPhone());
+/* 5685 */     copiedPfm.setEmail(currentUser.getEmail());
+/* 5686 */     copiedPfm.setFaxNumber(currentUser.getFax());
+/* 5687 */     copiedPfm.setLastUpdatedDate(null);
 /*      */     
-/* 5717 */     context.putSessionValue("Pfm", pfm);
-/* 5718 */     context.putDelivery("Form", form);
+/* 5689 */     copiedPfm.setLastUpdatingUser(99999);
 /*      */     
-/* 5720 */     context.removeSessionValue("copiedPfm");
+/* 5691 */     copiedPfm.setModifier("-1");
+/*      */ 
+/*      */ 
 /*      */ 
 /*      */     
-/* 5723 */     if (context.getSessionValue("NOTEPAD_PFM_VISIBLE") != null) {
-/* 5724 */       context.putDelivery("isNotePadVisible", (Boolean)context.getSessionValue("NOTEPAD_PFM_VISIBLE"));
+/* 5696 */     int releaseId = -1;
+/* 5697 */     long timestamp = -1L;
+/* 5698 */     int lastUser = -1;
+/*      */ 
+/*      */     
+/* 5701 */     Form form = buildForm(context, copiedPfm, command);
+/* 5702 */     form.addElement(new FormHidden("cmd", "pfm-paste-copy", true));
+/* 5703 */     form.addElement(new FormHidden("copyPaste", "copy", true));
+/*      */     
+/* 5705 */     context.putSessionValue("Pfm", pfm);
+/* 5706 */     context.putDelivery("Form", form);
+/*      */     
+/* 5708 */     context.removeSessionValue("copiedPfm");
+/*      */ 
+/*      */     
+/* 5711 */     if (context.getSessionValue("NOTEPAD_PFM_VISIBLE") != null) {
+/* 5712 */       context.putDelivery("isNotePadVisible", (Boolean)context.getSessionValue("NOTEPAD_PFM_VISIBLE"));
 /*      */     }
 /*      */     
-/* 5727 */     if (selection.getIsDigital()) {
-/* 5728 */       return context.includeJSP("pfm-editor-digital.jsp");
+/* 5715 */     if (selection.getIsDigital()) {
+/* 5716 */       return context.includeJSP("pfm-editor-digital.jsp");
 /*      */     }
-/* 5730 */     return context.includeJSP("pfm-editor.jsp");
+/* 5718 */     return context.includeJSP("pfm-editor.jsp");
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5741,115 +5729,115 @@
 /*      */ 
 /*      */   
 /*      */   private String getSearchJavaScriptCorporateArray(Context context) {
-/* 5744 */     StringBuffer result = new StringBuffer(100);
-/* 5745 */     String str = "";
-/* 5746 */     String value = new String();
-/* 5747 */     boolean foundFirstTemp = false;
+/* 5732 */     StringBuffer result = new StringBuffer(100);
+/* 5733 */     String str = "";
+/* 5734 */     String value = new String();
+/* 5735 */     boolean foundFirstTemp = false;
 /*      */     
-/* 5749 */     User user = (User)context.getSessionValue("user");
-/* 5750 */     Vector vUserCompanies = MilestoneHelper.getUserCompanies(context);
+/* 5737 */     User user = (User)context.getSessionValue("user");
+/* 5738 */     Vector vUserCompanies = MilestoneHelper.getUserCompanies(context);
 /*      */ 
 /*      */     
-/* 5753 */     HashMap corpHashMap = MilestoneHelper.buildActiveCorporateStructureHashMap();
+/* 5741 */     HashMap corpHashMap = MilestoneHelper.buildActiveCorporateStructureHashMap();
 /*      */ 
 /*      */ 
 /*      */     
-/* 5757 */     result.append("\n");
-/* 5758 */     result.append("var aSearch = new Array();\n");
-/* 5759 */     int arrayIndex = 0;
+/* 5745 */     result.append("\n");
+/* 5746 */     result.append("var aSearch = new Array();\n");
+/* 5747 */     int arrayIndex = 0;
 /*      */     
-/* 5761 */     result.append("aSearch[0] = new Array(");
-/* 5762 */     result.append(0);
-/* 5763 */     result.append(", '");
-/* 5764 */     result.append(" ");
-/* 5765 */     result.append('\'');
-/* 5766 */     foundFirstTemp = true;
+/* 5749 */     result.append("aSearch[0] = new Array(");
+/* 5750 */     result.append(0);
+/* 5751 */     result.append(", '");
+/* 5752 */     result.append(" ");
+/* 5753 */     result.append('\'');
+/* 5754 */     foundFirstTemp = true;
 /*      */     
-/* 5768 */     for (int a = 0; a < vUserCompanies.size(); a++) {
+/* 5756 */     for (int a = 0; a < vUserCompanies.size(); a++) {
 /*      */       
-/* 5770 */       Company ucTemp = (Company)vUserCompanies.elementAt(a);
-/* 5771 */       if (ucTemp != null) {
+/* 5758 */       Company ucTemp = (Company)vUserCompanies.elementAt(a);
+/* 5759 */       if (ucTemp != null) {
 /*      */ 
 /*      */         
-/* 5774 */         Vector labels = Cache.getInstance().getLabels();
-/* 5775 */         for (int b = 0; b < labels.size(); b++) {
+/* 5762 */         Vector labels = Cache.getInstance().getLabels();
+/* 5763 */         for (int b = 0; b < labels.size(); b++) {
 /*      */           
-/* 5777 */           Label node = (Label)labels.elementAt(b);
+/* 5765 */           Label node = (Label)labels.elementAt(b);
 /*      */           
-/* 5779 */           if (node.getParent().getParentID() == ucTemp.getStructureID() && 
-/* 5780 */             !corpHashMap.containsKey(new Integer(node.getStructureID()))) {
+/* 5767 */           if (node.getParent().getParentID() == ucTemp.getStructureID() && 
+/* 5768 */             !corpHashMap.containsKey(new Integer(node.getStructureID()))) {
 /*      */             
-/* 5782 */             if (foundFirstTemp)
-/* 5783 */               result.append(','); 
-/* 5784 */             result.append(' ');
-/* 5785 */             result.append(node.getStructureID());
-/* 5786 */             result.append(", '");
-/* 5787 */             result.append(MilestoneHelper.urlEncode(node.getName()));
-/* 5788 */             result.append('\'');
-/* 5789 */             foundFirstTemp = true;
+/* 5770 */             if (foundFirstTemp)
+/* 5771 */               result.append(','); 
+/* 5772 */             result.append(' ');
+/* 5773 */             result.append(node.getStructureID());
+/* 5774 */             result.append(", '");
+/* 5775 */             result.append(MilestoneHelper.urlEncode(node.getName()));
+/* 5776 */             result.append('\'');
+/* 5777 */             foundFirstTemp = true;
 /*      */           } 
 /*      */         } 
 /*      */       } 
 /*      */     } 
 /*      */ 
 /*      */     
-/* 5796 */     if (!foundFirstTemp) {
-/* 5797 */       result.append("'[none available]');\n");
+/* 5784 */     if (!foundFirstTemp) {
+/* 5785 */       result.append("'[none available]');\n");
 /*      */     } else {
-/* 5799 */       result.append(");\n");
+/* 5787 */       result.append(");\n");
 /*      */     } 
 /*      */     
-/* 5802 */     for (int i = 0; i < vUserCompanies.size(); i++) {
+/* 5790 */     for (int i = 0; i < vUserCompanies.size(); i++) {
 /*      */       
-/* 5804 */       Company uc = (Company)vUserCompanies.elementAt(i);
-/* 5805 */       if (uc != null) {
+/* 5792 */       Company uc = (Company)vUserCompanies.elementAt(i);
+/* 5793 */       if (uc != null) {
 /*      */         
-/* 5807 */         result.append("aSearch[");
-/* 5808 */         result.append(uc.getStructureID());
-/* 5809 */         result.append("] = new Array(");
+/* 5795 */         result.append("aSearch[");
+/* 5796 */         result.append(uc.getStructureID());
+/* 5797 */         result.append("] = new Array(");
 /*      */         
-/* 5811 */         boolean foundFirst = false;
+/* 5799 */         boolean foundFirst = false;
 /*      */         
-/* 5813 */         result.append(0);
-/* 5814 */         result.append(", '");
-/* 5815 */         result.append(" ");
-/* 5816 */         result.append('\'');
-/* 5817 */         foundFirst = true;
+/* 5801 */         result.append(0);
+/* 5802 */         result.append(", '");
+/* 5803 */         result.append(" ");
+/* 5804 */         result.append('\'');
+/* 5805 */         foundFirst = true;
 /*      */         
-/* 5819 */         Vector tmpArray = new Vector();
+/* 5807 */         Vector tmpArray = new Vector();
 /*      */         
-/* 5821 */         Vector labels = Cache.getInstance().getLabels();
-/* 5822 */         for (int j = 0; j < labels.size(); j++) {
+/* 5809 */         Vector labels = Cache.getInstance().getLabels();
+/* 5810 */         for (int j = 0; j < labels.size(); j++) {
 /*      */           
-/* 5824 */           Label node = (Label)labels.elementAt(j);
+/* 5812 */           Label node = (Label)labels.elementAt(j);
 /*      */           
-/* 5826 */           if (node.getParent().getParentID() == uc.getStructureID() && 
-/* 5827 */             !corpHashMap.containsKey(new Integer(node.getStructureID()))) {
+/* 5814 */           if (node.getParent().getParentID() == uc.getStructureID() && 
+/* 5815 */             !corpHashMap.containsKey(new Integer(node.getStructureID()))) {
 /*      */             
-/* 5829 */             if (foundFirst)
-/* 5830 */               result.append(','); 
-/* 5831 */             result.append(' ');
-/* 5832 */             result.append(node.getStructureID());
-/* 5833 */             result.append(", '");
-/* 5834 */             result.append(MilestoneHelper.urlEncode(node.getName()));
-/* 5835 */             result.append('\'');
-/* 5836 */             foundFirst = true;
-/* 5837 */             tmpArray.addElement(node);
+/* 5817 */             if (foundFirst)
+/* 5818 */               result.append(','); 
+/* 5819 */             result.append(' ');
+/* 5820 */             result.append(node.getStructureID());
+/* 5821 */             result.append(", '");
+/* 5822 */             result.append(MilestoneHelper.urlEncode(node.getName()));
+/* 5823 */             result.append('\'');
+/* 5824 */             foundFirst = true;
+/* 5825 */             tmpArray.addElement(node);
 /*      */           } 
 /*      */         } 
 /*      */         
-/* 5841 */         if (foundFirst) {
+/* 5829 */         if (foundFirst) {
 /*      */           
-/* 5843 */           result.append(");\n");
+/* 5831 */           result.append(");\n");
 /*      */         }
 /*      */         else {
 /*      */           
-/* 5847 */           result.append(" 0, '[none available]');\n");
+/* 5835 */           result.append(" 0, '[none available]');\n");
 /*      */         } 
 /*      */       } 
 /*      */     } 
 /*      */     
-/* 5852 */     return result.toString();
+/* 5840 */     return result.toString();
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5858,29 +5846,29 @@
 /*      */ 
 /*      */   
 /*      */   private boolean sortGroup(Dispatcher dispatcher, Context context) {
-/* 5861 */     int sort = Integer.parseInt(context.getParameter("OrderBy"));
+/* 5849 */     int sort = Integer.parseInt(context.getParameter("OrderBy"));
 /*      */     
-/* 5863 */     String alphaGroupChr = context.getParameter("alphaGroupChr");
+/* 5851 */     String alphaGroupChr = context.getParameter("alphaGroupChr");
 /*      */ 
 /*      */     
-/* 5866 */     Notepad notepad = (Notepad)context.getSessionValue(MilestoneConstants.NOTEPAD_SESSION_NAMES[0]);
+/* 5854 */     Notepad notepad = (Notepad)context.getSessionValue(MilestoneConstants.NOTEPAD_SESSION_NAMES[0]);
 /*      */ 
 /*      */     
-/* 5869 */     User user = (User)context.getSession().getAttribute("user");
-/* 5870 */     if (notepad.getAllContents() != null && notepad.getAllContents().size() < notepad.getTotalRecords()) {
+/* 5857 */     User user = (User)context.getSession().getAttribute("user");
+/* 5858 */     if (notepad.getAllContents() != null && notepad.getAllContents().size() < notepad.getTotalRecords()) {
 /*      */       
-/* 5872 */       notepad.setMaxRecords(0);
-/* 5873 */       notepad.setAllContents(null);
-/* 5874 */       notepad = SelectionManager.getInstance().getSelectionNotepad(context, user.getUserId(), 0);
+/* 5860 */       notepad.setMaxRecords(0);
+/* 5861 */       notepad.setAllContents(null);
+/* 5862 */       notepad = SelectionManager.getInstance().getSelectionNotepad(context, user.getUserId(), 0);
 /*      */     } 
 /*      */     
-/* 5877 */     SelectionManager.getInstance().getAlphaGroupPosition(context, notepad, alphaGroupChr, sort);
+/* 5865 */     SelectionManager.getInstance().getAlphaGroupPosition(context, notepad, alphaGroupChr, sort);
 /*      */     
-/* 5879 */     notepad.goToSelectedPage();
+/* 5867 */     notepad.goToSelectedPage();
 /*      */     
-/* 5881 */     dispatcher.redispatch(context, "pfm-editor");
+/* 5869 */     dispatcher.redispatch(context, "pfm-editor");
 /*      */     
-/* 5883 */     return true;
+/* 5871 */     return true;
 /*      */   }
 /*      */ }
 

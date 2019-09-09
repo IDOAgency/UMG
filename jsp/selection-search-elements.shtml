@@ -22,10 +22,10 @@ function HideLayer()
   <link rel="stylesheet" href="/resources/demos/style.css">
 <!-- START DIV DEFINITIONS -->
 <!-- start search div -->
-<div class="search" id="SearchLayer" onKeyPress="checkForEnter( 'submitSearchResults()' );" style="left:50px;z-index:150;visibility:hidden">
-<table width="100%" border="1" cellspacing="0" cellpadding="1">
+<div class="search" id="SearchLayer" onKeyPress="checkForEnter( 'submitSearchResults()' );" style="left:50px;z-index:150;visibility:hidden; overflow: auto; width: auto;">
+<table border="1" cellspacing="0" cellpadding="1">
 <tr><td>
-	<table width="100%">
+	<table >
 	<tr>
 		<th colspan="2">Selection Search</th>
 	</tr>
@@ -104,8 +104,8 @@ function HideLayer()
 	</tr> -->
 	<tr>
 	<td>Company</td>
-	<td><input type="radio" id="allCompany" onclick="javascript:yesnoCheck(); "name="company2" value="all"> All
-   <input type="radio" id="selectCompany" onclick="javascript:yesnoCheck();" name="company2" value="select"> Select</td>
+	<td><input type="radio" id="allCompany" onclick="javascript:yesnoCheck(); "name="company" value="all"> All
+   <input type="radio" id="selectCompany" onclick="javascript:yesnoCheck();" name="company" value="select"> Select</td>
     </tr>
 	
 	<tr id="selectCompanydiv" style="display:none;">
@@ -118,8 +118,8 @@ function HideLayer()
 	
 		<tr>
 		<td>Label</td>
-	<td><input type="radio" id="allLabel" onclick="javascript:yesnoCheckLabel(); "name="Label2" value="allLabel"> All
-    <input type="radio" id="selectLabel" onclick="javascript:yesnoCheckLabel(); "name="Label2" value="selectLabel"> Select</td>
+	<td><input type="radio" id="allLabel" onclick="javascript:yesnoCheckLabel(); "name="Label" value="allLabel"> All
+    <input type="radio" id="selectLabel" onclick="javascript:yesnoCheckLabel(); "name="Label" value="selectLabel"> Select</td>
     </tr>
     
 	<tr id="selectLabeldiv" style="display:none;">

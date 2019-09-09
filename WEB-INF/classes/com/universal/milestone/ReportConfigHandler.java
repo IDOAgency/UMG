@@ -201,7 +201,7 @@
 /*      */     
 /*  202 */     String[] columnNames = { "Name", "File Name" };
 /*  203 */     contents = ReportConfigManager.getInstance().getReportConfigNotepadList(null);
-/*  204 */     return new Notepad(contents, 0, 7, "Reports", 17, columnNames);
+/*  204 */     return new Notepad(contents, 0, 15, "Reports", 17, columnNames);
 /*      */   }
 /*      */ 
 /*      */ 

@@ -875,8 +875,8 @@
 /*      */             
 /*  876 */             if (family.getStructureID() == labelFamilyId)
 /*  877 */               isDefault = true; 
-/*  878 */             labelReleasingFamilies.add(new ReleasingFamily(
-/*  879 */                   family.getStructureID(), 
+/*  878 */             labelReleasingFamilies.add(new ReleasingFamily(family
+/*  879 */                   .getStructureID(), 
 /*  880 */                   family.getStructureID(), true, isDefault, family.getName(), 
 /*  881 */                   family.getStructureAbbreviation()));
 /*      */           }

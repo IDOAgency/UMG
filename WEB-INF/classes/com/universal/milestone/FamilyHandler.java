@@ -176,7 +176,7 @@
 /*     */     
 /* 177 */     String[] columnNames = { "Family" };
 /* 178 */     contents = MilestoneHelper.sortCorporateVectorByName(FamilyManager.getInstance().getFamilyNotepadList(userId, null));
-/* 179 */     return new Notepad(contents, 0, 7, "Family", 9, columnNames);
+/* 179 */     return new Notepad(contents, 0, 15, "Family", 9, columnNames);
 /*     */   }
 /*     */ 
 /*     */ 

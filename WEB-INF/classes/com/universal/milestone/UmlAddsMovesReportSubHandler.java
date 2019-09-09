@@ -433,7 +433,7 @@
 /*  433 */               monthVectorC.add((String)monthsC.nextElement());
 /*      */             }
 /*      */             
-/*  436 */             Object[] configsArrayC = (Object[])null;
+/*  436 */             Object[] configsArrayC = null;
 /*  437 */             configsArrayC = monthVectorC.toArray();
 /*      */             
 /*  439 */             for (int b = 0; b < configsArrayC.length; b++) {

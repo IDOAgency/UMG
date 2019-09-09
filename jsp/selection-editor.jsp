@@ -810,6 +810,11 @@ function submitResize()
 		<td><b>Territory</b></td>
 		<td>&nbsp;<%=form.getElement("territory")%></td>
 	</tr>
+	<tr>
+		<td nowrap><b>Production Group Code</b>&nbsp;&nbsp;</td>
+		<td><%= ((FormHidden)form.getElement("productGroupCode")).render() %>
+		<span id="productionGroupdiv"><%= form.getElement("productGroupCode").getDisplayName() %></span></td>
+	</tr>
   <!-- JR New Selection Screen Layout PNR driven 12/03/02 -->
 
 

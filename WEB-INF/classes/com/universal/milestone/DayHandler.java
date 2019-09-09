@@ -309,7 +309,7 @@
 /*     */     
 /* 310 */     String[] columnNames = { "Group", "Special Date", "Day Type" };
 /* 311 */     contents = DayManager.getInstance().getDayNotepadList(userId, null);
-/* 312 */     return new Notepad(contents, 0, 7, "Day Type", 6, columnNames);
+/* 312 */     return new Notepad(contents, 0, 15, "Day Type", 6, columnNames);
 /*     */   }
 /*     */ 
 /*     */ 

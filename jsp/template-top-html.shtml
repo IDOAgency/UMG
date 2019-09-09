@@ -4,7 +4,7 @@
 
    //the head is not closed here because in the page this file is included may hava
    //java script that is going to be placed between the <head> tags</head>.
-%>
+%>	
 <html>
   <head>
     <title><%= htmlTitle%></title>
@@ -15,6 +15,11 @@
 
 
 <script>
+
+//Setting the document mode t0 5
+	//document.documentMode = 5;
+
+
 var isMacBT = false;
 var navComBT = navigator.platform;
 if( navComBT.toUpperCase() == "MACPPC" || navComBT.substr(0,3).toUpperCase() == "MAC" )
@@ -24,13 +29,13 @@ function showWaitMsg()
 {
 
   // mc its 966 show please wait message on screen
-  if(parent.top.menuFrame)
+  if(parent.top.menuFrame &&  parent.top.menuFrame.document.all.WaitLayerDiv)	
      parent.top.menuFrame.document.all.WaitLayerDiv.style.display = "block";
 }
 function hideWaitMsg()
 {
   // mc its 966 hide please wait message
-  if(parent.top.menuFrame)
+  if(parent.top.menuFrame && parent.top.menuFrame.document.all.WaitLayerDiv)
     parent.top.menuFrame.document.all.WaitLayerDiv.style.display = "none";
 }
 

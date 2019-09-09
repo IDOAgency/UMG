@@ -923,7 +923,7 @@ if(userId == -1 || isUserInfo)
 </script>
 
 <script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function(event) {
+/*document.addEventListener("DOMContentLoaded", function(event) {
     if (document.getElementById('notePadMainTable') !== null) 
     {
    		 document.getElementById('userInfoTable').style.display = 'none'; 
@@ -932,6 +932,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
     	   	document.getElementById('preferencesLayer').style.display = 'none';
     }
 });
+*/
+
+function displayUserInfoTablePreferencesLayer()
+{
+	if (document.getElementById('notePadMainTable') !== null) 
+	{
+		document.getElementById('userInfoTable').style.display = 'none'; 
+		
+	}else{
+		document.getElementById('preferencesLayer').style.display = 'none';
+	}
+}
+
+window.onload = function() {
+	if (document.addEventListener) {  // For all major browsers, except IE 8 and earlier
+	    document.addEventListener("DOMContentLoaded", function(event) {
+			displayUserInfoTablePreferencesLayer();
+		});
+	} else if (document.attachEvent) {  // For IE 8 and earlier versions
+		document.attachEvent("DOMContentLoaded", function(event) {
+			displayUserInfoTablePreferencesLayer();
+		});
+	}
+}
+
 </script>
 
 <%@ include file="include-bottom-html.shtml"%>

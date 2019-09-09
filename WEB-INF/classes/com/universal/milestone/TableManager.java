@@ -747,8 +747,8 @@
 /*     */ 
 /*     */       
 /* 749 */       if (MilestoneHelper.isStringNotEmpty(descriptionSearch)) {
-/* 750 */         tableQuery = String.valueOf(tableQuery) + 
-/* 751 */           MilestoneHelper.addQueryParams(tableQuery, " description " + MilestoneHelper.setWildCardsEscapeSingleQuotes(descriptionSearch));
+/* 750 */         tableQuery = String.valueOf(tableQuery) + MilestoneHelper.addQueryParams(tableQuery, " description " + 
+/* 751 */             MilestoneHelper.setWildCardsEscapeSingleQuotes(descriptionSearch));
 /*     */       }
 /* 753 */       String order = " ORDER BY [field_name]";
 /*     */       

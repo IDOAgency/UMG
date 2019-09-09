@@ -258,7 +258,7 @@
 /*      */     
 /*  259 */     String[] columnNames = { "Label", "Division" };
 /*  260 */     contents = MilestoneHelper.sortCorporateVectorByName(LabelManager.getInstance().getLabelNotepadList(userId, null));
-/*  261 */     return new Notepad(contents, 0, 7, "Label", 12, columnNames);
+/*  261 */     return new Notepad(contents, 0, 15, "Label", 12, columnNames);
 /*      */   }
 /*      */ 
 /*      */ 

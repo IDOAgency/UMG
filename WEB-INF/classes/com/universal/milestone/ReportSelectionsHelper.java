@@ -227,7 +227,7 @@
 /*     */ 
 /*     */   
 /*     */   public static String[] getMultiSelectionListValues(String multSelectListName, Form reportForm) {
-/* 230 */     String[] returnArray = (String[])null;
+/* 230 */     String[] returnArray = null;
 /*     */     try {
 /* 232 */       MilestoneFormDropDownMenu multFormDropDown = (MilestoneFormDropDownMenu)reportForm.getElement(multSelectListName);
 /* 233 */       if (multFormDropDown != null) {

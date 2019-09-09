@@ -30,16 +30,16 @@
 /*    */ 
 /*    */ 
 /*    */ 
-/*    */ 
 /*    */ public class PnrClient
 /*    */ {
 /*    */   public static void main(String[] arg) throws Exception {
-/* 37 */     PnrHome home = null;
-/* 38 */     PnrRemote pnr = null;
-/* 39 */     System.out.println("Hello from PnrClient.");
+/* 36 */     PnrHome home = null;
+/* 37 */     PnrRemote pnr = null;
+/* 38 */     System.out.println("Hello from PnrClient.");
 /*    */     try {
-/* 41 */       Properties h = new Properties();
-/* 42 */       h.put("java.naming.factory.initial", "weblogic.jndi.WLInitialContextFactory");
+/* 40 */       Properties h = new Properties();
+/* 41 */       h.put("java.naming.factory.initial", 
+/* 42 */           "weblogic.jndi.WLInitialContextFactory");
 /* 43 */       h.put("java.naming.provider.url", "t3://localhost:7001");
 /* 44 */       Context initial = new InitialContext(h);
 /*    */       
@@ -48,19 +48,10 @@
 /* 48 */       if (home == null) {
 /* 49 */         System.out.println("NULL PnrHome.");
 /*    */       } else {
-/*    */         
-/* 52 */         System.out.println("PnrHome not null.");
-/* 53 */         pnr = home.create();
-/* 54 */         System.out.println("PnrBean Created.");
-/* 55 */         SimpleDateFormat df = new SimpleDateFormat("m/d/yy");
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+/* 51 */         System.out.println("PnrHome not null.");
+/* 52 */         pnr = home.create();
+/* 53 */         System.out.println("PnrBean Created.");
+/* 54 */         SimpleDateFormat df = new SimpleDateFormat("m/d/yy");
 /*    */ 
 /*    */ 
 /*    */ 
@@ -70,25 +61,14 @@
 /*    */ 
 /*    */ 
 /*    */         
-/* 73 */         String strReply = pnr.getPnr(arg[0], 
-/* 74 */             arg[1], 
-/* 75 */             arg[2], 
-/* 76 */             arg[3], 
-/* 77 */             arg[4], 
-/* 78 */             arg[5], 
-/* 79 */             arg[6], 
-/* 80 */             arg[7], 
-/* 81 */             df.parse(arg[8]), 
-/* 82 */             arg[9], 
-/* 83 */             arg[10], 
-/* 84 */             arg[11], 
-/* 85 */             arg[12]);
+/* 64 */         String strReply = pnr.getPnr(arg[0], arg[1], arg[2], arg[3], 
+/* 65 */             arg[4], arg[5], arg[6], arg[7], df.parse(arg[8]), 
+/* 66 */             arg[9], arg[10], arg[11], arg[12]);
 /*    */         
-/* 87 */         System.out.println("PnrBean getPnr: " + strReply);
-/*    */       }
-/*    */     
-/* 90 */     } catch (Exception e) {
-/* 91 */       System.out.println(e.toString());
+/* 68 */         System.out.println("PnrBean getPnr: " + strReply);
+/*    */       } 
+/* 70 */     } catch (Exception e) {
+/* 71 */       System.out.println(e.toString());
 /*    */     } 
 /*    */   }
 /*    */ }

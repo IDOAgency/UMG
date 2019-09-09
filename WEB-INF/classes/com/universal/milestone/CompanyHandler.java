@@ -232,7 +232,7 @@
 /*     */     
 /* 233 */     String[] columnNames = { "Company", "Environment" };
 /* 234 */     contents = MilestoneHelper.sortCorporateVectorByName(CompanyManager.getInstance().getCompanyNotepadList(userId, null));
-/* 235 */     return new Notepad(contents, 0, 7, "Company", 10, columnNames);
+/* 235 */     return new Notepad(contents, 0, 15, "Company", 10, columnNames);
 /*     */   }
 /*     */ 
 /*     */ 

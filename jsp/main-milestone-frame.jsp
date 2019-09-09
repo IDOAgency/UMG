@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Milestone</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=11" />
 </head>
    <frameset rows="62,*,0" border="0" frameborder="no" >
      <frame name="menuFrame" src="home?cmd=main-top-menu" scrolling=no noresize marginwidth=0 marginheight=0>

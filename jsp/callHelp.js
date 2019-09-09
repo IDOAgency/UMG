@@ -1,12 +1,12 @@
 <script>
-var newWindow
-var newWindowSimple
-var helpWindow 
-var helpWindowSimple
-var strProjectFramesPagePlus = "start.htm#"//defines the name of the start or frameset page for the WebHelp project
-var strProjectPath
-var strHelpPage
-var isNav4 = (navigator.appName == "Netscape" && parseInt(navigator.appVersion) == 4)
+var newWindow;
+var newWindowSimple;
+var helpWindow; 
+var helpWindowSimple;
+var strProjectFramesPagePlus = "start.htm#";//defines the name of the start or frameset page for the WebHelp project
+var strProjectPath;
+var strHelpPage;
+var isNav4 = (navigator.appName == "Netscape" && parseInt(navigator.appVersion) == 4);
 
 function callHelp(strProjectPath,strHelpPage)
 {
@@ -59,5 +59,4 @@ function callHelpSimple(strProjectPath,strHelpPage)
 	helpWindowSimple.focus();
 	}
 }
-
 </script>

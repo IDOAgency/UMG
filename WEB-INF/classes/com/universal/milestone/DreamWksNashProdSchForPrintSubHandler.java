@@ -411,7 +411,7 @@
 /* 411 */               while (monthSort.hasMoreElements()) {
 /* 412 */                 monthVector.add((String)monthSort.nextElement());
 /*     */               }
-/* 414 */               Object[] monthArray = (Object[])null;
+/* 414 */               Object[] monthArray = null;
 /*     */               
 /* 416 */               monthArray = monthVector.toArray();
 /*     */               
@@ -486,7 +486,7 @@
 /* 486 */                   while (dateSort.hasMoreElements()) {
 /* 487 */                     dateVector.add((String)dateSort.nextElement());
 /*     */                   }
-/* 489 */                   Object[] dateArray = (Object[])null;
+/* 489 */                   Object[] dateArray = null;
 /*     */                   
 /* 491 */                   dateArray = dateVector.toArray();
 /* 492 */                   Arrays.sort(dateArray, new StringDateComparator());

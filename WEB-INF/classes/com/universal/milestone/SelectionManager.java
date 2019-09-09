@@ -1223,115 +1223,120 @@
 /* 1223 */         selectionNo = connector.getFieldByName("selection_no"); 
 /* 1224 */       selection.setSelectionNo(selectionNo);
 /*      */       
-/* 1226 */       selection.setProjectID(connector.getField("project_no", ""));
+/* 1226 */       String productionGroupCode = "";
+/* 1227 */       if (connector.getFieldByName("Production_Group_Code") != null)
+/* 1228 */         productionGroupCode = connector.getFieldByName("Production_Group_Code"); 
+/* 1229 */       selection.setProductionGroupCode(productionGroupCode);
 /*      */       
-/* 1228 */       String titleId = "";
-/* 1229 */       if (connector.getFieldByName("title_id") != null)
-/* 1230 */         titleId = connector.getFieldByName("title_id"); 
-/* 1231 */       selection.setTitleID(titleId);
+/* 1231 */       selection.setProjectID(connector.getField("project_no", ""));
 /*      */       
-/* 1233 */       selection.setTitle(connector.getField("title", ""));
-/* 1234 */       selection.setArtistFirstName(connector.getField("artist_first_name", ""));
-/* 1235 */       selection.setArtistLastName(connector.getField("artist_last_name", ""));
-/* 1236 */       selection.setArtist(connector.getField("artist", ""));
-/* 1237 */       selection.setFlArtist(connector.getField("fl_artist", ""));
-/* 1238 */       selection.setASide(connector.getField("side_a_title", ""));
-/* 1239 */       selection.setBSide(connector.getField("side_b_title", ""));
+/* 1233 */       String titleId = "";
+/* 1234 */       if (connector.getFieldByName("title_id") != null)
+/* 1235 */         titleId = connector.getFieldByName("title_id"); 
+/* 1236 */       selection.setTitleID(titleId);
 /*      */       
-/* 1241 */       selection.setProductCategory((ProductCategory)getLookupObject(connector.getField("product_line"), 
-/* 1242 */             Cache.getProductCategories()));
-/* 1243 */       selection.setReleaseType((ReleaseType)getLookupObject(connector.getField("release_type"), 
-/* 1244 */             Cache.getReleaseTypes()));
+/* 1238 */       selection.setTitle(connector.getField("title", ""));
+/* 1239 */       selection.setArtistFirstName(connector.getField("artist_first_name", ""));
+/* 1240 */       selection.setArtistLastName(connector.getField("artist_last_name", ""));
+/* 1241 */       selection.setArtist(connector.getField("artist", ""));
+/* 1242 */       selection.setFlArtist(connector.getField("fl_artist", ""));
+/* 1243 */       selection.setASide(connector.getField("side_a_title", ""));
+/* 1244 */       selection.setBSide(connector.getField("side_b_title", ""));
 /*      */       
-/* 1246 */       selection.setSelectionConfig(getSelectionConfigObject(connector.getField("configuration"), 
-/* 1247 */             Cache.getSelectionConfigs()));
+/* 1246 */       selection.setProductCategory((ProductCategory)getLookupObject(connector.getField("product_line"), 
+/* 1247 */             Cache.getProductCategories()));
+/* 1248 */       selection.setReleaseType((ReleaseType)getLookupObject(connector.getField("release_type"), 
+/* 1249 */             Cache.getReleaseTypes()));
 /*      */       
-/* 1249 */       selection.setSelectionSubConfig(getSelectionSubConfigObject(connector.getField("sub_configuration"), 
-/* 1250 */             selection.getSelectionConfig()));
+/* 1251 */       selection.setSelectionConfig(getSelectionConfigObject(connector.getField("configuration"), 
+/* 1252 */             Cache.getSelectionConfigs()));
 /*      */       
-/* 1252 */       selection.setUpc(connector.getField("upc", ""));
+/* 1254 */       selection.setSelectionSubConfig(getSelectionSubConfigObject(connector.getField("sub_configuration"), 
+/* 1255 */             selection.getSelectionConfig()));
 /*      */       
-/* 1254 */       String sellCodeString = connector.getFieldByName("price_code");
-/* 1255 */       if (sellCodeString != null)
+/* 1257 */       selection.setUpc(connector.getField("upc", ""));
+/*      */       
+/* 1259 */       String sellCodeString = connector.getFieldByName("price_code");
+/* 1260 */       if (sellCodeString != null)
 /*      */       {
-/* 1257 */         selection.setPriceCode(getPriceCode(sellCodeString));
+/* 1262 */         selection.setPriceCode(getPriceCode(sellCodeString));
 /*      */       }
 /*      */       
-/* 1260 */       selection.setSellCode(sellCodeString);
+/* 1265 */       selection.setSellCode(sellCodeString);
 /*      */ 
 /*      */       
-/* 1263 */       String sellCodeStringDPC = connector.getFieldByName("digital_price_code");
-/* 1264 */       if (sellCodeStringDPC != null)
+/* 1268 */       String sellCodeStringDPC = connector.getFieldByName("digital_price_code");
+/* 1269 */       if (sellCodeStringDPC != null)
 /*      */       {
-/* 1266 */         selection.setPriceCodeDPC(getPriceCode(sellCodeStringDPC));
+/* 1271 */         selection.setPriceCodeDPC(getPriceCode(sellCodeStringDPC));
 /*      */       }
-/* 1268 */       selection.setSellCodeDPC(sellCodeStringDPC);
+/* 1273 */       selection.setSellCodeDPC(sellCodeStringDPC);
 /*      */ 
 /*      */       
-/* 1271 */       selection.setGenre((Genre)getLookupObject(connector.getField("genre"), 
-/* 1272 */             Cache.getMusicTypes()));
-/* 1273 */       selection.setFamily((Family)MilestoneHelper.getStructureObject(connector.getIntegerField("family_id")));
-/* 1274 */       selection.setEnvironment((Environment)MilestoneHelper.getStructureObject(connector.getIntegerField("environment_id")));
-/* 1275 */       selection.setCompany((Company)MilestoneHelper.getStructureObject(connector.getIntegerField("company_id")));
-/* 1276 */       selection.setDivision((Division)MilestoneHelper.getStructureObject(connector.getIntegerField("division_id")));
-/* 1277 */       selection.setLabel((Label)MilestoneHelper.getStructureObject(connector.getIntegerField("label_id")));
+/* 1276 */       selection.setGenre((Genre)getLookupObject(connector.getField("genre"), 
+/* 1277 */             Cache.getMusicTypes()));
+/* 1278 */       selection.setFamily((Family)MilestoneHelper.getStructureObject(connector.getIntegerField("family_id")));
+/* 1279 */       selection.setEnvironment((Environment)MilestoneHelper.getStructureObject(connector.getIntegerField("environment_id")));
+/* 1280 */       selection.setCompany((Company)MilestoneHelper.getStructureObject(connector.getIntegerField("company_id")));
+/* 1281 */       selection.setDivision((Division)MilestoneHelper.getStructureObject(connector.getIntegerField("division_id")));
+/* 1282 */       selection.setLabel((Label)MilestoneHelper.getStructureObject(connector.getIntegerField("label_id")));
 /*      */       
-/* 1279 */       String streetDateString = connector.getFieldByName("street_date");
-/* 1280 */       if (streetDateString != null) {
-/* 1281 */         selection.setStreetDate(MilestoneHelper.getDatabaseDate(streetDateString));
+/* 1284 */       String streetDateString = connector.getFieldByName("street_date");
+/* 1285 */       if (streetDateString != null) {
+/* 1286 */         selection.setStreetDate(MilestoneHelper.getDatabaseDate(streetDateString));
 /*      */       }
-/* 1283 */       String internationalDateString = connector.getFieldByName("international_date");
-/* 1284 */       if (internationalDateString != null) {
-/* 1285 */         selection.setInternationalDate(MilestoneHelper.getDatabaseDate(internationalDateString));
+/* 1288 */       String internationalDateString = connector.getFieldByName("international_date");
+/* 1289 */       if (internationalDateString != null) {
+/* 1290 */         selection.setInternationalDate(MilestoneHelper.getDatabaseDate(internationalDateString));
 /*      */       }
-/* 1287 */       selection.setOtherContact(connector.getField("coordinator_contacts", ""));
+/* 1292 */       selection.setOtherContact(connector.getField("coordinator_contacts", ""));
 /*      */       
-/* 1289 */       if (UserManager.getInstance().getUser(connector.getIntegerField("contact_id")) != null) {
-/* 1290 */         selection.setLabelContact(UserManager.getInstance().getUser(connector.getIntegerField("contact_id")));
+/* 1294 */       if (UserManager.getInstance().getUser(connector.getIntegerField("contact_id")) != null) {
+/* 1295 */         selection.setLabelContact(UserManager.getInstance().getUser(connector.getIntegerField("contact_id")));
 /*      */       }
-/* 1292 */       selection.setSelectionStatus((SelectionStatus)getLookupObject(connector.getField("status"), 
-/* 1293 */             Cache.getSelectionStatusList()));
-/* 1294 */       selection.setHoldSelection(connector.getBoolean("hold_indicator"));
+/* 1297 */       selection.setSelectionStatus((SelectionStatus)getLookupObject(connector.getField("status"), 
+/* 1298 */             Cache.getSelectionStatusList()));
+/* 1299 */       selection.setHoldSelection(connector.getBoolean("hold_indicator"));
 /*      */       
-/* 1296 */       selection.setHoldReason(connector.getField("hold_reason", ""));
-/* 1297 */       selection.setComments(connector.getField("comments", ""));
-/* 1298 */       selection.setSpecialPackaging(connector.getBoolean("special_pkg_indicator"));
+/* 1301 */       selection.setHoldReason(connector.getField("hold_reason", ""));
+/* 1302 */       selection.setComments(connector.getField("comments", ""));
+/* 1303 */       selection.setSpecialPackaging(connector.getBoolean("special_pkg_indicator"));
 /*      */ 
 /*      */       
-/* 1301 */       selection.setNumberOfUnits(connector.getIntegerField("units"));
+/* 1306 */       selection.setNumberOfUnits(connector.getIntegerField("units"));
 /*      */       
-/* 1303 */       selection.setPressAndDistribution(connector.getBoolean("pd_indicator"));
+/* 1308 */       selection.setPressAndDistribution(connector.getBoolean("pd_indicator"));
 /*      */       
-/* 1305 */       selection.setNoDigitalRelease(connector.getBoolean("no_digital_release"));
+/* 1310 */       selection.setNoDigitalRelease(connector.getBoolean("no_digital_release"));
 /*      */       
-/* 1307 */       selection.setPrefixID((PrefixCode)getLookupObject(connector.getField("prefix"), Cache.getPrefixCodes()));
-/* 1308 */       selection.setSelectionPackaging(connector.getField("packaging", ""));
+/* 1312 */       selection.setPrefixID((PrefixCode)getLookupObject(connector.getField("prefix"), Cache.getPrefixCodes()));
+/* 1313 */       selection.setSelectionPackaging(connector.getField("packaging", ""));
 /*      */       
-/* 1310 */       String impactDateString = connector.getFieldByName("impact_date");
-/* 1311 */       if (impactDateString != null) {
-/* 1312 */         selection.setImpactDate(MilestoneHelper.getDatabaseDate(impactDateString));
+/* 1315 */       String impactDateString = connector.getFieldByName("impact_date");
+/* 1316 */       if (impactDateString != null) {
+/* 1317 */         selection.setImpactDate(MilestoneHelper.getDatabaseDate(impactDateString));
 /*      */       }
-/* 1314 */       String lastUpdateDateString = connector.getFieldByName("last_updated_on");
-/* 1315 */       if (lastUpdateDateString != null) {
-/* 1316 */         selection.setLastUpdateDate(MilestoneHelper.getDatabaseDate(lastUpdateDateString));
+/* 1319 */       String lastUpdateDateString = connector.getFieldByName("last_updated_on");
+/* 1320 */       if (lastUpdateDateString != null) {
+/* 1321 */         selection.setLastUpdateDate(MilestoneHelper.getDatabaseDate(lastUpdateDateString));
 /*      */       }
-/* 1318 */       selection.setLastUpdatingUser(UserManager.getInstance().getUser(connector.getIntegerField("last_updated_by")));
+/* 1323 */       selection.setLastUpdatingUser(UserManager.getInstance().getUser(connector.getIntegerField("last_updated_by")));
 /*      */       
-/* 1320 */       long lastUpdatedLong = Long.parseLong(connector.getField("last_updated_ck"), 16);
+/* 1325 */       long lastUpdatedLong = Long.parseLong(connector.getField("last_updated_ck"), 16);
 /*      */       
-/* 1322 */       selection.setLastUpdatedCheck(lastUpdatedLong);
+/* 1327 */       selection.setLastUpdatedCheck(lastUpdatedLong);
 /*      */       
-/* 1324 */       selection.setPrice(connector.getFloat("list_price"));
+/* 1329 */       selection.setPrice(connector.getFloat("list_price"));
 /*      */ 
 /*      */       
-/* 1327 */       String lastChangedOn = connector.getFieldByName("last_changed_on");
-/* 1328 */       if (lastChangedOn != null) {
-/* 1329 */         selection.setLastStreetUpdateDate(MilestoneHelper.getDatabaseDate(connector.getField("last_changed_on")));
+/* 1332 */       String lastChangedOn = connector.getFieldByName("last_changed_on");
+/* 1333 */       if (lastChangedOn != null) {
+/* 1334 */         selection.setLastStreetUpdateDate(MilestoneHelper.getDatabaseDate(connector.getField("last_changed_on")));
 /*      */       }
 /*      */       
-/* 1332 */       String originDateString = connector.getFieldByName("entered_on");
-/* 1333 */       if (originDateString != null) {
-/* 1334 */         selection.setOriginDate(MilestoneHelper.getDatabaseDate(originDateString));
+/* 1337 */       String originDateString = connector.getFieldByName("entered_on");
+/* 1338 */       if (originDateString != null) {
+/* 1339 */         selection.setOriginDate(MilestoneHelper.getDatabaseDate(originDateString));
 /*      */       }
 /*      */ 
 /*      */ 
@@ -1340,153 +1345,153 @@
 /*      */ 
 /*      */ 
 /*      */       
-/* 1343 */       selection.setTemplateId(connector.getInt("templateId", -1));
+/* 1348 */       selection.setTemplateId(connector.getInt("templateId", -1));
 /*      */       
-/* 1345 */       selection.setParentalGuidance(connector.getBoolean("parental_indicator"));
-/* 1346 */       selection.setSelectionTerritory(connector.getField("territory", ""));
+/* 1350 */       selection.setParentalGuidance(connector.getBoolean("parental_indicator"));
+/* 1351 */       selection.setSelectionTerritory(connector.getField("territory", ""));
 /*      */       
-/* 1348 */       String lastSchedUpdateDateString = connector.getFieldByName("last_sched_updated_on");
-/* 1349 */       if (lastSchedUpdateDateString != null)
-/* 1350 */         selection.setLastSchedUpdateDate(MilestoneHelper.getDatabaseDate(lastSchedUpdateDateString)); 
-/* 1351 */       selection.setLastSchedUpdatingUser(UserManager.getInstance().getUser(connector.getIntegerField("last_sched_updated_by")));
+/* 1353 */       String lastSchedUpdateDateString = connector.getFieldByName("last_sched_updated_on");
+/* 1354 */       if (lastSchedUpdateDateString != null)
+/* 1355 */         selection.setLastSchedUpdateDate(MilestoneHelper.getDatabaseDate(lastSchedUpdateDateString)); 
+/* 1356 */       selection.setLastSchedUpdatingUser(UserManager.getInstance().getUser(connector.getIntegerField("last_sched_updated_by")));
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 1358 */       String digitalRlsString = connector.getFieldByName("digital_rls_date");
-/* 1359 */       if (digitalRlsString != null) {
-/* 1360 */         selection.setDigitalRlsDateString(digitalRlsString);
-/* 1361 */         selection.setDigitalRlsDate(MilestoneHelper.getDatabaseDate(digitalRlsString));
+/* 1363 */       String digitalRlsString = connector.getFieldByName("digital_rls_date");
+/* 1364 */       if (digitalRlsString != null) {
+/* 1365 */         selection.setDigitalRlsDateString(digitalRlsString);
+/* 1366 */         selection.setDigitalRlsDate(MilestoneHelper.getDatabaseDate(digitalRlsString));
 /*      */       } 
 /*      */       
-/* 1364 */       selection.setInternationalFlag(connector.getBoolean("international_flag"));
+/* 1369 */       selection.setInternationalFlag(connector.getBoolean("international_flag"));
 /*      */       
-/* 1366 */       selection.setOperCompany(connector.getField("oper_company", ""));
+/* 1371 */       selection.setOperCompany(connector.getField("oper_company", ""));
 /*      */       
-/* 1368 */       selection.setSuperLabel(connector.getField("super_label", ""));
+/* 1373 */       selection.setSuperLabel(connector.getField("super_label", ""));
 /*      */       
-/* 1370 */       selection.setSubLabel(connector.getField("sub_label", ""));
+/* 1375 */       selection.setSubLabel(connector.getField("sub_label", ""));
 /*      */       
-/* 1372 */       selection.setConfigCode(connector.getField("config_code", ""));
+/* 1377 */       selection.setConfigCode(connector.getField("config_code", ""));
 /*      */       
-/* 1374 */       selection.setSoundScanGrp(connector.getField("soundscan_grp", ""));
-/*      */ 
-/*      */ 
-/*      */       
-/* 1378 */       selection.setImprint(connector.getField("imprint", ""));
-/* 1379 */       selection.setNewBundleFlag(connector.getBoolean("new_bundle_flag"));
-/* 1380 */       selection.setGridNumber(connector.getField("grid_number", ""));
-/* 1381 */       selection.setSpecialInstructions(connector.getField("special_instructions", ""));
-/* 1382 */       selection.setIsDigital(connector.getBoolean("digital_flag"));
-/* 1383 */       selection.setPriority(connector.getBoolean("priority_flag"));
-/*      */ 
+/* 1379 */       selection.setSoundScanGrp(connector.getField("soundscan_grp", ""));
 /*      */ 
 /*      */ 
 /*      */       
-/* 1388 */       selection.setArchimedesId(connector.getInt("archimedes_id", -1));
-/* 1389 */       selection.setReleaseFamilyId(connector.getInt("release_family_id", -1));
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
+/* 1383 */       selection.setImprint(connector.getField("imprint", ""));
+/* 1384 */       selection.setNewBundleFlag(connector.getBoolean("new_bundle_flag"));
+/* 1385 */       selection.setGridNumber(connector.getField("grid_number", ""));
+/* 1386 */       selection.setSpecialInstructions(connector.getField("special_instructions", ""));
+/* 1387 */       selection.setIsDigital(connector.getBoolean("digital_flag"));
+/* 1388 */       selection.setPriority(connector.getBoolean("priority_flag"));
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 1404 */       String impactSql = "sp_get_Schedule_ImpactDates " + id;
+/* 1393 */       selection.setArchimedesId(connector.getInt("archimedes_id", -1));
+/* 1394 */       selection.setReleaseFamilyId(connector.getInt("release_family_id", -1));
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
 /*      */       
-/* 1406 */       JdbcConnector impactConnector = MilestoneHelper.getConnector(impactSql);
-/* 1407 */       impactConnector.runQuery();
+/* 1409 */       String impactSql = "sp_get_Schedule_ImpactDates " + id;
 /*      */       
-/* 1409 */       Vector impactDates = new Vector();
+/* 1411 */       JdbcConnector impactConnector = MilestoneHelper.getConnector(impactSql);
+/* 1412 */       impactConnector.runQuery();
 /*      */       
-/* 1411 */       while (impactConnector.more()) {
+/* 1414 */       Vector impactDates = new Vector();
+/*      */       
+/* 1416 */       while (impactConnector.more()) {
 /*      */         
-/* 1413 */         ImpactDate impact = new ImpactDate();
+/* 1418 */         ImpactDate impact = new ImpactDate();
 /*      */         
-/* 1415 */         impact.setImpactDateID(impactConnector.getInt("impactDate_Id", -1));
-/* 1416 */         impact.setSelectionID(impactConnector.getInt("selection_Id", -1));
-/* 1417 */         impact.setFormat(impactConnector.getField("format", ""));
-/* 1418 */         impact.setFormatDescription(impactConnector.getField("description", ""));
+/* 1420 */         impact.setImpactDateID(impactConnector.getInt("impactDate_Id", -1));
+/* 1421 */         impact.setSelectionID(impactConnector.getInt("selection_Id", -1));
+/* 1422 */         impact.setFormat(impactConnector.getField("format", ""));
+/* 1423 */         impact.setFormatDescription(impactConnector.getField("description", ""));
 /*      */         
-/* 1420 */         String impactString = impactConnector.getFieldByName("impactDate");
-/* 1421 */         if (impactString != null) {
-/* 1422 */           impact.setImpactDate(MilestoneHelper.getDatabaseDate(impactString));
+/* 1425 */         String impactString = impactConnector.getFieldByName("impactDate");
+/* 1426 */         if (impactString != null) {
+/* 1427 */           impact.setImpactDate(MilestoneHelper.getDatabaseDate(impactString));
 /*      */         }
-/* 1424 */         impact.setTbi(impactConnector.getBoolean("tbi"));
+/* 1429 */         impact.setTbi(impactConnector.getBoolean("tbi"));
 /*      */         
-/* 1426 */         impactDates.add(impact);
+/* 1431 */         impactDates.add(impact);
 /*      */         
-/* 1428 */         impactConnector.next();
+/* 1433 */         impactConnector.next();
 /*      */       } 
 /*      */       
-/* 1431 */       impactConnector.close();
+/* 1436 */       impactConnector.close();
 /*      */       
-/* 1433 */       selection.setImpactDates(impactDates);
+/* 1438 */       selection.setImpactDates(impactDates);
 /*      */ 
 /*      */ 
 /*      */       
-/* 1437 */       selection.setMultSelections(getMultSelections(id));
+/* 1442 */       selection.setMultSelections(getMultSelections(id));
 /*      */ 
 /*      */       
-/* 1440 */       selection.setMultOtherContacts(getMultOtherContacts(id));
+/* 1445 */       selection.setMultOtherContacts(getMultOtherContacts(id));
 /*      */ 
 /*      */       
-/* 1443 */       selection.setFullSelection(true);
+/* 1448 */       selection.setFullSelection(true);
 /*      */ 
 /*      */ 
 /*      */       
-/* 1447 */       JdbcConnector archieConnector = MilestoneHelper.getConnector("sp_get_archie_last_update_date " + id);
-/* 1448 */       archieConnector.runQuery();
+/* 1452 */       JdbcConnector archieConnector = MilestoneHelper.getConnector("sp_get_archie_last_update_date " + id);
+/* 1453 */       archieConnector.runQuery();
 /*      */       
-/* 1450 */       if (archieConnector.more()) {
+/* 1455 */       if (archieConnector.more()) {
 /*      */         
-/* 1452 */         String archieString = archieConnector.getFieldByName("audit_date");
+/* 1457 */         String archieString = archieConnector.getFieldByName("audit_date");
 /*      */ 
 /*      */         
-/* 1455 */         if (archieString != null) {
-/* 1456 */           selection.setArchieDate(MilestoneHelper.getDatabaseDate(archieString));
+/* 1460 */         if (archieString != null) {
+/* 1461 */           selection.setArchieDate(MilestoneHelper.getDatabaseDate(archieString));
 /*      */         }
 /*      */       } 
-/* 1459 */       archieConnector.close();
+/* 1464 */       archieConnector.close();
 /*      */ 
 /*      */       
-/* 1462 */       JdbcConnector autoCloseConnector = MilestoneHelper.getConnector("sp_get_auto_close_date " + id);
-/* 1463 */       autoCloseConnector.runQuery();
-/* 1464 */       if (autoCloseConnector.more()) {
+/* 1467 */       JdbcConnector autoCloseConnector = MilestoneHelper.getConnector("sp_get_auto_close_date " + id);
+/* 1468 */       autoCloseConnector.runQuery();
+/* 1469 */       if (autoCloseConnector.more()) {
 /*      */         
-/* 1466 */         String autoCloseStr = autoCloseConnector.getFieldByName("auto_closed_date");
-/* 1467 */         if (autoCloseStr != null)
-/* 1468 */           selection.setAutoCloseDate(MilestoneHelper.getDatabaseDate(autoCloseStr)); 
+/* 1471 */         String autoCloseStr = autoCloseConnector.getFieldByName("auto_closed_date");
+/* 1472 */         if (autoCloseStr != null)
+/* 1473 */           selection.setAutoCloseDate(MilestoneHelper.getDatabaseDate(autoCloseStr)); 
 /*      */       } 
-/* 1470 */       autoCloseConnector.close();
+/* 1475 */       autoCloseConnector.close();
 /*      */ 
 /*      */ 
 /*      */       
-/* 1474 */       JdbcConnector lastLegacyUpdateConnector = MilestoneHelper.getConnector("sp_get_last_legacy_update_date " + id);
-/* 1475 */       lastLegacyUpdateConnector.runQuery();
-/* 1476 */       if (lastLegacyUpdateConnector.more()) {
+/* 1479 */       JdbcConnector lastLegacyUpdateConnector = MilestoneHelper.getConnector("sp_get_last_legacy_update_date " + id);
+/* 1480 */       lastLegacyUpdateConnector.runQuery();
+/* 1481 */       if (lastLegacyUpdateConnector.more()) {
 /*      */         
-/* 1478 */         String lastLegacyUpdateStr = lastLegacyUpdateConnector.getFieldByName("legacy_date");
-/* 1479 */         if (lastLegacyUpdateStr != null)
-/* 1480 */           selection.setLastLegacyUpdateDate(MilestoneHelper.getDatabaseDate(lastLegacyUpdateStr)); 
+/* 1483 */         String lastLegacyUpdateStr = lastLegacyUpdateConnector.getFieldByName("legacy_date");
+/* 1484 */         if (lastLegacyUpdateStr != null)
+/* 1485 */           selection.setLastLegacyUpdateDate(MilestoneHelper.getDatabaseDate(lastLegacyUpdateStr)); 
 /*      */       } 
-/* 1482 */       lastLegacyUpdateConnector.close();
+/* 1487 */       lastLegacyUpdateConnector.close();
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */     
-/* 1487 */     connector.close();
+/* 1492 */     connector.close();
 /*      */     
-/* 1489 */     return selection;
+/* 1494 */     return selection;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -1495,76 +1500,76 @@
 /*      */ 
 /*      */   
 /*      */   public boolean getSelectionManufacturingSubDetail(Selection selection) {
-/* 1498 */     boolean newFlag = true;
+/* 1503 */     boolean newFlag = true;
 /*      */     
-/* 1500 */     if (selection != null) {
+/* 1505 */     if (selection != null) {
 /*      */       
-/* 1502 */       int selectionId = selection.getSelectionID();
+/* 1507 */       int selectionId = selection.getSelectionID();
 /*      */       
-/* 1504 */       String manufacturingQuery = "SELECT * FROM vi_Release_Subdetail WHERE release_id = " + 
+/* 1509 */       String manufacturingQuery = "SELECT * FROM vi_Release_Subdetail WHERE release_id = " + 
 /*      */         
-/* 1506 */         selectionId + 
-/* 1507 */         ";";
+/* 1511 */         selectionId + 
+/* 1512 */         ";";
 /*      */       
-/* 1509 */       JdbcConnector connector = MilestoneHelper.getConnector(manufacturingQuery);
-/* 1510 */       connector.runQuery();
+/* 1514 */       JdbcConnector connector = MilestoneHelper.getConnector(manufacturingQuery);
+/* 1515 */       connector.runQuery();
 /*      */ 
 /*      */ 
 /*      */       
-/* 1514 */       if (connector.more()) {
+/* 1519 */       if (connector.more()) {
 /*      */         
-/* 1516 */         newFlag = false;
-/* 1517 */         User umlContact = UserManager.getInstance().getUser(connector.getIntegerField("uml_id"));
-/* 1518 */         selection.setUmlContact(umlContact);
-/* 1519 */         selection.setPlant(getLookupObject(connector.getField("plant"), Cache.getVendors()));
-/* 1520 */         selection.setDistribution(getLookupObject(connector.getField("distribution"), Cache.getDistributionCodes()));
-/* 1521 */         selection.setPoQuantity(connector.getIntegerField("order_qty"));
+/* 1521 */         newFlag = false;
+/* 1522 */         User umlContact = UserManager.getInstance().getUser(connector.getIntegerField("uml_id"));
+/* 1523 */         selection.setUmlContact(umlContact);
+/* 1524 */         selection.setPlant(getLookupObject(connector.getField("plant"), Cache.getVendors()));
+/* 1525 */         selection.setDistribution(getLookupObject(connector.getField("distribution"), Cache.getDistributionCodes()));
+/* 1526 */         selection.setPoQuantity(connector.getIntegerField("order_qty"));
 /*      */         
-/* 1523 */         selection.setCompletedQuantity(connector.getIntegerField("complete_qty"));
-/* 1524 */         selection.setManufacturingComments(connector.getField("order_comments", ""));
+/* 1528 */         selection.setCompletedQuantity(connector.getIntegerField("complete_qty"));
+/* 1529 */         selection.setManufacturingComments(connector.getField("order_comments", ""));
 /*      */         
-/* 1526 */         String lastUpdateDateString = connector.getFieldByName("last_updated_on");
-/* 1527 */         if (lastUpdateDateString != null) {
-/* 1528 */           selection.setLastMfgUpdateDate(MilestoneHelper.getDatabaseDate(lastUpdateDateString));
+/* 1531 */         String lastUpdateDateString = connector.getFieldByName("last_updated_on");
+/* 1532 */         if (lastUpdateDateString != null) {
+/* 1533 */           selection.setLastMfgUpdateDate(MilestoneHelper.getDatabaseDate(lastUpdateDateString));
 /*      */         }
-/* 1530 */         selection.setLastMfgUpdatingUser(UserManager.getInstance().getUser(connector.getIntegerField("last_updated_by")));
+/* 1535 */         selection.setLastMfgUpdatingUser(UserManager.getInstance().getUser(connector.getIntegerField("last_updated_by")));
 /*      */         
-/* 1532 */         long lastUpdatedLong = Long.parseLong(connector.getField("last_updated_ck", "0"), 16);
-/* 1533 */         selection.setLastMfgUpdatedCheck(lastUpdatedLong);
+/* 1537 */         long lastUpdatedLong = Long.parseLong(connector.getField("last_updated_ck", "0"), 16);
+/* 1538 */         selection.setLastMfgUpdatedCheck(lastUpdatedLong);
 /*      */       } 
 /*      */ 
 /*      */       
-/* 1537 */       connector.close();
+/* 1542 */       connector.close();
 /*      */ 
 /*      */       
-/* 1540 */       String plantSql = "select * from Manufacturing_Plants where release_id = " + selection.getSelectionID();
-/* 1541 */       JdbcConnector plantConnector = MilestoneHelper.getConnector(plantSql);
-/* 1542 */       plantConnector.runQuery();
+/* 1545 */       String plantSql = "select * from Manufacturing_Plants where release_id = " + selection.getSelectionID();
+/* 1546 */       JdbcConnector plantConnector = MilestoneHelper.getConnector(plantSql);
+/* 1547 */       plantConnector.runQuery();
 /*      */       
-/* 1544 */       Vector plants = new Vector();
+/* 1549 */       Vector plants = new Vector();
 /*      */       
-/* 1546 */       while (plantConnector.more()) {
+/* 1551 */       while (plantConnector.more()) {
 /*      */         
-/* 1548 */         Plant plant = new Plant();
+/* 1553 */         Plant plant = new Plant();
 /*      */         
-/* 1550 */         plant.setPlantID(plantConnector.getInt("plantId", -1));
-/* 1551 */         plant.setSelectionID(plantConnector.getField("selection_Id"));
-/* 1552 */         plant.setReleaseID(plantConnector.getInt("release_Id", -1));
-/* 1553 */         plant.setPlant(getLookupObject(plantConnector.getField("plant"), Cache.getVendors()));
-/* 1554 */         plant.setOrderQty(plantConnector.getInt("order_qty", -1));
-/* 1555 */         plant.setCompletedQty(plantConnector.getInt("complete_qty", -1));
+/* 1555 */         plant.setPlantID(plantConnector.getInt("plantId", -1));
+/* 1556 */         plant.setSelectionID(plantConnector.getField("selection_Id"));
+/* 1557 */         plant.setReleaseID(plantConnector.getInt("release_Id", -1));
+/* 1558 */         plant.setPlant(getLookupObject(plantConnector.getField("plant"), Cache.getVendors()));
+/* 1559 */         plant.setOrderQty(plantConnector.getInt("order_qty", -1));
+/* 1560 */         plant.setCompletedQty(plantConnector.getInt("complete_qty", -1));
 /*      */         
-/* 1557 */         plants.add(plant);
+/* 1562 */         plants.add(plant);
 /*      */         
-/* 1559 */         plantConnector.next();
+/* 1564 */         plantConnector.next();
 /*      */       } 
 /*      */       
-/* 1562 */       plantConnector.close();
+/* 1567 */       plantConnector.close();
 /*      */       
-/* 1564 */       selection.setManufacturingPlants(plants);
+/* 1569 */       selection.setManufacturingPlants(plants);
 /*      */     } 
 /*      */     
-/* 1567 */     return newFlag;
+/* 1572 */     return newFlag;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -1572,15 +1577,15 @@
 /*      */ 
 /*      */   
 /*      */   public PriceCode getPriceCode(String sellCode) {
-/* 1575 */     PriceCode priceCode = null;
+/* 1580 */     PriceCode priceCode = null;
 /*      */     
-/* 1577 */     Vector priceCodes = Cache.getPriceCodes();
-/* 1578 */     for (int i = 0; i < priceCodes.size(); i++) {
+/* 1582 */     Vector priceCodes = Cache.getPriceCodes();
+/* 1583 */     for (int i = 0; i < priceCodes.size(); i++) {
 /*      */       
-/* 1580 */       PriceCode pc = (PriceCode)priceCodes.get(i);
-/* 1581 */       if (pc.getSellCode().equalsIgnoreCase(sellCode)) {
+/* 1585 */       PriceCode pc = (PriceCode)priceCodes.get(i);
+/* 1586 */       if (pc.getSellCode().equalsIgnoreCase(sellCode)) {
 /*      */         
-/* 1583 */         priceCode = pc;
+/* 1588 */         priceCode = pc;
 /*      */ 
 /*      */ 
 /*      */ 
@@ -1628,7 +1633,7 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 1631 */     return priceCode;
+/* 1636 */     return priceCode;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -1640,215 +1645,221 @@
 /*      */ 
 /*      */   
 /*      */   public Selection saveSelection(Selection selection, User updatingUser) {
-/* 1643 */     System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Company: " + selection.getCompanyId());
-/* 1644 */     System.out.println(">>>>>>>>>>>>>>>>>>>>>>> enviroment: " + selection.getEnvironmentId());
+/* 1648 */     System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Company: " + selection.getCompanyId());
+/* 1649 */     System.out.println(">>>>>>>>>>>>>>>>>>>>>>> enviroment: " + selection.getEnvironmentId());
 /*      */     
-/* 1646 */     int holdSelection = 0;
-/* 1647 */     int specialPackaging = 0;
-/* 1648 */     int pressAndDistribution = 0;
-/* 1649 */     int parentalGuidance = 0;
+/* 1651 */     int holdSelection = 0;
+/* 1652 */     int specialPackaging = 0;
+/* 1653 */     int pressAndDistribution = 0;
+/* 1654 */     int parentalGuidance = 0;
 /*      */     
-/* 1651 */     int internationalFlag = 0;
-/* 1652 */     int noDigitalRelease = 0;
+/* 1656 */     int internationalFlag = 0;
+/* 1657 */     int noDigitalRelease = 0;
 /*      */ 
 /*      */     
-/* 1655 */     if (selection.getNoDigitalRelease()) {
-/* 1656 */       noDigitalRelease = 1;
+/* 1660 */     if (selection.getNoDigitalRelease()) {
+/* 1661 */       noDigitalRelease = 1;
 /*      */     }
-/* 1658 */     if (selection.getPressAndDistribution()) {
-/* 1659 */       pressAndDistribution = 1;
+/* 1663 */     if (selection.getPressAndDistribution()) {
+/* 1664 */       pressAndDistribution = 1;
 /*      */     }
-/* 1661 */     if (selection.getSpecialPackaging()) {
-/* 1662 */       specialPackaging = 1;
+/* 1666 */     if (selection.getSpecialPackaging()) {
+/* 1667 */       specialPackaging = 1;
 /*      */     }
-/* 1664 */     if (selection.getHoldSelection()) {
-/* 1665 */       holdSelection = 1;
+/* 1669 */     if (selection.getHoldSelection()) {
+/* 1670 */       holdSelection = 1;
 /*      */     }
-/* 1667 */     if (selection.getParentalGuidance()) {
-/* 1668 */       parentalGuidance = 1;
+/* 1672 */     if (selection.getParentalGuidance()) {
+/* 1673 */       parentalGuidance = 1;
 /*      */     }
 /*      */     
-/* 1671 */     if (selection.getInternationalFlag()) {
-/* 1672 */       internationalFlag = 1;
+/* 1676 */     if (selection.getInternationalFlag()) {
+/* 1677 */       internationalFlag = 1;
 /*      */     }
-/* 1674 */     String prefix = "";
-/* 1675 */     if (selection.getPrefixID() != null) {
-/* 1676 */       prefix = selection.getPrefixID().getAbbreviation();
+/* 1679 */     String prefix = "";
+/* 1680 */     if (selection.getPrefixID() != null) {
+/* 1681 */       prefix = selection.getPrefixID().getAbbreviation();
 /*      */     }
-/* 1678 */     long timestamp = selection.getLastUpdatedCheck();
-/* 1679 */     String familyID = "-1";
-/* 1680 */     String companyID = "-1";
-/* 1681 */     String divisionID = "-1";
-/* 1682 */     String labelID = "-1";
-/* 1683 */     String environmentId = "-1";
-/* 1684 */     String labelContactId = "-1";
-/* 1685 */     String territory = selection.getSelectionTerritory();
+/* 1683 */     long timestamp = selection.getLastUpdatedCheck();
+/* 1684 */     String familyID = "-1";
+/* 1685 */     String companyID = "-1";
+/* 1686 */     String divisionID = "-1";
+/* 1687 */     String labelID = "-1";
+/* 1688 */     String environmentId = "-1";
+/* 1689 */     String labelContactId = "-1";
+/* 1690 */     String territory = selection.getSelectionTerritory();
 /*      */ 
 /*      */     
-/* 1688 */     String imprint = selection.getImprint();
-/* 1689 */     boolean isDigital = selection.getIsDigital();
-/* 1690 */     boolean new_bundle_flag = selection.getNewBundleFlag();
-/* 1691 */     String grid_number = selection.getGridNumber();
-/* 1692 */     String special_instructions = selection.getSpecialInstructions();
+/* 1693 */     String imprint = selection.getImprint();
+/* 1694 */     boolean isDigital = selection.getIsDigital();
+/* 1695 */     boolean new_bundle_flag = selection.getNewBundleFlag();
+/* 1696 */     String grid_number = selection.getGridNumber();
+/* 1697 */     String special_instructions = selection.getSpecialInstructions();
 /*      */     
-/* 1694 */     int isDigitalFlag = 0;
-/* 1695 */     if (selection.getIsDigital()) {
-/* 1696 */       isDigitalFlag = 1;
+/* 1699 */     int isDigitalFlag = 0;
+/* 1700 */     if (selection.getIsDigital()) {
+/* 1701 */       isDigitalFlag = 1;
 /*      */     }
-/* 1698 */     int new_bundle = 0;
-/* 1699 */     if (selection.getNewBundleFlag()) {
-/* 1700 */       new_bundle = 1;
+/* 1703 */     int new_bundle = 0;
+/* 1704 */     if (selection.getNewBundleFlag()) {
+/* 1705 */       new_bundle = 1;
 /*      */     }
-/* 1702 */     int priority = 0;
-/* 1703 */     if (selection.getPriority()) {
-/* 1704 */       priority = 1;
+/* 1707 */     int priority = 0;
+/* 1708 */     if (selection.getPriority()) {
+/* 1709 */       priority = 1;
+/*      */     }
+/*      */ 
+/*      */     
+/* 1713 */     System.out.println(">>>>>>>>>>>>>>>>>>>>>>> CompanyId: " + selection.getCompany().getStructureID());
+/* 1714 */     System.out.println(">>>>>>>>>>>>>>>>>>>>>>> Company: " + selection.getCompany().getName());
+/* 1715 */     System.out.println(">>>>>>>>>>>>>>>>>>>>>>> enviroment: " + selection.getEnvironment().getStructureID());
+/* 1716 */     System.out.println(">>>>>>>>>>>>>>>>>>>>>>> enviroment: " + selection.getEnvironment().getName());
+/*      */     
+/* 1718 */     if (selection.getEnvironment() != null) {
+/* 1719 */       environmentId = String.valueOf(selection.getEnvironment().getStructureID());
 /*      */     }
 /*      */     
-/* 1707 */     if (selection.getCompany() != null) {
-/* 1708 */       environmentId = String.valueOf(selection.getCompany().getParentEnvironment().getStructureID());
+/* 1722 */     if (selection.getCompany() != null) {
+/* 1723 */       companyID = String.valueOf(selection.getCompany().getStructureID());
 /*      */     }
-/*      */     
-/* 1711 */     if (selection.getCompany() != null) {
-/* 1712 */       companyID = String.valueOf(selection.getCompany().getStructureID());
+/* 1725 */     if (selection.getDivision() != null) {
+/* 1726 */       divisionID = String.valueOf(selection.getDivision().getStructureID());
 /*      */     }
-/* 1714 */     if (selection.getDivision() != null) {
-/* 1715 */       divisionID = String.valueOf(selection.getDivision().getStructureID());
+/* 1728 */     if (selection.getLabel() != null) {
+/* 1729 */       labelID = String.valueOf(selection.getLabel().getStructureID());
 /*      */     }
-/* 1717 */     if (selection.getLabel() != null) {
-/* 1718 */       labelID = String.valueOf(selection.getLabel().getStructureID());
-/*      */     }
-/* 1720 */     if (selection.getCompany() != null && selection.getCompany().getParentEnvironment() != null) {
+/* 1731 */     if (selection.getCompany() != null && selection.getCompany().getParentEnvironment() != null) {
 /*      */       
-/* 1722 */       familyID = String.valueOf(selection.getCompany().getParentEnvironment().getParentID());
+/* 1733 */       familyID = String.valueOf(selection.getCompany().getParentEnvironment().getParentID());
 /*      */ 
 /*      */ 
 /*      */       
-/* 1726 */       selection.setFamily((Family)MilestoneHelper.getStructureObject(selection.getCompany().getParentEnvironment().getParentID()));
+/* 1737 */       selection.setFamily((Family)MilestoneHelper.getStructureObject(selection.getCompany().getParentEnvironment().getParentID()));
 /*      */     } 
 /*      */ 
 /*      */     
-/* 1730 */     if (selection.getLabelContact() != null) {
-/* 1731 */       labelContactId = String.valueOf(selection.getLabelContact().getUserId());
+/* 1741 */     if (selection.getLabelContact() != null) {
+/* 1742 */       labelContactId = String.valueOf(selection.getLabelContact().getUserId());
 /*      */     }
 /*      */ 
 /*      */ 
 /*      */     
-/* 1736 */     boolean cprsIsNew = (selection.getSelectionID() < 0);
+/* 1747 */     boolean cprsIsNew = (selection.getSelectionID() < 0);
 /*      */     
-/* 1738 */     String query = "sp_sav_Release_Header " + 
-/* 1739 */       selection.getSelectionID() + "," + 
-/* 1740 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getProjectID()) + "'," + 
-/* 1741 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getTitleID()) + "'," + 
-/* 1742 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getTitle()) + "'," + 
-/* 1743 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getArtist()) + "'," + 
-/* 1744 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getArtistLastName()) + "'," + 
-/* 1745 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getArtistFirstName()) + "'," + 
-/* 1746 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getASide()) + "'," + 
-/* 1747 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getBSide()) + "'," + 
-/* 1748 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSelectionNo()) + "'," + 
-/* 1749 */       "'" + "version number" + "'," + 
-/* 1750 */       "'" + MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(selection.getProductCategory())) + "'," + 
-/* 1751 */       "'" + MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(selection.getReleaseType())) + "'," + 
-/* 1752 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSelectionConfig().getSelectionConfigurationAbbreviation()) + "'," + 
-/* 1753 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSelectionSubConfig().getSelectionSubConfigurationAbbreviation()) + "'," + 
+/* 1749 */     String query = "sp_sav_Release_Header " + 
+/* 1750 */       selection.getSelectionID() + "," + 
+/* 1751 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getProjectID()) + "'," + 
+/* 1752 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getTitleID()) + "'," + 
+/* 1753 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getTitle()) + "'," + 
+/* 1754 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getArtist()) + "'," + 
+/* 1755 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getArtistLastName()) + "'," + 
+/* 1756 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getArtistFirstName()) + "'," + 
+/* 1757 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getASide()) + "'," + 
+/* 1758 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getBSide()) + "'," + 
+/* 1759 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSelectionNo()) + "'," + 
+/* 1760 */       "'" + "version number" + "'," + 
+/* 1761 */       "'" + MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(selection.getProductCategory())) + "'," + 
+/* 1762 */       "'" + MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(selection.getReleaseType())) + "'," + 
+/* 1763 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSelectionConfig().getSelectionConfigurationAbbreviation()) + "'," + 
+/* 1764 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSelectionSubConfig().getSelectionSubConfigurationAbbreviation()) + "'," + 
 /*      */       
-/* 1755 */       "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(selection.getUpc(), "UPC", selection.getIsDigital(), true)) + "'," + 
-/* 1756 */       "'" + MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(selection.getGenre())) + "'," + 
-/* 1757 */       familyID + "," + 
-/* 1758 */       companyID + "," + 
-/* 1759 */       divisionID + "," + 
-/* 1760 */       labelID + "," + 
-/* 1761 */       "'" + MilestoneHelper.getFormatedDate(selection.getStreetDate()) + "'," + 
-/* 1762 */       "'" + MilestoneHelper.getFormatedDate(selection.getInternationalDate()) + "'," + 
-/* 1763 */       "0" + "," + 
-/* 1764 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getOtherContact()) + "'," + 
-/* 1765 */       labelContactId + "," + 
-/* 1766 */       "'" + MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(selection.getSelectionStatus())) + "'," + 
-/* 1767 */       holdSelection + "," + 
-/* 1768 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getHoldReason()) + "'," + 
-/* 1769 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSelectionComments()) + "'," + 
-/* 1770 */       "'" + "group" + "'," + 
-/* 1771 */       specialPackaging + "," + 
-/* 1772 */       selection.getPrice() + "," + 
-/* 1773 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSellCode()) + "'," + 
-/* 1774 */       selection.getNumberOfUnits() + "," + 
-/* 1775 */       pressAndDistribution + "," + 
-/* 1776 */       "'" + MilestoneHelper.escapeSingleQuotes(prefix) + "'," + 
-/* 1777 */       "'" + "reference" + "'," + 
-/* 1778 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSelectionPackaging()) + "'," + 
-/* 1779 */       "'" + "packaging comments" + "'," + 
-/* 1780 */       "'" + MilestoneHelper.getFormatedDate(selection.getImpactDate()) + "'," + 
-/* 1781 */       "'" + MilestoneHelper.getFormatedDate(selection.getLastStreetUpdateDate()) + "'," + 
+/* 1766 */       "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(selection.getUpc(), "UPC", selection.getIsDigital(), true)) + "'," + 
+/* 1767 */       "'" + MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(selection.getGenre())) + "'," + 
+/* 1768 */       familyID + "," + 
+/* 1769 */       companyID + "," + 
+/* 1770 */       divisionID + "," + 
+/* 1771 */       labelID + "," + 
+/* 1772 */       "'" + MilestoneHelper.getFormatedDate(selection.getStreetDate()) + "'," + 
+/* 1773 */       "'" + MilestoneHelper.getFormatedDate(selection.getInternationalDate()) + "'," + 
+/* 1774 */       "0" + "," + 
+/* 1775 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getOtherContact()) + "'," + 
+/* 1776 */       labelContactId + "," + 
+/* 1777 */       "'" + MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(selection.getSelectionStatus())) + "'," + 
+/* 1778 */       holdSelection + "," + 
+/* 1779 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getHoldReason()) + "'," + 
+/* 1780 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSelectionComments()) + "'," + 
+/* 1781 */       "'" + "group" + "'," + 
+/* 1782 */       specialPackaging + "," + 
+/* 1783 */       selection.getPrice() + "," + 
+/* 1784 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSellCode()) + "'," + 
+/* 1785 */       selection.getNumberOfUnits() + "," + 
+/* 1786 */       pressAndDistribution + "," + 
+/* 1787 */       "'" + MilestoneHelper.escapeSingleQuotes(prefix) + "'," + 
+/* 1788 */       "'" + "reference" + "'," + 
+/* 1789 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSelectionPackaging()) + "'," + 
+/* 1790 */       "'" + "packaging comments" + "'," + 
+/* 1791 */       "'" + MilestoneHelper.getFormatedDate(selection.getImpactDate()) + "'," + 
+/* 1792 */       "'" + MilestoneHelper.getFormatedDate(selection.getLastStreetUpdateDate()) + "'," + 
 /*      */       
-/* 1783 */       updatingUser.getUserId() + "," + 
-/* 1784 */       selection.getTemplateId() + "," + 
-/* 1785 */       parentalGuidance + ",'" + 
-/* 1786 */       territory + "'," + 
-/* 1787 */       timestamp + "," + 
+/* 1794 */       updatingUser.getUserId() + "," + 
+/* 1795 */       selection.getTemplateId() + "," + 
+/* 1796 */       parentalGuidance + ",'" + 
+/* 1797 */       territory + "'," + 
+/* 1798 */       timestamp + "," + 
 /*      */       
-/* 1789 */       "'" + MilestoneHelper.getFormatedDate(selection.getDigitalRlsDate()) + "'," + 
-/* 1790 */       internationalFlag + "," + 
-/* 1791 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getOperCompany()) + "'," + 
-/* 1792 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSuperLabel()) + "'," + 
-/* 1793 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSubLabel()) + "'," + 
-/* 1794 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getConfigCode()) + "'," + 
+/* 1800 */       "'" + MilestoneHelper.getFormatedDate(selection.getDigitalRlsDate()) + "'," + 
+/* 1801 */       internationalFlag + "," + 
+/* 1802 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getOperCompany()) + "'," + 
+/* 1803 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSuperLabel()) + "'," + 
+/* 1804 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getSubLabel()) + "'," + 
+/* 1805 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getConfigCode()) + "'," + 
 /*      */       
-/* 1796 */       "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(selection.getSoundScanGrp(), "SSG", selection.getIsDigital(), true)) + "'," + 
-/* 1797 */       environmentId + "," + 
-/* 1798 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getImprint()) + "'," + 
-/* 1799 */       new_bundle + "," + 
-/* 1800 */       "'" + MilestoneHelper.escapeSingleQuotes(grid_number) + "'," + 
-/* 1801 */       "'" + MilestoneHelper.escapeSingleQuotes(special_instructions) + "'," + 
-/* 1802 */       isDigitalFlag + "," + 
-/* 1803 */       "'" + MilestoneHelper.getFormatedDate(selection.getDigitalRlsDate()) + "'," + 
+/* 1807 */       "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(selection.getSoundScanGrp(), "SSG", selection.getIsDigital(), true)) + "'," + 
+/* 1808 */       environmentId + "," + 
+/* 1809 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getImprint()) + "'," + 
+/* 1810 */       new_bundle + "," + 
+/* 1811 */       "'" + MilestoneHelper.escapeSingleQuotes(grid_number) + "'," + 
+/* 1812 */       "'" + MilestoneHelper.escapeSingleQuotes(special_instructions) + "'," + 
+/* 1813 */       isDigitalFlag + "," + 
+/* 1814 */       "'" + MilestoneHelper.getFormatedDate(selection.getDigitalRlsDate()) + "'," + 
 /*      */       
-/* 1805 */       getArchimedesIdFromCache(Integer.parseInt(labelID)) + "," + 
-/* 1806 */       selection.getReleaseFamilyId() + "," + 
-/* 1807 */       priority + "," + noDigitalRelease + ",'" + selection.getSellCodeDPC() + "' ";
+/* 1816 */       getArchimedesIdFromCache(Integer.parseInt(labelID)) + "," + 
+/* 1817 */       selection.getReleaseFamilyId() + "," + 
+/* 1818 */       priority + "," + noDigitalRelease + ",'" + selection.getSellCodeDPC() + "' ";
 /*      */ 
 /*      */     
-/* 1810 */     log.log("Query >>>>>>>>>>>>>> : " + query);
+/* 1821 */     log.log("Query >>>>>>>>>>>>>> : " + query);
 /*      */ 
 /*      */     
-/* 1813 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 1814 */     connector.runQuery();
+/* 1824 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 1825 */     connector.runQuery();
 /*      */     
-/* 1816 */     int newId = connector.getIntegerField("ReturnId");
-/* 1817 */     log.debug("Selection id from db " + newId);
-/* 1818 */     log.debug("Selection id from db " + newId);
+/* 1827 */     int newId = connector.getIntegerField("ReturnId");
+/* 1828 */     log.debug("Selection id from db " + newId);
+/* 1829 */     log.debug("Selection id from db " + newId);
 /*      */ 
 /*      */     
-/* 1821 */     if (selection.getSelectionID() < 0) {
-/* 1822 */       selection.setSelectionID(newId);
+/* 1832 */     if (selection.getSelectionID() < 0) {
+/* 1833 */       selection.setSelectionID(newId);
 /*      */     }
-/* 1824 */     connector.close();
+/* 1835 */     connector.close();
 /*      */ 
 /*      */     
-/* 1827 */     log.debug("Flushing selection audits.");
-/* 1828 */     selection.flushAudits(updatingUser.getUserId());
+/* 1838 */     log.debug("Flushing selection audits.");
+/* 1839 */     selection.flushAudits(updatingUser.getUserId());
 /*      */     
-/* 1830 */     String timestampQuery = "SELECT last_updated_ck, last_updated_on FROM release_header WHERE release_id = " + 
+/* 1841 */     String timestampQuery = "SELECT last_updated_ck, last_updated_on FROM release_header WHERE release_id = " + 
 /*      */       
-/* 1832 */       selection.getSelectionID() + 
-/* 1833 */       ";";
+/* 1843 */       selection.getSelectionID() + 
+/* 1844 */       ";";
 /*      */     
-/* 1835 */     JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
-/* 1836 */     connectorTimestamp.runQuery();
-/* 1837 */     if (connectorTimestamp.more()) {
+/* 1846 */     JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
+/* 1847 */     connectorTimestamp.runQuery();
+/* 1848 */     if (connectorTimestamp.more()) {
 /*      */       
-/* 1839 */       selection.setLastUpdatedCheck(Long.parseLong(connectorTimestamp.getField("last_updated_ck"), 16));
-/* 1840 */       selection.setLastUpdateDate(MilestoneHelper.getDatabaseDate(connectorTimestamp.getField("last_updated_on")));
+/* 1850 */       selection.setLastUpdatedCheck(Long.parseLong(connectorTimestamp.getField("last_updated_ck"), 16));
+/* 1851 */       selection.setLastUpdateDate(MilestoneHelper.getDatabaseDate(connectorTimestamp.getField("last_updated_on")));
 /*      */     } 
-/* 1842 */     connectorTimestamp.close();
+/* 1853 */     connectorTimestamp.close();
 /*      */ 
 /*      */     
-/* 1845 */     saveImpactDates(selection, updatingUser);
+/* 1856 */     saveImpactDates(selection, updatingUser);
 /*      */ 
 /*      */     
-/* 1848 */     saveMultSelections(selection, updatingUser);
+/* 1859 */     saveMultSelections(selection, updatingUser);
 /*      */ 
 /*      */     
-/* 1851 */     saveMultOtherContacts(selection, updatingUser);
+/* 1862 */     saveMultOtherContacts(selection, updatingUser);
 /*      */ 
 /*      */ 
 /*      */ 
@@ -1857,18 +1868,18 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 1860 */     DcGDRSResults dcGDRSResults = SelectionHandler.GDRSProductStatusGet(selection, selection.getCompany().getParentEnvironment().getStructureID());
-/* 1861 */     boolean IsGDRSactive = (!dcGDRSResults.getStatus().equals("") && !dcGDRSResults.getStatus().equals("DELETE"));
-/* 1862 */     if (IsPfmDraftOrFinal(selection.getSelectionID()))
+/* 1871 */     DcGDRSResults dcGDRSResults = SelectionHandler.GDRSProductStatusGet(selection, selection.getCompany().getParentEnvironment().getStructureID());
+/* 1872 */     boolean IsGDRSactive = (!dcGDRSResults.getStatus().equals("") && !dcGDRSResults.getStatus().equals("DELETE"));
+/* 1873 */     if (IsPfmDraftOrFinal(selection.getSelectionID()))
 /*      */     {
 /*      */       
-/* 1865 */       if (noDigitalRelease == 0) {
+/* 1876 */       if (noDigitalRelease == 0) {
 /*      */ 
 /*      */         
-/* 1868 */         if (!dcGDRSResults.getForceNoDigitalRelease().booleanValue())
-/* 1869 */           GDRS_QueueAddReleaseId(selection, "CREATE_EDIT"); 
-/* 1870 */       } else if (IsGDRSactive) {
-/* 1871 */         GDRS_QueueAddReleaseId(selection, "DELETE");
+/* 1879 */         if (!dcGDRSResults.getForceNoDigitalRelease().booleanValue())
+/* 1880 */           GDRS_QueueAddReleaseId(selection, "CREATE_EDIT"); 
+/* 1881 */       } else if (IsGDRSactive) {
+/* 1882 */         GDRS_QueueAddReleaseId(selection, "DELETE");
 /*      */       } 
 /*      */     }
 /*      */ 
@@ -1877,16 +1888,16 @@
 /*      */ 
 /*      */     
 /*      */     try {
-/* 1880 */       if (!selection.getProjectID().equals("0000-00000"))
+/* 1891 */       if (!selection.getProjectID().equals("0000-00000"))
 /*      */       {
-/* 1882 */         projectSearchSvcClient.MilestoneSnapshotProjectInsert(selection.getProjectID());
+/* 1893 */         projectSearchSvcClient.MilestoneSnapshotProjectInsert(selection.getProjectID());
 /*      */       }
-/* 1884 */     } catch (Exception e) {
-/* 1885 */       System.out.println(e.getMessage());
+/* 1895 */     } catch (Exception e) {
+/* 1896 */       System.out.println(e.getMessage());
 /*      */     } 
 /*      */ 
 /*      */     
-/* 1889 */     return selection;
+/* 1900 */     return selection;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -1896,96 +1907,96 @@
 /*      */ 
 /*      */   
 /*      */   public void saveImpactDates(Selection selection, User updatingUser) {
-/* 1899 */     if (selection != null && selection.getImpactDates() != null) {
+/* 1910 */     if (selection != null && selection.getImpactDates() != null) {
 /*      */       
-/* 1901 */       Vector impactDates = selection.getImpactDates();
+/* 1912 */       Vector impactDates = selection.getImpactDates();
 /*      */       
-/* 1903 */       Vector addImpactDates = new Vector();
-/* 1904 */       Vector deleteImpactDates = new Vector();
+/* 1914 */       Vector addImpactDates = new Vector();
+/* 1915 */       Vector deleteImpactDates = new Vector();
 /*      */       
-/* 1906 */       String impactQuery = "select * from vi_ImpactDates where selection_id = " + selection.getSelectionID();
+/* 1917 */       String impactQuery = "select * from vi_ImpactDates where selection_id = " + selection.getSelectionID();
 /*      */ 
 /*      */ 
 /*      */       
-/* 1910 */       boolean delete = true;
+/* 1921 */       boolean delete = true;
 /*      */       
-/* 1912 */       for (int a = 0; a < impactDates.size(); a++) {
+/* 1923 */       for (int a = 0; a < impactDates.size(); a++) {
 /*      */         
-/* 1914 */         ImpactDate impactDate = (ImpactDate)impactDates.get(a);
+/* 1925 */         ImpactDate impactDate = (ImpactDate)impactDates.get(a);
 /*      */ 
 /*      */ 
 /*      */         
-/* 1918 */         JdbcConnector connectorImpactCount = MilestoneHelper.getConnector(impactQuery);
-/* 1919 */         connectorImpactCount.runQuery();
+/* 1929 */         JdbcConnector connectorImpactCount = MilestoneHelper.getConnector(impactQuery);
+/* 1930 */         connectorImpactCount.runQuery();
 /*      */         
-/* 1921 */         if (connectorImpactCount.more()) {
+/* 1932 */         if (connectorImpactCount.more()) {
 /*      */           
-/* 1923 */           while (connectorImpactCount.more())
+/* 1934 */           while (connectorImpactCount.more())
 /*      */           {
 /*      */ 
 /*      */             
-/* 1927 */             if (impactDate.getImpactDateID() == -1 || impactDate.getImpactDateID() == connectorImpactCount.getInt("impactDate_Id", -2)) {
+/* 1938 */             if (impactDate.getImpactDateID() == -1 || impactDate.getImpactDateID() == connectorImpactCount.getInt("impactDate_Id", -2)) {
 /*      */               
-/* 1929 */               addImpactDates.add(impactDate);
+/* 1940 */               addImpactDates.add(impactDate);
 /*      */               break;
 /*      */             } 
-/* 1932 */             connectorImpactCount.next();
+/* 1943 */             connectorImpactCount.next();
 /*      */           }
 /*      */         
 /*      */         } else {
 /*      */           
-/* 1937 */           addImpactDates.add(impactDate);
+/* 1948 */           addImpactDates.add(impactDate);
 /*      */         } 
 /*      */         
-/* 1940 */         connectorImpactCount.close();
+/* 1951 */         connectorImpactCount.close();
 /*      */       } 
 /*      */       
-/* 1943 */       JdbcConnector connectorImpactDelete = MilestoneHelper.getConnector(impactQuery);
-/* 1944 */       connectorImpactDelete.runQuery();
+/* 1954 */       JdbcConnector connectorImpactDelete = MilestoneHelper.getConnector(impactQuery);
+/* 1955 */       connectorImpactDelete.runQuery();
 /*      */       
-/* 1946 */       while (connectorImpactDelete.more()) {
+/* 1957 */       while (connectorImpactDelete.more()) {
 /*      */         
-/* 1948 */         delete = true;
+/* 1959 */         delete = true;
 /*      */         
-/* 1950 */         for (int b = 0; b < impactDates.size(); b++) {
+/* 1961 */         for (int b = 0; b < impactDates.size(); b++) {
 /*      */           
-/* 1952 */           ImpactDate impactDateDelete = (ImpactDate)impactDates.get(b);
+/* 1963 */           ImpactDate impactDateDelete = (ImpactDate)impactDates.get(b);
 /*      */           
-/* 1954 */           if (connectorImpactDelete.getInt("impactDate_Id", -2) == impactDateDelete.getImpactDateID())
+/* 1965 */           if (connectorImpactDelete.getInt("impactDate_Id", -2) == impactDateDelete.getImpactDateID())
 /*      */           {
-/* 1956 */             delete = false;
+/* 1967 */             delete = false;
 /*      */           }
 /*      */         } 
 /*      */         
-/* 1960 */         if (delete) {
+/* 1971 */         if (delete) {
 /*      */           
-/* 1962 */           ImpactDate delImpactDate = new ImpactDate();
-/* 1963 */           delImpactDate.setImpactDateID(connectorImpactDelete.getInt("impactDate_Id", -1));
-/* 1964 */           deleteImpactDates.add(delImpactDate);
+/* 1973 */           ImpactDate delImpactDate = new ImpactDate();
+/* 1974 */           delImpactDate.setImpactDateID(connectorImpactDelete.getInt("impactDate_Id", -1));
+/* 1975 */           deleteImpactDates.add(delImpactDate);
 /*      */         } 
 /*      */         
-/* 1967 */         connectorImpactDelete.next();
+/* 1978 */         connectorImpactDelete.next();
 /*      */       } 
-/* 1969 */       connectorImpactDelete.close();
+/* 1980 */       connectorImpactDelete.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 1975 */       for (int i = 0; i < addImpactDates.size(); i++) {
+/* 1986 */       for (int i = 0; i < addImpactDates.size(); i++) {
 /*      */         
-/* 1977 */         ImpactDate impact = (ImpactDate)addImpactDates.get(i);
+/* 1988 */         ImpactDate impact = (ImpactDate)addImpactDates.get(i);
 /*      */         
-/* 1979 */         int tbi = impact.getTbi() ? 1 : 0;
+/* 1990 */         int tbi = impact.getTbi() ? 1 : 0;
 /*      */         
-/* 1981 */         int selId = impact.getSelectionID();
-/* 1982 */         int impactDateId = impact.getImpactDateID();
+/* 1992 */         int selId = impact.getSelectionID();
+/* 1993 */         int impactDateId = impact.getImpactDateID();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */         
-/* 1987 */         if (selId < 0) {
-/* 1988 */           selId = selection.getSelectionID();
+/* 1998 */         if (selId < 0) {
+/* 1999 */           selId = selection.getSelectionID();
 /*      */         }
 /*      */ 
 /*      */ 
@@ -1996,33 +2007,33 @@
 /*      */ 
 /*      */ 
 /*      */         
-/* 1999 */         String impactSql = "sp_sav_ImpactDate " + impact.getImpactDateID() + "," + 
-/* 2000 */           selId + "," + 
-/* 2001 */           "'" + impact.getFormat() + "'," + 
-/* 2002 */           "'" + MilestoneHelper.getFormatedDate(impact.getImpactDate()) + "'," + 
-/* 2003 */           tbi;
+/* 2010 */         String impactSql = "sp_sav_ImpactDate " + impact.getImpactDateID() + "," + 
+/* 2011 */           selId + "," + 
+/* 2012 */           "'" + impact.getFormat() + "'," + 
+/* 2013 */           "'" + MilestoneHelper.getFormatedDate(impact.getImpactDate()) + "'," + 
+/* 2014 */           tbi;
 /*      */ 
 /*      */ 
 /*      */         
-/* 2007 */         JdbcConnector connectorAddImpact = MilestoneHelper.getConnector(impactSql);
-/* 2008 */         connectorAddImpact.runQuery();
-/* 2009 */         connectorAddImpact.close();
+/* 2018 */         JdbcConnector connectorAddImpact = MilestoneHelper.getConnector(impactSql);
+/* 2019 */         connectorAddImpact.runQuery();
+/* 2020 */         connectorAddImpact.close();
 /*      */       } 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2014 */       JdbcConnector connectorDeleteImpact = null;
-/* 2015 */       for (int k = 0; k < deleteImpactDates.size(); k++) {
+/* 2025 */       JdbcConnector connectorDeleteImpact = null;
+/* 2026 */       for (int k = 0; k < deleteImpactDates.size(); k++) {
 /*      */         
-/* 2017 */         ImpactDate impact = (ImpactDate)deleteImpactDates.get(k);
+/* 2028 */         ImpactDate impact = (ImpactDate)deleteImpactDates.get(k);
 /*      */         
-/* 2019 */         String impactDeleteSql = "sp_del_ImpactDate " + impact.getImpactDateID();
+/* 2030 */         String impactDeleteSql = "sp_del_ImpactDate " + impact.getImpactDateID();
 /*      */ 
 /*      */ 
 /*      */         
-/* 2023 */         connectorDeleteImpact = MilestoneHelper.getConnector(impactDeleteSql);
-/* 2024 */         connectorDeleteImpact.runQuery();
-/* 2025 */         connectorDeleteImpact.close();
+/* 2034 */         connectorDeleteImpact = MilestoneHelper.getConnector(impactDeleteSql);
+/* 2035 */         connectorDeleteImpact.runQuery();
+/* 2036 */         connectorDeleteImpact.close();
 /*      */       } 
 /*      */     } 
 /*      */   }
@@ -2038,113 +2049,113 @@
 /*      */ 
 /*      */   
 /*      */   public void savePlants(Selection selection, User updatingUser) {
-/* 2041 */     if (selection != null && selection.getManufacturingPlants() != null) {
+/* 2052 */     if (selection != null && selection.getManufacturingPlants() != null) {
 /*      */       
-/* 2043 */       Vector plants = selection.getManufacturingPlants();
+/* 2054 */       Vector plants = selection.getManufacturingPlants();
 /*      */       
-/* 2045 */       Vector addPlants = new Vector();
-/* 2046 */       Vector deletePlants = new Vector();
+/* 2056 */       Vector addPlants = new Vector();
+/* 2057 */       Vector deletePlants = new Vector();
 /*      */       
-/* 2048 */       String plantQuery = "select * from Manufacturing_Plants where release_id = " + selection.getSelectionID();
+/* 2059 */       String plantQuery = "select * from Manufacturing_Plants where release_id = " + selection.getSelectionID();
 /*      */ 
 /*      */ 
 /*      */       
-/* 2052 */       boolean delete = true;
+/* 2063 */       boolean delete = true;
 /*      */       
-/* 2054 */       for (int a = 0; a < plants.size(); a++) {
+/* 2065 */       for (int a = 0; a < plants.size(); a++) {
 /*      */         
-/* 2056 */         Plant plant = (Plant)plants.get(a);
+/* 2067 */         Plant plant = (Plant)plants.get(a);
 /*      */         
-/* 2058 */         JdbcConnector connectorPlantCount = MilestoneHelper.getConnector(plantQuery);
-/* 2059 */         connectorPlantCount.runQuery();
+/* 2069 */         JdbcConnector connectorPlantCount = MilestoneHelper.getConnector(plantQuery);
+/* 2070 */         connectorPlantCount.runQuery();
 /*      */         
-/* 2061 */         if (connectorPlantCount.more()) {
+/* 2072 */         if (connectorPlantCount.more()) {
 /*      */           
-/* 2063 */           while (connectorPlantCount.more())
+/* 2074 */           while (connectorPlantCount.more())
 /*      */           {
 /*      */ 
 /*      */             
-/* 2067 */             if (plant.getPlantID() == -1 || plant.getPlantID() == connectorPlantCount.getInt("plantId", -2)) {
+/* 2078 */             if (plant.getPlantID() == -1 || plant.getPlantID() == connectorPlantCount.getInt("plantId", -2)) {
 /*      */               
-/* 2069 */               addPlants.add(plant);
+/* 2080 */               addPlants.add(plant);
 /*      */               break;
 /*      */             } 
-/* 2072 */             connectorPlantCount.next();
+/* 2083 */             connectorPlantCount.next();
 /*      */           }
 /*      */         
 /*      */         } else {
 /*      */           
-/* 2077 */           addPlants.add(plant);
+/* 2088 */           addPlants.add(plant);
 /*      */         } 
 /*      */         
-/* 2080 */         connectorPlantCount.close();
+/* 2091 */         connectorPlantCount.close();
 /*      */       } 
 /*      */       
-/* 2083 */       JdbcConnector connectorPlantDelete = MilestoneHelper.getConnector(plantQuery);
-/* 2084 */       connectorPlantDelete.runQuery();
+/* 2094 */       JdbcConnector connectorPlantDelete = MilestoneHelper.getConnector(plantQuery);
+/* 2095 */       connectorPlantDelete.runQuery();
 /*      */       
-/* 2086 */       while (connectorPlantDelete.more()) {
+/* 2097 */       while (connectorPlantDelete.more()) {
 /*      */         
-/* 2088 */         delete = true;
+/* 2099 */         delete = true;
 /*      */         
-/* 2090 */         for (int b = 0; b < plants.size(); b++) {
+/* 2101 */         for (int b = 0; b < plants.size(); b++) {
 /*      */           
-/* 2092 */           Plant plantDelete = (Plant)plants.get(b);
+/* 2103 */           Plant plantDelete = (Plant)plants.get(b);
 /*      */           
-/* 2094 */           if (connectorPlantDelete.getInt("plantId", -2) == plantDelete.getPlantID())
+/* 2105 */           if (connectorPlantDelete.getInt("plantId", -2) == plantDelete.getPlantID())
 /*      */           {
-/* 2096 */             delete = false;
+/* 2107 */             delete = false;
 /*      */           }
 /*      */         } 
 /*      */         
-/* 2100 */         if (delete) {
+/* 2111 */         if (delete) {
 /*      */           
-/* 2102 */           Plant delPlant = new Plant();
-/* 2103 */           delPlant.setPlantID(connectorPlantDelete.getInt("plantId", -1));
-/* 2104 */           deletePlants.add(delPlant);
+/* 2113 */           Plant delPlant = new Plant();
+/* 2114 */           delPlant.setPlantID(connectorPlantDelete.getInt("plantId", -1));
+/* 2115 */           deletePlants.add(delPlant);
 /*      */         } 
 /*      */         
-/* 2107 */         connectorPlantDelete.next();
+/* 2118 */         connectorPlantDelete.next();
 /*      */       } 
-/* 2109 */       connectorPlantDelete.close();
+/* 2120 */       connectorPlantDelete.close();
 /*      */ 
 /*      */       
-/* 2112 */       for (int i = 0; i < addPlants.size(); i++) {
+/* 2123 */       for (int i = 0; i < addPlants.size(); i++) {
 /*      */         
-/* 2114 */         Plant plant = (Plant)addPlants.get(i);
+/* 2125 */         Plant plant = (Plant)addPlants.get(i);
 /*      */         
-/* 2116 */         String plantId = "-1";
-/* 2117 */         if (plant.getPlant() != null) {
-/* 2118 */           plantId = plant.getPlant().getAbbreviation();
+/* 2127 */         String plantId = "-1";
+/* 2128 */         if (plant.getPlant() != null) {
+/* 2129 */           plantId = plant.getPlant().getAbbreviation();
 /*      */         }
 /*      */         
-/* 2121 */         String plantSql = "sp_sav_Plant " + plant.getPlantID() + ",'" + 
-/* 2122 */           plant.getSelectionID() + "'," + 
-/* 2123 */           plantId + "," + 
-/* 2124 */           plant.getOrderQty() + "," + 
-/* 2125 */           plant.getCompletedQty() + "," + 
-/* 2126 */           plant.getReleaseID();
+/* 2132 */         String plantSql = "sp_sav_Plant " + plant.getPlantID() + ",'" + 
+/* 2133 */           plant.getSelectionID() + "'," + 
+/* 2134 */           plantId + "," + 
+/* 2135 */           plant.getOrderQty() + "," + 
+/* 2136 */           plant.getCompletedQty() + "," + 
+/* 2137 */           plant.getReleaseID();
 /*      */ 
 /*      */ 
 /*      */         
-/* 2130 */         JdbcConnector connectorAddPlant = MilestoneHelper.getConnector(plantSql);
-/* 2131 */         connectorAddPlant.runQuery();
-/* 2132 */         connectorAddPlant.close();
+/* 2141 */         JdbcConnector connectorAddPlant = MilestoneHelper.getConnector(plantSql);
+/* 2142 */         connectorAddPlant.runQuery();
+/* 2143 */         connectorAddPlant.close();
 /*      */       } 
 /*      */ 
 /*      */       
-/* 2136 */       JdbcConnector connectorDeletePlant = null;
-/* 2137 */       for (int k = 0; k < deletePlants.size(); k++) {
+/* 2147 */       JdbcConnector connectorDeletePlant = null;
+/* 2148 */       for (int k = 0; k < deletePlants.size(); k++) {
 /*      */         
-/* 2139 */         Plant plant = (Plant)deletePlants.get(k);
+/* 2150 */         Plant plant = (Plant)deletePlants.get(k);
 /*      */         
-/* 2141 */         String plantDeleteSql = "sp_del_Plant " + plant.getPlantID();
+/* 2152 */         String plantDeleteSql = "sp_del_Plant " + plant.getPlantID();
 /*      */ 
 /*      */ 
 /*      */         
-/* 2145 */         connectorDeletePlant = MilestoneHelper.getConnector(plantDeleteSql);
-/* 2146 */         connectorDeletePlant.runQuery();
-/* 2147 */         connectorDeletePlant.close();
+/* 2156 */         connectorDeletePlant = MilestoneHelper.getConnector(plantDeleteSql);
+/* 2157 */         connectorDeletePlant.runQuery();
+/* 2158 */         connectorDeletePlant.close();
 /*      */       } 
 /*      */     } 
 /*      */   }
@@ -2158,12 +2169,12 @@
 /*      */ 
 /*      */   
 /*      */   public void updateTemplateId(Selection selection, User updatingUser) {
-/* 2161 */     String query = "UPDATE Release_Header SET templateId = " + selection.getTemplateId() + 
-/* 2162 */       " WHERE release_id = " + selection.getSelectionID();
+/* 2172 */     String query = "UPDATE Release_Header SET templateId = " + selection.getTemplateId() + 
+/* 2173 */       " WHERE release_id = " + selection.getSelectionID();
 /*      */     
-/* 2164 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 2165 */     connector.runQuery();
-/* 2166 */     connector.close();
+/* 2175 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 2176 */     connector.runQuery();
+/* 2177 */     connector.close();
 /*      */   }
 /*      */ 
 /*      */ 
@@ -2172,12 +2183,12 @@
 /*      */ 
 /*      */   
 /*      */   public void updateStatusToClose(Selection selection) {
-/* 2175 */     String query = "UPDATE Release_Header SET status = 'CLOSED' WHERE release_id = " + 
-/* 2176 */       selection.getSelectionID();
+/* 2186 */     String query = "UPDATE Release_Header SET status = 'CLOSED' WHERE release_id = " + 
+/* 2187 */       selection.getSelectionID();
 /*      */     
-/* 2178 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 2179 */     connector.runQuery();
-/* 2180 */     connector.close();
+/* 2189 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 2190 */     connector.runQuery();
+/* 2191 */     connector.close();
 /*      */   }
 /*      */ 
 /*      */ 
@@ -2187,13 +2198,13 @@
 /*      */ 
 /*      */   
 /*      */   public void updateComment(Selection selection) {
-/* 2190 */     String query = "UPDATE Release_Header SET comments = '" + 
-/* 2191 */       MilestoneHelper.escapeSingleQuotes(selection.getSelectionComments()) + "' " + 
-/* 2192 */       " WHERE release_id = " + selection.getSelectionID();
+/* 2201 */     String query = "UPDATE Release_Header SET comments = '" + 
+/* 2202 */       MilestoneHelper.escapeSingleQuotes(selection.getSelectionComments()) + "' " + 
+/* 2203 */       " WHERE release_id = " + selection.getSelectionID();
 /*      */     
-/* 2194 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 2195 */     connector.runQuery();
-/* 2196 */     connector.close();
+/* 2205 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 2206 */     connector.runQuery();
+/* 2207 */     connector.close();
 /*      */   }
 /*      */ 
 /*      */ 
@@ -2207,23 +2218,23 @@
 /*      */ 
 /*      */   
 /*      */   public String getAssignedTemplateName(Selection selection) {
-/* 2210 */     if (selection == null)
-/* 2211 */       return ""; 
-/* 2212 */     String query = "sp_get_Schedule_Template_Header " + selection.getTemplateId();
+/* 2221 */     if (selection == null)
+/* 2222 */       return ""; 
+/* 2223 */     String query = "sp_get_Schedule_Template_Header " + selection.getTemplateId();
 /*      */     
-/* 2214 */     String templateName = "";
+/* 2225 */     String templateName = "";
 /*      */     
-/* 2216 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 2217 */     connector.runQuery();
+/* 2227 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 2228 */     connector.runQuery();
 /*      */ 
 /*      */ 
 /*      */     
-/* 2221 */     if (connector.more()) {
-/* 2222 */       templateName = connector.getField("name", "");
+/* 2232 */     if (connector.more()) {
+/* 2233 */       templateName = connector.getField("name", "");
 /*      */     }
-/* 2224 */     connector.close();
+/* 2235 */     connector.close();
 /*      */     
-/* 2226 */     return templateName;
+/* 2237 */     return templateName;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -2231,59 +2242,59 @@
 /*      */ 
 /*      */   
 /*      */   public Selection saveManufacturingSelection(Selection selection, User updatingUser, boolean newFlag) {
-/* 2234 */     long timestamp = selection.getLastMfgUpdatedCheck();
+/* 2245 */     long timestamp = selection.getLastMfgUpdatedCheck();
 /*      */     
-/* 2236 */     String spName = "sp_upd_Release_Subdetail";
+/* 2247 */     String spName = "sp_upd_Release_Subdetail";
 /*      */ 
 /*      */     
-/* 2239 */     if (newFlag) {
-/* 2240 */       spName = "sp_ins_Release_Subdetail";
+/* 2250 */     if (newFlag) {
+/* 2251 */       spName = "sp_ins_Release_Subdetail";
 /*      */     }
-/* 2242 */     int umlContactId = 0;
-/* 2243 */     if (selection.getUmlContact() != null) {
-/* 2244 */       umlContactId = selection.getUmlContact().getUserId();
+/* 2253 */     int umlContactId = 0;
+/* 2254 */     if (selection.getUmlContact() != null) {
+/* 2255 */       umlContactId = selection.getUmlContact().getUserId();
 /*      */     }
-/* 2246 */     String plantId = "";
-/* 2247 */     if (selection.getPlant() != null) {
-/* 2248 */       plantId = selection.getPlant().getAbbreviation();
+/* 2257 */     String plantId = "";
+/* 2258 */     if (selection.getPlant() != null) {
+/* 2259 */       plantId = selection.getPlant().getAbbreviation();
 /*      */     }
-/* 2250 */     String distributionId = "";
-/* 2251 */     if (selection.getDistribution() != null) {
-/* 2252 */       distributionId = selection.getDistribution().getAbbreviation();
+/* 2261 */     String distributionId = "";
+/* 2262 */     if (selection.getDistribution() != null) {
+/* 2263 */       distributionId = selection.getDistribution().getAbbreviation();
 /*      */     }
-/* 2254 */     String query = String.valueOf(spName) + " " + 
-/* 2255 */       selection.getSelectionID() + "," + 
-/* 2256 */       umlContactId + "," + 
-/* 2257 */       "'" + MilestoneHelper.escapeSingleQuotes(plantId) + "'," + 
-/* 2258 */       "'" + MilestoneHelper.escapeSingleQuotes(distributionId) + "'," + 
-/* 2259 */       selection.getPoQuantity() + "," + 
-/* 2260 */       selection.getNumberOfUnits() + "," + 
-/* 2261 */       selection.getCompletedQuantity() + "," + 
-/* 2262 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getManufacturingComments()) + "'," + 
-/* 2263 */       updatingUser.getUserId();
+/* 2265 */     String query = String.valueOf(spName) + " " + 
+/* 2266 */       selection.getSelectionID() + "," + 
+/* 2267 */       umlContactId + "," + 
+/* 2268 */       "'" + MilestoneHelper.escapeSingleQuotes(plantId) + "'," + 
+/* 2269 */       "'" + MilestoneHelper.escapeSingleQuotes(distributionId) + "'," + 
+/* 2270 */       selection.getPoQuantity() + "," + 
+/* 2271 */       selection.getNumberOfUnits() + "," + 
+/* 2272 */       selection.getCompletedQuantity() + "," + 
+/* 2273 */       "'" + MilestoneHelper.escapeSingleQuotes(selection.getManufacturingComments()) + "'," + 
+/* 2274 */       updatingUser.getUserId();
 /*      */     
-/* 2265 */     if (!newFlag) {
-/* 2266 */       query = String.valueOf(query) + "," + timestamp;
+/* 2276 */     if (!newFlag) {
+/* 2277 */       query = String.valueOf(query) + "," + timestamp;
 /*      */     }
-/* 2268 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 2269 */     connector.runQuery();
-/* 2270 */     connector.close();
+/* 2279 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 2280 */     connector.runQuery();
+/* 2281 */     connector.close();
 /*      */     
-/* 2272 */     String timestampQuery = "SELECT last_updated_ck, last_updated_on FROM release_subdetail WHERE release_id = " + 
+/* 2283 */     String timestampQuery = "SELECT last_updated_ck, last_updated_on FROM release_subdetail WHERE release_id = " + 
 /*      */       
-/* 2274 */       selection.getSelectionID() + ";";
+/* 2285 */       selection.getSelectionID() + ";";
 /*      */     
-/* 2276 */     JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
-/* 2277 */     connectorTimestamp.runQuery();
-/* 2278 */     if (connectorTimestamp.more()) {
+/* 2287 */     JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
+/* 2288 */     connectorTimestamp.runQuery();
+/* 2289 */     if (connectorTimestamp.more()) {
 /*      */       
-/* 2280 */       selection.setLastMfgUpdatedCheck(Long.parseLong(connectorTimestamp.getField("last_updated_ck"), 16));
-/* 2281 */       selection.setLastMfgUpdateDate(MilestoneHelper.getDatabaseDate(connectorTimestamp.getField("last_updated_on")));
+/* 2291 */       selection.setLastMfgUpdatedCheck(Long.parseLong(connectorTimestamp.getField("last_updated_ck"), 16));
+/* 2292 */       selection.setLastMfgUpdateDate(MilestoneHelper.getDatabaseDate(connectorTimestamp.getField("last_updated_on")));
 /*      */     } 
-/* 2283 */     connectorTimestamp.close();
+/* 2294 */     connectorTimestamp.close();
 /*      */ 
 /*      */     
-/* 2286 */     savePlants(selection, updatingUser);
+/* 2297 */     savePlants(selection, updatingUser);
 /*      */ 
 /*      */ 
 /*      */ 
@@ -2291,7 +2302,7 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 2294 */     return selection;
+/* 2305 */     return selection;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -2301,42 +2312,42 @@
 /*      */ 
 /*      */   
 /*      */   public boolean deleteSelection(Selection selection, User updatingUser) {
-/* 2304 */     boolean isDeletable = true;
-/* 2305 */     int selectionId = selection.getSelectionID();
+/* 2315 */     boolean isDeletable = true;
+/* 2316 */     int selectionId = selection.getSelectionID();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 2310 */     if (selection.getSchedule() == null) {
-/* 2311 */       selection.setSchedule(ScheduleManager.getInstance().getSchedule(selectionId));
+/* 2321 */     if (selection.getSchedule() == null) {
+/* 2322 */       selection.setSchedule(ScheduleManager.getInstance().getSchedule(selectionId));
 /*      */     }
 /*      */     
 /*      */     try {
-/* 2315 */       if (selection.getSchedule().getTasks().size() > 0) {
-/* 2316 */         isDeletable = false;
+/* 2326 */       if (selection.getSchedule().getTasks().size() > 0) {
+/* 2327 */         isDeletable = false;
 /*      */       }
-/* 2318 */     } catch (Exception exception) {}
+/* 2329 */     } catch (Exception exception) {}
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 2323 */     if (isDeletable) {
+/* 2334 */     if (isDeletable) {
 /*      */       
-/* 2325 */       String query = "sp_del_Releases " + 
-/* 2326 */         selectionId;
+/* 2336 */       String query = "sp_del_Releases " + 
+/* 2337 */         selectionId;
 /*      */       
-/* 2328 */       JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 2329 */       connector.runQuery();
-/* 2330 */       connector.close();
+/* 2339 */       JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 2340 */       connector.runQuery();
+/* 2341 */       connector.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2336 */       GDRS_QueueAddReleaseId(selection, "DELETE");
+/* 2347 */       GDRS_QueueAddReleaseId(selection, "DELETE");
 /*      */     } 
 /*      */     
-/* 2339 */     return isDeletable;
+/* 2350 */     return isDeletable;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -2346,99 +2357,99 @@
 /*      */ 
 /*      */   
 /*      */   public Pfm savePfm(Pfm pfm, User updatingUser, boolean isDigital) {
-/* 2349 */     long timestamp = pfm.getLastUpdatedCk();
+/* 2360 */     long timestamp = pfm.getLastUpdatedCk();
 /*      */ 
 /*      */ 
 /*      */     
-/* 2353 */     int userID = -1;
-/* 2354 */     if (updatingUser != null) {
-/* 2355 */       userID = updatingUser.getUserId();
+/* 2364 */     int userID = -1;
+/* 2365 */     if (updatingUser != null) {
+/* 2366 */       userID = updatingUser.getUserId();
 /*      */     }
-/* 2357 */     String query = "sp_upd_PFM_Selection " + 
-/* 2358 */       pfm.getReleaseId() + ",'" + 
-/* 2359 */       MilestoneHelper.escapeSingleQuotes(pfm.getReleaseType()) + "','" + 
-/* 2360 */       MilestoneHelper.escapeSingleQuotes(pfm.getMode()) + "','" + 
-/* 2361 */       MilestoneHelper.escapeSingleQuotes(pfm.getPrintOption()) + "','" + 
-/* 2362 */       MilestoneHelper.escapeSingleQuotes(pfm.getPreparedBy()) + "','" + 
-/* 2363 */       MilestoneHelper.escapeSingleQuotes(pfm.getEmail()) + "','" + 
-/* 2364 */       MilestoneHelper.escapeSingleQuotes(pfm.getPhone()) + "','" + 
-/* 2365 */       MilestoneHelper.escapeSingleQuotes(pfm.getFaxNumber()) + "','" + 
-/* 2366 */       MilestoneHelper.escapeSingleQuotes(pfm.getComments()) + "','" + 
-/* 2367 */       MilestoneHelper.escapeSingleQuotes(pfm.getOperatingCompany()) + "','" + 
-/* 2368 */       MilestoneHelper.escapeSingleQuotes(pfm.getProductNumber()) + "','" + 
-/* 2369 */       MilestoneHelper.escapeSingleQuotes(pfm.getConfigCode()) + "','" + 
-/* 2370 */       MilestoneHelper.escapeSingleQuotes(pfm.getModifier()) + "','" + 
-/* 2371 */       MilestoneHelper.escapeSingleQuotes(pfm.getTitle()) + "','" + 
-/* 2372 */       MilestoneHelper.escapeSingleQuotes(pfm.getArtist()) + "','" + 
-/* 2373 */       MilestoneHelper.escapeSingleQuotes(pfm.getTitleId()) + "','" + 
-/* 2374 */       MilestoneHelper.escapeSingleQuotes(pfm.getSuperLabel()) + "','" + 
-/* 2375 */       MilestoneHelper.escapeSingleQuotes(pfm.getLabelCode()) + "','" + 
-/* 2376 */       MilestoneHelper.escapeSingleQuotes(pfm.getCompanyCode()) + "','" + 
-/* 2377 */       MilestoneHelper.escapeSingleQuotes(pfm.getPoMergeCode()) + "'," + 
-/* 2378 */       pfm.getUnitsPerSet() + "," + 
-/* 2379 */       pfm.getSetsPerCarton() + ",'" + 
-/* 2380 */       MilestoneHelper.escapeSingleQuotes(pfm.getSupplier()) + "','" + 
-/* 2381 */       MilestoneHelper.escapeSingleQuotes(pfm.getImportIndicator()) + "','" + 
+/* 2368 */     String query = "sp_upd_PFM_Selection " + 
+/* 2369 */       pfm.getReleaseId() + ",'" + 
+/* 2370 */       MilestoneHelper.escapeSingleQuotes(pfm.getReleaseType()) + "','" + 
+/* 2371 */       MilestoneHelper.escapeSingleQuotes(pfm.getMode()) + "','" + 
+/* 2372 */       MilestoneHelper.escapeSingleQuotes(pfm.getPrintOption()) + "','" + 
+/* 2373 */       MilestoneHelper.escapeSingleQuotes(pfm.getPreparedBy()) + "','" + 
+/* 2374 */       MilestoneHelper.escapeSingleQuotes(pfm.getEmail()) + "','" + 
+/* 2375 */       MilestoneHelper.escapeSingleQuotes(pfm.getPhone()) + "','" + 
+/* 2376 */       MilestoneHelper.escapeSingleQuotes(pfm.getFaxNumber()) + "','" + 
+/* 2377 */       MilestoneHelper.escapeSingleQuotes(pfm.getComments()) + "','" + 
+/* 2378 */       MilestoneHelper.escapeSingleQuotes(pfm.getOperatingCompany()) + "','" + 
+/* 2379 */       MilestoneHelper.escapeSingleQuotes(pfm.getProductNumber()) + "','" + 
+/* 2380 */       MilestoneHelper.escapeSingleQuotes(pfm.getConfigCode()) + "','" + 
+/* 2381 */       MilestoneHelper.escapeSingleQuotes(pfm.getModifier()) + "','" + 
+/* 2382 */       MilestoneHelper.escapeSingleQuotes(pfm.getTitle()) + "','" + 
+/* 2383 */       MilestoneHelper.escapeSingleQuotes(pfm.getArtist()) + "','" + 
+/* 2384 */       MilestoneHelper.escapeSingleQuotes(pfm.getTitleId()) + "','" + 
+/* 2385 */       MilestoneHelper.escapeSingleQuotes(pfm.getSuperLabel()) + "','" + 
+/* 2386 */       MilestoneHelper.escapeSingleQuotes(pfm.getLabelCode()) + "','" + 
+/* 2387 */       MilestoneHelper.escapeSingleQuotes(pfm.getCompanyCode()) + "','" + 
+/* 2388 */       MilestoneHelper.escapeSingleQuotes(pfm.getPoMergeCode()) + "'," + 
+/* 2389 */       pfm.getUnitsPerSet() + "," + 
+/* 2390 */       pfm.getSetsPerCarton() + ",'" + 
+/* 2391 */       MilestoneHelper.escapeSingleQuotes(pfm.getSupplier()) + "','" + 
+/* 2392 */       MilestoneHelper.escapeSingleQuotes(pfm.getImportIndicator()) + "','" + 
 /*      */       
-/* 2383 */       MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getUpc(), "UPC", isDigital, true)) + "','" + 
-/* 2384 */       MilestoneHelper.escapeSingleQuotes(pfm.getMusicLine()) + "','" + 
-/* 2385 */       MilestoneHelper.escapeSingleQuotes(pfm.getRepertoireOwner()) + "','" + 
-/* 2386 */       MilestoneHelper.escapeSingleQuotes(pfm.getRepertoireClass()) + "','" + 
-/* 2387 */       MilestoneHelper.escapeSingleQuotes(pfm.getReturnCode()) + "','" + 
-/* 2388 */       MilestoneHelper.escapeSingleQuotes(pfm.getExportFlag()) + "','" + 
-/* 2389 */       MilestoneHelper.escapeSingleQuotes(pfm.getCountries()) + "','" + 
-/* 2390 */       MilestoneHelper.escapeSingleQuotes(pfm.getSpineTitle()) + "','" + 
-/* 2391 */       MilestoneHelper.escapeSingleQuotes(pfm.getSpineArtist()) + "','" + 
-/* 2392 */       MilestoneHelper.escapeSingleQuotes(pfm.getPriceCode()) + "','" + 
-/* 2393 */       MilestoneHelper.escapeSingleQuotes(pfm.getGuaranteeCode()) + "','" + 
-/* 2394 */       MilestoneHelper.escapeSingleQuotes(pfm.getLoosePickExemptCode()) + "','" + 
-/* 2395 */       MilestoneHelper.escapeSingleQuotes(pfm.getCompilationCode()) + "','" + 
-/* 2396 */       MilestoneHelper.escapeSingleQuotes(pfm.getImpRateCode()) + "','" + 
+/* 2394 */       MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getUpc(), "UPC", isDigital, true)) + "','" + 
+/* 2395 */       MilestoneHelper.escapeSingleQuotes(pfm.getMusicLine()) + "','" + 
+/* 2396 */       MilestoneHelper.escapeSingleQuotes(pfm.getRepertoireOwner()) + "','" + 
+/* 2397 */       MilestoneHelper.escapeSingleQuotes(pfm.getRepertoireClass()) + "','" + 
+/* 2398 */       MilestoneHelper.escapeSingleQuotes(pfm.getReturnCode()) + "','" + 
+/* 2399 */       MilestoneHelper.escapeSingleQuotes(pfm.getExportFlag()) + "','" + 
+/* 2400 */       MilestoneHelper.escapeSingleQuotes(pfm.getCountries()) + "','" + 
+/* 2401 */       MilestoneHelper.escapeSingleQuotes(pfm.getSpineTitle()) + "','" + 
+/* 2402 */       MilestoneHelper.escapeSingleQuotes(pfm.getSpineArtist()) + "','" + 
+/* 2403 */       MilestoneHelper.escapeSingleQuotes(pfm.getPriceCode()) + "','" + 
+/* 2404 */       MilestoneHelper.escapeSingleQuotes(pfm.getGuaranteeCode()) + "','" + 
+/* 2405 */       MilestoneHelper.escapeSingleQuotes(pfm.getLoosePickExemptCode()) + "','" + 
+/* 2406 */       MilestoneHelper.escapeSingleQuotes(pfm.getCompilationCode()) + "','" + 
+/* 2407 */       MilestoneHelper.escapeSingleQuotes(pfm.getImpRateCode()) + "','" + 
 /*      */       
-/* 2398 */       MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(pfm.getMusicType())) + "','" + 
-/* 2399 */       MilestoneHelper.escapeSingleQuotes(pfm.getNarmFlag()) + "','" + 
-/* 2400 */       MilestoneHelper.escapeSingleQuotes(pfm.getPricePoint()) + "','" + 
-/* 2401 */       MilestoneHelper.escapeSingleQuotes(pfm.getApprovedByName()) + "','" + 
-/* 2402 */       MilestoneHelper.escapeSingleQuotes(pfm.getEnteredByName()) + "','" + 
-/* 2403 */       MilestoneHelper.escapeSingleQuotes(pfm.getVerifiedByName()) + "','" + 
-/* 2404 */       MilestoneHelper.escapeSingleQuotes(pfm.getChangeNumber()) + "','" + 
-/* 2405 */       MilestoneHelper.getFormatedDate(pfm.getStreetDate()) + "','" + 
-/* 2406 */       MilestoneHelper.escapeSingleQuotes(pfm.getProjectID()) + "'," + (
-/* 2407 */       pfm.getParentalGuidance() ? 1 : 0) + ",'" + 
+/* 2409 */       MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(pfm.getMusicType())) + "','" + 
+/* 2410 */       MilestoneHelper.escapeSingleQuotes(pfm.getNarmFlag()) + "','" + 
+/* 2411 */       MilestoneHelper.escapeSingleQuotes(pfm.getPricePoint()) + "','" + 
+/* 2412 */       MilestoneHelper.escapeSingleQuotes(pfm.getApprovedByName()) + "','" + 
+/* 2413 */       MilestoneHelper.escapeSingleQuotes(pfm.getEnteredByName()) + "','" + 
+/* 2414 */       MilestoneHelper.escapeSingleQuotes(pfm.getVerifiedByName()) + "','" + 
+/* 2415 */       MilestoneHelper.escapeSingleQuotes(pfm.getChangeNumber()) + "','" + 
+/* 2416 */       MilestoneHelper.getFormatedDate(pfm.getStreetDate()) + "','" + 
+/* 2417 */       MilestoneHelper.escapeSingleQuotes(pfm.getProjectID()) + "'," + (
+/* 2418 */       pfm.getParentalGuidance() ? 1 : 0) + ",'" + 
 /*      */       
-/* 2409 */       MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getSoundScanGrp(), "SSG", isDigital, true)) + "'," + 
-/* 2410 */       userID + "," + 
-/* 2411 */       timestamp + "," + (
-/* 2412 */       pfm.getValueAdded() ? 1 : 0) + "," + (
-/* 2413 */       pfm.getBoxSet() ? 1 : 0) + ",'" + 
-/* 2414 */       MilestoneHelper.escapeSingleQuotes(pfm.getEncryptionFlag()) + "','" + 
-/* 2415 */       MilestoneHelper.escapeSingleQuotes(pfm.getStatus()) + "','" + 
-/* 2416 */       MilestoneHelper.escapeSingleQuotes(pfm.getPriceCodeDPC()) + "'";
+/* 2420 */       MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getSoundScanGrp(), "SSG", isDigital, true)) + "'," + 
+/* 2421 */       userID + "," + 
+/* 2422 */       timestamp + "," + (
+/* 2423 */       pfm.getValueAdded() ? 1 : 0) + "," + (
+/* 2424 */       pfm.getBoxSet() ? 1 : 0) + ",'" + 
+/* 2425 */       MilestoneHelper.escapeSingleQuotes(pfm.getEncryptionFlag()) + "','" + 
+/* 2426 */       MilestoneHelper.escapeSingleQuotes(pfm.getStatus()) + "','" + 
+/* 2427 */       MilestoneHelper.escapeSingleQuotes(pfm.getPriceCodeDPC()) + "'";
 /*      */ 
 /*      */ 
 /*      */     
-/* 2420 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 2421 */     connector.runQuery();
-/* 2422 */     connector.close();
+/* 2431 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 2432 */     connector.runQuery();
+/* 2433 */     connector.close();
 /*      */     
-/* 2424 */     String timestampQuery = "SELECT last_updated_ck, last_updated_on, last_updated_by  FROM vi_PFM_Selection WHERE release_id = " + 
+/* 2435 */     String timestampQuery = "SELECT last_updated_ck, last_updated_on, last_updated_by  FROM vi_PFM_Selection WHERE release_id = " + 
 /*      */       
-/* 2426 */       pfm.getReleaseId() + 
-/* 2427 */       ";";
+/* 2437 */       pfm.getReleaseId() + 
+/* 2438 */       ";";
 /*      */ 
 /*      */     
-/* 2430 */     JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
-/* 2431 */     connectorTimestamp.runQuery();
+/* 2441 */     JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
+/* 2442 */     connectorTimestamp.runQuery();
 /*      */     
-/* 2433 */     if (connectorTimestamp.more()) {
+/* 2444 */     if (connectorTimestamp.more()) {
 /*      */       
-/* 2435 */       pfm.setLastUpdatedCk(Long.parseLong(connectorTimestamp.getField("last_updated_ck"), 16));
-/* 2436 */       pfm.setLastUpdatedDate(MilestoneHelper.getDatabaseDate(connectorTimestamp.getField("last_updated_on")));
-/* 2437 */       pfm.setLastUpdatingUser(connectorTimestamp.getIntegerField("last_updated_by"));
+/* 2446 */       pfm.setLastUpdatedCk(Long.parseLong(connectorTimestamp.getField("last_updated_ck"), 16));
+/* 2447 */       pfm.setLastUpdatedDate(MilestoneHelper.getDatabaseDate(connectorTimestamp.getField("last_updated_on")));
+/* 2448 */       pfm.setLastUpdatingUser(connectorTimestamp.getIntegerField("last_updated_by"));
 /*      */     } 
-/* 2439 */     connectorTimestamp.close();
+/* 2450 */     connectorTimestamp.close();
 /*      */     
-/* 2441 */     return pfm;
+/* 2452 */     return pfm;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -2447,101 +2458,101 @@
 /*      */ 
 /*      */   
 /*      */   public Pfm saveNewPfm(Pfm pfm, User updatingUser, boolean isDigital) {
-/* 2450 */     String query = "sp_ins_PFM_Selection " + 
-/* 2451 */       pfm.getReleaseId() + ",'" + 
-/* 2452 */       MilestoneHelper.escapeSingleQuotes(pfm.getReleaseType()) + "','" + 
-/* 2453 */       MilestoneHelper.escapeSingleQuotes(pfm.getMode()) + "','" + 
-/* 2454 */       MilestoneHelper.escapeSingleQuotes(pfm.getPrintOption()) + "','" + 
-/* 2455 */       MilestoneHelper.escapeSingleQuotes(pfm.getPreparedBy()) + "','" + 
-/* 2456 */       MilestoneHelper.escapeSingleQuotes(pfm.getEmail()) + "','" + 
-/* 2457 */       MilestoneHelper.escapeSingleQuotes(pfm.getPhone()) + "','" + 
-/* 2458 */       MilestoneHelper.escapeSingleQuotes(pfm.getFaxNumber()) + "','" + 
-/* 2459 */       MilestoneHelper.escapeSingleQuotes(pfm.getComments()) + "','" + 
-/* 2460 */       MilestoneHelper.escapeSingleQuotes(pfm.getOperatingCompany()) + "','" + 
-/* 2461 */       MilestoneHelper.escapeSingleQuotes(pfm.getProductNumber()) + "','" + 
-/* 2462 */       MilestoneHelper.escapeSingleQuotes(pfm.getConfigCode()) + "','" + 
-/* 2463 */       MilestoneHelper.escapeSingleQuotes(pfm.getModifier()) + "','" + 
-/* 2464 */       MilestoneHelper.escapeSingleQuotes(pfm.getTitle()) + "','" + 
-/* 2465 */       MilestoneHelper.escapeSingleQuotes(pfm.getArtist()) + "','" + 
-/* 2466 */       MilestoneHelper.escapeSingleQuotes(pfm.getTitleId()) + "','" + 
-/* 2467 */       MilestoneHelper.escapeSingleQuotes(pfm.getSuperLabel()) + "','" + 
-/* 2468 */       MilestoneHelper.escapeSingleQuotes(pfm.getLabelCode()) + "','" + 
-/* 2469 */       MilestoneHelper.escapeSingleQuotes(pfm.getCompanyCode()) + "','" + 
-/* 2470 */       MilestoneHelper.escapeSingleQuotes(pfm.getPoMergeCode()) + "'," + 
-/* 2471 */       pfm.getUnitsPerSet() + "," + 
-/* 2472 */       pfm.getSetsPerCarton() + ",'" + 
-/* 2473 */       MilestoneHelper.escapeSingleQuotes(pfm.getSupplier()) + "','" + 
-/* 2474 */       MilestoneHelper.escapeSingleQuotes(pfm.getImportIndicator()) + "','" + 
+/* 2461 */     String query = "sp_ins_PFM_Selection " + 
+/* 2462 */       pfm.getReleaseId() + ",'" + 
+/* 2463 */       MilestoneHelper.escapeSingleQuotes(pfm.getReleaseType()) + "','" + 
+/* 2464 */       MilestoneHelper.escapeSingleQuotes(pfm.getMode()) + "','" + 
+/* 2465 */       MilestoneHelper.escapeSingleQuotes(pfm.getPrintOption()) + "','" + 
+/* 2466 */       MilestoneHelper.escapeSingleQuotes(pfm.getPreparedBy()) + "','" + 
+/* 2467 */       MilestoneHelper.escapeSingleQuotes(pfm.getEmail()) + "','" + 
+/* 2468 */       MilestoneHelper.escapeSingleQuotes(pfm.getPhone()) + "','" + 
+/* 2469 */       MilestoneHelper.escapeSingleQuotes(pfm.getFaxNumber()) + "','" + 
+/* 2470 */       MilestoneHelper.escapeSingleQuotes(pfm.getComments()) + "','" + 
+/* 2471 */       MilestoneHelper.escapeSingleQuotes(pfm.getOperatingCompany()) + "','" + 
+/* 2472 */       MilestoneHelper.escapeSingleQuotes(pfm.getProductNumber()) + "','" + 
+/* 2473 */       MilestoneHelper.escapeSingleQuotes(pfm.getConfigCode()) + "','" + 
+/* 2474 */       MilestoneHelper.escapeSingleQuotes(pfm.getModifier()) + "','" + 
+/* 2475 */       MilestoneHelper.escapeSingleQuotes(pfm.getTitle()) + "','" + 
+/* 2476 */       MilestoneHelper.escapeSingleQuotes(pfm.getArtist()) + "','" + 
+/* 2477 */       MilestoneHelper.escapeSingleQuotes(pfm.getTitleId()) + "','" + 
+/* 2478 */       MilestoneHelper.escapeSingleQuotes(pfm.getSuperLabel()) + "','" + 
+/* 2479 */       MilestoneHelper.escapeSingleQuotes(pfm.getLabelCode()) + "','" + 
+/* 2480 */       MilestoneHelper.escapeSingleQuotes(pfm.getCompanyCode()) + "','" + 
+/* 2481 */       MilestoneHelper.escapeSingleQuotes(pfm.getPoMergeCode()) + "'," + 
+/* 2482 */       pfm.getUnitsPerSet() + "," + 
+/* 2483 */       pfm.getSetsPerCarton() + ",'" + 
+/* 2484 */       MilestoneHelper.escapeSingleQuotes(pfm.getSupplier()) + "','" + 
+/* 2485 */       MilestoneHelper.escapeSingleQuotes(pfm.getImportIndicator()) + "','" + 
 /*      */       
-/* 2476 */       MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getUpc(), "UPC", isDigital, true)) + "','" + 
-/* 2477 */       MilestoneHelper.escapeSingleQuotes(pfm.getMusicLine()) + "','" + 
-/* 2478 */       MilestoneHelper.escapeSingleQuotes(pfm.getRepertoireOwner()) + "','" + 
-/* 2479 */       MilestoneHelper.escapeSingleQuotes(pfm.getRepertoireClass()) + "','" + 
-/* 2480 */       MilestoneHelper.escapeSingleQuotes(pfm.getReturnCode()) + "','" + 
-/* 2481 */       MilestoneHelper.escapeSingleQuotes(pfm.getExportFlag()) + "','" + 
-/* 2482 */       MilestoneHelper.escapeSingleQuotes(pfm.getCountries()) + "','" + 
-/* 2483 */       MilestoneHelper.escapeSingleQuotes(pfm.getSpineTitle()) + "','" + 
-/* 2484 */       MilestoneHelper.escapeSingleQuotes(pfm.getSpineArtist()) + "','" + 
-/* 2485 */       MilestoneHelper.escapeSingleQuotes(pfm.getPriceCode()) + "','" + 
-/* 2486 */       MilestoneHelper.escapeSingleQuotes(pfm.getGuaranteeCode()) + "','" + 
-/* 2487 */       MilestoneHelper.escapeSingleQuotes(pfm.getLoosePickExemptCode()) + "','" + 
-/* 2488 */       MilestoneHelper.escapeSingleQuotes(pfm.getCompilationCode()) + "','" + 
-/* 2489 */       MilestoneHelper.escapeSingleQuotes(pfm.getImpRateCode()) + "','" + 
+/* 2487 */       MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getUpc(), "UPC", isDigital, true)) + "','" + 
+/* 2488 */       MilestoneHelper.escapeSingleQuotes(pfm.getMusicLine()) + "','" + 
+/* 2489 */       MilestoneHelper.escapeSingleQuotes(pfm.getRepertoireOwner()) + "','" + 
+/* 2490 */       MilestoneHelper.escapeSingleQuotes(pfm.getRepertoireClass()) + "','" + 
+/* 2491 */       MilestoneHelper.escapeSingleQuotes(pfm.getReturnCode()) + "','" + 
+/* 2492 */       MilestoneHelper.escapeSingleQuotes(pfm.getExportFlag()) + "','" + 
+/* 2493 */       MilestoneHelper.escapeSingleQuotes(pfm.getCountries()) + "','" + 
+/* 2494 */       MilestoneHelper.escapeSingleQuotes(pfm.getSpineTitle()) + "','" + 
+/* 2495 */       MilestoneHelper.escapeSingleQuotes(pfm.getSpineArtist()) + "','" + 
+/* 2496 */       MilestoneHelper.escapeSingleQuotes(pfm.getPriceCode()) + "','" + 
+/* 2497 */       MilestoneHelper.escapeSingleQuotes(pfm.getGuaranteeCode()) + "','" + 
+/* 2498 */       MilestoneHelper.escapeSingleQuotes(pfm.getLoosePickExemptCode()) + "','" + 
+/* 2499 */       MilestoneHelper.escapeSingleQuotes(pfm.getCompilationCode()) + "','" + 
+/* 2500 */       MilestoneHelper.escapeSingleQuotes(pfm.getImpRateCode()) + "','" + 
 /*      */       
-/* 2491 */       MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(pfm.getMusicType())) + "','" + 
-/* 2492 */       MilestoneHelper.escapeSingleQuotes(pfm.getNarmFlag()) + "','" + 
-/* 2493 */       MilestoneHelper.escapeSingleQuotes(pfm.getPricePoint()) + "','" + 
-/* 2494 */       MilestoneHelper.escapeSingleQuotes(pfm.getApprovedByName()) + "','" + 
-/* 2495 */       MilestoneHelper.escapeSingleQuotes(pfm.getEnteredByName()) + "','" + 
-/* 2496 */       MilestoneHelper.escapeSingleQuotes(pfm.getChangeNumber()) + "','" + 
-/* 2497 */       MilestoneHelper.getFormatedDate(pfm.getStreetDate()) + "','" + 
-/* 2498 */       MilestoneHelper.escapeSingleQuotes(pfm.getProjectID()) + "'," + (
-/* 2499 */       pfm.getParentalGuidance() ? 1 : 0) + ",'" + 
+/* 2502 */       MilestoneHelper.escapeSingleQuotes(getLookupObjectValue(pfm.getMusicType())) + "','" + 
+/* 2503 */       MilestoneHelper.escapeSingleQuotes(pfm.getNarmFlag()) + "','" + 
+/* 2504 */       MilestoneHelper.escapeSingleQuotes(pfm.getPricePoint()) + "','" + 
+/* 2505 */       MilestoneHelper.escapeSingleQuotes(pfm.getApprovedByName()) + "','" + 
+/* 2506 */       MilestoneHelper.escapeSingleQuotes(pfm.getEnteredByName()) + "','" + 
+/* 2507 */       MilestoneHelper.escapeSingleQuotes(pfm.getChangeNumber()) + "','" + 
+/* 2508 */       MilestoneHelper.getFormatedDate(pfm.getStreetDate()) + "','" + 
+/* 2509 */       MilestoneHelper.escapeSingleQuotes(pfm.getProjectID()) + "'," + (
+/* 2510 */       pfm.getParentalGuidance() ? 1 : 0) + ",'" + 
 /*      */       
-/* 2501 */       MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getSoundScanGrp(), "SSG", isDigital, true)) + "','" + 
-/* 2502 */       MilestoneHelper.escapeSingleQuotes(pfm.getVerifiedByName()) + "'," + 
-/* 2503 */       updatingUser.getUserId() + "," + (
-/* 2504 */       pfm.getValueAdded() ? 1 : 0) + "," + (
-/* 2505 */       pfm.getBoxSet() ? 1 : 0) + ",'" + 
-/* 2506 */       MilestoneHelper.escapeSingleQuotes(pfm.getEncryptionFlag()) + "','" + 
-/* 2507 */       MilestoneHelper.escapeSingleQuotes(pfm.getStatus()) + "','" + 
-/* 2508 */       MilestoneHelper.escapeSingleQuotes(pfm.getPriceCodeDPC()) + "'";
+/* 2512 */       MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(pfm.getSoundScanGrp(), "SSG", isDigital, true)) + "','" + 
+/* 2513 */       MilestoneHelper.escapeSingleQuotes(pfm.getVerifiedByName()) + "'," + 
+/* 2514 */       updatingUser.getUserId() + "," + (
+/* 2515 */       pfm.getValueAdded() ? 1 : 0) + "," + (
+/* 2516 */       pfm.getBoxSet() ? 1 : 0) + ",'" + 
+/* 2517 */       MilestoneHelper.escapeSingleQuotes(pfm.getEncryptionFlag()) + "','" + 
+/* 2518 */       MilestoneHelper.escapeSingleQuotes(pfm.getStatus()) + "','" + 
+/* 2519 */       MilestoneHelper.escapeSingleQuotes(pfm.getPriceCodeDPC()) + "'";
 /*      */ 
 /*      */ 
 /*      */     
-/* 2512 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 2513 */     connector.runQuery();
+/* 2523 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 2524 */     connector.runQuery();
 /*      */ 
 /*      */     
-/* 2516 */     if (pfm.getReleaseId() != -1) {
+/* 2527 */     if (pfm.getReleaseId() != -1) {
 /*      */       
-/* 2518 */       String lastUpdatedQuery = "SELECT last_updated_on, last_updated_by  FROM Pfm_Selection WHERE release_id = " + 
+/* 2529 */       String lastUpdatedQuery = "SELECT last_updated_on, last_updated_by  FROM Pfm_Selection WHERE release_id = " + 
 /*      */         
-/* 2520 */         pfm.getReleaseId() + 
-/* 2521 */         ";";
+/* 2531 */         pfm.getReleaseId() + 
+/* 2532 */         ";";
 /*      */       
-/* 2523 */       JdbcConnector connectorLastUpdated = MilestoneHelper.getConnector(lastUpdatedQuery);
-/* 2524 */       connectorLastUpdated.runQuery();
-/* 2525 */       if (connectorLastUpdated.more()) {
+/* 2534 */       JdbcConnector connectorLastUpdated = MilestoneHelper.getConnector(lastUpdatedQuery);
+/* 2535 */       connectorLastUpdated.runQuery();
+/* 2536 */       if (connectorLastUpdated.more()) {
 /*      */ 
 /*      */         
-/* 2528 */         String lastDateString = connectorLastUpdated.getFieldByName("last_updated_on");
-/* 2529 */         if (lastDateString != null) {
-/* 2530 */           pfm.setLastUpdatedDate(MilestoneHelper.getDatabaseDate(lastDateString));
+/* 2539 */         String lastDateString = connectorLastUpdated.getFieldByName("last_updated_on");
+/* 2540 */         if (lastDateString != null) {
+/* 2541 */           pfm.setLastUpdatedDate(MilestoneHelper.getDatabaseDate(lastDateString));
 /*      */         }
 /*      */         
-/* 2533 */         pfm.setLastUpdatingUser(connectorLastUpdated.getIntegerField("last_updated_by"));
+/* 2544 */         pfm.setLastUpdatingUser(connectorLastUpdated.getIntegerField("last_updated_by"));
 /*      */       } 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2539 */       connectorLastUpdated.close();
+/* 2550 */       connectorLastUpdated.close();
 /*      */     } 
 /*      */     
-/* 2542 */     connector.close();
+/* 2553 */     connector.close();
 /*      */     
-/* 2544 */     return pfm;
+/* 2555 */     return pfm;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -2550,359 +2561,359 @@
 /*      */ 
 /*      */   
 /*      */   public Bom saveBom(Bom bom, Selection currentSelection, int userID) {
-/* 2553 */     long timestamp = bom.getLastUpdatedCheck();
+/* 2564 */     long timestamp = bom.getLastUpdatedCheck();
 /*      */     
-/* 2555 */     if (bom.getBomId() <= 0) {
-/* 2556 */       bom.setBomId(-1);
+/* 2566 */     if (bom.getBomId() <= 0) {
+/* 2567 */       bom.setBomId(-1);
 /*      */     }
-/* 2558 */     String hasSpineSticker = "0";
-/* 2559 */     if (bom.hasSpineSticker())
+/* 2569 */     String hasSpineSticker = "0";
+/* 2570 */     if (bom.hasSpineSticker())
 /*      */     {
-/* 2561 */       hasSpineSticker = "1";
+/* 2572 */       hasSpineSticker = "1";
 /*      */     }
 /*      */     
-/* 2564 */     String useShrinkWrap = "0";
-/* 2565 */     if (bom.useShrinkWrap())
+/* 2575 */     String useShrinkWrap = "0";
+/* 2576 */     if (bom.useShrinkWrap())
 /*      */     {
-/* 2567 */       useShrinkWrap = "1";
+/* 2578 */       useShrinkWrap = "1";
 /*      */     }
 /*      */     
-/* 2570 */     String isRetail = "0";
-/* 2571 */     if (bom.isRetail())
+/* 2581 */     String isRetail = "0";
+/* 2582 */     if (bom.isRetail())
 /*      */     {
-/* 2573 */       isRetail = "1";
+/* 2584 */       isRetail = "1";
 /*      */     }
 /*      */     
-/* 2576 */     if (bom.getLabelId() <= 0) {
+/* 2587 */     if (bom.getLabelId() <= 0) {
 /*      */       
-/* 2578 */       int labelId = -1;
+/* 2589 */       int labelId = -1;
 /*      */       
-/* 2580 */       if (currentSelection.getLabel() != null) {
-/* 2581 */         labelId = currentSelection.getLabel().getStructureID();
+/* 2591 */       if (currentSelection.getLabel() != null) {
+/* 2592 */         labelId = currentSelection.getLabel().getStructureID();
 /*      */       }
-/* 2583 */       bom.setLabelId(labelId);
+/* 2594 */       bom.setLabelId(labelId);
 /*      */     } 
 /*      */     
-/* 2586 */     String bomSelectionDate = MilestoneHelper.getFormatedDate(bom.getStreetDateOnBom());
-/* 2587 */     if (bomSelectionDate.equals("")) {
-/* 2588 */       bomSelectionDate = "null,";
+/* 2597 */     String bomSelectionDate = MilestoneHelper.getFormatedDate(bom.getStreetDateOnBom());
+/* 2598 */     if (bomSelectionDate.equals("")) {
+/* 2599 */       bomSelectionDate = "null,";
 /*      */     } else {
-/* 2590 */       bomSelectionDate = "'" + MilestoneHelper.getFormatedDate(bom.getStreetDateOnBom()) + "',";
+/* 2601 */       bomSelectionDate = "'" + MilestoneHelper.getFormatedDate(bom.getStreetDateOnBom()) + "',";
 /*      */     } 
 /*      */     
-/* 2593 */     String query = "sp_sav_Bom_Header " + 
-/* 2594 */       bom.getBomId() + "," + 
-/* 2595 */       bom.getReleaseId() + "," + 
-/* 2596 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getFormat()) + "'," + 
-/* 2597 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getPrintOption()) + "'," + 
-/* 2598 */       "'" + MilestoneHelper.getFormatedDate(bom.getDate()) + "'," + 
-/* 2599 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getType()) + "'," + 
-/* 2600 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getChangeNumber()) + "'," + 
-/* 2601 */       "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bom.getSubmitter())) + "'," + 
-/* 2602 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getEmail()) + "'," + 
-/* 2603 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getPhone()) + "'," + 
-/* 2604 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getComments()) + "'," + 
-/* 2605 */       bom.getLabelId() + "," + 
-/* 2606 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getReleasingCompanyId()) + "'," + 
-/* 2607 */       isRetail + "," + 
-/* 2608 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getSelectionNumber()) + "'," + 
+/* 2604 */     String query = "sp_sav_Bom_Header " + 
+/* 2605 */       bom.getBomId() + "," + 
+/* 2606 */       bom.getReleaseId() + "," + 
+/* 2607 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getFormat()) + "'," + 
+/* 2608 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getPrintOption()) + "'," + 
+/* 2609 */       "'" + MilestoneHelper.getFormatedDate(bom.getDate()) + "'," + 
+/* 2610 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getType()) + "'," + 
+/* 2611 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getChangeNumber()) + "'," + 
+/* 2612 */       "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bom.getSubmitter())) + "'," + 
+/* 2613 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getEmail()) + "'," + 
+/* 2614 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getPhone()) + "'," + 
+/* 2615 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getComments()) + "'," + 
+/* 2616 */       bom.getLabelId() + "," + 
+/* 2617 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getReleasingCompanyId()) + "'," + 
+/* 2618 */       isRetail + "," + 
+/* 2619 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getSelectionNumber()) + "'," + 
 /*      */       
-/* 2610 */       bomSelectionDate + 
-/* 2611 */       bom.getUnitsPerKG() + "," + 
-/* 2612 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getRunTime()) + "'," + 
-/* 2613 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getConfiguration()) + "'," + 
-/* 2614 */       hasSpineSticker + "," + 
-/* 2615 */       useShrinkWrap + "," + 
-/* 2616 */       "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bom.getSpecialInstructions())) + "'," + 
-/* 2617 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getArtist()) + "'," + 
-/* 2618 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getTitle()) + "'," + 
-/* 2619 */       userID + "," + 
-/* 2620 */       timestamp + "," + 
-/* 2621 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getStatus()) + "'," + 
+/* 2621 */       bomSelectionDate + 
+/* 2622 */       bom.getUnitsPerKG() + "," + 
+/* 2623 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getRunTime()) + "'," + 
+/* 2624 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getConfiguration()) + "'," + 
+/* 2625 */       hasSpineSticker + "," + 
+/* 2626 */       useShrinkWrap + "," + 
+/* 2627 */       "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bom.getSpecialInstructions())) + "'," + 
+/* 2628 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getArtist()) + "'," + 
+/* 2629 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getTitle()) + "'," + 
+/* 2630 */       userID + "," + 
+/* 2631 */       timestamp + "," + 
+/* 2632 */       "'" + MilestoneHelper.escapeSingleQuotes(bom.getStatus()) + "'," + 
 /*      */       
-/* 2623 */       "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(bom.getUpc(), "UPC", currentSelection.getIsDigital(), true)) + "'";
+/* 2634 */       "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(bom.getUpc(), "UPC", currentSelection.getIsDigital(), true)) + "'";
 /*      */ 
 /*      */ 
 /*      */     
-/* 2627 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 2628 */     connector.runQuery();
+/* 2638 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 2639 */     connector.runQuery();
 /*      */     
-/* 2630 */     if (bom.getBomId() < 0)
+/* 2641 */     if (bom.getBomId() < 0)
 /*      */     {
-/* 2632 */       bom.setBomId(connector.getIntegerField("ReturnId"));
+/* 2643 */       bom.setBomId(connector.getIntegerField("ReturnId"));
 /*      */     }
-/* 2634 */     connector.close();
+/* 2645 */     connector.close();
 /*      */     
-/* 2636 */     String timestampQuery = "SELECT last_updated_ck, last_updated_on, last_updated_by  FROM bom_header WHERE bom_id = " + 
+/* 2647 */     String timestampQuery = "SELECT last_updated_ck, last_updated_on, last_updated_by  FROM bom_header WHERE bom_id = " + 
 /*      */       
-/* 2638 */       bom.getBomId() + 
-/* 2639 */       ";";
+/* 2649 */       bom.getBomId() + 
+/* 2650 */       ";";
 /*      */     
-/* 2641 */     JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
-/* 2642 */     connectorTimestamp.runQuery();
-/* 2643 */     if (connectorTimestamp.more()) {
+/* 2652 */     JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
+/* 2653 */     connectorTimestamp.runQuery();
+/* 2654 */     if (connectorTimestamp.more()) {
 /*      */       
-/* 2645 */       bom.setLastUpdatedCheck(Long.parseLong(connectorTimestamp.getField("last_updated_ck"), 16));
+/* 2656 */       bom.setLastUpdatedCheck(Long.parseLong(connectorTimestamp.getField("last_updated_ck"), 16));
 /*      */ 
 /*      */       
-/* 2648 */       bom.setModifiedBy(connectorTimestamp.getIntegerField("last_updated_by"));
+/* 2659 */       bom.setModifiedBy(connectorTimestamp.getIntegerField("last_updated_by"));
 /*      */       
-/* 2650 */       String modifiedOnString = connectorTimestamp.getFieldByName("last_updated_on");
-/* 2651 */       if (modifiedOnString != null)
-/* 2652 */         bom.setModifiedOn(MilestoneHelper.getDatabaseDate(modifiedOnString)); 
+/* 2661 */       String modifiedOnString = connectorTimestamp.getFieldByName("last_updated_on");
+/* 2662 */       if (modifiedOnString != null)
+/* 2663 */         bom.setModifiedOn(MilestoneHelper.getDatabaseDate(modifiedOnString)); 
 /*      */     } 
-/* 2654 */     connectorTimestamp.close();
+/* 2665 */     connectorTimestamp.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 2661 */     BomCassetteDetail cassetteDetail = bom.getBomCassetteDetail();
+/* 2672 */     BomCassetteDetail cassetteDetail = bom.getBomCassetteDetail();
 /*      */ 
 /*      */     
-/* 2664 */     if (cassetteDetail != null) {
+/* 2675 */     if (cassetteDetail != null) {
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2669 */       String coStatusIndicator = "0";
-/* 2670 */       if (cassetteDetail.coStatusIndicator)
+/* 2680 */       String coStatusIndicator = "0";
+/* 2681 */       if (cassetteDetail.coStatusIndicator)
 /*      */       {
-/* 2672 */         coStatusIndicator = "1";
+/* 2683 */         coStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 2675 */       String sp = "sp_upd_Bom_Detail ";
+/* 2686 */       String sp = "sp_upd_Bom_Detail ";
 /*      */       
-/* 2677 */       if (cassetteDetail.coPartId < 0) {
-/* 2678 */         sp = "sp_ins_Bom_Detail ";
+/* 2688 */       if (cassetteDetail.coPartId < 0) {
+/* 2689 */         sp = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 2680 */       String queryCO = String.valueOf(sp) + 
-/* 2681 */         bom.getBomId() + "," + 
-/* 2682 */         "5" + "," + 
-/* 2683 */         cassetteDetail.coParSupplierId + "," + 
-/* 2684 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.coInk1) + "'," + 
-/* 2685 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.coInk2) + "'," + 
-/* 2686 */         "''," + 
-/* 2687 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.coColor) + "'," + 
-/* 2688 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.coInfo)) + "'," + 
-/* 2689 */         coStatusIndicator + "," + 
-/* 2690 */         userID;
+/* 2691 */       String queryCO = String.valueOf(sp) + 
+/* 2692 */         bom.getBomId() + "," + 
+/* 2693 */         "5" + "," + 
+/* 2694 */         cassetteDetail.coParSupplierId + "," + 
+/* 2695 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.coInk1) + "'," + 
+/* 2696 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.coInk2) + "'," + 
+/* 2697 */         "''," + 
+/* 2698 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.coColor) + "'," + 
+/* 2699 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.coInfo)) + "'," + 
+/* 2700 */         coStatusIndicator + "," + 
+/* 2701 */         userID;
 /*      */       
-/* 2692 */       JdbcConnector connectorCO = MilestoneHelper.getConnector(queryCO);
-/* 2693 */       connectorCO.runQuery();
-/* 2694 */       connectorCO.close();
+/* 2703 */       JdbcConnector connectorCO = MilestoneHelper.getConnector(queryCO);
+/* 2704 */       connectorCO.runQuery();
+/* 2705 */       connectorCO.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2699 */       String norelcoStatusIndicator = "0";
-/* 2700 */       if (cassetteDetail.norelcoStatusIndicator)
+/* 2710 */       String norelcoStatusIndicator = "0";
+/* 2711 */       if (cassetteDetail.norelcoStatusIndicator)
 /*      */       {
-/* 2702 */         norelcoStatusIndicator = "1";
+/* 2713 */         norelcoStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 2705 */       String sp1 = "sp_upd_Bom_Detail ";
+/* 2716 */       String sp1 = "sp_upd_Bom_Detail ";
 /*      */       
-/* 2707 */       if (cassetteDetail.norelcoPartId < 0) {
-/* 2708 */         sp1 = "sp_ins_Bom_Detail ";
+/* 2718 */       if (cassetteDetail.norelcoPartId < 0) {
+/* 2719 */         sp1 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 2710 */       String queryNorelco = String.valueOf(sp1) + 
-/* 2711 */         bom.getBomId() + "," + 
-/* 2712 */         "16" + "," + 
-/* 2713 */         cassetteDetail.norelcoSupplierId + "," + 
-/* 2714 */         "''," + 
-/* 2715 */         "''," + 
-/* 2716 */         "''," + 
-/* 2717 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.norelcoColor) + "'," + 
-/* 2718 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.norelcoInfo)) + "'," + 
-/* 2719 */         norelcoStatusIndicator + "," + 
-/* 2720 */         userID;
+/* 2721 */       String queryNorelco = String.valueOf(sp1) + 
+/* 2722 */         bom.getBomId() + "," + 
+/* 2723 */         "16" + "," + 
+/* 2724 */         cassetteDetail.norelcoSupplierId + "," + 
+/* 2725 */         "''," + 
+/* 2726 */         "''," + 
+/* 2727 */         "''," + 
+/* 2728 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.norelcoColor) + "'," + 
+/* 2729 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.norelcoInfo)) + "'," + 
+/* 2730 */         norelcoStatusIndicator + "," + 
+/* 2731 */         userID;
 /*      */       
-/* 2722 */       JdbcConnector connectorNorelco = MilestoneHelper.getConnector(queryNorelco);
-/* 2723 */       connectorNorelco.runQuery();
-/* 2724 */       connectorNorelco.close();
+/* 2733 */       JdbcConnector connectorNorelco = MilestoneHelper.getConnector(queryNorelco);
+/* 2734 */       connectorNorelco.runQuery();
+/* 2735 */       connectorNorelco.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2730 */       String jCardStatusIndicator = "0";
-/* 2731 */       if (cassetteDetail.jCardStatusIndicator)
+/* 2741 */       String jCardStatusIndicator = "0";
+/* 2742 */       if (cassetteDetail.jCardStatusIndicator)
 /*      */       {
-/* 2733 */         jCardStatusIndicator = "1";
+/* 2744 */         jCardStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 2736 */       String sp2 = "sp_upd_Bom_Detail ";
+/* 2747 */       String sp2 = "sp_upd_Bom_Detail ";
 /*      */       
-/* 2738 */       if (cassetteDetail.jCardPartId < 0) {
-/* 2739 */         sp2 = "sp_ins_Bom_Detail ";
+/* 2749 */       if (cassetteDetail.jCardPartId < 0) {
+/* 2750 */         sp2 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 2741 */       String queryJCARD = String.valueOf(sp2) + 
-/* 2742 */         bom.getBomId() + "," + 
-/* 2743 */         "13" + "," + 
-/* 2744 */         cassetteDetail.jCardSupplierId + "," + 
-/* 2745 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.jCardInk1) + "'," + 
-/* 2746 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.jCardInk2) + "'," + 
-/* 2747 */         "''," + 
-/* 2748 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.jCardPanels)) + "'," + 
-/* 2749 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.jCardInfo)) + "'," + 
-/* 2750 */         jCardStatusIndicator + "," + 
-/* 2751 */         userID;
+/* 2752 */       String queryJCARD = String.valueOf(sp2) + 
+/* 2753 */         bom.getBomId() + "," + 
+/* 2754 */         "13" + "," + 
+/* 2755 */         cassetteDetail.jCardSupplierId + "," + 
+/* 2756 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.jCardInk1) + "'," + 
+/* 2757 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.jCardInk2) + "'," + 
+/* 2758 */         "''," + 
+/* 2759 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.jCardPanels)) + "'," + 
+/* 2760 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.jCardInfo)) + "'," + 
+/* 2761 */         jCardStatusIndicator + "," + 
+/* 2762 */         userID;
 /*      */       
-/* 2753 */       JdbcConnector connectorJCARD = MilestoneHelper.getConnector(queryJCARD);
-/* 2754 */       connectorJCARD.runQuery();
-/* 2755 */       connectorJCARD.close();
+/* 2764 */       JdbcConnector connectorJCARD = MilestoneHelper.getConnector(queryJCARD);
+/* 2765 */       connectorJCARD.runQuery();
+/* 2766 */       connectorJCARD.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2760 */       String uCardStatusIndicator = "0";
-/* 2761 */       if (cassetteDetail.uCardStatusIndicator)
+/* 2771 */       String uCardStatusIndicator = "0";
+/* 2772 */       if (cassetteDetail.uCardStatusIndicator)
 /*      */       {
-/* 2763 */         uCardStatusIndicator = "1";
+/* 2774 */         uCardStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 2766 */       String sp3 = "sp_upd_Bom_Detail ";
+/* 2777 */       String sp3 = "sp_upd_Bom_Detail ";
 /*      */       
-/* 2768 */       if (cassetteDetail.uCardPartId < 0) {
-/* 2769 */         sp3 = "sp_ins_Bom_Detail ";
+/* 2779 */       if (cassetteDetail.uCardPartId < 0) {
+/* 2780 */         sp3 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 2771 */       String queryUCARD = String.valueOf(sp3) + 
-/* 2772 */         bom.getBomId() + "," + 
-/* 2773 */         "24" + "," + 
-/* 2774 */         cassetteDetail.uCardSupplierId + "," + 
-/* 2775 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.uCardInk1) + "'," + 
-/* 2776 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.uCardInk2) + "'," + 
-/* 2777 */         "''," + 
-/* 2778 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.uCardPanels)) + "'," + 
-/* 2779 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.uCardInfo)) + "'," + 
-/* 2780 */         uCardStatusIndicator + "," + 
-/* 2781 */         userID;
+/* 2782 */       String queryUCARD = String.valueOf(sp3) + 
+/* 2783 */         bom.getBomId() + "," + 
+/* 2784 */         "24" + "," + 
+/* 2785 */         cassetteDetail.uCardSupplierId + "," + 
+/* 2786 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.uCardInk1) + "'," + 
+/* 2787 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.uCardInk2) + "'," + 
+/* 2788 */         "''," + 
+/* 2789 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.uCardPanels)) + "'," + 
+/* 2790 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.uCardInfo)) + "'," + 
+/* 2791 */         uCardStatusIndicator + "," + 
+/* 2792 */         userID;
 /*      */       
-/* 2783 */       JdbcConnector connectorUCARD = MilestoneHelper.getConnector(queryUCARD);
-/* 2784 */       connectorUCARD.runQuery();
-/* 2785 */       connectorUCARD.close();
+/* 2794 */       JdbcConnector connectorUCARD = MilestoneHelper.getConnector(queryUCARD);
+/* 2795 */       connectorUCARD.runQuery();
+/* 2796 */       connectorUCARD.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2790 */       String oCardStatusIndicator = "0";
-/* 2791 */       if (cassetteDetail.oCardStatusIndicator)
+/* 2801 */       String oCardStatusIndicator = "0";
+/* 2802 */       if (cassetteDetail.oCardStatusIndicator)
 /*      */       {
-/* 2793 */         oCardStatusIndicator = "1";
+/* 2804 */         oCardStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 2796 */       String sp4 = "sp_upd_Bom_Detail ";
+/* 2807 */       String sp4 = "sp_upd_Bom_Detail ";
 /*      */       
-/* 2798 */       if (cassetteDetail.oCardPartId < 0) {
-/* 2799 */         sp4 = "sp_ins_Bom_Detail ";
+/* 2809 */       if (cassetteDetail.oCardPartId < 0) {
+/* 2810 */         sp4 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 2801 */       String queryOCARD = String.valueOf(sp4) + 
-/* 2802 */         bom.getBomId() + "," + 
-/* 2803 */         "17" + "," + 
-/* 2804 */         cassetteDetail.oCardSupplierId + "," + 
-/* 2805 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.oCardInk1) + "'," + 
-/* 2806 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.oCardInk2) + "'," + 
-/* 2807 */         "''," + 
-/* 2808 */         "''," + 
-/* 2809 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.oCardInfo)) + "'," + 
-/* 2810 */         oCardStatusIndicator + "," + 
-/* 2811 */         userID;
+/* 2812 */       String queryOCARD = String.valueOf(sp4) + 
+/* 2813 */         bom.getBomId() + "," + 
+/* 2814 */         "17" + "," + 
+/* 2815 */         cassetteDetail.oCardSupplierId + "," + 
+/* 2816 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.oCardInk1) + "'," + 
+/* 2817 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.oCardInk2) + "'," + 
+/* 2818 */         "''," + 
+/* 2819 */         "''," + 
+/* 2820 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.oCardInfo)) + "'," + 
+/* 2821 */         oCardStatusIndicator + "," + 
+/* 2822 */         userID;
 /*      */       
-/* 2813 */       JdbcConnector connectorOCARD = MilestoneHelper.getConnector(queryOCARD);
-/* 2814 */       connectorOCARD.runQuery();
-/* 2815 */       connectorOCARD.close();
+/* 2824 */       JdbcConnector connectorOCARD = MilestoneHelper.getConnector(queryOCARD);
+/* 2825 */       connectorOCARD.runQuery();
+/* 2826 */       connectorOCARD.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2820 */       String stickerOneCardStatusIndicator = "0";
-/* 2821 */       if (cassetteDetail.stickerOneCardStatusIndicator)
+/* 2831 */       String stickerOneCardStatusIndicator = "0";
+/* 2832 */       if (cassetteDetail.stickerOneCardStatusIndicator)
 /*      */       {
-/* 2823 */         stickerOneCardStatusIndicator = "1";
+/* 2834 */         stickerOneCardStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 2826 */       String sp5 = "sp_upd_Bom_Detail ";
+/* 2837 */       String sp5 = "sp_upd_Bom_Detail ";
 /*      */       
-/* 2828 */       if (cassetteDetail.stickerOneCardPartId < 0) {
-/* 2829 */         sp5 = "sp_ins_Bom_Detail ";
+/* 2839 */       if (cassetteDetail.stickerOneCardPartId < 0) {
+/* 2840 */         sp5 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 2831 */       String queryStickerOne = String.valueOf(sp5) + 
-/* 2832 */         bom.getBomId() + "," + 
-/* 2833 */         "21" + "," + 
-/* 2834 */         cassetteDetail.stickerOneCardSupplierId + "," + 
-/* 2835 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.stickerOneCardInk1) + "'," + 
-/* 2836 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.stickerOneCardInk2) + "'," + 
-/* 2837 */         "''," + 
-/* 2838 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.stickerOneCardPlaces)) + "'," + 
-/* 2839 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.stickerOneCardInfo)) + "'," + 
-/* 2840 */         stickerOneCardStatusIndicator + "," + 
-/* 2841 */         userID;
+/* 2842 */       String queryStickerOne = String.valueOf(sp5) + 
+/* 2843 */         bom.getBomId() + "," + 
+/* 2844 */         "21" + "," + 
+/* 2845 */         cassetteDetail.stickerOneCardSupplierId + "," + 
+/* 2846 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.stickerOneCardInk1) + "'," + 
+/* 2847 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.stickerOneCardInk2) + "'," + 
+/* 2848 */         "''," + 
+/* 2849 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.stickerOneCardPlaces)) + "'," + 
+/* 2850 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.stickerOneCardInfo)) + "'," + 
+/* 2851 */         stickerOneCardStatusIndicator + "," + 
+/* 2852 */         userID;
 /*      */       
-/* 2843 */       JdbcConnector connectorSticker1 = MilestoneHelper.getConnector(queryStickerOne);
-/* 2844 */       connectorSticker1.runQuery();
-/* 2845 */       connectorSticker1.close();
+/* 2854 */       JdbcConnector connectorSticker1 = MilestoneHelper.getConnector(queryStickerOne);
+/* 2855 */       connectorSticker1.runQuery();
+/* 2856 */       connectorSticker1.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2850 */       String stickerTwoCardStatusIndicator = "0";
-/* 2851 */       if (cassetteDetail.stickerTwoCardStatusIndicator)
+/* 2861 */       String stickerTwoCardStatusIndicator = "0";
+/* 2862 */       if (cassetteDetail.stickerTwoCardStatusIndicator)
 /*      */       {
-/* 2853 */         stickerTwoCardStatusIndicator = "1";
+/* 2864 */         stickerTwoCardStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 2856 */       String sp6 = "sp_upd_Bom_Detail ";
+/* 2867 */       String sp6 = "sp_upd_Bom_Detail ";
 /*      */       
-/* 2858 */       if (cassetteDetail.stickerTwoCardPartId < 0) {
-/* 2859 */         sp6 = "sp_ins_Bom_Detail ";
+/* 2869 */       if (cassetteDetail.stickerTwoCardPartId < 0) {
+/* 2870 */         sp6 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 2861 */       String queryStickerTwo = String.valueOf(sp6) + 
-/* 2862 */         bom.getBomId() + "," + 
-/* 2863 */         "22" + "," + 
-/* 2864 */         cassetteDetail.stickerTwoCardSupplierId + "," + 
-/* 2865 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.stickerTwoCardInk1) + "'," + 
-/* 2866 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.stickerTwoCardInk2) + "'," + 
-/* 2867 */         "''," + 
-/* 2868 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.stickerTwoCardPlaces)) + "'," + 
-/* 2869 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.stickerTwoCardInfo)) + "'," + 
-/* 2870 */         stickerTwoCardStatusIndicator + "," + 
-/* 2871 */         userID;
+/* 2872 */       String queryStickerTwo = String.valueOf(sp6) + 
+/* 2873 */         bom.getBomId() + "," + 
+/* 2874 */         "22" + "," + 
+/* 2875 */         cassetteDetail.stickerTwoCardSupplierId + "," + 
+/* 2876 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.stickerTwoCardInk1) + "'," + 
+/* 2877 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.stickerTwoCardInk2) + "'," + 
+/* 2878 */         "''," + 
+/* 2879 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.stickerTwoCardPlaces)) + "'," + 
+/* 2880 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.stickerTwoCardInfo)) + "'," + 
+/* 2881 */         stickerTwoCardStatusIndicator + "," + 
+/* 2882 */         userID;
 /*      */       
-/* 2873 */       JdbcConnector connectorSticker2 = MilestoneHelper.getConnector(queryStickerTwo);
-/* 2874 */       connectorSticker2.runQuery();
-/* 2875 */       connectorSticker2.close();
+/* 2884 */       JdbcConnector connectorSticker2 = MilestoneHelper.getConnector(queryStickerTwo);
+/* 2885 */       connectorSticker2.runQuery();
+/* 2886 */       connectorSticker2.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 2880 */       String otherStatusIndicator = "0";
-/* 2881 */       if (cassetteDetail.otherStatusIndicator)
+/* 2891 */       String otherStatusIndicator = "0";
+/* 2892 */       if (cassetteDetail.otherStatusIndicator)
 /*      */       {
-/* 2883 */         otherStatusIndicator = "1";
+/* 2894 */         otherStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 2886 */       String sp7 = "sp_upd_Bom_Detail ";
+/* 2897 */       String sp7 = "sp_upd_Bom_Detail ";
 /*      */       
-/* 2888 */       if (cassetteDetail.otherPartId < 0) {
-/* 2889 */         sp7 = "sp_ins_Bom_Detail ";
+/* 2899 */       if (cassetteDetail.otherPartId < 0) {
+/* 2900 */         sp7 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 2891 */       String queryOther = String.valueOf(sp7) + 
-/* 2892 */         bom.getBomId() + "," + 
-/* 2893 */         "18" + "," + 
-/* 2894 */         cassetteDetail.otherSupplierId + "," + 
-/* 2895 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.otherInk1) + "'," + 
-/* 2896 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.otherInk2) + "'," + 
-/* 2897 */         "''," + 
-/* 2898 */         "''," + 
-/* 2899 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.otherInfo)) + "'," + 
-/* 2900 */         otherStatusIndicator + "," + 
-/* 2901 */         userID;
+/* 2902 */       String queryOther = String.valueOf(sp7) + 
+/* 2903 */         bom.getBomId() + "," + 
+/* 2904 */         "18" + "," + 
+/* 2905 */         cassetteDetail.otherSupplierId + "," + 
+/* 2906 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.otherInk1) + "'," + 
+/* 2907 */         "'" + MilestoneHelper.escapeSingleQuotes(cassetteDetail.otherInk2) + "'," + 
+/* 2908 */         "''," + 
+/* 2909 */         "''," + 
+/* 2910 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(cassetteDetail.otherInfo)) + "'," + 
+/* 2911 */         otherStatusIndicator + "," + 
+/* 2912 */         userID;
 /*      */       
-/* 2903 */       JdbcConnector connectorOther = MilestoneHelper.getConnector(queryOther);
-/* 2904 */       connectorOther.runQuery();
-/* 2905 */       connectorOther.close();
+/* 2914 */       JdbcConnector connectorOther = MilestoneHelper.getConnector(queryOther);
+/* 2915 */       connectorOther.runQuery();
+/* 2916 */       connectorOther.close();
 /*      */     } 
 /*      */ 
 /*      */ 
@@ -2913,92 +2924,92 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 2916 */     if (bom.getBomDiskDetail() != null || bom.getBomDVDDetail() != null) {
+/* 2927 */     if (bom.getBomDiskDetail() != null || bom.getBomDVDDetail() != null) {
 /*      */       BomDVDDetail bomDVDDetail;
 /*      */ 
 /*      */       
-/* 2920 */       if (bom.getBomDiskDetail() != null) {
-/* 2921 */         bomDVDDetail = bom.getBomDiskDetail();
+/* 2931 */       if (bom.getBomDiskDetail() != null) {
+/* 2932 */         bomDVDDetail = bom.getBomDiskDetail();
 /*      */       } else {
-/* 2923 */         bomDVDDetail = bom.getBomDVDDetail();
+/* 2934 */         bomDVDDetail = bom.getBomDVDDetail();
 /*      */       } 
 /*      */       
-/* 2926 */       String DVDDiscSelectionText = "";
-/* 2927 */       String DVDCaseSelectionText = "";
-/* 2928 */       String blueRayCaseSelectionText = "";
-/* 2929 */       if (bom.getBomDVDDetail() != null) {
+/* 2937 */       String DVDDiscSelectionText = "";
+/* 2938 */       String DVDCaseSelectionText = "";
+/* 2939 */       String blueRayCaseSelectionText = "";
+/* 2940 */       if (bom.getBomDVDDetail() != null) {
 /*      */ 
 /*      */         
-/* 2932 */         DVDDiscSelectionText = bom.getBomDVDDetail().getDiscSelectionInfo();
-/* 2933 */         DVDCaseSelectionText = bom.getBomDVDDetail().getDVDSelectionInfo();
+/* 2943 */         DVDDiscSelectionText = bom.getBomDVDDetail().getDiscSelectionInfo();
+/* 2944 */         DVDCaseSelectionText = bom.getBomDVDDetail().getDVDSelectionInfo();
 /*      */ 
 /*      */ 
 /*      */         
-/* 2937 */         String dvdVideoStatusIndicator = "0";
-/* 2938 */         if ((bom.getBomDVDDetail()).dvdStatusIndicator) {
-/* 2939 */           dvdVideoStatusIndicator = "1";
+/* 2948 */         String dvdVideoStatusIndicator = "0";
+/* 2949 */         if ((bom.getBomDVDDetail()).dvdStatusIndicator) {
+/* 2950 */           dvdVideoStatusIndicator = "1";
 /*      */         }
 /*      */         
-/* 2942 */         String spDVDCase = "sp_upd_Bom_Detail ";
-/* 2943 */         if ((bom.getBomDVDDetail()).dvdCasePartId < 0) {
-/* 2944 */           spDVDCase = "sp_ins_Bom_Detail ";
+/* 2953 */         String spDVDCase = "sp_upd_Bom_Detail ";
+/* 2954 */         if ((bom.getBomDVDDetail()).dvdCasePartId < 0) {
+/* 2955 */           spDVDCase = "sp_ins_Bom_Detail ";
 /*      */         }
-/* 2946 */         String query2DVDCase = String.valueOf(spDVDCase) + 
-/* 2947 */           bom.getBomId() + "," + 
-/* 2948 */           "30" + "," + 
-/* 2949 */           "''," + 
-/* 2950 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).dvdInk1) + 
-/* 2951 */           "'," + 
-/* 2952 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).dvdInk2) + 
-/* 2953 */           "'," + 
-/* 2954 */           "''," + 
-/* 2955 */           "'" + MilestoneHelper.escapeSingleQuotes(DVDCaseSelectionText) + "'," + 
-/* 2956 */           "'" + 
-/* 2957 */           MilestoneHelper.escapeSingleQuotes(
-/* 2958 */             MilestoneHelper.escapeDoubleQuotesForHtml(
-/* 2959 */               (bom.getBomDVDDetail())
-/* 2960 */               .dvdInfo)) + "'," + 
-/* 2961 */           dvdVideoStatusIndicator + "," + 
-/* 2962 */           userID;
+/* 2957 */         String query2DVDCase = String.valueOf(spDVDCase) + 
+/* 2958 */           bom.getBomId() + "," + 
+/* 2959 */           "30" + "," + 
+/* 2960 */           "''," + 
+/* 2961 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).dvdInk1) + 
+/* 2962 */           "'," + 
+/* 2963 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).dvdInk2) + 
+/* 2964 */           "'," + 
+/* 2965 */           "''," + 
+/* 2966 */           "'" + MilestoneHelper.escapeSingleQuotes(DVDCaseSelectionText) + "'," + 
+/* 2967 */           "'" + 
+/* 2968 */           MilestoneHelper.escapeSingleQuotes(
+/* 2969 */             MilestoneHelper.escapeDoubleQuotesForHtml(
+/* 2970 */               (bom.getBomDVDDetail())
+/* 2971 */               .dvdInfo)) + "'," + 
+/* 2972 */           dvdVideoStatusIndicator + "," + 
+/* 2973 */           userID;
 /*      */ 
 /*      */         
-/* 2965 */         JdbcConnector connector2DVDCase = MilestoneHelper.getConnector(query2DVDCase);
-/* 2966 */         connector2DVDCase.runQuery();
-/* 2967 */         connector2DVDCase.close();
+/* 2976 */         JdbcConnector connector2DVDCase = MilestoneHelper.getConnector(query2DVDCase);
+/* 2977 */         connector2DVDCase.runQuery();
+/* 2978 */         connector2DVDCase.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */         
-/* 2973 */         blueRayCaseSelectionText = bom.getBomDVDDetail().getBluRaySelectionInfo();
+/* 2984 */         blueRayCaseSelectionText = bom.getBomDVDDetail().getBluRaySelectionInfo();
 /*      */ 
 /*      */         
-/* 2976 */         String bluRayStatusIndicator = "0";
-/* 2977 */         if ((bom.getBomDVDDetail()).bluRayStatusIndicator) {
-/* 2978 */           bluRayStatusIndicator = "1";
+/* 2987 */         String bluRayStatusIndicator = "0";
+/* 2988 */         if ((bom.getBomDVDDetail()).bluRayStatusIndicator) {
+/* 2989 */           bluRayStatusIndicator = "1";
 /*      */         }
 /*      */         
-/* 2981 */         String spBluRayCase = "sp_upd_Bom_Detail ";
-/* 2982 */         if ((bom.getBomDVDDetail()).bluRayCasePartId < 0) {
-/* 2983 */           spBluRayCase = "sp_ins_Bom_Detail ";
+/* 2992 */         String spBluRayCase = "sp_upd_Bom_Detail ";
+/* 2993 */         if ((bom.getBomDVDDetail()).bluRayCasePartId < 0) {
+/* 2994 */           spBluRayCase = "sp_ins_Bom_Detail ";
 /*      */         }
-/* 2985 */         String query2BluRayCase = String.valueOf(spBluRayCase) + 
-/* 2986 */           bom.getBomId() + "," + 
-/* 2987 */           "32" + "," + 
-/* 2988 */           "''," + 
-/* 2989 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).bluRayInk1) + 
-/* 2990 */           "'," + 
-/* 2991 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).bluRayInk2) + 
-/* 2992 */           "'," + 
-/* 2993 */           "''," + 
-/* 2994 */           "'" + MilestoneHelper.escapeSingleQuotes(blueRayCaseSelectionText) + "'," + 
-/* 2995 */           "'" + 
-/* 2996 */           MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml((bom.getBomDVDDetail()).bluRayInfo)) + "'," + bluRayStatusIndicator + "," + userID;
+/* 2996 */         String query2BluRayCase = String.valueOf(spBluRayCase) + 
+/* 2997 */           bom.getBomId() + "," + 
+/* 2998 */           "32" + "," + 
+/* 2999 */           "''," + 
+/* 3000 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).bluRayInk1) + 
+/* 3001 */           "'," + 
+/* 3002 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).bluRayInk2) + 
+/* 3003 */           "'," + 
+/* 3004 */           "''," + 
+/* 3005 */           "'" + MilestoneHelper.escapeSingleQuotes(blueRayCaseSelectionText) + "'," + 
+/* 3006 */           "'" + 
+/* 3007 */           MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml((bom.getBomDVDDetail()).bluRayInfo)) + "'," + bluRayStatusIndicator + "," + userID;
 /*      */ 
 /*      */         
-/* 2999 */         JdbcConnector connector2BluRayCase = MilestoneHelper.getConnector(query2BluRayCase);
-/* 3000 */         connector2BluRayCase.runQuery();
-/* 3001 */         connector2BluRayCase.close();
+/* 3010 */         JdbcConnector connector2BluRayCase = MilestoneHelper.getConnector(query2BluRayCase);
+/* 3011 */         connector2BluRayCase.runQuery();
+/* 3012 */         connector2BluRayCase.close();
 /*      */ 
 /*      */ 
 /*      */ 
@@ -3008,32 +3019,32 @@
 /*      */ 
 /*      */ 
 /*      */         
-/* 3011 */         String wrapStatusIndicator = "0";
-/* 3012 */         if ((bom.getBomDVDDetail()).wrapStatusIndicator)
+/* 3022 */         String wrapStatusIndicator = "0";
+/* 3023 */         if ((bom.getBomDVDDetail()).wrapStatusIndicator)
 /*      */         {
-/* 3014 */           wrapStatusIndicator = "1";
+/* 3025 */           wrapStatusIndicator = "1";
 /*      */         }
 /*      */         
-/* 3017 */         String spWrap = "sp_upd_Bom_Detail ";
-/* 3018 */         if ((bom.getBomDVDDetail()).wrapPartId < 0) {
-/* 3019 */           spWrap = "sp_ins_Bom_Detail ";
+/* 3028 */         String spWrap = "sp_upd_Bom_Detail ";
+/* 3029 */         if ((bom.getBomDVDDetail()).wrapPartId < 0) {
+/* 3030 */           spWrap = "sp_ins_Bom_Detail ";
 /*      */         }
-/* 3021 */         String query2Wrap = String.valueOf(spWrap) + 
-/* 3022 */           bom.getBomId() + "," + 
-/* 3023 */           "29" + "," + 
-/* 3024 */           (bom.getBomDVDDetail()).wrapSupplierId + "," + 
-/* 3025 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).wrapInk1) + "'," + 
-/* 3026 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).wrapInk2) + "'," + 
-/* 3027 */           "''," + 
-/* 3028 */           "''," + 
-/* 3029 */           "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml((bom.getBomDVDDetail()).wrapInfo)) + "'," + 
-/* 3030 */           wrapStatusIndicator + "," + 
-/* 3031 */           userID;
+/* 3032 */         String query2Wrap = String.valueOf(spWrap) + 
+/* 3033 */           bom.getBomId() + "," + 
+/* 3034 */           "29" + "," + 
+/* 3035 */           (bom.getBomDVDDetail()).wrapSupplierId + "," + 
+/* 3036 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).wrapInk1) + "'," + 
+/* 3037 */           "'" + MilestoneHelper.escapeSingleQuotes((bom.getBomDVDDetail()).wrapInk2) + "'," + 
+/* 3038 */           "''," + 
+/* 3039 */           "''," + 
+/* 3040 */           "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml((bom.getBomDVDDetail()).wrapInfo)) + "'," + 
+/* 3041 */           wrapStatusIndicator + "," + 
+/* 3042 */           userID;
 /*      */ 
 /*      */         
-/* 3034 */         JdbcConnector connector2Wrap = MilestoneHelper.getConnector(query2Wrap);
-/* 3035 */         connector2Wrap.runQuery();
-/* 3036 */         connector2Wrap.close();
+/* 3045 */         JdbcConnector connector2Wrap = MilestoneHelper.getConnector(query2Wrap);
+/* 3046 */         connector2Wrap.runQuery();
+/* 3047 */         connector2Wrap.close();
 /*      */       } 
 /*      */ 
 /*      */ 
@@ -3041,323 +3052,323 @@
 /*      */ 
 /*      */ 
 /*      */       
-/* 3044 */       String discStatusIndicator = "0";
-/* 3045 */       if (bomDVDDetail.discStatusIndicator)
+/* 3055 */       String discStatusIndicator = "0";
+/* 3056 */       if (bomDVDDetail.discStatusIndicator)
 /*      */       {
-/* 3047 */         discStatusIndicator = "1";
+/* 3058 */         discStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3050 */       String sp8 = "sp_upd_Bom_Detail ";
-/* 3051 */       if (bomDVDDetail.discPartId < 0) {
-/* 3052 */         sp8 = "sp_ins_Bom_Detail ";
+/* 3061 */       String sp8 = "sp_upd_Bom_Detail ";
+/* 3062 */       if (bomDVDDetail.discPartId < 0) {
+/* 3063 */         sp8 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3054 */       String query2Disk = String.valueOf(sp8) + 
-/* 3055 */         bom.getBomId() + "," + 
-/* 3056 */         "7" + "," + 
-/* 3057 */         bomDVDDetail.diskSupplierId + "," + 
-/* 3058 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.discInk1) + "'," + 
-/* 3059 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.discInk2) + "'," + 
-/* 3060 */         "''," + 
-/* 3061 */         "'" + MilestoneHelper.escapeSingleQuotes(DVDDiscSelectionText) + "'," + 
-/* 3062 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.discInfo)) + "'," + 
-/* 3063 */         discStatusIndicator + "," + 
-/* 3064 */         userID;
+/* 3065 */       String query2Disk = String.valueOf(sp8) + 
+/* 3066 */         bom.getBomId() + "," + 
+/* 3067 */         "7" + "," + 
+/* 3068 */         bomDVDDetail.diskSupplierId + "," + 
+/* 3069 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.discInk1) + "'," + 
+/* 3070 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.discInk2) + "'," + 
+/* 3071 */         "''," + 
+/* 3072 */         "'" + MilestoneHelper.escapeSingleQuotes(DVDDiscSelectionText) + "'," + 
+/* 3073 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.discInfo)) + "'," + 
+/* 3074 */         discStatusIndicator + "," + 
+/* 3075 */         userID;
 /*      */       
-/* 3066 */       JdbcConnector connector2Disk = MilestoneHelper.getConnector(query2Disk);
-/* 3067 */       connector2Disk.runQuery();
-/* 3068 */       connector2Disk.close();
+/* 3077 */       JdbcConnector connector2Disk = MilestoneHelper.getConnector(query2Disk);
+/* 3078 */       connector2Disk.runQuery();
+/* 3079 */       connector2Disk.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3073 */       String jewelStatusIndicator = "0";
-/* 3074 */       if (bomDVDDetail.jewelStatusIndicator)
+/* 3084 */       String jewelStatusIndicator = "0";
+/* 3085 */       if (bomDVDDetail.jewelStatusIndicator)
 /*      */       {
-/* 3076 */         jewelStatusIndicator = "1";
+/* 3087 */         jewelStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3079 */       String sp9 = "sp_upd_Bom_Detail ";
-/* 3080 */       if (bomDVDDetail.jewelPartId < 0) {
-/* 3081 */         sp9 = "sp_ins_Bom_Detail ";
+/* 3090 */       String sp9 = "sp_upd_Bom_Detail ";
+/* 3091 */       if (bomDVDDetail.jewelPartId < 0) {
+/* 3092 */         sp9 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3083 */       String query2Jewel = String.valueOf(sp9) + 
-/* 3084 */         bom.getBomId() + "," + 
-/* 3085 */         "12" + "," + 
-/* 3086 */         "''," + 
-/* 3087 */         "''," + 
-/* 3088 */         "''," + 
-/* 3089 */         "''," + 
-/* 3090 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.jewelColor) + "'," + 
-/* 3091 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.jewelInfo)) + "'," + 
-/* 3092 */         jewelStatusIndicator + "," + 
-/* 3093 */         userID;
+/* 3094 */       String query2Jewel = String.valueOf(sp9) + 
+/* 3095 */         bom.getBomId() + "," + 
+/* 3096 */         "12" + "," + 
+/* 3097 */         "''," + 
+/* 3098 */         "''," + 
+/* 3099 */         "''," + 
+/* 3100 */         "''," + 
+/* 3101 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.jewelColor) + "'," + 
+/* 3102 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.jewelInfo)) + "'," + 
+/* 3103 */         jewelStatusIndicator + "," + 
+/* 3104 */         userID;
 /*      */       
-/* 3095 */       JdbcConnector connector2Jewel = MilestoneHelper.getConnector(query2Jewel);
-/* 3096 */       connector2Jewel.runQuery();
-/* 3097 */       connector2Jewel.close();
+/* 3106 */       JdbcConnector connector2Jewel = MilestoneHelper.getConnector(query2Jewel);
+/* 3107 */       connector2Jewel.runQuery();
+/* 3108 */       connector2Jewel.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3102 */       String trayStatusIndicator = "0";
-/* 3103 */       if (bomDVDDetail.trayStatusIndicator)
+/* 3113 */       String trayStatusIndicator = "0";
+/* 3114 */       if (bomDVDDetail.trayStatusIndicator)
 /*      */       {
-/* 3105 */         trayStatusIndicator = "1";
+/* 3116 */         trayStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3108 */       String sp10 = "sp_upd_Bom_Detail ";
-/* 3109 */       if (bomDVDDetail.trayPartId < 0) {
-/* 3110 */         sp10 = "sp_ins_Bom_Detail ";
+/* 3119 */       String sp10 = "sp_upd_Bom_Detail ";
+/* 3120 */       if (bomDVDDetail.trayPartId < 0) {
+/* 3121 */         sp10 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3112 */       String query2Tray = String.valueOf(sp10) + 
-/* 3113 */         bom.getBomId() + "," + 
-/* 3114 */         "23" + "," + 
-/* 3115 */         "''," + 
-/* 3116 */         "''," + 
-/* 3117 */         "''," + 
-/* 3118 */         "''," + 
-/* 3119 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.trayColor) + "'," + 
-/* 3120 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.trayInfo)) + "'," + 
-/* 3121 */         trayStatusIndicator + "," + 
-/* 3122 */         userID;
+/* 3123 */       String query2Tray = String.valueOf(sp10) + 
+/* 3124 */         bom.getBomId() + "," + 
+/* 3125 */         "23" + "," + 
+/* 3126 */         "''," + 
+/* 3127 */         "''," + 
+/* 3128 */         "''," + 
+/* 3129 */         "''," + 
+/* 3130 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.trayColor) + "'," + 
+/* 3131 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.trayInfo)) + "'," + 
+/* 3132 */         trayStatusIndicator + "," + 
+/* 3133 */         userID;
 /*      */       
-/* 3124 */       JdbcConnector connector2Tray = MilestoneHelper.getConnector(query2Tray);
-/* 3125 */       connector2Tray.runQuery();
-/* 3126 */       connector2Tray.close();
+/* 3135 */       JdbcConnector connector2Tray = MilestoneHelper.getConnector(query2Tray);
+/* 3136 */       connector2Tray.runQuery();
+/* 3137 */       connector2Tray.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3131 */       String inlayStatusIndicator = "0";
-/* 3132 */       if (bomDVDDetail.inlayStatusIndicator)
+/* 3142 */       String inlayStatusIndicator = "0";
+/* 3143 */       if (bomDVDDetail.inlayStatusIndicator)
 /*      */       {
-/* 3134 */         inlayStatusIndicator = "1";
+/* 3145 */         inlayStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3137 */       String sp11 = "sp_upd_Bom_Detail ";
-/* 3138 */       if (bomDVDDetail.inlayPartId < 0) {
-/* 3139 */         sp11 = "sp_ins_Bom_Detail ";
+/* 3148 */       String sp11 = "sp_upd_Bom_Detail ";
+/* 3149 */       if (bomDVDDetail.inlayPartId < 0) {
+/* 3150 */         sp11 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3141 */       String query2Inlay = String.valueOf(sp11) + 
-/* 3142 */         bom.getBomId() + "," + 
-/* 3143 */         "10" + "," + 
-/* 3144 */         bomDVDDetail.inlaySupplierId + "," + 
-/* 3145 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.inlayInk1) + "'," + 
-/* 3146 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.inlayInk2) + "'," + 
-/* 3147 */         "''," + 
-/* 3148 */         "''," + 
-/* 3149 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.inlayInfo)) + "'," + 
-/* 3150 */         inlayStatusIndicator + "," + 
-/* 3151 */         userID;
+/* 3152 */       String query2Inlay = String.valueOf(sp11) + 
+/* 3153 */         bom.getBomId() + "," + 
+/* 3154 */         "10" + "," + 
+/* 3155 */         bomDVDDetail.inlaySupplierId + "," + 
+/* 3156 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.inlayInk1) + "'," + 
+/* 3157 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.inlayInk2) + "'," + 
+/* 3158 */         "''," + 
+/* 3159 */         "''," + 
+/* 3160 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.inlayInfo)) + "'," + 
+/* 3161 */         inlayStatusIndicator + "," + 
+/* 3162 */         userID;
 /*      */       
-/* 3153 */       JdbcConnector connector2Inlay = MilestoneHelper.getConnector(query2Inlay);
-/* 3154 */       connector2Inlay.runQuery();
-/* 3155 */       connector2Inlay.close();
+/* 3164 */       JdbcConnector connector2Inlay = MilestoneHelper.getConnector(query2Inlay);
+/* 3165 */       connector2Inlay.runQuery();
+/* 3166 */       connector2Inlay.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3160 */       String frontStatusIndicator = "0";
-/* 3161 */       if (bomDVDDetail.frontStatusIndicator)
+/* 3171 */       String frontStatusIndicator = "0";
+/* 3172 */       if (bomDVDDetail.frontStatusIndicator)
 /*      */       {
-/* 3163 */         frontStatusIndicator = "1";
+/* 3174 */         frontStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3166 */       String sp12 = "sp_upd_Bom_Detail ";
-/* 3167 */       if (bomDVDDetail.frontPartId < 0) {
-/* 3168 */         sp12 = "sp_ins_Bom_Detail ";
+/* 3177 */       String sp12 = "sp_upd_Bom_Detail ";
+/* 3178 */       if (bomDVDDetail.frontPartId < 0) {
+/* 3179 */         sp12 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3170 */       String query2Front = String.valueOf(sp12) + 
-/* 3171 */         bom.getBomId() + "," + 
-/* 3172 */         "9" + "," + 
-/* 3173 */         bomDVDDetail.frontSupplierId + "," + 
-/* 3174 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.frontInk1) + "'," + 
-/* 3175 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.frontInk2) + "'," + 
-/* 3176 */         "''," + 
-/* 3177 */         "''," + 
-/* 3178 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.frontInfo)) + "'," + 
-/* 3179 */         frontStatusIndicator + "," + 
-/* 3180 */         userID;
+/* 3181 */       String query2Front = String.valueOf(sp12) + 
+/* 3182 */         bom.getBomId() + "," + 
+/* 3183 */         "9" + "," + 
+/* 3184 */         bomDVDDetail.frontSupplierId + "," + 
+/* 3185 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.frontInk1) + "'," + 
+/* 3186 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.frontInk2) + "'," + 
+/* 3187 */         "''," + 
+/* 3188 */         "''," + 
+/* 3189 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.frontInfo)) + "'," + 
+/* 3190 */         frontStatusIndicator + "," + 
+/* 3191 */         userID;
 /*      */       
-/* 3182 */       JdbcConnector connector2Front = MilestoneHelper.getConnector(query2Front);
-/* 3183 */       connector2Front.runQuery();
-/* 3184 */       connector2Front.close();
+/* 3193 */       JdbcConnector connector2Front = MilestoneHelper.getConnector(query2Front);
+/* 3194 */       connector2Front.runQuery();
+/* 3195 */       connector2Front.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3189 */       String folderStatusIndicator = "0";
-/* 3190 */       if (bomDVDDetail.folderStatusIndicator)
+/* 3200 */       String folderStatusIndicator = "0";
+/* 3201 */       if (bomDVDDetail.folderStatusIndicator)
 /*      */       {
-/* 3192 */         folderStatusIndicator = "1";
+/* 3203 */         folderStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3195 */       String sp13 = "sp_upd_Bom_Detail ";
-/* 3196 */       if (bomDVDDetail.folderPartId < 0) {
-/* 3197 */         sp13 = "sp_ins_Bom_Detail ";
+/* 3206 */       String sp13 = "sp_upd_Bom_Detail ";
+/* 3207 */       if (bomDVDDetail.folderPartId < 0) {
+/* 3208 */         sp13 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3199 */       String query2Folder = String.valueOf(sp13) + 
-/* 3200 */         bom.getBomId() + "," + 
-/* 3201 */         "8" + "," + 
-/* 3202 */         bomDVDDetail.folderSupplierId + "," + 
-/* 3203 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.folderInk1) + "'," + 
-/* 3204 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.folderInk2) + "'," + 
-/* 3205 */         "''," + 
-/* 3206 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.folderPages) + "'," + 
-/* 3207 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.folderInfo)) + "'," + 
-/* 3208 */         folderStatusIndicator + "," + 
-/* 3209 */         userID;
+/* 3210 */       String query2Folder = String.valueOf(sp13) + 
+/* 3211 */         bom.getBomId() + "," + 
+/* 3212 */         "8" + "," + 
+/* 3213 */         bomDVDDetail.folderSupplierId + "," + 
+/* 3214 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.folderInk1) + "'," + 
+/* 3215 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.folderInk2) + "'," + 
+/* 3216 */         "''," + 
+/* 3217 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.folderPages) + "'," + 
+/* 3218 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.folderInfo)) + "'," + 
+/* 3219 */         folderStatusIndicator + "," + 
+/* 3220 */         userID;
 /*      */       
-/* 3211 */       JdbcConnector connector2Folder = MilestoneHelper.getConnector(query2Folder);
-/* 3212 */       connector2Folder.runQuery();
-/* 3213 */       connector2Folder.close();
+/* 3222 */       JdbcConnector connector2Folder = MilestoneHelper.getConnector(query2Folder);
+/* 3223 */       connector2Folder.runQuery();
+/* 3224 */       connector2Folder.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3218 */       String bookletStatusIndicator = "0";
-/* 3219 */       if (bomDVDDetail.bookletStatusIndicator)
+/* 3229 */       String bookletStatusIndicator = "0";
+/* 3230 */       if (bomDVDDetail.bookletStatusIndicator)
 /*      */       {
-/* 3221 */         bookletStatusIndicator = "1";
+/* 3232 */         bookletStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3224 */       String sp14 = "sp_upd_Bom_Detail ";
-/* 3225 */       if (bomDVDDetail.bookletPartId < 0) {
-/* 3226 */         sp14 = "sp_ins_Bom_Detail ";
+/* 3235 */       String sp14 = "sp_upd_Bom_Detail ";
+/* 3236 */       if (bomDVDDetail.bookletPartId < 0) {
+/* 3237 */         sp14 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3228 */       String query2Booklet = String.valueOf(sp14) + 
-/* 3229 */         bom.getBomId() + "," + 
-/* 3230 */         "1" + "," + 
-/* 3231 */         bomDVDDetail.bookletSupplierId + "," + 
-/* 3232 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.bookletInk1) + "'," + 
-/* 3233 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.bookletInk2) + "'," + 
-/* 3234 */         "''," + 
-/* 3235 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.bookletPages) + "'," + 
-/* 3236 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.bookletInfo)) + "'," + 
-/* 3237 */         bookletStatusIndicator + "," + 
-/* 3238 */         userID;
+/* 3239 */       String query2Booklet = String.valueOf(sp14) + 
+/* 3240 */         bom.getBomId() + "," + 
+/* 3241 */         "1" + "," + 
+/* 3242 */         bomDVDDetail.bookletSupplierId + "," + 
+/* 3243 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.bookletInk1) + "'," + 
+/* 3244 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.bookletInk2) + "'," + 
+/* 3245 */         "''," + 
+/* 3246 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.bookletPages) + "'," + 
+/* 3247 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.bookletInfo)) + "'," + 
+/* 3248 */         bookletStatusIndicator + "," + 
+/* 3249 */         userID;
 /*      */       
-/* 3240 */       JdbcConnector connector2Booklet = MilestoneHelper.getConnector(query2Booklet);
-/* 3241 */       connector2Booklet.runQuery();
-/* 3242 */       connector2Booklet.close();
+/* 3251 */       JdbcConnector connector2Booklet = MilestoneHelper.getConnector(query2Booklet);
+/* 3252 */       connector2Booklet.runQuery();
+/* 3253 */       connector2Booklet.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3247 */       String brcStatusIndicator = "0";
-/* 3248 */       if (bomDVDDetail.brcStatusIndicator)
+/* 3258 */       String brcStatusIndicator = "0";
+/* 3259 */       if (bomDVDDetail.brcStatusIndicator)
 /*      */       {
-/* 3250 */         brcStatusIndicator = "1";
+/* 3261 */         brcStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3253 */       String sp15 = "sp_upd_Bom_Detail ";
-/* 3254 */       if (bomDVDDetail.brcPartId < 0) {
-/* 3255 */         sp15 = "sp_ins_Bom_Detail ";
+/* 3264 */       String sp15 = "sp_upd_Bom_Detail ";
+/* 3265 */       if (bomDVDDetail.brcPartId < 0) {
+/* 3266 */         sp15 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3257 */       String query2Brc = String.valueOf(sp15) + 
-/* 3258 */         bom.getBomId() + "," + 
-/* 3259 */         "4" + "," + 
-/* 3260 */         bomDVDDetail.brcSupplierId + "," + 
-/* 3261 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.brcInk1) + "'," + 
-/* 3262 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.brcInk2) + "'," + 
-/* 3263 */         "''," + 
-/* 3264 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.brcSize)) + "'," + 
-/* 3265 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.brcInfo)) + "'," + 
-/* 3266 */         brcStatusIndicator + "," + 
-/* 3267 */         userID;
+/* 3268 */       String query2Brc = String.valueOf(sp15) + 
+/* 3269 */         bom.getBomId() + "," + 
+/* 3270 */         "4" + "," + 
+/* 3271 */         bomDVDDetail.brcSupplierId + "," + 
+/* 3272 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.brcInk1) + "'," + 
+/* 3273 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.brcInk2) + "'," + 
+/* 3274 */         "''," + 
+/* 3275 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.brcSize)) + "'," + 
+/* 3276 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.brcInfo)) + "'," + 
+/* 3277 */         brcStatusIndicator + "," + 
+/* 3278 */         userID;
 /*      */       
-/* 3269 */       JdbcConnector connector2Brc = MilestoneHelper.getConnector(query2Brc);
-/* 3270 */       connector2Brc.runQuery();
-/* 3271 */       connector2Brc.close();
+/* 3280 */       JdbcConnector connector2Brc = MilestoneHelper.getConnector(query2Brc);
+/* 3281 */       connector2Brc.runQuery();
+/* 3282 */       connector2Brc.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3276 */       String miniStatusIndicator = "0";
-/* 3277 */       if (bomDVDDetail.miniStatusIndicator)
+/* 3287 */       String miniStatusIndicator = "0";
+/* 3288 */       if (bomDVDDetail.miniStatusIndicator)
 /*      */       {
-/* 3279 */         miniStatusIndicator = "1";
+/* 3290 */         miniStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3282 */       String sp16 = "sp_upd_Bom_Detail ";
-/* 3283 */       if (bomDVDDetail.miniPartId < 0) {
-/* 3284 */         sp16 = "sp_ins_Bom_Detail ";
+/* 3293 */       String sp16 = "sp_upd_Bom_Detail ";
+/* 3294 */       if (bomDVDDetail.miniPartId < 0) {
+/* 3295 */         sp16 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3286 */       String query2Mini = String.valueOf(sp16) + 
-/* 3287 */         bom.getBomId() + "," + 
-/* 3288 */         "15" + "," + 
-/* 3289 */         bomDVDDetail.miniSupplierId + "," + 
-/* 3290 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.miniInk1) + "'," + 
-/* 3291 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.miniInk2) + "'," + 
-/* 3292 */         "''," + 
-/* 3293 */         "''," + 
-/* 3294 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.miniInfo)) + "'," + 
-/* 3295 */         miniStatusIndicator + "," + 
-/* 3296 */         userID;
+/* 3297 */       String query2Mini = String.valueOf(sp16) + 
+/* 3298 */         bom.getBomId() + "," + 
+/* 3299 */         "15" + "," + 
+/* 3300 */         bomDVDDetail.miniSupplierId + "," + 
+/* 3301 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.miniInk1) + "'," + 
+/* 3302 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.miniInk2) + "'," + 
+/* 3303 */         "''," + 
+/* 3304 */         "''," + 
+/* 3305 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.miniInfo)) + "'," + 
+/* 3306 */         miniStatusIndicator + "," + 
+/* 3307 */         userID;
 /*      */       
-/* 3298 */       JdbcConnector connector2Mini = MilestoneHelper.getConnector(query2Mini);
-/* 3299 */       connector2Mini.runQuery();
-/* 3300 */       connector2Mini.close();
+/* 3309 */       JdbcConnector connector2Mini = MilestoneHelper.getConnector(query2Mini);
+/* 3310 */       connector2Mini.runQuery();
+/* 3311 */       connector2Mini.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3305 */       String digiPakStatusIndicator = "0";
-/* 3306 */       if (bomDVDDetail.digiPakStatusIndicator)
+/* 3316 */       String digiPakStatusIndicator = "0";
+/* 3317 */       if (bomDVDDetail.digiPakStatusIndicator)
 /*      */       {
-/* 3308 */         digiPakStatusIndicator = "1";
+/* 3319 */         digiPakStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3311 */       String sp17 = "sp_upd_Bom_Detail ";
-/* 3312 */       if (bomDVDDetail.digiPakPartId < 0) {
-/* 3313 */         sp17 = "sp_ins_Bom_Detail ";
+/* 3322 */       String sp17 = "sp_upd_Bom_Detail ";
+/* 3323 */       if (bomDVDDetail.digiPakPartId < 0) {
+/* 3324 */         sp17 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3315 */       String query2Digi = String.valueOf(sp17) + 
-/* 3316 */         bom.getBomId() + "," + 
-/* 3317 */         "6" + "," + 
-/* 3318 */         bomDVDDetail.digiPakSupplierId + "," + 
-/* 3319 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.digiPakInk1) + "'," + 
-/* 3320 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.digiPakInk2) + "'," + 
-/* 3321 */         "''," + 
-/* 3322 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.digiPakTray)) + "'," + 
-/* 3323 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.digiPakInfo)) + "'," + 
-/* 3324 */         digiPakStatusIndicator + "," + 
-/* 3325 */         userID;
+/* 3326 */       String query2Digi = String.valueOf(sp17) + 
+/* 3327 */         bom.getBomId() + "," + 
+/* 3328 */         "6" + "," + 
+/* 3329 */         bomDVDDetail.digiPakSupplierId + "," + 
+/* 3330 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.digiPakInk1) + "'," + 
+/* 3331 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.digiPakInk2) + "'," + 
+/* 3332 */         "''," + 
+/* 3333 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.digiPakTray)) + "'," + 
+/* 3334 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.digiPakInfo)) + "'," + 
+/* 3335 */         digiPakStatusIndicator + "," + 
+/* 3336 */         userID;
 /*      */       
-/* 3327 */       JdbcConnector connector2Digi = MilestoneHelper.getConnector(query2Digi);
-/* 3328 */       connector2Digi.runQuery();
-/* 3329 */       connector2Digi.close();
+/* 3338 */       JdbcConnector connector2Digi = MilestoneHelper.getConnector(query2Digi);
+/* 3339 */       connector2Digi.runQuery();
+/* 3340 */       connector2Digi.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3336 */       String softPakStatusIndicator = "0";
-/* 3337 */       if (bomDVDDetail.softPakStatusIndicator)
+/* 3347 */       String softPakStatusIndicator = "0";
+/* 3348 */       if (bomDVDDetail.softPakStatusIndicator)
 /*      */       {
-/* 3339 */         softPakStatusIndicator = "1";
+/* 3350 */         softPakStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3342 */       String sp31 = "sp_upd_Bom_Detail ";
-/* 3343 */       if (bomDVDDetail.softPakPartId < 0) {
-/* 3344 */         sp31 = "sp_ins_Bom_Detail ";
+/* 3353 */       String sp31 = "sp_upd_Bom_Detail ";
+/* 3354 */       if (bomDVDDetail.softPakPartId < 0) {
+/* 3355 */         sp31 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3346 */       String query2softPak = String.valueOf(sp31) + 
-/* 3347 */         bom.getBomId() + "," + 
-/* 3348 */         "31" + "," + 
-/* 3349 */         bomDVDDetail.softPakSupplierId + "," + 
-/* 3350 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.softPakInk1) + "'," + 
-/* 3351 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.softPakInk2) + "'," + 
-/* 3352 */         "''," + 
-/* 3353 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.softPakTray)) + "'," + 
-/* 3354 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.softPakInfo)) + "'," + 
-/* 3355 */         softPakStatusIndicator + "," + 
-/* 3356 */         userID;
+/* 3357 */       String query2softPak = String.valueOf(sp31) + 
+/* 3358 */         bom.getBomId() + "," + 
+/* 3359 */         "31" + "," + 
+/* 3360 */         bomDVDDetail.softPakSupplierId + "," + 
+/* 3361 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.softPakInk1) + "'," + 
+/* 3362 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.softPakInk2) + "'," + 
+/* 3363 */         "''," + 
+/* 3364 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.softPakTray)) + "'," + 
+/* 3365 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.softPakInfo)) + "'," + 
+/* 3366 */         softPakStatusIndicator + "," + 
+/* 3367 */         userID;
 /*      */       
-/* 3358 */       JdbcConnector connector2Soft = MilestoneHelper.getConnector(query2softPak);
-/* 3359 */       connector2Soft.runQuery();
-/* 3360 */       connector2Soft.close();
+/* 3369 */       JdbcConnector connector2Soft = MilestoneHelper.getConnector(query2softPak);
+/* 3370 */       connector2Soft.runQuery();
+/* 3371 */       connector2Soft.close();
 /*      */ 
 /*      */ 
 /*      */ 
@@ -3369,147 +3380,147 @@
 /*      */ 
 /*      */ 
 /*      */       
-/* 3372 */       String stickerOneStatusIndicator = "0";
-/* 3373 */       if (bomDVDDetail.stickerOneStatusIndicator)
+/* 3383 */       String stickerOneStatusIndicator = "0";
+/* 3384 */       if (bomDVDDetail.stickerOneStatusIndicator)
 /*      */       {
-/* 3375 */         stickerOneStatusIndicator = "1";
+/* 3386 */         stickerOneStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3378 */       String sp18 = "sp_upd_Bom_Detail ";
-/* 3379 */       if (bomDVDDetail.stickerOnePartId < 0) {
-/* 3380 */         sp18 = "sp_ins_Bom_Detail ";
+/* 3389 */       String sp18 = "sp_upd_Bom_Detail ";
+/* 3390 */       if (bomDVDDetail.stickerOnePartId < 0) {
+/* 3391 */         sp18 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3382 */       String query2StickerOne = String.valueOf(sp18) + 
-/* 3383 */         bom.getBomId() + "," + 
-/* 3384 */         "21" + "," + 
-/* 3385 */         bomDVDDetail.stickerOneSupplierId + "," + 
-/* 3386 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.stickerOneInk1) + "'," + 
-/* 3387 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.stickerOneInk2) + "'," + 
-/* 3388 */         "''," + 
-/* 3389 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.stickerOnePlaces)) + "'," + 
-/* 3390 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.stickerOneInfo)) + "'," + 
-/* 3391 */         stickerOneStatusIndicator + "," + 
-/* 3392 */         userID;
+/* 3393 */       String query2StickerOne = String.valueOf(sp18) + 
+/* 3394 */         bom.getBomId() + "," + 
+/* 3395 */         "21" + "," + 
+/* 3396 */         bomDVDDetail.stickerOneSupplierId + "," + 
+/* 3397 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.stickerOneInk1) + "'," + 
+/* 3398 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.stickerOneInk2) + "'," + 
+/* 3399 */         "''," + 
+/* 3400 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.stickerOnePlaces)) + "'," + 
+/* 3401 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.stickerOneInfo)) + "'," + 
+/* 3402 */         stickerOneStatusIndicator + "," + 
+/* 3403 */         userID;
 /*      */       
-/* 3394 */       JdbcConnector connector2StickerOne = MilestoneHelper.getConnector(query2StickerOne);
-/* 3395 */       connector2StickerOne.runQuery();
-/* 3396 */       connector2StickerOne.close();
+/* 3405 */       JdbcConnector connector2StickerOne = MilestoneHelper.getConnector(query2StickerOne);
+/* 3406 */       connector2StickerOne.runQuery();
+/* 3407 */       connector2StickerOne.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3401 */       String stickerTwoStatusIndicator = "0";
-/* 3402 */       if (bomDVDDetail.stickerTwoStatusIndicator)
+/* 3412 */       String stickerTwoStatusIndicator = "0";
+/* 3413 */       if (bomDVDDetail.stickerTwoStatusIndicator)
 /*      */       {
-/* 3404 */         stickerTwoStatusIndicator = "1";
+/* 3415 */         stickerTwoStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3407 */       String sp19 = "sp_upd_Bom_Detail ";
-/* 3408 */       if (bomDVDDetail.stickerTwoPartId < 0) {
-/* 3409 */         sp19 = "sp_ins_Bom_Detail ";
+/* 3418 */       String sp19 = "sp_upd_Bom_Detail ";
+/* 3419 */       if (bomDVDDetail.stickerTwoPartId < 0) {
+/* 3420 */         sp19 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3411 */       String query2StickerTwo = String.valueOf(sp19) + 
-/* 3412 */         bom.getBomId() + "," + 
-/* 3413 */         "22" + "," + 
-/* 3414 */         bomDVDDetail.stickerTwoSupplierId + "," + 
-/* 3415 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.stickerTwoInk1) + "'," + 
-/* 3416 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.stickerTwoInk2) + "'," + 
-/* 3417 */         "''," + 
-/* 3418 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.stickerTwoPlaces)) + "'," + 
-/* 3419 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.stickerTwoInfo)) + "'," + 
-/* 3420 */         stickerTwoStatusIndicator + "," + 
-/* 3421 */         userID;
+/* 3422 */       String query2StickerTwo = String.valueOf(sp19) + 
+/* 3423 */         bom.getBomId() + "," + 
+/* 3424 */         "22" + "," + 
+/* 3425 */         bomDVDDetail.stickerTwoSupplierId + "," + 
+/* 3426 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.stickerTwoInk1) + "'," + 
+/* 3427 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.stickerTwoInk2) + "'," + 
+/* 3428 */         "''," + 
+/* 3429 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.stickerTwoPlaces)) + "'," + 
+/* 3430 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.stickerTwoInfo)) + "'," + 
+/* 3431 */         stickerTwoStatusIndicator + "," + 
+/* 3432 */         userID;
 /*      */       
-/* 3423 */       JdbcConnector connector2StickerTwo = MilestoneHelper.getConnector(query2StickerTwo);
-/* 3424 */       connector2StickerTwo.runQuery();
-/* 3425 */       connector2StickerTwo.close();
+/* 3434 */       JdbcConnector connector2StickerTwo = MilestoneHelper.getConnector(query2StickerTwo);
+/* 3435 */       connector2StickerTwo.runQuery();
+/* 3436 */       connector2StickerTwo.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3430 */       String bookStatusIndicator = "0";
-/* 3431 */       if (bomDVDDetail.bookStatusIndicator)
+/* 3441 */       String bookStatusIndicator = "0";
+/* 3442 */       if (bomDVDDetail.bookStatusIndicator)
 /*      */       {
-/* 3433 */         bookStatusIndicator = "1";
+/* 3444 */         bookStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3436 */       String sp20 = "sp_upd_Bom_Detail ";
-/* 3437 */       if (bomDVDDetail.bookPartId < 0) {
-/* 3438 */         sp20 = "sp_ins_Bom_Detail ";
+/* 3447 */       String sp20 = "sp_upd_Bom_Detail ";
+/* 3448 */       if (bomDVDDetail.bookPartId < 0) {
+/* 3449 */         sp20 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3440 */       String query2Book = String.valueOf(sp20) + 
-/* 3441 */         bom.getBomId() + "," + 
-/* 3442 */         "2" + "," + 
-/* 3443 */         bomDVDDetail.bookSupplierId + "," + 
-/* 3444 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.bookInk1) + "'," + 
-/* 3445 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.bookInk2) + "'," + 
-/* 3446 */         "''," + 
-/* 3447 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.bookPages)) + "'," + 
-/* 3448 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.bookInfo)) + "'," + 
-/* 3449 */         bookStatusIndicator + "," + 
-/* 3450 */         userID;
+/* 3451 */       String query2Book = String.valueOf(sp20) + 
+/* 3452 */         bom.getBomId() + "," + 
+/* 3453 */         "2" + "," + 
+/* 3454 */         bomDVDDetail.bookSupplierId + "," + 
+/* 3455 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.bookInk1) + "'," + 
+/* 3456 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.bookInk2) + "'," + 
+/* 3457 */         "''," + 
+/* 3458 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.bookPages)) + "'," + 
+/* 3459 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.bookInfo)) + "'," + 
+/* 3460 */         bookStatusIndicator + "," + 
+/* 3461 */         userID;
 /*      */       
-/* 3452 */       JdbcConnector connector2Book = MilestoneHelper.getConnector(query2Book);
-/* 3453 */       connector2Book.runQuery();
-/* 3454 */       connector2Book.close();
+/* 3463 */       JdbcConnector connector2Book = MilestoneHelper.getConnector(query2Book);
+/* 3464 */       connector2Book.runQuery();
+/* 3465 */       connector2Book.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3459 */       String boxStatusIndicator = "0";
-/* 3460 */       if (bomDVDDetail.boxStatusIndicator)
+/* 3470 */       String boxStatusIndicator = "0";
+/* 3471 */       if (bomDVDDetail.boxStatusIndicator)
 /*      */       {
-/* 3462 */         boxStatusIndicator = "1";
+/* 3473 */         boxStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3465 */       String sp21 = "sp_upd_Bom_Detail ";
-/* 3466 */       if (bomDVDDetail.boxPartId < 0) {
-/* 3467 */         sp21 = "sp_ins_Bom_Detail ";
+/* 3476 */       String sp21 = "sp_upd_Bom_Detail ";
+/* 3477 */       if (bomDVDDetail.boxPartId < 0) {
+/* 3478 */         sp21 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3469 */       String query2Box = String.valueOf(sp21) + 
-/* 3470 */         bom.getBomId() + "," + 
-/* 3471 */         "3" + "," + 
-/* 3472 */         bomDVDDetail.boxSupplierId + "," + 
-/* 3473 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.boxInk1) + "'," + 
-/* 3474 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.boxInk2) + "'," + 
-/* 3475 */         "''," + 
-/* 3476 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.boxSizes)) + "'," + 
-/* 3477 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.boxInfo)) + "'," + 
-/* 3478 */         boxStatusIndicator + "," + 
-/* 3479 */         userID;
+/* 3480 */       String query2Box = String.valueOf(sp21) + 
+/* 3481 */         bom.getBomId() + "," + 
+/* 3482 */         "3" + "," + 
+/* 3483 */         bomDVDDetail.boxSupplierId + "," + 
+/* 3484 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.boxInk1) + "'," + 
+/* 3485 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.boxInk2) + "'," + 
+/* 3486 */         "''," + 
+/* 3487 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.boxSizes)) + "'," + 
+/* 3488 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.boxInfo)) + "'," + 
+/* 3489 */         boxStatusIndicator + "," + 
+/* 3490 */         userID;
 /*      */       
-/* 3481 */       JdbcConnector connector2Box = MilestoneHelper.getConnector(query2Box);
-/* 3482 */       connector2Box.runQuery();
-/* 3483 */       connector2Box.close();
+/* 3492 */       JdbcConnector connector2Box = MilestoneHelper.getConnector(query2Box);
+/* 3493 */       connector2Box.runQuery();
+/* 3494 */       connector2Box.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3488 */       String otherStatusIndicatorDisc = "0";
-/* 3489 */       if (bomDVDDetail.otherStatusIndicator)
+/* 3499 */       String otherStatusIndicatorDisc = "0";
+/* 3500 */       if (bomDVDDetail.otherStatusIndicator)
 /*      */       {
-/* 3491 */         otherStatusIndicatorDisc = "1";
+/* 3502 */         otherStatusIndicatorDisc = "1";
 /*      */       }
 /*      */       
-/* 3494 */       String sp22 = "sp_upd_Bom_Detail ";
-/* 3495 */       if (bomDVDDetail.otherPartId < 0) {
-/* 3496 */         sp22 = "sp_ins_Bom_Detail ";
+/* 3505 */       String sp22 = "sp_upd_Bom_Detail ";
+/* 3506 */       if (bomDVDDetail.otherPartId < 0) {
+/* 3507 */         sp22 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3498 */       String query2Other = String.valueOf(sp22) + 
-/* 3499 */         bom.getBomId() + "," + 
-/* 3500 */         "18" + "," + 
-/* 3501 */         bomDVDDetail.otherSupplierId + "," + 
-/* 3502 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.otherInk1) + "'," + 
-/* 3503 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.otherInk2) + "'," + 
-/* 3504 */         "''," + 
-/* 3505 */         "''," + 
-/* 3506 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.otherInfo)) + "'," + 
-/* 3507 */         otherStatusIndicatorDisc + "," + 
-/* 3508 */         userID;
+/* 3509 */       String query2Other = String.valueOf(sp22) + 
+/* 3510 */         bom.getBomId() + "," + 
+/* 3511 */         "18" + "," + 
+/* 3512 */         bomDVDDetail.otherSupplierId + "," + 
+/* 3513 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.otherInk1) + "'," + 
+/* 3514 */         "'" + MilestoneHelper.escapeSingleQuotes(bomDVDDetail.otherInk2) + "'," + 
+/* 3515 */         "''," + 
+/* 3516 */         "''," + 
+/* 3517 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(bomDVDDetail.otherInfo)) + "'," + 
+/* 3518 */         otherStatusIndicatorDisc + "," + 
+/* 3519 */         userID;
 /*      */       
-/* 3510 */       JdbcConnector connector2Other = MilestoneHelper.getConnector(query2Other);
-/* 3511 */       connector2Other.runQuery();
-/* 3512 */       connector2Other.close();
+/* 3521 */       JdbcConnector connector2Other = MilestoneHelper.getConnector(query2Other);
+/* 3522 */       connector2Other.runQuery();
+/* 3523 */       connector2Other.close();
 /*      */     } 
 /*      */ 
 /*      */ 
@@ -3517,403 +3528,403 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 3520 */     BomVinylDetail vinylDetail = bom.getBomVinylDetail();
+/* 3531 */     BomVinylDetail vinylDetail = bom.getBomVinylDetail();
 /*      */     
-/* 3522 */     if (vinylDetail != null) {
+/* 3533 */     if (vinylDetail != null) {
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3527 */       String recordStatusIndicator = "0";
-/* 3528 */       if (vinylDetail.recordStatusIndicator)
+/* 3538 */       String recordStatusIndicator = "0";
+/* 3539 */       if (vinylDetail.recordStatusIndicator)
 /*      */       {
-/* 3530 */         recordStatusIndicator = "1";
+/* 3541 */         recordStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3533 */       String sp23 = "sp_upd_Bom_Detail ";
-/* 3534 */       if (vinylDetail.recordPartId < 0) {
-/* 3535 */         sp23 = "sp_ins_Bom_Detail ";
+/* 3544 */       String sp23 = "sp_upd_Bom_Detail ";
+/* 3545 */       if (vinylDetail.recordPartId < 0) {
+/* 3546 */         sp23 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3537 */       String query3Record = String.valueOf(sp23) + 
-/* 3538 */         bom.getBomId() + "," + 
-/* 3539 */         "19" + "," + 
-/* 3540 */         vinylDetail.recordSupplierId + "," + 
-/* 3541 */         "''," + 
-/* 3542 */         "''," + 
-/* 3543 */         "''," + 
-/* 3544 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.recordColor) + "'," + 
-/* 3545 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.recordInfo)) + "'," + 
-/* 3546 */         recordStatusIndicator + "," + 
-/* 3547 */         userID;
+/* 3548 */       String query3Record = String.valueOf(sp23) + 
+/* 3549 */         bom.getBomId() + "," + 
+/* 3550 */         "19" + "," + 
+/* 3551 */         vinylDetail.recordSupplierId + "," + 
+/* 3552 */         "''," + 
+/* 3553 */         "''," + 
+/* 3554 */         "''," + 
+/* 3555 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.recordColor) + "'," + 
+/* 3556 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.recordInfo)) + "'," + 
+/* 3557 */         recordStatusIndicator + "," + 
+/* 3558 */         userID;
 /*      */       
-/* 3549 */       JdbcConnector connector3Record = MilestoneHelper.getConnector(query3Record);
-/* 3550 */       connector3Record.runQuery();
-/* 3551 */       connector3Record.close();
+/* 3560 */       JdbcConnector connector3Record = MilestoneHelper.getConnector(query3Record);
+/* 3561 */       connector3Record.runQuery();
+/* 3562 */       connector3Record.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3556 */       String labelStatusIndicator = "0";
-/* 3557 */       if (vinylDetail.labelStatusIndicator)
+/* 3567 */       String labelStatusIndicator = "0";
+/* 3568 */       if (vinylDetail.labelStatusIndicator)
 /*      */       {
-/* 3559 */         labelStatusIndicator = "1";
+/* 3570 */         labelStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3562 */       String sp24 = "sp_upd_Bom_Detail ";
-/* 3563 */       if (vinylDetail.labelPartId < 0) {
-/* 3564 */         sp24 = "sp_ins_Bom_Detail ";
+/* 3573 */       String sp24 = "sp_upd_Bom_Detail ";
+/* 3574 */       if (vinylDetail.labelPartId < 0) {
+/* 3575 */         sp24 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3566 */       String query3Label = String.valueOf(sp24) + 
-/* 3567 */         bom.getBomId() + "," + 
-/* 3568 */         "14" + "," + 
-/* 3569 */         vinylDetail.labelSupplierId + "," + 
-/* 3570 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.labelInk1) + "'," + 
-/* 3571 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.labelInk2) + "'," + 
-/* 3572 */         "''," + 
-/* 3573 */         "''," + 
-/* 3574 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.labelInfo)) + "'," + 
-/* 3575 */         labelStatusIndicator + "," + 
-/* 3576 */         userID;
+/* 3577 */       String query3Label = String.valueOf(sp24) + 
+/* 3578 */         bom.getBomId() + "," + 
+/* 3579 */         "14" + "," + 
+/* 3580 */         vinylDetail.labelSupplierId + "," + 
+/* 3581 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.labelInk1) + "'," + 
+/* 3582 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.labelInk2) + "'," + 
+/* 3583 */         "''," + 
+/* 3584 */         "''," + 
+/* 3585 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.labelInfo)) + "'," + 
+/* 3586 */         labelStatusIndicator + "," + 
+/* 3587 */         userID;
 /*      */       
-/* 3578 */       JdbcConnector connector3Label = MilestoneHelper.getConnector(query3Label);
-/* 3579 */       connector3Label.runQuery();
-/* 3580 */       connector3Label.close();
+/* 3589 */       JdbcConnector connector3Label = MilestoneHelper.getConnector(query3Label);
+/* 3590 */       connector3Label.runQuery();
+/* 3591 */       connector3Label.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3585 */       String sleeveStatusIndicator = "0";
-/* 3586 */       if (vinylDetail.sleeveStatusIndicator)
+/* 3596 */       String sleeveStatusIndicator = "0";
+/* 3597 */       if (vinylDetail.sleeveStatusIndicator)
 /*      */       {
-/* 3588 */         sleeveStatusIndicator = "1";
+/* 3599 */         sleeveStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3591 */       String sp25 = "sp_upd_Bom_Detail ";
-/* 3592 */       if (vinylDetail.sleevePartId < 0) {
-/* 3593 */         sp25 = "sp_ins_Bom_Detail ";
+/* 3602 */       String sp25 = "sp_upd_Bom_Detail ";
+/* 3603 */       if (vinylDetail.sleevePartId < 0) {
+/* 3604 */         sp25 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3595 */       String query3Sleeve = String.valueOf(sp25) + 
-/* 3596 */         bom.getBomId() + "," + 
-/* 3597 */         "20" + "," + 
-/* 3598 */         vinylDetail.sleeveSupplierId + "," + 
-/* 3599 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.sleeveInk1) + "'," + 
-/* 3600 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.sleeveInk2) + "'," + 
-/* 3601 */         "''," + 
-/* 3602 */         "''," + 
-/* 3603 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.sleeveInfo)) + "'," + 
-/* 3604 */         sleeveStatusIndicator + "," + 
-/* 3605 */         userID;
+/* 3606 */       String query3Sleeve = String.valueOf(sp25) + 
+/* 3607 */         bom.getBomId() + "," + 
+/* 3608 */         "20" + "," + 
+/* 3609 */         vinylDetail.sleeveSupplierId + "," + 
+/* 3610 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.sleeveInk1) + "'," + 
+/* 3611 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.sleeveInk2) + "'," + 
+/* 3612 */         "''," + 
+/* 3613 */         "''," + 
+/* 3614 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.sleeveInfo)) + "'," + 
+/* 3615 */         sleeveStatusIndicator + "," + 
+/* 3616 */         userID;
 /*      */       
-/* 3607 */       JdbcConnector connector3Sleeve = MilestoneHelper.getConnector(query3Sleeve);
-/* 3608 */       connector3Sleeve.runQuery();
-/* 3609 */       connector3Sleeve.close();
+/* 3618 */       JdbcConnector connector3Sleeve = MilestoneHelper.getConnector(query3Sleeve);
+/* 3619 */       connector3Sleeve.runQuery();
+/* 3620 */       connector3Sleeve.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3614 */       String jacketStatusIndicator = "0";
-/* 3615 */       if (vinylDetail.jacketStatusIndicator)
+/* 3625 */       String jacketStatusIndicator = "0";
+/* 3626 */       if (vinylDetail.jacketStatusIndicator)
 /*      */       {
-/* 3617 */         jacketStatusIndicator = "1";
+/* 3628 */         jacketStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3620 */       String sp26 = "sp_upd_Bom_Detail ";
-/* 3621 */       if (vinylDetail.jacketPartId < 0) {
-/* 3622 */         sp26 = "sp_ins_Bom_Detail ";
+/* 3631 */       String sp26 = "sp_upd_Bom_Detail ";
+/* 3632 */       if (vinylDetail.jacketPartId < 0) {
+/* 3633 */         sp26 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3624 */       String query3Jacket = String.valueOf(sp26) + 
-/* 3625 */         bom.getBomId() + "," + 
-/* 3626 */         "11" + "," + 
-/* 3627 */         vinylDetail.jacketSupplierId + "," + 
-/* 3628 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.jacketInk1) + "'," + 
-/* 3629 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.jacketInk2) + "'," + 
-/* 3630 */         "''," + 
-/* 3631 */         "''," + 
-/* 3632 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.jacketInfo)) + "'," + 
-/* 3633 */         jacketStatusIndicator + "," + 
-/* 3634 */         userID;
+/* 3635 */       String query3Jacket = String.valueOf(sp26) + 
+/* 3636 */         bom.getBomId() + "," + 
+/* 3637 */         "11" + "," + 
+/* 3638 */         vinylDetail.jacketSupplierId + "," + 
+/* 3639 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.jacketInk1) + "'," + 
+/* 3640 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.jacketInk2) + "'," + 
+/* 3641 */         "''," + 
+/* 3642 */         "''," + 
+/* 3643 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.jacketInfo)) + "'," + 
+/* 3644 */         jacketStatusIndicator + "," + 
+/* 3645 */         userID;
 /*      */       
-/* 3636 */       JdbcConnector connector3Jacket = MilestoneHelper.getConnector(query3Jacket);
-/* 3637 */       connector3Jacket.runQuery();
-/* 3638 */       connector3Jacket.close();
+/* 3647 */       JdbcConnector connector3Jacket = MilestoneHelper.getConnector(query3Jacket);
+/* 3648 */       connector3Jacket.runQuery();
+/* 3649 */       connector3Jacket.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3645 */       String insertStatusIndicator = "0";
-/* 3646 */       if (vinylDetail.insertStatusIndicator)
+/* 3656 */       String insertStatusIndicator = "0";
+/* 3657 */       if (vinylDetail.insertStatusIndicator)
 /*      */       {
-/* 3648 */         insertStatusIndicator = "1";
+/* 3659 */         insertStatusIndicator = "1";
 /*      */       }
 /*      */       
-/* 3651 */       String sp33 = "sp_upd_Bom_Detail ";
-/* 3652 */       if (vinylDetail.insertPartId < 0) {
-/* 3653 */         sp33 = "sp_ins_Bom_Detail ";
+/* 3662 */       String sp33 = "sp_upd_Bom_Detail ";
+/* 3663 */       if (vinylDetail.insertPartId < 0) {
+/* 3664 */         sp33 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3655 */       String query3Insert = String.valueOf(sp33) + 
-/* 3656 */         bom.getBomId() + "," + 
-/* 3657 */         "33" + "," + 
-/* 3658 */         vinylDetail.insertSupplierId + "," + 
-/* 3659 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.insertInk1) + "'," + 
-/* 3660 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.insertInk2) + "'," + 
-/* 3661 */         "''," + 
-/* 3662 */         "''," + 
-/* 3663 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.insertInfo)) + "'," + 
-/* 3664 */         insertStatusIndicator + "," + 
-/* 3665 */         userID;
+/* 3666 */       String query3Insert = String.valueOf(sp33) + 
+/* 3667 */         bom.getBomId() + "," + 
+/* 3668 */         "33" + "," + 
+/* 3669 */         vinylDetail.insertSupplierId + "," + 
+/* 3670 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.insertInk1) + "'," + 
+/* 3671 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.insertInk2) + "'," + 
+/* 3672 */         "''," + 
+/* 3673 */         "''," + 
+/* 3674 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.insertInfo)) + "'," + 
+/* 3675 */         insertStatusIndicator + "," + 
+/* 3676 */         userID;
 /*      */       
-/* 3667 */       JdbcConnector connector3Insert = MilestoneHelper.getConnector(query3Insert);
-/* 3668 */       connector3Insert.runQuery();
-/* 3669 */       connector3Insert.close();
+/* 3678 */       JdbcConnector connector3Insert = MilestoneHelper.getConnector(query3Insert);
+/* 3679 */       connector3Insert.runQuery();
+/* 3680 */       connector3Insert.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3674 */       String stickerOneStatusIndicatorVinyl = "0";
-/* 3675 */       if (vinylDetail.stickerOneStatusIndicator)
+/* 3685 */       String stickerOneStatusIndicatorVinyl = "0";
+/* 3686 */       if (vinylDetail.stickerOneStatusIndicator)
 /*      */       {
-/* 3677 */         stickerOneStatusIndicatorVinyl = "1";
+/* 3688 */         stickerOneStatusIndicatorVinyl = "1";
 /*      */       }
 /*      */       
-/* 3680 */       String sp27 = "sp_upd_Bom_Detail ";
-/* 3681 */       if (vinylDetail.stickerOnePartId < 0) {
-/* 3682 */         sp27 = "sp_ins_Bom_Detail ";
+/* 3691 */       String sp27 = "sp_upd_Bom_Detail ";
+/* 3692 */       if (vinylDetail.stickerOnePartId < 0) {
+/* 3693 */         sp27 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3684 */       String query3StickerOne = String.valueOf(sp27) + 
-/* 3685 */         bom.getBomId() + "," + 
-/* 3686 */         "21" + "," + 
-/* 3687 */         vinylDetail.stickerOneSupplierId + "," + 
-/* 3688 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.stickerOneInk1) + "'," + 
-/* 3689 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.stickerOneInk2) + "'," + 
-/* 3690 */         "''," + 
-/* 3691 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.stickerOnePlaces)) + "'," + 
-/* 3692 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.stickerOneInfo)) + "'," + 
-/* 3693 */         stickerOneStatusIndicatorVinyl + "," + 
-/* 3694 */         userID;
+/* 3695 */       String query3StickerOne = String.valueOf(sp27) + 
+/* 3696 */         bom.getBomId() + "," + 
+/* 3697 */         "21" + "," + 
+/* 3698 */         vinylDetail.stickerOneSupplierId + "," + 
+/* 3699 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.stickerOneInk1) + "'," + 
+/* 3700 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.stickerOneInk2) + "'," + 
+/* 3701 */         "''," + 
+/* 3702 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.stickerOnePlaces)) + "'," + 
+/* 3703 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.stickerOneInfo)) + "'," + 
+/* 3704 */         stickerOneStatusIndicatorVinyl + "," + 
+/* 3705 */         userID;
 /*      */       
-/* 3696 */       JdbcConnector connector3StickerOne = MilestoneHelper.getConnector(query3StickerOne);
-/* 3697 */       connector3StickerOne.runQuery();
-/* 3698 */       connector3StickerOne.close();
+/* 3707 */       JdbcConnector connector3StickerOne = MilestoneHelper.getConnector(query3StickerOne);
+/* 3708 */       connector3StickerOne.runQuery();
+/* 3709 */       connector3StickerOne.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3703 */       String stickerTwoStatusIndicatorVinyl = "0";
-/* 3704 */       if (vinylDetail.stickerTwoStatusIndicator)
+/* 3714 */       String stickerTwoStatusIndicatorVinyl = "0";
+/* 3715 */       if (vinylDetail.stickerTwoStatusIndicator)
 /*      */       {
-/* 3706 */         stickerTwoStatusIndicatorVinyl = "1";
+/* 3717 */         stickerTwoStatusIndicatorVinyl = "1";
 /*      */       }
 /*      */       
-/* 3709 */       String sp28 = "sp_upd_Bom_Detail ";
-/* 3710 */       if (vinylDetail.stickerTwoPartId < 0) {
-/* 3711 */         sp28 = "sp_ins_Bom_Detail ";
+/* 3720 */       String sp28 = "sp_upd_Bom_Detail ";
+/* 3721 */       if (vinylDetail.stickerTwoPartId < 0) {
+/* 3722 */         sp28 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3713 */       String query3StickerTwo = String.valueOf(sp28) + 
-/* 3714 */         bom.getBomId() + "," + 
-/* 3715 */         "22" + "," + 
-/* 3716 */         vinylDetail.stickerTwoSupplierId + "," + 
-/* 3717 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.stickerTwoInk1) + "'," + 
-/* 3718 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.stickerTwoInk2) + "'," + 
-/* 3719 */         "''," + 
-/* 3720 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.stickerTwoPlaces)) + "'," + 
-/* 3721 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.stickerTwoInfo)) + "'," + 
-/* 3722 */         stickerTwoStatusIndicatorVinyl + "," + 
-/* 3723 */         userID;
+/* 3724 */       String query3StickerTwo = String.valueOf(sp28) + 
+/* 3725 */         bom.getBomId() + "," + 
+/* 3726 */         "22" + "," + 
+/* 3727 */         vinylDetail.stickerTwoSupplierId + "," + 
+/* 3728 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.stickerTwoInk1) + "'," + 
+/* 3729 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.stickerTwoInk2) + "'," + 
+/* 3730 */         "''," + 
+/* 3731 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.stickerTwoPlaces)) + "'," + 
+/* 3732 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.stickerTwoInfo)) + "'," + 
+/* 3733 */         stickerTwoStatusIndicatorVinyl + "," + 
+/* 3734 */         userID;
 /*      */       
-/* 3725 */       JdbcConnector connector3StickerTwo = MilestoneHelper.getConnector(query3StickerTwo);
-/* 3726 */       connector3StickerTwo.runQuery();
-/* 3727 */       connector3StickerTwo.close();
+/* 3736 */       JdbcConnector connector3StickerTwo = MilestoneHelper.getConnector(query3StickerTwo);
+/* 3737 */       connector3StickerTwo.runQuery();
+/* 3738 */       connector3StickerTwo.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3732 */       String otherStatusIndicatorVinyl = "0";
-/* 3733 */       if (vinylDetail.otherStatusIndicator)
+/* 3743 */       String otherStatusIndicatorVinyl = "0";
+/* 3744 */       if (vinylDetail.otherStatusIndicator)
 /*      */       {
-/* 3735 */         otherStatusIndicatorVinyl = "1";
+/* 3746 */         otherStatusIndicatorVinyl = "1";
 /*      */       }
 /*      */       
-/* 3738 */       String sp29 = "sp_upd_Bom_Detail ";
-/* 3739 */       if (vinylDetail.otherPartId < 0) {
-/* 3740 */         sp29 = "sp_ins_Bom_Detail ";
+/* 3749 */       String sp29 = "sp_upd_Bom_Detail ";
+/* 3750 */       if (vinylDetail.otherPartId < 0) {
+/* 3751 */         sp29 = "sp_ins_Bom_Detail ";
 /*      */       }
-/* 3742 */       String query3Other = String.valueOf(sp29) + 
-/* 3743 */         bom.getBomId() + "," + 
-/* 3744 */         "18" + "," + 
-/* 3745 */         vinylDetail.otherSupplierId + "," + 
-/* 3746 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.otherInk1) + "'," + 
-/* 3747 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.otherInk2) + "'," + 
-/* 3748 */         "''," + 
-/* 3749 */         "''," + 
-/* 3750 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.otherInfo)) + "'," + 
-/* 3751 */         otherStatusIndicatorVinyl + "," + 
-/* 3752 */         userID;
+/* 3753 */       String query3Other = String.valueOf(sp29) + 
+/* 3754 */         bom.getBomId() + "," + 
+/* 3755 */         "18" + "," + 
+/* 3756 */         vinylDetail.otherSupplierId + "," + 
+/* 3757 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.otherInk1) + "'," + 
+/* 3758 */         "'" + MilestoneHelper.escapeSingleQuotes(vinylDetail.otherInk2) + "'," + 
+/* 3759 */         "''," + 
+/* 3760 */         "''," + 
+/* 3761 */         "'" + MilestoneHelper.escapeSingleQuotes(MilestoneHelper.escapeDoubleQuotesForHtml(vinylDetail.otherInfo)) + "'," + 
+/* 3762 */         otherStatusIndicatorVinyl + "," + 
+/* 3763 */         userID;
 /*      */       
-/* 3754 */       JdbcConnector connector3Other = MilestoneHelper.getConnector(query3Other);
-/* 3755 */       connector3Other.runQuery();
-/* 3756 */       connector3Other.close();
+/* 3765 */       JdbcConnector connector3Other = MilestoneHelper.getConnector(query3Other);
+/* 3766 */       connector3Other.runQuery();
+/* 3767 */       connector3Other.close();
 /*      */     } 
 /*      */ 
 /*      */     
-/* 3760 */     return bom;
+/* 3771 */     return bom;
 /*      */   }
 /*      */ 
 /*      */   
 /*      */   public Vector getSelectionNotepadList(int UserId, Notepad notepad, Context context) {
-/* 3765 */     Vector companies = MilestoneHelper.getUserCompanies(context);
-/* 3766 */     Company company = null;
-/* 3767 */     Vector precache = new Vector();
-/* 3768 */     Selection selection = null;
-/* 3769 */     String query = "";
+/* 3776 */     Vector companies = MilestoneHelper.getUserCompanies(context);
+/* 3777 */     Company company = null;
+/* 3778 */     Vector precache = new Vector();
+/* 3779 */     Selection selection = null;
+/* 3780 */     String query = "";
 /*      */     
-/* 3771 */     String queryReset = "";
+/* 3782 */     String queryReset = "";
 /*      */     
-/* 3773 */     int maxRecords = 225;
+/* 3784 */     int maxRecords = 225;
 /*      */     
-/* 3775 */     if (notepad != null) {
-/* 3776 */       maxRecords = notepad.getMaxRecords();
+/* 3786 */     if (notepad != null) {
+/* 3787 */       maxRecords = notepad.getMaxRecords();
 /*      */     }
-/* 3778 */     if (notepad != null && !notepad.getSearchQuery().equals("")) {
+/* 3789 */     if (notepad != null && !notepad.getSearchQuery().equals("")) {
 /*      */       
-/* 3780 */       query = notepad.getSearchQuery();
-/* 3781 */       queryReset = new String(query);
-/* 3782 */       query = String.valueOf(query) + notepad.getOrderBy();
+/* 3791 */       query = notepad.getSearchQuery();
+/* 3792 */       queryReset = new String(query);
+/* 3793 */       query = String.valueOf(query) + notepad.getOrderBy();
 /*      */ 
 /*      */     
 /*      */     }
 /*      */     else {
 /*      */ 
 /*      */       
-/* 3789 */       query = String.valueOf(getDefaultQuery(context)) + " ORDER BY artist, title, selection_no, street_date ";
-/* 3790 */       queryReset = new String(query);
+/* 3800 */       query = String.valueOf(getDefaultQuery(context)) + " ORDER BY artist, title, selection_no, street_date ";
+/* 3801 */       queryReset = new String(query);
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3797 */     User user = (User)context.getSessionValue("user");
-/* 3798 */     String userDefaultsApplied = (String)context.getSessionValue("UserDefaultsApplied");
+/* 3808 */     User user = (User)context.getSessionValue("user");
+/* 3809 */     String userDefaultsApplied = (String)context.getSessionValue("UserDefaultsApplied");
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3804 */     if (userDefaultsApplied != null && userDefaultsApplied.equalsIgnoreCase("true")) {
+/* 3815 */     if (userDefaultsApplied != null && userDefaultsApplied.equalsIgnoreCase("true")) {
 /*      */       
-/* 3806 */       user.SS_searchInitiated = false;
+/* 3817 */       user.SS_searchInitiated = false;
 /*      */       
-/* 3808 */       if (notepad != null) {
+/* 3819 */       if (notepad != null) {
 /*      */ 
 /*      */         
-/* 3811 */         notepad.setSelected(null);
-/* 3812 */         notepad.setAllContents(null);
+/* 3822 */         notepad.setSelected(null);
+/* 3823 */         notepad.setAllContents(null);
 /*      */         
-/* 3814 */         Notepad schNotepad = MilestoneHelper.getNotepadFromSession(1, context);
-/* 3815 */         if (schNotepad != null) {
+/* 3825 */         Notepad schNotepad = MilestoneHelper.getNotepadFromSession(1, context);
+/* 3826 */         if (schNotepad != null) {
 /*      */           
-/* 3817 */           schNotepad.setSelected(null);
-/* 3818 */           schNotepad.setAllContents(null);
+/* 3828 */           schNotepad.setSelected(null);
+/* 3829 */           schNotepad.setAllContents(null);
 /*      */         } 
 /*      */       } 
-/* 3821 */       context.removeSessionValue("UserDefaultsApplied");
+/* 3832 */       context.removeSessionValue("UserDefaultsApplied");
 /*      */     } 
-/* 3823 */     if (user != null && !user.SS_searchInitiated) {
+/* 3834 */     if (user != null && !user.SS_searchInitiated) {
 /*      */       
-/* 3825 */       query = getInstance().getSelectionNotepadQueryUserDefaults(context);
-/* 3826 */       queryReset = new String(query);
-/* 3827 */       String order = getInstance().getSelectionNotepadQueryUserDefaultsOrderBy(context);
+/* 3836 */       query = getInstance().getSelectionNotepadQueryUserDefaults(context);
+/* 3837 */       queryReset = new String(query);
+/* 3838 */       String order = getInstance().getSelectionNotepadQueryUserDefaultsOrderBy(context);
 /*      */       
-/* 3829 */       if (notepad != null) {
+/* 3840 */       if (notepad != null) {
 /*      */         
-/* 3831 */         notepad.setSearchQuery(query);
-/* 3832 */         notepad.setOrderBy(order);
+/* 3842 */         notepad.setSearchQuery(query);
+/* 3843 */         notepad.setOrderBy(order);
 /*      */       } 
 /*      */       
-/* 3835 */       query = String.valueOf(query) + order;
+/* 3846 */       query = String.valueOf(query) + order;
 /*      */     } 
 /*      */ 
 /*      */     
-/* 3839 */     if (user != null && user.SS_searchInitiated && context.getSessionValue("ResetSelectionSortOrder") != null) {
+/* 3850 */     if (user != null && user.SS_searchInitiated && context.getSessionValue("ResetSelectionSortOrder") != null) {
 /*      */       
-/* 3841 */       String orderReset = getInstance().getSelectionNotepadQueryUserDefaultsOrderBy(context);
+/* 3852 */       String orderReset = getInstance().getSelectionNotepadQueryUserDefaultsOrderBy(context);
 /*      */       
-/* 3843 */       if (notepad != null) {
+/* 3854 */       if (notepad != null) {
 /*      */         
-/* 3845 */         notepad.setSearchQuery(queryReset);
-/* 3846 */         notepad.setOrderBy(orderReset);
+/* 3856 */         notepad.setSearchQuery(queryReset);
+/* 3857 */         notepad.setOrderBy(orderReset);
 /*      */       } 
-/* 3848 */       query = String.valueOf(queryReset) + orderReset;
-/* 3849 */       user.SS_searchInitiated = true;
-/* 3850 */       context.removeSessionValue("ResetSelectionSortOrder");
+/* 3859 */       query = String.valueOf(queryReset) + orderReset;
+/* 3860 */       user.SS_searchInitiated = true;
+/* 3861 */       context.removeSessionValue("ResetSelectionSortOrder");
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */     
-/* 3855 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 3856 */     connector.setMaxRows(maxRecords);
-/* 3857 */     connector.runQuery();
+/* 3866 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 3867 */     connector.setMaxRows(maxRecords);
+/* 3868 */     connector.runQuery();
 /*      */     
-/* 3859 */     while (connector.more()) {
+/* 3870 */     while (connector.more()) {
 /*      */       
-/* 3861 */       selection = new Selection();
+/* 3872 */       selection = new Selection();
 /*      */ 
 /*      */       
-/* 3864 */       selection.setSelectionID(connector.getIntegerField("release_id"));
+/* 3875 */       selection.setSelectionID(connector.getIntegerField("release_id"));
 /*      */       
-/* 3866 */       selection.setTitle(connector.getField("title", ""));
+/* 3877 */       selection.setTitle(connector.getField("title", ""));
 /*      */       
-/* 3868 */       selection.setArtist(connector.getField("artist", ""));
+/* 3879 */       selection.setArtist(connector.getField("artist", ""));
 /*      */       
-/* 3870 */       selection.setUpc(connector.getField("upc", ""));
+/* 3881 */       selection.setUpc(connector.getField("upc", ""));
 /*      */       
-/* 3872 */       selection.setSelectionConfig(
-/* 3873 */           getSelectionConfigObject(connector.getField("configuration"), 
-/* 3874 */             Cache.getSelectionConfigs()));
+/* 3883 */       selection.setSelectionConfig(
+/* 3884 */           getSelectionConfigObject(connector.getField("configuration"), 
+/* 3885 */             Cache.getSelectionConfigs()));
 /*      */ 
 /*      */       
-/* 3877 */       selection.setSelectionSubConfig(getSelectionSubConfigObject(connector.getField("sub_configuration"), selection.getSelectionConfig()));
-/* 3878 */       selection.setPrefixID((PrefixCode)getLookupObject(connector.getField("prefix"), Cache.getPrefixCodes()));
-/* 3879 */       selection.setSelectionNo(connector.getField("selection_no"));
+/* 3888 */       selection.setSelectionSubConfig(getSelectionSubConfigObject(connector.getField("sub_configuration"), selection.getSelectionConfig()));
+/* 3889 */       selection.setPrefixID((PrefixCode)getLookupObject(connector.getField("prefix"), Cache.getPrefixCodes()));
+/* 3890 */       selection.setSelectionNo(connector.getField("selection_no"));
 /*      */       
-/* 3881 */       selection.setIsDigital(connector.getBoolean("digital_flag"));
+/* 3892 */       selection.setIsDigital(connector.getBoolean("digital_flag"));
 /*      */       
-/* 3883 */       if (selection.getIsDigital()) {
+/* 3894 */       if (selection.getIsDigital()) {
 /*      */         
-/* 3885 */         String digitalReleaseDateString = connector.getFieldByName("street_date");
-/* 3886 */         if (digitalReleaseDateString != null) {
-/* 3887 */           selection.setDigitalRlsDateString(digitalReleaseDateString);
-/* 3888 */           selection.setDigitalRlsDate(MilestoneHelper.getDatabaseDate(
-/* 3889 */                 digitalReleaseDateString));
+/* 3896 */         String digitalReleaseDateString = connector.getFieldByName("street_date");
+/* 3897 */         if (digitalReleaseDateString != null) {
+/* 3898 */           selection.setDigitalRlsDateString(digitalReleaseDateString);
+/* 3899 */           selection.setDigitalRlsDate(MilestoneHelper.getDatabaseDate(
+/* 3900 */                 digitalReleaseDateString));
 /*      */         } 
 /*      */       } else {
 /*      */         
-/* 3893 */         String streetDateString = connector.getFieldByName("street_date");
-/* 3894 */         if (streetDateString != null) {
-/* 3895 */           selection.setStreetDateString(streetDateString);
-/* 3896 */           selection.setStreetDate(MilestoneHelper.getDatabaseDate(streetDateString));
+/* 3904 */         String streetDateString = connector.getFieldByName("street_date");
+/* 3905 */         if (streetDateString != null) {
+/* 3906 */           selection.setStreetDateString(streetDateString);
+/* 3907 */           selection.setStreetDate(MilestoneHelper.getDatabaseDate(streetDateString));
 /*      */         } 
 /*      */       } 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 3903 */       selection.setArchimedesId(connector.getInt("Archimedes_id", -1));
-/* 3904 */       selection.setReleaseFamilyId(connector.getInt("Release_Family_id", -1));
+/* 3914 */       selection.setArchimedesId(connector.getInt("Archimedes_id", -1));
+/* 3915 */       selection.setReleaseFamilyId(connector.getInt("Release_Family_id", -1));
 /*      */ 
 /*      */ 
 /*      */       
-/* 3908 */       precache.add(selection);
-/* 3909 */       selection = null;
-/* 3910 */       connector.next();
+/* 3919 */       precache.add(selection);
+/* 3920 */       selection = null;
+/* 3921 */       connector.next();
 /*      */     } 
 /*      */     
-/* 3913 */     connector.close();
-/* 3914 */     company = null;
+/* 3924 */     connector.close();
+/* 3925 */     company = null;
 /*      */     
-/* 3916 */     if (notepad == null || !notepad.getOrderBy().equalsIgnoreCase(" ORDER BY title, artist, selection_no, street_date"))
+/* 3927 */     if (notepad == null || !notepad.getOrderBy().equalsIgnoreCase(" ORDER BY title, artist, selection_no, street_date"))
 /*      */     {
 /*      */ 
 /*      */ 
@@ -3934,7 +3945,7 @@
 /*      */ 
 /*      */ 
 /*      */       
-/* 3937 */       if (notepad == null || !notepad.getOrderBy().equalsIgnoreCase(" ORDER BY street_date, artist, title, selection_no"))
+/* 3948 */       if (notepad == null || !notepad.getOrderBy().equalsIgnoreCase(" ORDER BY street_date, artist, title, selection_no"))
 /*      */       {
 /*      */ 
 /*      */ 
@@ -3955,19 +3966,19 @@
 /*      */ 
 /*      */ 
 /*      */         
-/* 3958 */         if (notepad == null || !notepad.getOrderBy().equalsIgnoreCase(" ORDER BY street_date DESC, artist, title, selection_no"))
+/* 3969 */         if (notepad == null || !notepad.getOrderBy().equalsIgnoreCase(" ORDER BY street_date DESC, artist, title, selection_no"))
 /*      */         {
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */           
-/* 3964 */           if (notepad == null || !notepad.getOrderBy().equalsIgnoreCase(" ORDER BY title DESC, artist, selection_no, street_date"))
+/* 3975 */           if (notepad == null || !notepad.getOrderBy().equalsIgnoreCase(" ORDER BY title DESC, artist, selection_no, street_date"))
 /*      */           {
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */             
-/* 3970 */             if (notepad != null) notepad.getOrderBy().equalsIgnoreCase(" ORDER BY artist DESC, title, selection_no, street_date");
+/* 3981 */             if (notepad != null) notepad.getOrderBy().equalsIgnoreCase(" ORDER BY artist DESC, title, selection_no, street_date");
 /*      */           
 /*      */           }
 /*      */         }
@@ -3997,47 +4008,47 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 4000 */     return precache;
+/* 4011 */     return precache;
 /*      */   }
 /*      */ 
 /*      */   
 /*      */   public int getNotepadTotalCount(Notepad notepad, Context context) {
-/* 4005 */     int count = 0;
-/* 4006 */     String query = "";
-/* 4007 */     if (notepad != null && !notepad.getSearchQuery().equals("")) {
+/* 4016 */     int count = 0;
+/* 4017 */     String query = "";
+/* 4018 */     if (notepad != null && !notepad.getSearchQuery().equals("")) {
 /*      */       
-/* 4009 */       query = notepad.getSearchQuery();
-/* 4010 */       query = String.valueOf(query) + notepad.getOrderBy();
+/* 4020 */       query = notepad.getSearchQuery();
+/* 4021 */       query = String.valueOf(query) + notepad.getOrderBy();
 /*      */ 
 /*      */     
 /*      */     }
 /*      */     else {
 /*      */ 
 /*      */       
-/* 4017 */       query = String.valueOf(getDefaultQuery(context)) + " ORDER BY artist, title, selection_no, street_date ";
+/* 4028 */       query = String.valueOf(getDefaultQuery(context)) + " ORDER BY artist, title, selection_no, street_date ";
 /*      */     } 
 /*      */     
-/* 4020 */     String newCountQuery = "";
+/* 4031 */     String newCountQuery = "";
 /*      */     
-/* 4022 */     int start = query.toUpperCase().indexOf("SELECT");
-/* 4023 */     int end = query.toUpperCase().indexOf("FROM") - 1;
-/* 4024 */     int endLength = query.toUpperCase().indexOf("ORDER BY") - 1;
+/* 4033 */     int start = query.toUpperCase().indexOf("SELECT");
+/* 4034 */     int end = query.toUpperCase().indexOf("FROM") - 1;
+/* 4035 */     int endLength = query.toUpperCase().indexOf("ORDER BY") - 1;
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
 /*      */     try {
-/* 4030 */       newCountQuery = String.valueOf(query.substring(start, start + 6)) + " count(*) as totalRecords " + query.substring(end, endLength);
+/* 4041 */       newCountQuery = String.valueOf(query.substring(start, start + 6)) + " count(*) as totalRecords " + query.substring(end, endLength);
 /*      */       
-/* 4032 */       JdbcConnector connector = MilestoneHelper.getConnector(newCountQuery);
-/* 4033 */       connector.runQuery();
+/* 4043 */       JdbcConnector connector = MilestoneHelper.getConnector(newCountQuery);
+/* 4044 */       connector.runQuery();
 /*      */       
-/* 4035 */       if (connector.more()) {
-/* 4036 */         count = connector.getIntegerField("totalRecords");
+/* 4046 */       if (connector.more()) {
+/* 4047 */         count = connector.getIntegerField("totalRecords");
 /*      */       }
-/* 4038 */       connector.close();
+/* 4049 */       connector.close();
 /*      */     }
-/* 4040 */     catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {}
+/* 4051 */     catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {}
 /*      */ 
 /*      */ 
 /*      */ 
@@ -4045,7 +4056,7 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 4048 */     return count;
+/* 4059 */     return count;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4057,12 +4068,12 @@
 /*      */ 
 /*      */   
 /*      */   public void setSelectionNotepadQuery(Context context, int UserId, Notepad notepad, Form form) {
-/* 4060 */     User user = (User)context.getSessionValue("user");
+/* 4071 */     User user = (User)context.getSessionValue("user");
 /*      */     
-/* 4062 */     if (notepad != null)
+/* 4073 */     if (notepad != null)
 /*      */     {
 /*      */       
-/* 4065 */       setSelectionNotepadQueryHelper(context, notepad, form, user);
+/* 4076 */       setSelectionNotepadQueryHelper(context, notepad, form, user);
 /*      */     }
 /*      */   }
 /*      */ 
@@ -4080,127 +4091,127 @@
 /*      */ 
 /*      */   
 /*      */   public void setSelectionNotepadQueryHelper(Context context, Notepad notepad, Form form, User user) {
-/* 4083 */     String artistSearch = context.getParameter("macArtistSearch");
+/* 4094 */     String artistSearch = context.getParameter("macArtistSearch");
 /*      */     
-/* 4085 */     String titleSearch = context.getParameter("macTitleSearch");
+/* 4096 */     String titleSearch = context.getParameter("macTitleSearch");
 /*      */     
-/* 4087 */     String selectionNoSearch = context.getParameter("macSelectionSearch");
+/* 4098 */     String selectionNoSearch = context.getParameter("macSelectionSearch");
 /*      */     
-/* 4089 */     String prefixIDSearch = context.getParameter("macPrefixSearch");
+/* 4100 */     String prefixIDSearch = context.getParameter("macPrefixSearch");
 /*      */     
-/* 4091 */     String upcSearch = context.getParameter("macUPCSearch");
+/* 4102 */     String upcSearch = context.getParameter("macUPCSearch");
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4096 */     upcSearch = MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(upcSearch, "UPC", false, false);
+/* 4107 */     upcSearch = MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(upcSearch, "UPC", false, false);
 /*      */ 
 /*      */ 
 /*      */     
-/* 4100 */     String streetDateSearch = "";
-/* 4101 */     String streetDateSearch2 = context.getParameter("macStreetDateSearch");
-/* 4102 */     if (streetDateSearch2 != null && !streetDateSearch2.equals("")) {
-/* 4103 */       StringTokenizer st = new StringTokenizer(streetDateSearch2, "/");
-/* 4104 */       String token = "";
-/* 4105 */       while (st.hasMoreTokens()) {
-/* 4106 */         token = st.nextToken();
-/* 4107 */         if (!token.equals("*") && token.length() == 1)
-/* 4108 */           token = "0" + token; 
-/* 4109 */         if (streetDateSearch.length() == 0) {
-/* 4110 */           streetDateSearch = String.valueOf(streetDateSearch) + token; continue;
+/* 4111 */     String streetDateSearch = "";
+/* 4112 */     String streetDateSearch2 = context.getParameter("macStreetDateSearch");
+/* 4113 */     if (streetDateSearch2 != null && !streetDateSearch2.equals("")) {
+/* 4114 */       StringTokenizer st = new StringTokenizer(streetDateSearch2, "/");
+/* 4115 */       String token = "";
+/* 4116 */       while (st.hasMoreTokens()) {
+/* 4117 */         token = st.nextToken();
+/* 4118 */         if (!token.equals("*") && token.length() == 1)
+/* 4119 */           token = "0" + token; 
+/* 4120 */         if (streetDateSearch.length() == 0) {
+/* 4121 */           streetDateSearch = String.valueOf(streetDateSearch) + token; continue;
 /*      */         } 
-/* 4112 */         streetDateSearch = String.valueOf(streetDateSearch) + "/" + token;
+/* 4123 */         streetDateSearch = String.valueOf(streetDateSearch) + "/" + token;
 /*      */       } 
 /*      */     } 
 /*      */ 
 /*      */     
-/* 4117 */     String streetEndDateSearch = "";
-/* 4118 */     String streetEndDateSearch2 = context.getParameter("macStreetEndDateSearch");
-/* 4119 */     if (streetEndDateSearch2 != null && !streetEndDateSearch2.equals("")) {
-/* 4120 */       StringTokenizer st = new StringTokenizer(streetEndDateSearch2, "/");
-/* 4121 */       String token = "";
-/* 4122 */       while (st.hasMoreTokens()) {
-/* 4123 */         token = st.nextToken();
-/* 4124 */         if (!token.equals("*") && token.length() == 1)
-/* 4125 */           token = "0" + token; 
-/* 4126 */         if (streetEndDateSearch.length() == 0) {
-/* 4127 */           streetEndDateSearch = String.valueOf(streetEndDateSearch) + token; continue;
+/* 4128 */     String streetEndDateSearch = "";
+/* 4129 */     String streetEndDateSearch2 = context.getParameter("macStreetEndDateSearch");
+/* 4130 */     if (streetEndDateSearch2 != null && !streetEndDateSearch2.equals("")) {
+/* 4131 */       StringTokenizer st = new StringTokenizer(streetEndDateSearch2, "/");
+/* 4132 */       String token = "";
+/* 4133 */       while (st.hasMoreTokens()) {
+/* 4134 */         token = st.nextToken();
+/* 4135 */         if (!token.equals("*") && token.length() == 1)
+/* 4136 */           token = "0" + token; 
+/* 4137 */         if (streetEndDateSearch.length() == 0) {
+/* 4138 */           streetEndDateSearch = String.valueOf(streetEndDateSearch) + token; continue;
 /*      */         } 
-/* 4129 */         streetEndDateSearch = String.valueOf(streetEndDateSearch) + "/" + token;
+/* 4140 */         streetEndDateSearch = String.valueOf(streetEndDateSearch) + "/" + token;
 /*      */       } 
 /*      */     } 
 /*      */     
-/* 4133 */     String configSearch = context.getParameter("ConfigSearch");
+/* 4144 */     String configSearch = context.getParameter("ConfigSearch");
 /*      */     
-/* 4135 */     String subconfigSearch = context.getParameter("macSubconfigSearch");
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/* 4140 */     String showAllSearch = context.getParameter("ShowAllSearch");
-/*      */ 
+/* 4146 */     String subconfigSearch = context.getParameter("macSubconfigSearch");
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4146 */     String contactSearch = context.getParameter("ContactSearch");
+/* 4151 */     String showAllSearch = context.getParameter("ShowAllSearch");
+/*      */ 
+/*      */ 
+/*      */ 
 /*      */ 
 /*      */     
-/* 4149 */     String familySearch = "";
+/* 4157 */     String contactSearch = context.getParameter("ContactSearch");
+/*      */ 
 /*      */     
-/* 4151 */     if (context.getParameter("FamilySearch") == null || context.getParameter("FamilySearch").equals("") || context.getParameter("FamilySearch").equals("0") || context.getParameter("FamilySearch").equals("-1")) {
+/* 4160 */     String familySearch = "";
+/*      */     
+/* 4162 */     if (context.getParameter("FamilySearch") == null || context.getParameter("FamilySearch").equals("") || context.getParameter("FamilySearch").equals("0") || context.getParameter("FamilySearch").equals("-1")) {
 /*      */       
-/* 4153 */       FormDropDownMenu familyDD = (FormDropDownMenu)form.getElement("FamilySearch");
-/* 4154 */       for (int f = 0; f < familyDD.getValueList().length; f++) {
-/* 4155 */         if (f == 0) {
-/* 4156 */           familySearch = String.valueOf(familySearch) + familyDD.getValueList()[f];
+/* 4164 */       FormDropDownMenu familyDD = (FormDropDownMenu)form.getElement("FamilySearch");
+/* 4165 */       for (int f = 0; f < familyDD.getValueList().length; f++) {
+/* 4166 */         if (f == 0) {
+/* 4167 */           familySearch = String.valueOf(familySearch) + familyDD.getValueList()[f];
 /*      */         } else {
-/* 4158 */           familySearch = String.valueOf(familySearch) + "," + familyDD.getValueList()[f];
+/* 4169 */           familySearch = String.valueOf(familySearch) + "," + familyDD.getValueList()[f];
 /*      */         } 
 /*      */       } 
 /*      */     } else {
 /*      */       
-/* 4163 */       familySearch = context.getParameter("FamilySearch");
+/* 4174 */       familySearch = context.getParameter("FamilySearch");
 /*      */     } 
 /*      */     
-/* 4166 */     String environmentSearch = "";
-/* 4167 */     environmentSearch = context.getParameter("EnvironmentSearch");
+/* 4177 */     String environmentSearch = "";
+/* 4178 */     environmentSearch = context.getParameter("EnvironmentSearch");
 /*      */     
-/* 4169 */     String productType = context.getParameter("ProdType");
-/* 4170 */     String productTypeSearch = "";
-/* 4171 */     if (productType.equalsIgnoreCase("physical")) {
-/* 4172 */       productTypeSearch = "0";
-/* 4173 */     } else if (productType.equalsIgnoreCase("digital")) {
-/* 4174 */       productTypeSearch = "1";
+/* 4180 */     String productType = context.getParameter("ProdType");
+/* 4181 */     String productTypeSearch = "";
+/* 4182 */     if (productType.equalsIgnoreCase("physical")) {
+/* 4183 */       productTypeSearch = "0";
+/* 4184 */     } else if (productType.equalsIgnoreCase("digital")) {
+/* 4185 */       productTypeSearch = "1";
 /*      */     } 
 /*      */     
-/* 4177 */     String companyVar = context.getParameter("company");
-/* 4178 */     String companyTypeSearch = "";
-/* 4179 */     String labelSearch = "";
-/* 4180 */     if (productType.equalsIgnoreCase("All")) {
+/* 4188 */     String companyVar = context.getParameter("company");
+/* 4189 */     String companyTypeSearch = "";
+/* 4190 */     String labelSearch = "";
+/* 4191 */     if (productType.equalsIgnoreCase("All")) {
 /*      */ 
 /*      */       
-/* 4183 */       labelSearch = "0";
+/* 4194 */       labelSearch = "0";
 /*      */     
 /*      */     }
-/* 4186 */     else if (productType.equalsIgnoreCase("Select")) {
+/* 4197 */     else if (productType.equalsIgnoreCase("Select")) {
 /*      */       
-/* 4188 */       labelSearch = context.getParameter("macLabelSearch");
+/* 4199 */       labelSearch = context.getParameter("macLabelSearch");
 /*      */     } 
 /*      */ 
 /*      */     
-/* 4192 */     String labelVar = context.getParameter("Label");
-/* 4193 */     String labelTypeSearch = "";
-/* 4194 */     String companySearch = "";
-/* 4195 */     if (productType.equalsIgnoreCase("All")) {
+/* 4203 */     String labelVar = context.getParameter("Label");
+/* 4204 */     String labelTypeSearch = "";
+/* 4205 */     String companySearch = "";
+/* 4206 */     if (productType.equalsIgnoreCase("All")) {
 /*      */ 
 /*      */       
-/* 4198 */       companySearch = "0";
+/* 4209 */       companySearch = "0";
 /*      */     
 /*      */     }
-/* 4201 */     else if (productType.equalsIgnoreCase("Select")) {
+/* 4212 */     else if (productType.equalsIgnoreCase("Select")) {
 /*      */       
-/* 4203 */       companySearch = context.getParameter("macCompanySearch");
+/* 4214 */       companySearch = context.getParameter("macCompanySearch");
 /*      */     } 
 /*      */ 
 /*      */ 
@@ -4218,19 +4229,19 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 4221 */     String projectIDSearch = "";
-/* 4222 */     projectIDSearch = context.getParameter("ProjectIDSearch");
+/* 4232 */     String projectIDSearch = "";
+/* 4233 */     projectIDSearch = context.getParameter("ProjectIDSearch");
 /*      */     
-/* 4224 */     boolean startsWithAsterisk = false;
-/* 4225 */     boolean endsWithAsterisk = false;
-/* 4226 */     boolean containsNA = false;
+/* 4235 */     boolean startsWithAsterisk = false;
+/* 4236 */     boolean endsWithAsterisk = false;
+/* 4237 */     boolean containsNA = false;
 /*      */ 
 /*      */ 
 /*      */     
-/* 4230 */     if (streetDateSearch.indexOf("*") > -1)
+/* 4241 */     if (streetDateSearch.indexOf("*") > -1)
 /*      */     {
 /*      */       
-/* 4233 */       startsWithAsterisk = true;
+/* 4244 */       startsWithAsterisk = true;
 /*      */     }
 /*      */ 
 /*      */ 
@@ -4238,97 +4249,97 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 4241 */     if (streetEndDateSearch.indexOf("*") > -1)
+/* 4252 */     if (streetEndDateSearch.indexOf("*") > -1)
 /*      */     {
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 4247 */       endsWithAsterisk = true;
+/* 4258 */       endsWithAsterisk = true;
 /*      */     }
 /*      */ 
 /*      */ 
 /*      */     
-/* 4252 */     if (streetDateSearch.toUpperCase().indexOf("N/A") > -1)
+/* 4263 */     if (streetDateSearch.toUpperCase().indexOf("N/A") > -1)
 /*      */     {
-/* 4254 */       containsNA = true;
+/* 4265 */       containsNA = true;
 /*      */     }
 /*      */     
-/* 4257 */     if (selectionNoSearch.length() > 0) {
+/* 4268 */     if (selectionNoSearch.length() > 0) {
 /*      */       
-/* 4259 */       context.putSessionValue("selectionNotepadColumn", "1");
+/* 4270 */       context.putSessionValue("selectionNotepadColumn", "1");
 /*      */     }
-/* 4261 */     else if (upcSearch.length() > 0) {
+/* 4272 */     else if (upcSearch.length() > 0) {
 /*      */       
-/* 4263 */       context.putSessionValue("selectionNotepadColumn", "2");
+/* 4274 */       context.putSessionValue("selectionNotepadColumn", "2");
 /*      */     }
-/* 4265 */     else if (prefixIDSearch.length() > 0) {
+/* 4276 */     else if (prefixIDSearch.length() > 0) {
 /*      */       
-/* 4267 */       context.putSessionValue("selectionNotepadColumn", "3");
+/* 4278 */       context.putSessionValue("selectionNotepadColumn", "3");
 /*      */     }
 /*      */     else {
 /*      */       
-/* 4271 */       context.removeSessionValue("selectionNotepadColumn");
+/* 4282 */       context.removeSessionValue("selectionNotepadColumn");
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4278 */     if (user != null && user.getPreferences() != null && !user.SS_searchInitiated) {
+/* 4289 */     if (user != null && user.getPreferences() != null && !user.SS_searchInitiated) {
 /*      */ 
 /*      */       
-/* 4281 */       if (user.getPreferences().getSelectionStatus() > 0) {
+/* 4292 */       if (user.getPreferences().getSelectionStatus() > 0) {
 /*      */         
-/* 4283 */         showAllSearch = "true";
-/* 4284 */         user.SS_showAllSearch = "true";
+/* 4294 */         showAllSearch = "true";
+/* 4295 */         user.SS_showAllSearch = "true";
 /*      */       } 
 /*      */       
-/* 4287 */       if (user.getPreferences().getSelectionReleasingFamily() > 0) {
+/* 4298 */       if (user.getPreferences().getSelectionReleasingFamily() > 0) {
 /*      */         
-/* 4289 */         familySearch = String.valueOf(user.getPreferences().getSelectionReleasingFamily());
-/* 4290 */         user.SS_familySearch = familySearch;
+/* 4300 */         familySearch = String.valueOf(user.getPreferences().getSelectionReleasingFamily());
+/* 4301 */         user.SS_familySearch = familySearch;
 /*      */       } 
 /*      */       
-/* 4293 */       if (user.getPreferences().getSelectionEnvironment() > 0) {
+/* 4304 */       if (user.getPreferences().getSelectionEnvironment() > 0) {
 /*      */         
-/* 4295 */         environmentSearch = String.valueOf(user.getPreferences().getSelectionEnvironment());
-/* 4296 */         user.SS_environmentSearch = environmentSearch;
+/* 4306 */         environmentSearch = String.valueOf(user.getPreferences().getSelectionEnvironment());
+/* 4307 */         user.SS_environmentSearch = environmentSearch;
 /*      */       } 
 /*      */       
-/* 4299 */       if (user.getPreferences().getSelectionLabelContact() > 0) {
+/* 4310 */       if (user.getPreferences().getSelectionLabelContact() > 0) {
 /*      */         
-/* 4301 */         contactSearch = String.valueOf(user.getPreferences().getSelectionLabelContact());
-/* 4302 */         user.SS_contactSearch = contactSearch;
+/* 4312 */         contactSearch = String.valueOf(user.getPreferences().getSelectionLabelContact());
+/* 4313 */         user.SS_contactSearch = contactSearch;
 /*      */       } 
 /*      */       
-/* 4305 */       if (user.getPreferences().getSelectionProductType() > -1) {
-/* 4306 */         productTypeSearch = "";
-/* 4307 */         user.SS_productTypeSearch = "";
-/* 4308 */         if (user.getPreferences().getSelectionProductType() == 0) {
+/* 4316 */       if (user.getPreferences().getSelectionProductType() > -1) {
+/* 4317 */         productTypeSearch = "";
+/* 4318 */         user.SS_productTypeSearch = "";
+/* 4319 */         if (user.getPreferences().getSelectionProductType() == 0) {
 /*      */           
-/* 4310 */           productTypeSearch = "0";
-/* 4311 */           user.SS_productTypeSearch = "physical";
+/* 4321 */           productTypeSearch = "0";
+/* 4322 */           user.SS_productTypeSearch = "physical";
 /*      */         } 
-/* 4313 */         if (user.getPreferences().getSelectionProductType() == 1) {
+/* 4324 */         if (user.getPreferences().getSelectionProductType() == 1) {
 /*      */           
-/* 4315 */           productTypeSearch = "1";
-/* 4316 */           user.SS_productTypeSearch = "digital";
+/* 4326 */           productTypeSearch = "1";
+/* 4327 */           user.SS_productTypeSearch = "digital";
 /*      */         } 
-/* 4318 */         if (user.getPreferences().getSelectionProductType() == 2) {
-/* 4319 */           user.SS_productTypeSearch = "both";
+/* 4329 */         if (user.getPreferences().getSelectionProductType() == 2) {
+/* 4330 */           user.SS_productTypeSearch = "both";
 /*      */         }
 /*      */       } 
 /*      */       
-/* 4323 */       UserManager.getInstance().setUserPreferenceReleaseCalendar(user);
+/* 4334 */       UserManager.getInstance().setUserPreferenceReleaseCalendar(user);
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4330 */     StringBuffer query = new StringBuffer();
-/* 4331 */     query.append("SELECT release_id, title, artist, configuration, sub_configuration, upc, prefix, selection_no, digital_flag, street_date =  CASE digital_flag  WHEN 0 THEN street_date   WHEN 1 THEN digital_rls_date  END ,archimedes_id, Release_Family_id from vi_Release_Header WHERE ");
+/* 4341 */     StringBuffer query = new StringBuffer();
+/* 4342 */     query.append("SELECT release_id, title, artist, configuration, sub_configuration, upc, prefix, selection_no, digital_flag, street_date =  CASE digital_flag  WHEN 0 THEN street_date   WHEN 1 THEN digital_rls_date  END ,archimedes_id, Release_Family_id from vi_Release_Header WHERE ");
 /*      */ 
 /*      */ 
 /*      */ 
@@ -4339,61 +4350,61 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 4342 */     if (environmentSearch == null || environmentSearch.equals("") || environmentSearch.equals("0") || environmentSearch.equals("-1")) {
+/* 4353 */     if (environmentSearch == null || environmentSearch.equals("") || environmentSearch.equals("0") || environmentSearch.equals("-1")) {
 /*      */       
-/* 4344 */       FormDropDownMenu envDD = (FormDropDownMenu)form.getElement(
-/* 4345 */           "EnvironmentSearch");
-/* 4346 */       query.append(" environment_id in (");
-/* 4347 */       for (int f = 0; f < envDD.getValueList().length; f++) {
-/* 4348 */         if (f == 0) {
-/* 4349 */           query.append(envDD.getValueList()[f]);
+/* 4355 */       FormDropDownMenu envDD = (FormDropDownMenu)form.getElement(
+/* 4356 */           "EnvironmentSearch");
+/* 4357 */       query.append(" environment_id in (");
+/* 4358 */       for (int f = 0; f < envDD.getValueList().length; f++) {
+/* 4359 */         if (f == 0) {
+/* 4360 */           query.append(envDD.getValueList()[f]);
 /*      */         } else {
-/* 4351 */           query.append("," + envDD.getValueList()[f]);
+/* 4362 */           query.append("," + envDD.getValueList()[f]);
 /*      */         } 
-/* 4353 */       }  query.append(")");
+/* 4364 */       }  query.append(")");
 /*      */     } else {
 /*      */       
-/* 4356 */       query.append(" environment_id in (" + environmentSearch + ")");
+/* 4367 */       query.append(" environment_id in (" + environmentSearch + ")");
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4362 */     if (showAllSearch == null || !showAllSearch.equals("true")) {
-/* 4363 */       query.append(" AND NOT ( status = 'CLOSED' OR  status = 'CANCEL' )");
+/* 4373 */     if (showAllSearch == null || !showAllSearch.equals("true")) {
+/* 4374 */       query.append(" AND NOT ( status = 'CLOSED' OR  status = 'CANCEL' )");
 /*      */     }
-/* 4365 */     if (artistSearch != null && !artistSearch.equals("")) {
-/* 4366 */       query.append(" AND artist " + MilestoneHelper.setWildCardsEscapeSingleQuotes(artistSearch));
+/* 4376 */     if (artistSearch != null && !artistSearch.equals("")) {
+/* 4377 */       query.append(" AND artist " + MilestoneHelper.setWildCardsEscapeSingleQuotes(artistSearch));
 /*      */     }
-/* 4368 */     if (titleSearch != null && !titleSearch.equals("")) {
-/* 4369 */       query.append(" AND title " + MilestoneHelper.setWildCardsEscapeSingleQuotes(titleSearch));
+/* 4379 */     if (titleSearch != null && !titleSearch.equals("")) {
+/* 4380 */       query.append(" AND title " + MilestoneHelper.setWildCardsEscapeSingleQuotes(titleSearch));
 /*      */     }
-/* 4371 */     if (selectionNoSearch != null && !selectionNoSearch.equals("")) {
-/* 4372 */       query.append(" AND selection_no " + MilestoneHelper.setWildCardsEscapeSingleQuotes(selectionNoSearch));
+/* 4382 */     if (selectionNoSearch != null && !selectionNoSearch.equals("")) {
+/* 4383 */       query.append(" AND selection_no " + MilestoneHelper.setWildCardsEscapeSingleQuotes(selectionNoSearch));
 /*      */     }
-/* 4374 */     if (prefixIDSearch != null && !prefixIDSearch.equals("")) {
-/* 4375 */       query.append(" AND prefix " + MilestoneHelper.setWildCardsEscapeSingleQuotes(prefixIDSearch));
+/* 4385 */     if (prefixIDSearch != null && !prefixIDSearch.equals("")) {
+/* 4386 */       query.append(" AND prefix " + MilestoneHelper.setWildCardsEscapeSingleQuotes(prefixIDSearch));
 /*      */     }
-/* 4377 */     if (upcSearch != null && !upcSearch.equals("")) {
-/* 4378 */       query.append(" AND upc " + MilestoneHelper.setWildCardsEscapeSingleQuotes(upcSearch));
+/* 4388 */     if (upcSearch != null && !upcSearch.equals("")) {
+/* 4389 */       query.append(" AND upc " + MilestoneHelper.setWildCardsEscapeSingleQuotes(upcSearch));
 /*      */     }
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4385 */     if (streetEndDateSearch != null && !streetEndDateSearch.equals("")) {
+/* 4396 */     if (streetEndDateSearch != null && !streetEndDateSearch.equals("")) {
 /*      */       
-/* 4387 */       String streetStartDateSearch = "";
-/* 4388 */       if (streetDateSearch != null && !streetDateSearch.equals(""))
+/* 4398 */       String streetStartDateSearch = "";
+/* 4399 */       if (streetDateSearch != null && !streetDateSearch.equals(""))
 /*      */       {
-/* 4390 */         query.append(" AND (   ( digital_flag = 0 and street_date between '" + MilestoneHelper.escapeSingleQuotes(streetDateSearch) + "' and '" + MilestoneHelper.escapeSingleQuotes(streetEndDateSearch) + "')");
-/* 4391 */         query.append("      OR ( digital_flag = 1 and digital_rls_date between '" + MilestoneHelper.escapeSingleQuotes(streetDateSearch) + "' and '" + MilestoneHelper.escapeSingleQuotes(streetEndDateSearch) + "'))");
+/* 4401 */         query.append(" AND (   ( digital_flag = 0 and street_date between '" + MilestoneHelper.escapeSingleQuotes(streetDateSearch) + "' and '" + MilestoneHelper.escapeSingleQuotes(streetEndDateSearch) + "')");
+/* 4402 */         query.append("      OR ( digital_flag = 1 and digital_rls_date between '" + MilestoneHelper.escapeSingleQuotes(streetDateSearch) + "' and '" + MilestoneHelper.escapeSingleQuotes(streetEndDateSearch) + "'))");
 /*      */       }
 /*      */       else
 /*      */       {
-/* 4395 */         query.append(" AND (   ( digital_flag = 0 and street_date between '01/01/1900' and '" + MilestoneHelper.escapeSingleQuotes(streetEndDateSearch) + "')");
-/* 4396 */         query.append("      OR ( digital flag = 1 and digital_rls_date between '01/01/1900' and '" + MilestoneHelper.escapeSingleQuotes(streetEndDateSearch) + "'))");
+/* 4406 */         query.append(" AND (   ( digital_flag = 0 and street_date between '01/01/1900' and '" + MilestoneHelper.escapeSingleQuotes(streetEndDateSearch) + "')");
+/* 4407 */         query.append("      OR ( digital flag = 1 and digital_rls_date between '01/01/1900' and '" + MilestoneHelper.escapeSingleQuotes(streetEndDateSearch) + "'))");
 /*      */ 
 /*      */ 
 /*      */ 
@@ -4411,181 +4422,181 @@
 /*      */ 
 /*      */     
 /*      */     }
-/* 4414 */     else if (streetDateSearch != null && !streetDateSearch.equals("")) {
+/* 4425 */     else if (streetDateSearch != null && !streetDateSearch.equals("")) {
 /*      */ 
 /*      */ 
 /*      */       
-/* 4418 */       if (containsNA) {
+/* 4429 */       if (containsNA) {
 /*      */         
-/* 4420 */         query.append(" AND ( ( digital_flag = 0 and street_date IS NULL) OR ( digital_flag = 1 and digital_rls_date IS NULL))");
+/* 4431 */         query.append(" AND ( ( digital_flag = 0 and street_date IS NULL) OR ( digital_flag = 1 and digital_rls_date IS NULL))");
 /*      */       }
-/* 4422 */       else if (startsWithAsterisk) {
+/* 4433 */       else if (startsWithAsterisk) {
 /*      */ 
 /*      */         
-/* 4425 */         String cleanStreetDate = streetDateSearch.replace('*', '%');
-/* 4426 */         query.append(" AND (    ( digital_flag = 0 and CONVERT(varchar, street_date, 1) LIKE '" + cleanStreetDate + "')");
-/* 4427 */         query.append("       OR ( digital_flag = 1 and CONVERT(varchar, digital_rls_date, 1) LIKE '" + cleanStreetDate + "'))");
+/* 4436 */         String cleanStreetDate = streetDateSearch.replace('*', '%');
+/* 4437 */         query.append(" AND (    ( digital_flag = 0 and CONVERT(varchar, street_date, 1) LIKE '" + cleanStreetDate + "')");
+/* 4438 */         query.append("       OR ( digital_flag = 1 and CONVERT(varchar, digital_rls_date, 1) LIKE '" + cleanStreetDate + "'))");
 /*      */       }
 /*      */       else {
 /*      */         
-/* 4431 */         query.append(" AND (   ( digital_flag = 0 and street_date = '" + MilestoneHelper.escapeSingleQuotes(streetDateSearch) + "')");
-/* 4432 */         query.append("      OR ( digital_flag = 1 and digital_rls_date = '" + MilestoneHelper.escapeSingleQuotes(streetDateSearch) + "'))");
+/* 4442 */         query.append(" AND (   ( digital_flag = 0 and street_date = '" + MilestoneHelper.escapeSingleQuotes(streetDateSearch) + "')");
+/* 4443 */         query.append("      OR ( digital_flag = 1 and digital_rls_date = '" + MilestoneHelper.escapeSingleQuotes(streetDateSearch) + "'))");
 /*      */       } 
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4438 */     if (configSearch != null && !configSearch.equals("") && !configSearch.equals("0")) {
-/* 4439 */       query.append(" AND configuration = '" + configSearch + "'");
+/* 4449 */     if (configSearch != null && !configSearch.equals("") && !configSearch.equals("0")) {
+/* 4450 */       query.append(" AND configuration = '" + configSearch + "'");
 /*      */     }
 /*      */     
-/* 4442 */     if (subconfigSearch != null && !subconfigSearch.equals("") && !subconfigSearch.equals("0")) {
-/* 4443 */       query.append(" AND sub_configuration = '" + subconfigSearch + "'");
+/* 4453 */     if (subconfigSearch != null && !subconfigSearch.equals("") && !subconfigSearch.equals("0")) {
+/* 4454 */       query.append(" AND sub_configuration = '" + subconfigSearch + "'");
 /*      */     }
 /*      */ 
 /*      */     
-/* 4447 */     if (labelSearch != null && !labelSearch.equals("") && !labelSearch.equals("0")) {
-/* 4448 */       query.append(" AND label_id in (" + labelSearch + ")");
-/*      */     }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/* 4454 */     if (companySearch != null && !companySearch.equals("") && !companySearch.equals("0")) {
-/* 4455 */       query.append(" AND company_id in (" + companySearch + ")");
+/* 4458 */     if (labelSearch != null && !labelSearch.equals("") && !labelSearch.equals("0")) {
+/* 4459 */       query.append(" AND label_id in (" + labelSearch + ")");
 /*      */     }
 /*      */ 
 /*      */ 
 /*      */ 
-/*      */ 
 /*      */     
-/* 4462 */     addReleasingFamilyLabelFamilySelect("FamilySearch", context, query, form);
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/* 4468 */     if (!productTypeSearch.equalsIgnoreCase("")) {
-/* 4469 */       query.append(" AND digital_flag = " + productTypeSearch);
+/* 4465 */     if (companySearch != null && !companySearch.equals("") && !companySearch.equals("0")) {
+/* 4466 */       query.append(" AND company_id in (" + companySearch + ")");
 /*      */     }
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
+/*      */     
+/* 4473 */     addReleasingFamilyLabelFamilySelect("FamilySearch", context, query, form);
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4490 */     if (contactSearch != null && !contactSearch.equals("") && !contactSearch.equals("0")) {
-/* 4491 */       query.append(" AND contact_id = '" + contactSearch + "'");
-/*      */     }
-/*      */     
-/* 4494 */     if (projectIDSearch != null && !projectIDSearch.equals("")) {
-/* 4495 */       query.append(" AND project_no " + MilestoneHelper.setWildCardsEscapeSingleQuotes(projectIDSearch));
+/* 4479 */     if (!productTypeSearch.equalsIgnoreCase("")) {
+/* 4480 */       query.append(" AND digital_flag = " + productTypeSearch);
 /*      */     }
 /*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
 /*      */     
-/* 4499 */     query.append(ShowOrHideDigitalProductGet(user));
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/* 4505 */     String order = "";
-/*      */ 
-/*      */ 
-/*      */     
-/* 4509 */     NotepadSortOrder notepadSortOrder = NotepadSortOrder.getNotepadSortOrderFromSession(context);
-/*      */ 
-/*      */     
-/* 4512 */     boolean descending = false;
-/* 4513 */     if (notepad.getOrderBy().indexOf(" DESC ") != -1) {
-/* 4514 */       descending = true;
+/* 4501 */     if (contactSearch != null && !contactSearch.equals("") && !contactSearch.equals("0")) {
+/* 4502 */       query.append(" AND contact_id = '" + contactSearch + "'");
 /*      */     }
-/* 4516 */     if (artistSearch.length() > 0) {
+/*      */     
+/* 4505 */     if (projectIDSearch != null && !projectIDSearch.equals("")) {
+/* 4506 */       query.append(" AND project_no " + MilestoneHelper.setWildCardsEscapeSingleQuotes(projectIDSearch));
+/*      */     }
+/*      */ 
+/*      */     
+/* 4510 */     query.append(ShowOrHideDigitalProductGet(user));
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */     
+/* 4516 */     String order = "";
+/*      */ 
+/*      */ 
+/*      */     
+/* 4520 */     NotepadSortOrder notepadSortOrder = NotepadSortOrder.getNotepadSortOrderFromSession(context);
+/*      */ 
+/*      */     
+/* 4523 */     boolean descending = false;
+/* 4524 */     if (notepad.getOrderBy().indexOf(" DESC ") != -1) {
+/* 4525 */       descending = true;
+/*      */     }
+/* 4527 */     if (artistSearch.length() > 0) {
 /*      */       
-/* 4518 */       notepadSortOrder.setSelectionOrderCol("Artist");
-/* 4519 */       notepadSortOrder.setShowGroupButtons(true);
-/* 4520 */       if (!descending) {
-/*      */         
-/* 4522 */         order = " ORDER BY artist, title, selection_no, street_date";
-/* 4523 */         notepadSortOrder.setSelectionOrderColNo(0);
-/*      */       } else {
-/* 4525 */         order = " ORDER BY artist DESC , title, selection_no, street_date";
-/* 4526 */         notepadSortOrder.setSelectionOrderColNo(7);
-/*      */       }
-/*      */     
-/* 4529 */     } else if (titleSearch.length() > 0) {
-/*      */       
+/* 4529 */       notepadSortOrder.setSelectionOrderCol("Artist");
+/* 4530 */       notepadSortOrder.setShowGroupButtons(true);
 /* 4531 */       if (!descending) {
 /*      */         
-/* 4533 */         order = " ORDER BY title, artist, selection_no, street_date";
-/* 4534 */         notepadSortOrder.setSelectionOrderColNo(1);
+/* 4533 */         order = " ORDER BY artist, title, selection_no, street_date";
+/* 4534 */         notepadSortOrder.setSelectionOrderColNo(0);
 /*      */       } else {
-/* 4536 */         order = " ORDER BY title DESC , artist, selection_no, street_date";
-/* 4537 */         notepadSortOrder.setSelectionOrderColNo(8);
-/*      */       } 
-/* 4539 */       notepadSortOrder.setSelectionOrderCol("Title");
-/* 4540 */       notepadSortOrder.setShowGroupButtons(true);
-/*      */     }
-/* 4542 */     else if (streetDateSearch.length() > 0) {
+/* 4536 */         order = " ORDER BY artist DESC , title, selection_no, street_date";
+/* 4537 */         notepadSortOrder.setSelectionOrderColNo(7);
+/*      */       }
+/*      */     
+/* 4540 */     } else if (titleSearch.length() > 0) {
 /*      */       
-/* 4544 */       if (!descending) {
+/* 4542 */       if (!descending) {
 /*      */         
-/* 4546 */         order = " ORDER BY street_date, artist, title, selection_no";
-/* 4547 */         notepadSortOrder.setSelectionOrderColNo(5);
+/* 4544 */         order = " ORDER BY title, artist, selection_no, street_date";
+/* 4545 */         notepadSortOrder.setSelectionOrderColNo(1);
 /*      */       } else {
-/* 4549 */         order = " ORDER BY street_date DESC , artist, title, selection_no";
-/* 4550 */         notepadSortOrder.setSelectionOrderColNo(5);
+/* 4547 */         order = " ORDER BY title DESC , artist, selection_no, street_date";
+/* 4548 */         notepadSortOrder.setSelectionOrderColNo(8);
 /*      */       } 
-/* 4552 */       notepadSortOrder.setSelectionOrderCol("Str Dt");
+/* 4550 */       notepadSortOrder.setSelectionOrderCol("Title");
+/* 4551 */       notepadSortOrder.setShowGroupButtons(true);
 /*      */     }
-/* 4554 */     else if (selectionNoSearch.length() > 0) {
+/* 4553 */     else if (streetDateSearch.length() > 0) {
 /*      */       
-/* 4556 */       if (!descending) {
+/* 4555 */       if (!descending) {
 /*      */         
-/* 4558 */         order = " ORDER BY selection_no";
-/* 4559 */         notepadSortOrder.setSelectionOrderColNo(2);
+/* 4557 */         order = " ORDER BY street_date, artist, title, selection_no";
+/* 4558 */         notepadSortOrder.setSelectionOrderColNo(5);
 /*      */       } else {
-/* 4561 */         order = " ORDER BY selection_no DESC ";
-/* 4562 */         notepadSortOrder.setSelectionOrderColNo(2);
+/* 4560 */         order = " ORDER BY street_date DESC , artist, title, selection_no";
+/* 4561 */         notepadSortOrder.setSelectionOrderColNo(5);
 /*      */       } 
-/* 4564 */       notepadSortOrder.setSelectionOrderCol("Local Prod #");
+/* 4563 */       notepadSortOrder.setSelectionOrderCol("Str Dt");
 /*      */     }
-/* 4566 */     else if (prefixIDSearch.length() > 0) {
+/* 4565 */     else if (selectionNoSearch.length() > 0) {
 /*      */       
-/* 4568 */       if (!descending) {
+/* 4567 */       if (!descending) {
 /*      */         
-/* 4570 */         order = " ORDER BY prefix,selection_no";
-/* 4571 */         notepadSortOrder.setSelectionOrderColNo(4);
+/* 4569 */         order = " ORDER BY selection_no";
+/* 4570 */         notepadSortOrder.setSelectionOrderColNo(2);
 /*      */       } else {
-/* 4573 */         order = " ORDER BY prefix DESC ,selection_no";
-/* 4574 */         notepadSortOrder.setSelectionOrderColNo(4);
+/* 4572 */         order = " ORDER BY selection_no DESC ";
+/* 4573 */         notepadSortOrder.setSelectionOrderColNo(2);
 /*      */       } 
-/* 4576 */       notepadSortOrder.setSelectionOrderCol("Prefix");
+/* 4575 */       notepadSortOrder.setSelectionOrderCol("Local Prod #");
 /*      */     }
-/* 4578 */     else if (upcSearch.length() > 0) {
+/* 4577 */     else if (prefixIDSearch.length() > 0) {
 /*      */       
-/* 4580 */       if (!descending) {
+/* 4579 */       if (!descending) {
 /*      */         
-/* 4582 */         order = " ORDER BY upc,selection_no";
-/* 4583 */         notepadSortOrder.setSelectionOrderColNo(3);
+/* 4581 */         order = " ORDER BY prefix,selection_no";
+/* 4582 */         notepadSortOrder.setSelectionOrderColNo(4);
 /*      */       } else {
-/* 4585 */         order = " ORDER BY upc DESC ,selection_no";
-/* 4586 */         notepadSortOrder.setSelectionOrderColNo(3);
+/* 4584 */         order = " ORDER BY prefix DESC ,selection_no";
+/* 4585 */         notepadSortOrder.setSelectionOrderColNo(4);
 /*      */       } 
-/* 4588 */       notepadSortOrder.setSelectionOrderCol("UPC");
+/* 4587 */       notepadSortOrder.setSelectionOrderCol("Prefix");
+/*      */     }
+/* 4589 */     else if (upcSearch.length() > 0) {
+/*      */       
+/* 4591 */       if (!descending) {
+/*      */         
+/* 4593 */         order = " ORDER BY upc,selection_no";
+/* 4594 */         notepadSortOrder.setSelectionOrderColNo(3);
+/*      */       } else {
+/* 4596 */         order = " ORDER BY upc DESC ,selection_no";
+/* 4597 */         notepadSortOrder.setSelectionOrderColNo(3);
+/*      */       } 
+/* 4599 */       notepadSortOrder.setSelectionOrderCol("UPC");
 /*      */ 
 /*      */ 
 /*      */ 
@@ -4593,86 +4604,86 @@
 /*      */ 
 /*      */     
 /*      */     }
-/* 4596 */     else if (user != null && !user.SS_searchInitiated) {
+/* 4607 */     else if (user != null && !user.SS_searchInitiated) {
 /*      */       
-/* 4598 */       order = getSelectionNotepadQueryUserDefaultsOrderBy(context);
+/* 4609 */       order = getSelectionNotepadQueryUserDefaultsOrderBy(context);
 /*      */     }
-/* 4600 */     else if (!notepad.getOrderBy().equals("") && (
-/* 4601 */       notepadSortOrder.getSelectionOrderCol().equals("Artist") || 
-/* 4602 */       notepadSortOrder.getSelectionOrderCol().equals("Title") || 
-/* 4603 */       notepadSortOrder.getSelectionOrderCol().equals("Str Dt"))) {
-/* 4604 */       order = notepad.getOrderBy();
+/* 4611 */     else if (!notepad.getOrderBy().equals("") && (
+/* 4612 */       notepadSortOrder.getSelectionOrderCol().equals("Artist") || 
+/* 4613 */       notepadSortOrder.getSelectionOrderCol().equals("Title") || 
+/* 4614 */       notepadSortOrder.getSelectionOrderCol().equals("Str Dt"))) {
+/* 4615 */       order = notepad.getOrderBy();
 /*      */     } else {
 /*      */       
-/* 4607 */       if (!descending) {
+/* 4618 */       if (!descending) {
 /*      */         
-/* 4609 */         order = " ORDER BY artist, title, selection_no, street_date ";
-/* 4610 */         notepadSortOrder.setSelectionOrderColNo(0);
+/* 4620 */         order = " ORDER BY artist, title, selection_no, street_date ";
+/* 4621 */         notepadSortOrder.setSelectionOrderColNo(0);
 /*      */       } else {
-/* 4612 */         order = " ORDER BY artist DESC , title, selection_no, street_date ";
-/* 4613 */         notepadSortOrder.setSelectionOrderColNo(7);
+/* 4623 */         order = " ORDER BY artist DESC , title, selection_no, street_date ";
+/* 4624 */         notepadSortOrder.setSelectionOrderColNo(7);
 /*      */       } 
-/* 4615 */       notepadSortOrder.setSelectionOrderCol("Artist");
-/* 4616 */       notepadSortOrder.setShowGroupButtons(true);
+/* 4626 */       notepadSortOrder.setSelectionOrderCol("Artist");
+/* 4627 */       notepadSortOrder.setShowGroupButtons(true);
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4623 */     if (user != null) {
+/* 4634 */     if (user != null) {
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 4628 */       Hashtable prevSearchValues = new Hashtable();
-/* 4629 */       prevSearchValues.put("SS_artistSearch", user.SS_artistSearch);
-/* 4630 */       prevSearchValues.put("SS_titleSearch ", user.SS_titleSearch);
-/* 4631 */       prevSearchValues.put("SS_selectionNoSearch", user.SS_selectionNoSearch);
-/* 4632 */       prevSearchValues.put("SS_prefixIDSearch", user.SS_prefixIDSearch);
-/* 4633 */       prevSearchValues.put("SS_upcSearch", user.SS_upcSearch);
-/* 4634 */       prevSearchValues.put("SS_streetDateSearch", user.SS_streetDateSearch);
-/* 4635 */       prevSearchValues.put("SS_streetEndDateSearch", user.SS_streetEndDateSearch);
-/* 4636 */       prevSearchValues.put("SS_configSearch", user.SS_configSearch);
-/* 4637 */       prevSearchValues.put("SS_subconfigSearch", user.SS_subconfigSearch);
-/* 4638 */       prevSearchValues.put("SS_labelSearch", user.SS_labelSearch);
-/* 4639 */       prevSearchValues.put("SS_companySearch", user.SS_companySearch);
-/* 4640 */       prevSearchValues.put("SS_contactSearch", user.SS_contactSearch);
-/* 4641 */       prevSearchValues.put("SS_familySearch", user.SS_familySearch);
-/* 4642 */       prevSearchValues.put("SS_environmentSearch", user.SS_environmentSearch);
-/* 4643 */       prevSearchValues.put("SS_projectIDSearch", user.SS_projectIDSearch);
-/* 4644 */       prevSearchValues.put("SS_productTypeSearch", user.SS_productTypeSearch);
-/* 4645 */       prevSearchValues.put("SS_showAllSearch", user.SS_showAllSearch);
-/* 4646 */       context.putDelivery("prevSearchValues", prevSearchValues);
+/* 4639 */       Hashtable prevSearchValues = new Hashtable();
+/* 4640 */       prevSearchValues.put("SS_artistSearch", user.SS_artistSearch);
+/* 4641 */       prevSearchValues.put("SS_titleSearch ", user.SS_titleSearch);
+/* 4642 */       prevSearchValues.put("SS_selectionNoSearch", user.SS_selectionNoSearch);
+/* 4643 */       prevSearchValues.put("SS_prefixIDSearch", user.SS_prefixIDSearch);
+/* 4644 */       prevSearchValues.put("SS_upcSearch", user.SS_upcSearch);
+/* 4645 */       prevSearchValues.put("SS_streetDateSearch", user.SS_streetDateSearch);
+/* 4646 */       prevSearchValues.put("SS_streetEndDateSearch", user.SS_streetEndDateSearch);
+/* 4647 */       prevSearchValues.put("SS_configSearch", user.SS_configSearch);
+/* 4648 */       prevSearchValues.put("SS_subconfigSearch", user.SS_subconfigSearch);
+/* 4649 */       prevSearchValues.put("SS_labelSearch", user.SS_labelSearch);
+/* 4650 */       prevSearchValues.put("SS_companySearch", user.SS_companySearch);
+/* 4651 */       prevSearchValues.put("SS_contactSearch", user.SS_contactSearch);
+/* 4652 */       prevSearchValues.put("SS_familySearch", user.SS_familySearch);
+/* 4653 */       prevSearchValues.put("SS_environmentSearch", user.SS_environmentSearch);
+/* 4654 */       prevSearchValues.put("SS_projectIDSearch", user.SS_projectIDSearch);
+/* 4655 */       prevSearchValues.put("SS_productTypeSearch", user.SS_productTypeSearch);
+/* 4656 */       prevSearchValues.put("SS_showAllSearch", user.SS_showAllSearch);
+/* 4657 */       context.putDelivery("prevSearchValues", prevSearchValues);
 /*      */ 
 /*      */       
-/* 4649 */       user.SS_artistSearch = artistSearch;
-/* 4650 */       user.SS_titleSearch = titleSearch;
-/* 4651 */       user.SS_selectionNoSearch = selectionNoSearch;
-/* 4652 */       user.SS_prefixIDSearch = prefixIDSearch;
-/* 4653 */       user.SS_upcSearch = upcSearch;
-/* 4654 */       user.SS_streetDateSearch = streetDateSearch;
-/* 4655 */       user.SS_streetEndDateSearch = streetEndDateSearch;
-/* 4656 */       user.SS_configSearch = configSearch;
-/* 4657 */       user.SS_subconfigSearch = subconfigSearch;
-/* 4658 */       user.SS_labelSearch = labelSearch;
-/* 4659 */       user.SS_companySearch = companySearch;
-/* 4660 */       user.SS_contactSearch = contactSearch;
-/* 4661 */       user.SS_familySearch = familySearch;
-/* 4662 */       user.SS_environmentSearch = environmentSearch;
-/* 4663 */       user.SS_projectIDSearch = projectIDSearch;
-/* 4664 */       user.SS_productTypeSearch = productType;
-/* 4665 */       user.SS_showAllSearch = showAllSearch;
+/* 4660 */       user.SS_artistSearch = artistSearch;
+/* 4661 */       user.SS_titleSearch = titleSearch;
+/* 4662 */       user.SS_selectionNoSearch = selectionNoSearch;
+/* 4663 */       user.SS_prefixIDSearch = prefixIDSearch;
+/* 4664 */       user.SS_upcSearch = upcSearch;
+/* 4665 */       user.SS_streetDateSearch = streetDateSearch;
+/* 4666 */       user.SS_streetEndDateSearch = streetEndDateSearch;
+/* 4667 */       user.SS_configSearch = configSearch;
+/* 4668 */       user.SS_subconfigSearch = subconfigSearch;
+/* 4669 */       user.SS_labelSearch = labelSearch;
+/* 4670 */       user.SS_companySearch = companySearch;
+/* 4671 */       user.SS_contactSearch = contactSearch;
+/* 4672 */       user.SS_familySearch = familySearch;
+/* 4673 */       user.SS_environmentSearch = environmentSearch;
+/* 4674 */       user.SS_projectIDSearch = projectIDSearch;
+/* 4675 */       user.SS_productTypeSearch = productType;
+/* 4676 */       user.SS_showAllSearch = showAllSearch;
 /*      */       
-/* 4667 */       user.RC_environment = environmentSearch;
-/* 4668 */       user.RC_releasingFamily = familySearch;
-/* 4669 */       user.RC_labelContact = contactSearch;
-/* 4670 */       user.RC_productType = MilestoneHelper_2.convertProductTypeToReleaseCalendar(productType);
+/* 4678 */       user.RC_environment = environmentSearch;
+/* 4679 */       user.RC_releasingFamily = familySearch;
+/* 4680 */       user.RC_labelContact = contactSearch;
+/* 4681 */       user.RC_productType = MilestoneHelper_2.convertProductTypeToReleaseCalendar(productType);
 /*      */     } 
 /*      */     
-/* 4673 */     notepad.setSearchQuery(query.toString());
-/* 4674 */     notepad.setOrderBy(order);
-/* 4675 */     notepadSortOrder.setSelectionOrderBy(order);
+/* 4684 */     notepad.setSearchQuery(query.toString());
+/* 4685 */     notepad.setOrderBy(order);
+/* 4686 */     notepadSortOrder.setSelectionOrderBy(order);
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4686,36 +4697,36 @@
 /*      */ 
 /*      */   
 /*      */   public boolean getSelectionSearchResults(GeminiApplication application, Context context) {
-/* 4689 */     User user = (User)context.getSessionValue("user");
+/* 4700 */     User user = (User)context.getSessionValue("user");
 /*      */ 
 /*      */     
-/* 4692 */     Notepad notepad = null;
+/* 4703 */     Notepad notepad = null;
 /*      */     
-/* 4694 */     notepad = MilestoneHelper.getNotepadFromSession(0, context);
+/* 4705 */     notepad = MilestoneHelper.getNotepadFromSession(0, context);
 /*      */     
-/* 4696 */     if (notepad != null) {
+/* 4707 */     if (notepad != null) {
 /*      */ 
 /*      */       
-/* 4699 */       String query = notepad.getSearchQuery();
-/* 4700 */       String order = notepad.getOrderBy();
-/* 4701 */       String orderBy = "";
-/* 4702 */       String orderCol = "";
-/* 4703 */       int orderColNo = 0;
-/* 4704 */       boolean showGrpButs = true;
+/* 4710 */       String query = notepad.getSearchQuery();
+/* 4711 */       String order = notepad.getOrderBy();
+/* 4712 */       String orderBy = "";
+/* 4713 */       String orderCol = "";
+/* 4714 */       int orderColNo = 0;
+/* 4715 */       boolean showGrpButs = true;
 /*      */       
-/* 4706 */       NotepadSortOrder notepadSortOrder = NotepadSortOrder.getNotepadSortOrderFromSession(context);
-/* 4707 */       if (notepadSortOrder != null) {
+/* 4717 */       NotepadSortOrder notepadSortOrder = NotepadSortOrder.getNotepadSortOrderFromSession(context);
+/* 4718 */       if (notepadSortOrder != null) {
 /*      */         
-/* 4709 */         orderBy = notepadSortOrder.getSelectionOrderBy();
-/* 4710 */         showGrpButs = notepadSortOrder.getShowGroupButtons();
-/* 4711 */         orderCol = notepadSortOrder.getSelectionOrderCol();
-/* 4712 */         orderColNo = notepadSortOrder.getSelectionOrderColNo();
+/* 4720 */         orderBy = notepadSortOrder.getSelectionOrderBy();
+/* 4721 */         showGrpButs = notepadSortOrder.getShowGroupButtons();
+/* 4722 */         orderCol = notepadSortOrder.getSelectionOrderCol();
+/* 4723 */         orderColNo = notepadSortOrder.getSelectionOrderColNo();
 /*      */       } 
 /*      */ 
 /*      */       
-/* 4716 */       Form searchForm = new Form(application, "searchForm", 
-/* 4717 */           application.getInfrastructure().getServletURL(), 
-/* 4718 */           "POST");
+/* 4727 */       Form searchForm = new Form(application, "searchForm", 
+/* 4728 */           application.getInfrastructure().getServletURL(), 
+/* 4729 */           "POST");
 /*      */ 
 /*      */ 
 /*      */ 
@@ -4723,46 +4734,46 @@
 /*      */ 
 /*      */ 
 /*      */       
-/* 4726 */       Vector families = SelectionHandler.filterCSO(ReleasingFamily.getUserReleasingFamiliesVectorOfFamilies(context));
-/* 4727 */       FormDropDownMenu Family = MilestoneHelper.getCorporateStructureDropDown("FamilySearch", families, "-1", false, true);
-/* 4728 */       searchForm.addElement(Family);
+/* 4737 */       Vector families = SelectionHandler.filterCSO(ReleasingFamily.getUserReleasingFamiliesVectorOfFamilies(context));
+/* 4738 */       FormDropDownMenu Family = MilestoneHelper.getCorporateStructureDropDown("FamilySearch", families, "-1", false, true);
+/* 4739 */       searchForm.addElement(Family);
 /*      */ 
 /*      */       
-/* 4731 */       Vector environments = MilestoneHelper.getUserEnvironments(context);
-/* 4732 */       Vector myCompanies = MilestoneHelper.getUserCompanies(context);
-/* 4733 */       environments = SelectionHandler.filterSelectionEnvironments(myCompanies);
+/* 4742 */       Vector environments = MilestoneHelper.getUserEnvironments(context);
+/* 4743 */       Vector myCompanies = MilestoneHelper.getUserCompanies(context);
+/* 4744 */       environments = SelectionHandler.filterSelectionEnvironments(myCompanies);
 /*      */ 
 /*      */       
-/* 4736 */       environments = MilestoneHelper.removeUnusedCSO(environments, context, -1);
+/* 4747 */       environments = MilestoneHelper.removeUnusedCSO(environments, context, -1);
 /*      */ 
 /*      */       
-/* 4739 */       FormDropDownMenu envMenu = MilestoneHelper.getCorporateStructureDropDown("EnvironmentSearch", environments, "-1", false, true);
-/* 4740 */       searchForm.addElement(envMenu);
+/* 4750 */       FormDropDownMenu envMenu = MilestoneHelper.getCorporateStructureDropDown("EnvironmentSearch", environments, "-1", false, true);
+/* 4751 */       searchForm.addElement(envMenu);
 /*      */ 
 /*      */       
-/* 4743 */       searchForm.setValues(context);
+/* 4754 */       searchForm.setValues(context);
 /*      */ 
 /*      */       
-/* 4746 */       setSelectionNotepadQueryHelper(context, notepad, searchForm, user);
+/* 4757 */       setSelectionNotepadQueryHelper(context, notepad, searchForm, user);
 /*      */ 
 /*      */       
-/* 4749 */       if (getNotepadTotalCount(notepad, context) > 0)
+/* 4760 */       if (getNotepadTotalCount(notepad, context) > 0)
 /*      */       {
-/* 4751 */         return true;
+/* 4762 */         return true;
 /*      */       }
-/* 4753 */       notepad.setSearchQuery(query);
-/* 4754 */       notepad.setOrderBy(order);
-/* 4755 */       if (notepadSortOrder != null) {
+/* 4764 */       notepad.setSearchQuery(query);
+/* 4765 */       notepad.setOrderBy(order);
+/* 4766 */       if (notepadSortOrder != null) {
 /*      */         
-/* 4757 */         notepadSortOrder.setSelectionOrderBy(orderBy);
-/* 4758 */         notepadSortOrder.setShowGroupButtons(showGrpButs);
-/* 4759 */         notepadSortOrder.setSelectionOrderCol(orderCol);
-/* 4760 */         notepadSortOrder.setSelectionOrderColNo(orderColNo);
+/* 4768 */         notepadSortOrder.setSelectionOrderBy(orderBy);
+/* 4769 */         notepadSortOrder.setShowGroupButtons(showGrpButs);
+/* 4770 */         notepadSortOrder.setSelectionOrderCol(orderCol);
+/* 4771 */         notepadSortOrder.setSelectionOrderColNo(orderColNo);
 /*      */       } 
 /*      */     } 
 /*      */ 
 /*      */     
-/* 4765 */     return false;
+/* 4776 */     return false;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4771,17 +4782,17 @@
 /*      */ 
 /*      */   
 /*      */   public static LookupObject getLookupObject(String abbreviation, Vector lookupVector) {
-/* 4774 */     for (int j = 0; j < lookupVector.size(); j++) {
+/* 4785 */     for (int j = 0; j < lookupVector.size(); j++) {
 /*      */       
-/* 4776 */       LookupObject lookupObject = (LookupObject)lookupVector.get(j);
+/* 4787 */       LookupObject lookupObject = (LookupObject)lookupVector.get(j);
 /*      */       
-/* 4778 */       if (lookupObject.getAbbreviation().equalsIgnoreCase(abbreviation))
+/* 4789 */       if (lookupObject.getAbbreviation().equalsIgnoreCase(abbreviation))
 /*      */       {
-/* 4780 */         return lookupObject;
+/* 4791 */         return lookupObject;
 /*      */       }
 /*      */     } 
 /*      */     
-/* 4784 */     return null;
+/* 4795 */     return null;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4793,14 +4804,14 @@
 /*      */ 
 /*      */   
 /*      */   public static String getLookupObjectValue(LookupObject lookupObject) {
-/* 4796 */     String lookupValue = "";
+/* 4807 */     String lookupValue = "";
 /*      */     
-/* 4798 */     if (lookupObject != null)
+/* 4809 */     if (lookupObject != null)
 /*      */     {
-/* 4800 */       lookupValue = lookupObject.getAbbreviation();
+/* 4811 */       lookupValue = lookupObject.getAbbreviation();
 /*      */     }
 /*      */     
-/* 4803 */     return lookupValue;
+/* 4814 */     return lookupValue;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4808,17 +4819,17 @@
 /*      */ 
 /*      */   
 /*      */   public static SelectionConfiguration getSelectionConfigObject(String abbreviation, Vector configs) {
-/* 4811 */     for (int j = 0; j < configs.size(); j++) {
+/* 4822 */     for (int j = 0; j < configs.size(); j++) {
 /*      */       
-/* 4813 */       SelectionConfiguration selectionConfiguration = (SelectionConfiguration)configs.get(j);
+/* 4824 */       SelectionConfiguration selectionConfiguration = (SelectionConfiguration)configs.get(j);
 /*      */       
-/* 4815 */       if (selectionConfiguration.getSelectionConfigurationAbbreviation().equalsIgnoreCase(abbreviation))
+/* 4826 */       if (selectionConfiguration.getSelectionConfigurationAbbreviation().equalsIgnoreCase(abbreviation))
 /*      */       {
-/* 4817 */         return selectionConfiguration;
+/* 4828 */         return selectionConfiguration;
 /*      */       }
 /*      */     } 
 /*      */     
-/* 4821 */     return new SelectionConfiguration("", "");
+/* 4832 */     return new SelectionConfiguration("", "");
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4832,19 +4843,19 @@
 /*      */ 
 /*      */   
 /*      */   public static SelectionSubConfiguration getSelectionSubConfigObject(String abbreviation, SelectionConfiguration config) {
-/* 4835 */     Vector subConfigs = config.getSubConfigurations();
+/* 4846 */     Vector subConfigs = config.getSubConfigurations();
 /*      */     
-/* 4837 */     for (int j = 0; j < subConfigs.size(); j++) {
+/* 4848 */     for (int j = 0; j < subConfigs.size(); j++) {
 /*      */       
-/* 4839 */       SelectionSubConfiguration subConfig = (SelectionSubConfiguration)subConfigs.get(j);
+/* 4850 */       SelectionSubConfiguration subConfig = (SelectionSubConfiguration)subConfigs.get(j);
 /*      */       
-/* 4841 */       if (subConfig.getSelectionSubConfigurationAbbreviation().equalsIgnoreCase(abbreviation))
+/* 4852 */       if (subConfig.getSelectionSubConfigurationAbbreviation().equalsIgnoreCase(abbreviation))
 /*      */       {
-/* 4843 */         return subConfig;
+/* 4854 */         return subConfig;
 /*      */       }
 /*      */     } 
 /*      */     
-/* 4847 */     return new SelectionSubConfiguration("", "", 2);
+/* 4858 */     return new SelectionSubConfiguration("", "", 2);
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4856,18 +4867,18 @@
 /*      */ 
 /*      */   
 /*      */   public static Vector getLabelContacts(Selection selection) {
-/* 4859 */     Vector labelUsers = new Vector();
+/* 4870 */     Vector labelUsers = new Vector();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 4864 */     int companyId = -1;
+/* 4875 */     int companyId = -1;
 /*      */     
-/* 4866 */     if (selection.getCompany() != null) {
-/* 4867 */       companyId = selection.getCompany().getStructureID();
+/* 4877 */     if (selection.getCompany() != null) {
+/* 4878 */       companyId = selection.getCompany().getStructureID();
 /*      */     }
 /*      */     
-/* 4870 */     String query = "sp_get_Selection_LabelContacts " + companyId;
+/* 4881 */     String query = "sp_get_Selection_LabelContacts " + companyId;
 /*      */ 
 /*      */ 
 /*      */ 
@@ -4881,19 +4892,19 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 4884 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 4885 */     connector.runQuery();
+/* 4895 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 4896 */     connector.runQuery();
 /*      */     
-/* 4887 */     while (connector.more()) {
+/* 4898 */     while (connector.more()) {
 /*      */       
-/* 4889 */       User labelUser = UserManager.getInstance().getUser(connector.getIntegerField("user_id"));
-/* 4890 */       labelUsers.add(labelUser);
-/* 4891 */       connector.next();
+/* 4900 */       User labelUser = UserManager.getInstance().getUser(connector.getIntegerField("user_id"));
+/* 4901 */       labelUsers.add(labelUser);
+/* 4902 */       connector.next();
 /*      */     } 
 /*      */     
-/* 4894 */     connector.close();
+/* 4905 */     connector.close();
 /*      */     
-/* 4896 */     return labelUsers;
+/* 4907 */     return labelUsers;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4905,54 +4916,54 @@
 /*      */ 
 /*      */   
 /*      */   public static Vector getLabelContacts(Context context) {
-/* 4908 */     Vector labelUsers = new Vector();
+/* 4919 */     Vector labelUsers = new Vector();
 /*      */     
-/* 4910 */     int umlId = MilestoneHelper.getStructureId("uml", 1);
-/* 4911 */     int enterpriseId = MilestoneHelper.getStructureId("Enterprise", 1);
-/* 4912 */     int companyId = -1;
+/* 4921 */     int umlId = MilestoneHelper.getStructureId("uml", 1);
+/* 4922 */     int enterpriseId = MilestoneHelper.getStructureId("Enterprise", 1);
+/* 4923 */     int companyId = -1;
 /*      */     
-/* 4914 */     String companyClause = "( ";
+/* 4925 */     String companyClause = "( ";
 /*      */     
-/* 4916 */     Vector userCompanies = new Vector();
+/* 4927 */     Vector userCompanies = new Vector();
 /*      */     
-/* 4918 */     userCompanies = MilestoneHelper.getUserCompanies(context);
+/* 4929 */     userCompanies = MilestoneHelper.getUserCompanies(context);
 /*      */     
-/* 4920 */     for (int i = 0; i < userCompanies.size(); i++) {
+/* 4931 */     for (int i = 0; i < userCompanies.size(); i++) {
 /*      */       
-/* 4922 */       if (i == 0) {
-/* 4923 */         companyClause = String.valueOf(companyClause) + " company_id = " + ((Company)userCompanies.get(i)).getStructureID();
+/* 4933 */       if (i == 0) {
+/* 4934 */         companyClause = String.valueOf(companyClause) + " company_id = " + ((Company)userCompanies.get(i)).getStructureID();
 /*      */       } else {
-/* 4925 */         companyClause = String.valueOf(companyClause) + " OR company_id = " + ((Company)userCompanies.get(i)).getStructureID();
+/* 4936 */         companyClause = String.valueOf(companyClause) + " OR company_id = " + ((Company)userCompanies.get(i)).getStructureID();
 /*      */       } 
-/* 4927 */     }  companyClause = String.valueOf(companyClause) + ")";
+/* 4938 */     }  companyClause = String.valueOf(companyClause) + ")";
 /*      */     
-/* 4929 */     String query = "SELECT DISTINCT vi_User.Name,vi_User.Full_Name, vi_User.User_Id FROM vi_User, vi_User_Company WHERE (vi_User.User_ID = vi_User_Company.User_ID) AND (menu_access LIKE '[1,2]%') AND " + 
+/* 4940 */     String query = "SELECT DISTINCT vi_User.Name,vi_User.Full_Name, vi_User.User_Id FROM vi_User, vi_User_Company WHERE (vi_User.User_ID = vi_User_Company.User_ID) AND (menu_access LIKE '[1,2]%') AND " + 
 /*      */ 
 /*      */ 
 /*      */       
-/* 4933 */       companyClause + 
+/* 4944 */       companyClause + 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 4939 */       " ORDER BY vi_User.Full_Name;";
+/* 4950 */       " ORDER BY vi_User.Full_Name;";
 /*      */ 
 /*      */ 
 /*      */     
-/* 4943 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 4944 */     connector.runQuery();
+/* 4954 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 4955 */     connector.runQuery();
 /*      */     
-/* 4946 */     while (connector.more()) {
+/* 4957 */     while (connector.more()) {
 /*      */       
-/* 4948 */       User labelUser = UserManager.getInstance().getUser(connector.getIntegerField("user_id"));
-/* 4949 */       labelUsers.add(labelUser);
-/* 4950 */       connector.next();
+/* 4959 */       User labelUser = UserManager.getInstance().getUser(connector.getIntegerField("user_id"));
+/* 4960 */       labelUsers.add(labelUser);
+/* 4961 */       connector.next();
 /*      */     } 
 /*      */     
-/* 4953 */     connector.close();
+/* 4964 */     connector.close();
 /*      */     
-/* 4955 */     return labelUsers;
+/* 4966 */     return labelUsers;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4969,25 +4980,25 @@
 /*      */ 
 /*      */   
 /*      */   public static Vector getLabelContactsExcludeUml(Context context) {
-/* 4972 */     Vector labelUsers = Cache.getInstance().getLabelUsers();
-/* 4973 */     Vector retLabelUsers = new Vector();
-/* 4974 */     Vector userCompanies = MilestoneHelper.getUserCompanies(context);
-/* 4975 */     if (labelUsers != null && userCompanies != null)
+/* 4983 */     Vector labelUsers = Cache.getInstance().getLabelUsers();
+/* 4984 */     Vector retLabelUsers = new Vector();
+/* 4985 */     Vector userCompanies = MilestoneHelper.getUserCompanies(context);
+/* 4986 */     if (labelUsers != null && userCompanies != null)
 /*      */     {
-/* 4977 */       for (int i = 0; i < labelUsers.size(); i++) {
-/* 4978 */         User user = (User)labelUsers.get(i);
-/* 4979 */         if (user != null) {
-/* 4980 */           for (int j = 0; j < userCompanies.size(); j++) {
-/* 4981 */             int familyId = ((Company)userCompanies.get(j)).getParentEnvironment().getParentFamily().getStructureID();
-/* 4982 */             if (familyId == user.getEmployedBy()) {
-/* 4983 */               retLabelUsers.add(user);
+/* 4988 */       for (int i = 0; i < labelUsers.size(); i++) {
+/* 4989 */         User user = (User)labelUsers.get(i);
+/* 4990 */         if (user != null) {
+/* 4991 */           for (int j = 0; j < userCompanies.size(); j++) {
+/* 4992 */             int familyId = ((Company)userCompanies.get(j)).getParentEnvironment().getParentFamily().getStructureID();
+/* 4993 */             if (familyId == user.getEmployedBy()) {
+/* 4994 */               retLabelUsers.add(user);
 /*      */               break;
 /*      */             } 
 /*      */           } 
 /*      */         }
 /*      */       } 
 /*      */     }
-/* 4990 */     return retLabelUsers;
+/* 5001 */     return retLabelUsers;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5050,22 +5061,22 @@
 /*      */ 
 /*      */   
 /*      */   public boolean isScheduleApplied(Selection selection) {
-/* 5053 */     boolean applied = false;
+/* 5064 */     boolean applied = false;
 /*      */     
-/* 5055 */     if (selection.getSelectionID() > 0) {
+/* 5066 */     if (selection.getSelectionID() > 0) {
 /*      */       
-/* 5057 */       String query = "SELECT * FROM vi_release_detail WHERE release_id = " + 
+/* 5068 */       String query = "SELECT * FROM vi_release_detail WHERE release_id = " + 
 /*      */         
-/* 5059 */         selection.getSelectionID() + 
-/* 5060 */         ";";
+/* 5070 */         selection.getSelectionID() + 
+/* 5071 */         ";";
 /*      */       
-/* 5062 */       JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 5063 */       connector.runQuery();
-/* 5064 */       applied = connector.more();
-/* 5065 */       connector.close();
+/* 5073 */       JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 5074 */       connector.runQuery();
+/* 5075 */       applied = connector.more();
+/* 5076 */       connector.close();
 /*      */     } 
 /*      */     
-/* 5068 */     return applied;
+/* 5079 */     return applied;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5074,85 +5085,85 @@
 /*      */ 
 /*      */   
 /*      */   public Notepad getSelectionNotepad(Context context, int userId, int type) {
-/* 5077 */     Vector contents = new Vector();
+/* 5088 */     Vector contents = new Vector();
 /*      */     
-/* 5079 */     if (MilestoneHelper.getNotepadFromSession(type, context) != null) {
+/* 5090 */     if (MilestoneHelper.getNotepadFromSession(type, context) != null) {
 /*      */ 
 /*      */       
-/* 5082 */       Notepad notepad = MilestoneHelper.getNotepadFromSession(type, context);
+/* 5093 */       Notepad notepad = MilestoneHelper.getNotepadFromSession(type, context);
 /*      */ 
 /*      */       
-/* 5085 */       if (notepad.getAllContents() == null || context.getSessionValue("ResetSelectionSortOrder") != null) {
+/* 5096 */       if (notepad.getAllContents() == null || context.getSessionValue("ResetSelectionSortOrder") != null) {
 /*      */ 
 /*      */         
-/* 5088 */         contents = getInstance().getSelectionNotepadList(userId, notepad, context);
-/* 5089 */         notepad.setAllContents(contents, getNotepadTotalCount(notepad, context));
+/* 5099 */         contents = getInstance().getSelectionNotepadList(userId, notepad, context);
+/* 5100 */         notepad.setAllContents(contents, getNotepadTotalCount(notepad, context));
 /*      */       } 
 /*      */       
-/* 5092 */       if (context.getSessionValue("selectionNotepadColumn") != null) {
+/* 5103 */       if (context.getSessionValue("selectionNotepadColumn") != null) {
 /*      */         
-/* 5094 */         if (context.getSessionValue("selectionNotepadColumn") == "1")
+/* 5105 */         if (context.getSessionValue("selectionNotepadColumn") == "1")
 /*      */         {
-/* 5096 */           notepad.setColumnNames(new String[] { "Artist", "Title", "Local Prod #", "Str Dt" });
+/* 5107 */           notepad.setColumnNames(new String[] { "Artist", "Title", "Local Prod #", "Str Dt" });
 /*      */         }
-/* 5098 */         else if (context.getSessionValue("selectionNotepadColumn") == "2")
+/* 5109 */         else if (context.getSessionValue("selectionNotepadColumn") == "2")
 /*      */         {
-/* 5100 */           notepad.setColumnNames(new String[] { "Artist", "Title", "UPC", "Str Dt" });
+/* 5111 */           notepad.setColumnNames(new String[] { "Artist", "Title", "UPC", "Str Dt" });
 /*      */         }
-/* 5102 */         else if (context.getSessionValue("selectionNotepadColumn") == "3")
+/* 5113 */         else if (context.getSessionValue("selectionNotepadColumn") == "3")
 /*      */         {
-/* 5104 */           notepad.setColumnNames(new String[] { "Artist", "Title", "Prefix", "Str Dt" });
+/* 5115 */           notepad.setColumnNames(new String[] { "Artist", "Title", "Prefix", "Str Dt" });
 /*      */         }
 /*      */         else
 /*      */         {
-/* 5108 */           notepad.setColumnNames(new String[] { "Artist", "Title", "Str Dt" });
+/* 5119 */           notepad.setColumnNames(new String[] { "Artist", "Title", "Str Dt" });
 /*      */         }
 /*      */       
 /*      */       } else {
 /*      */         
-/* 5113 */         notepad.setColumnNames(new String[] { "Artist", "Title", "Str Dt" });
+/* 5124 */         notepad.setColumnNames(new String[] { "Artist", "Title", "Str Dt" });
 /*      */       } 
 /*      */       
-/* 5116 */       notepad.setNotePadType(type);
-/* 5117 */       return notepad;
+/* 5127 */       notepad.setNotePadType(type);
+/* 5128 */       return notepad;
 /*      */     } 
 /*      */ 
 /*      */     
-/* 5121 */     String[] columnNames = { "Artist", "Title", "Str Dt" };
+/* 5132 */     String[] columnNames = { "Artist", "Title", "Str Dt" };
 /*      */     
-/* 5123 */     if (context.getSessionValue("selectionNotepadColumn") != null)
+/* 5134 */     if (context.getSessionValue("selectionNotepadColumn") != null)
 /*      */     {
-/* 5125 */       if (context.getSessionValue("selectionNotepadColumn") == "1") {
+/* 5136 */       if (context.getSessionValue("selectionNotepadColumn") == "1") {
 /*      */         
-/* 5127 */         columnNames = new String[] { "Artist", "Title", "Selection", "Str Dt" };
+/* 5138 */         columnNames = new String[] { "Artist", "Title", "Selection", "Str Dt" };
 /*      */       }
-/* 5129 */       else if (context.getSessionValue("selectionNotepadColumn") == "2") {
+/* 5140 */       else if (context.getSessionValue("selectionNotepadColumn") == "2") {
 /*      */         
-/* 5131 */         columnNames = new String[] { "Artist", "Title", "Upc", "Str Dt" };
+/* 5142 */         columnNames = new String[] { "Artist", "Title", "Upc", "Str Dt" };
 /*      */       }
-/* 5133 */       else if (context.getSessionValue("selectionNotepadColumn") == "3") {
+/* 5144 */       else if (context.getSessionValue("selectionNotepadColumn") == "3") {
 /*      */         
-/* 5135 */         columnNames = new String[] { "Artist", "Title", "Prefix", "Str Dt" };
+/* 5146 */         columnNames = new String[] { "Artist", "Title", "Prefix", "Str Dt" };
 /*      */       } 
 /*      */     }
 /*      */     
-/* 5139 */     System.out.println("<<< new selection notepad ");
-/* 5140 */     contents = getInstance().getSelectionNotepadList(userId, null, context);
-/* 5141 */     Notepad newNotepad = new Notepad(contents, 0, 15, "Selections", type, columnNames);
+/* 5150 */     System.out.println("<<< new selection notepad ");
+/* 5151 */     contents = getInstance().getSelectionNotepadList(userId, null, context);
+/* 5152 */     Notepad newNotepad = new Notepad(contents, 0, 15, "Selections", type, columnNames);
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 5146 */     User user = (User)context.getSessionValue("user");
-/* 5147 */     if (user != null && !user.SS_searchInitiated) {
+/* 5157 */     User user = (User)context.getSessionValue("user");
+/* 5158 */     if (user != null && !user.SS_searchInitiated) {
 /*      */       
-/* 5149 */       String query = getInstance().getSelectionNotepadQueryUserDefaults(context);
-/* 5150 */       String order = getInstance().getSelectionNotepadQueryUserDefaultsOrderBy(context);
-/* 5151 */       newNotepad.setSearchQuery(query);
-/* 5152 */       newNotepad.setOrderBy(order);
+/* 5160 */       String query = getInstance().getSelectionNotepadQueryUserDefaults(context);
+/* 5161 */       String order = getInstance().getSelectionNotepadQueryUserDefaultsOrderBy(context);
+/* 5162 */       newNotepad.setSearchQuery(query);
+/* 5163 */       newNotepad.setOrderBy(order);
 /*      */     } 
-/* 5154 */     newNotepad.setPageStats(getNotepadTotalCount(newNotepad, context));
-/* 5155 */     return newNotepad;
+/* 5165 */     newNotepad.setPageStats(getNotepadTotalCount(newNotepad, context));
+/* 5166 */     return newNotepad;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5162,15 +5173,15 @@
 /*      */ 
 /*      */   
 /*      */   public static String getDefaultQuery(Context context) {
-/* 5165 */     StringBuffer query = new StringBuffer();
+/* 5176 */     StringBuffer query = new StringBuffer();
 /*      */ 
 /*      */ 
 /*      */     
-/* 5169 */     Environment environment = null;
-/* 5170 */     Vector environments = MilestoneHelper.getUserEnvironments(context);
+/* 5180 */     Environment environment = null;
+/* 5181 */     Vector environments = MilestoneHelper.getUserEnvironments(context);
 /*      */ 
 /*      */     
-/* 5173 */     query.append("SELECT release_id, title, artist, configuration, sub_configuration, upc, prefix, selection_no, digital_flag, street_date =  CASE digital_flag  WHEN 0 THEN street_date   WHEN 1 THEN digital_rls_date  END ,archimedes_id, Release_Family_id from vi_Release_Header WHERE NOT ( status = 'CLOSED' OR  status = 'CANCEL' ) AND ");
+/* 5184 */     query.append("SELECT release_id, title, artist, configuration, sub_configuration, upc, prefix, selection_no, digital_flag, street_date =  CASE digital_flag  WHEN 0 THEN street_date   WHEN 1 THEN digital_rls_date  END ,archimedes_id, Release_Family_id from vi_Release_Header WHERE NOT ( status = 'CLOSED' OR  status = 'CANCEL' ) AND ");
 /*      */ 
 /*      */ 
 /*      */ 
@@ -5205,26 +5216,26 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 5208 */     if (environments.size() > 0) {
-/* 5209 */       query.append(" environment_id in (");
+/* 5219 */     if (environments.size() > 0) {
+/* 5220 */       query.append(" environment_id in (");
 /*      */     }
-/* 5211 */     for (int i = 0; i < environments.size(); i++) {
+/* 5222 */     for (int i = 0; i < environments.size(); i++) {
 /*      */       
-/* 5213 */       environment = (Environment)environments.get(i);
-/* 5214 */       if (environment != null)
+/* 5224 */       environment = (Environment)environments.get(i);
+/* 5225 */       if (environment != null)
 /*      */       {
-/* 5216 */         if (i == 0) {
-/* 5217 */           query.append(environment.getStructureID());
+/* 5227 */         if (i == 0) {
+/* 5228 */           query.append(environment.getStructureID());
 /*      */         } else {
-/* 5219 */           query.append("," + environment.getStructureID());
+/* 5230 */           query.append("," + environment.getStructureID());
 /*      */         } 
 /*      */       }
 /*      */     } 
-/* 5223 */     if (environments.size() > 0) {
-/* 5224 */       query.append(" )");
+/* 5234 */     if (environments.size() > 0) {
+/* 5235 */       query.append(" )");
 /*      */     }
 /*      */     
-/* 5227 */     Vector rFamilies = ReleasingFamily.getUserReleasingFamiliesVectorOfReleasingFamilies(context);
+/* 5238 */     Vector rFamilies = ReleasingFamily.getUserReleasingFamiliesVectorOfReleasingFamilies(context);
 /*      */ 
 /*      */ 
 /*      */ 
@@ -5242,36 +5253,36 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 5245 */     User user = (User)context.getSession().getAttribute("user");
-/* 5246 */     Hashtable relFamilyLabelFamilyHash = (Hashtable)user.getReleasingFamilyLabelFamily().clone();
+/* 5256 */     User user = (User)context.getSession().getAttribute("user");
+/* 5257 */     Hashtable relFamilyLabelFamilyHash = (Hashtable)user.getReleasingFamilyLabelFamily().clone();
 /*      */ 
 /*      */     
-/* 5249 */     addUndefinedReleasingFamilies(relFamilyLabelFamilyHash, context);
+/* 5260 */     addUndefinedReleasingFamilies(relFamilyLabelFamilyHash, context);
 /*      */     
-/* 5251 */     if (rFamilies != null && rFamilies.size() > 0) {
+/* 5262 */     if (rFamilies != null && rFamilies.size() > 0) {
 /*      */       
-/* 5253 */       query.append(" AND (");
-/* 5254 */       for (int i = 0; i < rFamilies.size(); i++) {
+/* 5264 */       query.append(" AND (");
+/* 5265 */       for (int i = 0; i < rFamilies.size(); i++) {
 /*      */         
-/* 5256 */         ReleasingFamily rf = (ReleasingFamily)rFamilies.get(i);
-/* 5257 */         if (i > 0)
-/* 5258 */           query.append(" OR "); 
-/* 5259 */         query.append("(Release_Family_id = " + rf.getReleasingFamilyId());
-/* 5260 */         addLabelFamilySelect(Integer.toString(rf.getReleasingFamilyId()), relFamilyLabelFamilyHash, query);
-/* 5261 */         query.append(")");
+/* 5267 */         ReleasingFamily rf = (ReleasingFamily)rFamilies.get(i);
+/* 5268 */         if (i > 0)
+/* 5269 */           query.append(" OR "); 
+/* 5270 */         query.append("(Release_Family_id = " + rf.getReleasingFamilyId());
+/* 5271 */         addLabelFamilySelect(Integer.toString(rf.getReleasingFamilyId()), relFamilyLabelFamilyHash, query);
+/* 5272 */         query.append(")");
 /*      */       } 
-/* 5263 */       query.append(") ");
+/* 5274 */       query.append(") ");
 /*      */     } else {
 /*      */       
-/* 5266 */       query.append(" AND (Release_Family_id = -1 and family_id = -1) ");
+/* 5277 */       query.append(" AND (Release_Family_id = -1 and family_id = -1) ");
 /*      */     } 
 /*      */ 
 /*      */     
-/* 5270 */     query.append(ShowOrHideDigitalProductGet(user));
+/* 5281 */     query.append(ShowOrHideDigitalProductGet(user));
 /*      */ 
 /*      */     
-/* 5273 */     log.log("selection query " + query.toString());
-/* 5274 */     return query.toString();
+/* 5284 */     log.log("selection query " + query.toString());
+/* 5285 */     return query.toString();
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5281,14 +5292,14 @@
 /*      */ 
 /*      */   
 /*      */   public static String ShowOrHideDigitalProductGet(User user) {
-/* 5284 */     String digitalProdStr = "";
+/* 5295 */     String digitalProdStr = "";
 /*      */ 
 /*      */ 
 /*      */     
-/* 5288 */     if (user == null || user.getAdministrator() != 1) {
-/* 5289 */       digitalProdStr = " AND (digital_flag = 0) ";
+/* 5299 */     if (user == null || user.getAdministrator() != 1) {
+/* 5300 */       digitalProdStr = " AND (digital_flag = 0) ";
 /*      */     }
-/* 5291 */     return digitalProdStr;
+/* 5302 */     return digitalProdStr;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5304,36 +5315,36 @@
 /*      */ 
 /*      */   
 /*      */   public static String getSequencedSelectionNumber() {
-/* 5307 */     query = "sp_get_Sequence selection_no";
+/* 5318 */     query = "sp_get_Sequence selection_no";
 /*      */     
-/* 5309 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 5310 */     connector.runQuery();
+/* 5320 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 5321 */     connector.runQuery();
 /*      */     
-/* 5312 */     String prefixString = "";
-/* 5313 */     int number = -1;
+/* 5323 */     String prefixString = "";
+/* 5324 */     int number = -1;
 /*      */     
-/* 5315 */     if (connector.more()) {
+/* 5326 */     if (connector.more()) {
 /*      */       
-/* 5317 */       prefixString = connector.getField("Prefix");
-/* 5318 */       number = connector.getIntegerField("SeqNo");
+/* 5328 */       prefixString = connector.getField("Prefix");
+/* 5329 */       number = connector.getIntegerField("SeqNo");
 /*      */     } 
 /*      */     
-/* 5321 */     connector.close();
+/* 5332 */     connector.close();
 /*      */     
-/* 5323 */     String result = "";
+/* 5334 */     String result = "";
 /*      */ 
 /*      */ 
 /*      */     
 /*      */     try {
-/* 5328 */       NumberFormat form = new DecimalFormat("0000000");
-/* 5329 */       result = String.valueOf(prefixString) + form.format(number);
+/* 5339 */       NumberFormat form = new DecimalFormat("0000000");
+/* 5340 */       result = String.valueOf(prefixString) + form.format(number);
 /*      */     }
-/* 5331 */     catch (Exception exception) {}
+/* 5342 */     catch (Exception exception) {}
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 5336 */     return result;
+/* 5347 */     return result;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5342,26 +5353,26 @@
 /*      */ 
 /*      */   
 /*      */   public boolean isTimestampValid(Selection selection) {
-/* 5345 */     if (selection != null) {
+/* 5356 */     if (selection != null) {
 /*      */       
-/* 5347 */       String timestampQuery = "SELECT last_updated_ck, last_updated_on FROM release_header WHERE release_id = " + 
+/* 5358 */       String timestampQuery = "SELECT last_updated_ck, last_updated_on FROM release_header WHERE release_id = " + 
 /*      */         
-/* 5349 */         selection.getSelectionID() + 
-/* 5350 */         ";";
-/* 5351 */       JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
-/* 5352 */       connectorTimestamp.runQuery();
-/* 5353 */       if (connectorTimestamp.more())
+/* 5360 */         selection.getSelectionID() + 
+/* 5361 */         ";";
+/* 5362 */       JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
+/* 5363 */       connectorTimestamp.runQuery();
+/* 5364 */       if (connectorTimestamp.more())
 /*      */       {
-/* 5355 */         if (selection.getLastUpdatedCheck() != Long.parseLong(connectorTimestamp.getField("last_updated_ck", ""), 16)) {
+/* 5366 */         if (selection.getLastUpdatedCheck() != Long.parseLong(connectorTimestamp.getField("last_updated_ck", ""), 16)) {
 /*      */           
-/* 5357 */           connectorTimestamp.close();
-/* 5358 */           return false;
+/* 5368 */           connectorTimestamp.close();
+/* 5369 */           return false;
 /*      */         } 
 /*      */       }
-/* 5361 */       connectorTimestamp.close();
-/* 5362 */       return true;
+/* 5372 */       connectorTimestamp.close();
+/* 5373 */       return true;
 /*      */     } 
-/* 5364 */     return false;
+/* 5375 */     return false;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5370,26 +5381,26 @@
 /*      */ 
 /*      */   
 /*      */   public boolean isTimestampValid(Bom bom) {
-/* 5373 */     if (bom != null) {
+/* 5384 */     if (bom != null) {
 /*      */       
-/* 5375 */       String timestampQuery = "SELECT last_updated_ck, last_updated_on FROM bom_header WHERE bom_id = " + 
+/* 5386 */       String timestampQuery = "SELECT last_updated_ck, last_updated_on FROM bom_header WHERE bom_id = " + 
 /*      */         
-/* 5377 */         bom.getBomId() + 
-/* 5378 */         ";";
+/* 5388 */         bom.getBomId() + 
+/* 5389 */         ";";
 /*      */       
-/* 5380 */       JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
-/* 5381 */       connectorTimestamp.runQuery();
-/* 5382 */       if (connectorTimestamp.more())
+/* 5391 */       JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
+/* 5392 */       connectorTimestamp.runQuery();
+/* 5393 */       if (connectorTimestamp.more())
 /*      */       {
-/* 5384 */         if (bom.getLastUpdatedCheck() != Long.parseLong(connectorTimestamp.getField("last_updated_ck", ""), 16)) {
-/* 5385 */           connectorTimestamp.close();
-/* 5386 */           return false;
+/* 5395 */         if (bom.getLastUpdatedCheck() != Long.parseLong(connectorTimestamp.getField("last_updated_ck", ""), 16)) {
+/* 5396 */           connectorTimestamp.close();
+/* 5397 */           return false;
 /*      */         } 
 /*      */       }
-/* 5389 */       connectorTimestamp.close();
-/* 5390 */       return true;
+/* 5400 */       connectorTimestamp.close();
+/* 5401 */       return true;
 /*      */     } 
-/* 5392 */     return false;
+/* 5403 */     return false;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5398,26 +5409,26 @@
 /*      */ 
 /*      */   
 /*      */   public boolean isTimestampValid(Pfm pfm) {
-/* 5401 */     if (pfm != null) {
+/* 5412 */     if (pfm != null) {
 /*      */       
-/* 5403 */       String timestampQuery = "SELECT last_updated_ck, last_updated_on FROM pfm_selection WHERE release_id = " + 
+/* 5414 */       String timestampQuery = "SELECT last_updated_ck, last_updated_on FROM pfm_selection WHERE release_id = " + 
 /*      */         
-/* 5405 */         pfm.getReleaseId() + 
-/* 5406 */         ";";
-/* 5407 */       JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
-/* 5408 */       connectorTimestamp.runQuery();
-/* 5409 */       if (connectorTimestamp.more())
+/* 5416 */         pfm.getReleaseId() + 
+/* 5417 */         ";";
+/* 5418 */       JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
+/* 5419 */       connectorTimestamp.runQuery();
+/* 5420 */       if (connectorTimestamp.more())
 /*      */       {
-/* 5411 */         if (pfm.getLastUpdatedCk() != Long.parseLong(connectorTimestamp.getField("last_updated_ck", ""), 16)) {
+/* 5422 */         if (pfm.getLastUpdatedCk() != Long.parseLong(connectorTimestamp.getField("last_updated_ck", ""), 16)) {
 /*      */           
-/* 5413 */           connectorTimestamp.close();
-/* 5414 */           return false;
+/* 5424 */           connectorTimestamp.close();
+/* 5425 */           return false;
 /*      */         } 
 /*      */       }
-/* 5417 */       connectorTimestamp.close();
-/* 5418 */       return true;
+/* 5428 */       connectorTimestamp.close();
+/* 5429 */       return true;
 /*      */     } 
-/* 5420 */     return false;
+/* 5431 */     return false;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5426,26 +5437,26 @@
 /*      */ 
 /*      */   
 /*      */   public boolean isManufacturingTimestampValid(Selection selection) {
-/* 5429 */     if (selection != null) {
+/* 5440 */     if (selection != null) {
 /*      */       
-/* 5431 */       String timestampQuery = "SELECT last_updated_ck  FROM release_subdetail WHERE release_id = " + 
+/* 5442 */       String timestampQuery = "SELECT last_updated_ck  FROM release_subdetail WHERE release_id = " + 
 /*      */         
-/* 5433 */         selection.getSelectionID() + ";";
+/* 5444 */         selection.getSelectionID() + ";";
 /*      */       
-/* 5435 */       JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
-/* 5436 */       connectorTimestamp.runQuery();
-/* 5437 */       if (connectorTimestamp.more())
+/* 5446 */       JdbcConnector connectorTimestamp = MilestoneHelper.getConnector(timestampQuery);
+/* 5447 */       connectorTimestamp.runQuery();
+/* 5448 */       if (connectorTimestamp.more())
 /*      */       {
-/* 5439 */         if (selection.getLastMfgUpdatedCheck() != Long.parseLong(connectorTimestamp.getField("last_updated_ck", ""), 16)) {
+/* 5450 */         if (selection.getLastMfgUpdatedCheck() != Long.parseLong(connectorTimestamp.getField("last_updated_ck", ""), 16)) {
 /*      */           
-/* 5441 */           connectorTimestamp.close();
-/* 5442 */           return false;
+/* 5452 */           connectorTimestamp.close();
+/* 5453 */           return false;
 /*      */         } 
 /*      */       }
-/* 5445 */       connectorTimestamp.close();
-/* 5446 */       return true;
+/* 5456 */       connectorTimestamp.close();
+/* 5457 */       return true;
 /*      */     } 
-/* 5448 */     return false;
+/* 5459 */     return false;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5453,11 +5464,11 @@
 /*      */ 
 /*      */   
 /*      */   public Selection getSelectionAndSchedule(int id) {
-/* 5456 */     Selection selection = getSelectionHeader(id);
-/* 5457 */     Schedule schedule = ScheduleManager.getInstance().getSchedule(id);
-/* 5458 */     selection.setSchedule(schedule);
+/* 5467 */     Selection selection = getSelectionHeader(id);
+/* 5468 */     Schedule schedule = ScheduleManager.getInstance().getSchedule(id);
+/* 5469 */     selection.setSchedule(schedule);
 /*      */     
-/* 5460 */     return selection;
+/* 5471 */     return selection;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5465,8 +5476,8 @@
 /*      */ 
 /*      */   
 /*      */   public void getSelectionsSchedule(Selection selection) {
-/* 5468 */     Schedule schedule = ScheduleManager.getInstance().getSchedule(selection.getSelectionID());
-/* 5469 */     selection.setSchedule(schedule);
+/* 5479 */     Schedule schedule = ScheduleManager.getInstance().getSchedule(selection.getSelectionID());
+/* 5480 */     selection.setSchedule(schedule);
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5479,33 +5490,33 @@
 /*      */ 
 /*      */   
 /*      */   public int getUnitsFromPfm(Selection selection) {
-/* 5482 */     int units = 0;
+/* 5493 */     int units = 0;
 /*      */     
-/* 5484 */     if (selection != null) {
+/* 5495 */     if (selection != null) {
 /*      */       
-/* 5486 */       int selectionId = selection.getSelectionID();
+/* 5497 */       int selectionId = selection.getSelectionID();
 /*      */       
-/* 5488 */       String manufacturingQuery = "SELECT units_per_set FROM vi_pfm_selection  WHERE release_id = " + 
-/* 5489 */         selectionId;
+/* 5499 */       String manufacturingQuery = "SELECT units_per_set FROM vi_pfm_selection  WHERE release_id = " + 
+/* 5500 */         selectionId;
 /*      */       
-/* 5491 */       JdbcConnector connector = MilestoneHelper.getConnector(manufacturingQuery);
-/* 5492 */       connector.runQuery();
+/* 5502 */       JdbcConnector connector = MilestoneHelper.getConnector(manufacturingQuery);
+/* 5503 */       connector.runQuery();
 /*      */ 
 /*      */       
 /*      */       try {
-/* 5496 */         units = connector.getIntegerField("units_per_set");
+/* 5507 */         units = connector.getIntegerField("units_per_set");
 /*      */       }
-/* 5498 */       catch (Exception exception) {}
+/* 5509 */       catch (Exception exception) {}
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 5503 */       connector.close();
+/* 5514 */       connector.close();
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */     
-/* 5508 */     return units;
+/* 5519 */     return units;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5514,33 +5525,33 @@
 /*      */ 
 /*      */   
 /*      */   public boolean isSelectionOkToClose(Context context) {
-/* 5517 */     boolean close = true;
+/* 5528 */     boolean close = true;
 /*      */     
-/* 5519 */     Selection selection = (Selection)context.getSessionValue("Selection");
+/* 5530 */     Selection selection = (Selection)context.getSessionValue("Selection");
 /*      */     
-/* 5521 */     Schedule schedule = null;
+/* 5532 */     Schedule schedule = null;
 /*      */     
-/* 5523 */     if (selection != null) {
-/* 5524 */       schedule = ScheduleManager.getInstance().getSchedule(selection.getSelectionID());
+/* 5534 */     if (selection != null) {
+/* 5535 */       schedule = ScheduleManager.getInstance().getSchedule(selection.getSelectionID());
 /*      */     }
-/* 5526 */     if (schedule != null) {
+/* 5537 */     if (schedule != null) {
 /*      */       
-/* 5528 */       Vector tasks = schedule.getTasks();
-/* 5529 */       if (tasks != null) {
+/* 5539 */       Vector tasks = schedule.getTasks();
+/* 5540 */       if (tasks != null) {
 /*      */         
-/* 5531 */         ScheduledTask task = null;
+/* 5542 */         ScheduledTask task = null;
 /*      */         
-/* 5533 */         for (int i = 0; i < tasks.size(); i++) {
+/* 5544 */         for (int i = 0; i < tasks.size(); i++) {
 /*      */           
-/* 5535 */           task = (ScheduledTask)tasks.get(i);
+/* 5546 */           task = (ScheduledTask)tasks.get(i);
 /*      */           
-/* 5537 */           if (task.getCompletionDate() == null)
+/* 5548 */           if (task.getCompletionDate() == null)
 /*      */           {
 /*      */ 
 /*      */             
-/* 5541 */             if (MilestoneHelper.isUml(task) || MilestoneHelper.isEcommerce(task)) {
+/* 5552 */             if (MilestoneHelper.isUml(task) || MilestoneHelper.isEcommerce(task)) {
 /*      */               
-/* 5543 */               close = false;
+/* 5554 */               close = false;
 /*      */               
 /*      */               break;
 /*      */             } 
@@ -5549,7 +5560,7 @@
 /*      */       } 
 /*      */     } 
 /*      */     
-/* 5552 */     return close;
+/* 5563 */     return close;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5564,30 +5575,30 @@
 /*      */ 
 /*      */   
 /*      */   public Vector getMultSelections(int id) {
-/* 5567 */     String sqlStr = "sp_get_Schedule_MutSelections " + id;
-/* 5568 */     JdbcConnector multSelectionsConnector = MilestoneHelper.getConnector(sqlStr);
-/* 5569 */     multSelectionsConnector.runQuery();
+/* 5578 */     String sqlStr = "sp_get_Schedule_MutSelections " + id;
+/* 5579 */     JdbcConnector multSelectionsConnector = MilestoneHelper.getConnector(sqlStr);
+/* 5580 */     multSelectionsConnector.runQuery();
 /*      */     
-/* 5571 */     Vector multSelections = new Vector();
+/* 5582 */     Vector multSelections = new Vector();
 /*      */     
-/* 5573 */     while (multSelectionsConnector.more()) {
+/* 5584 */     while (multSelectionsConnector.more()) {
 /*      */       
-/* 5575 */       MultSelection multSel = new MultSelection();
+/* 5586 */       MultSelection multSel = new MultSelection();
 /*      */       
-/* 5577 */       multSel.setMultSelectionPK(multSelectionsConnector.getInt("multSelectionsPK", -1));
-/* 5578 */       multSel.setRelease_id(multSelectionsConnector.getInt("release_id", -1));
-/* 5579 */       multSel.setSelectionNo(multSelectionsConnector.getField("selectionNo", ""));
-/* 5580 */       multSel.setUpc(multSelectionsConnector.getField("upc", ""));
-/* 5581 */       multSel.setDescription(multSelectionsConnector.getField("description", ""));
+/* 5588 */       multSel.setMultSelectionPK(multSelectionsConnector.getInt("multSelectionsPK", -1));
+/* 5589 */       multSel.setRelease_id(multSelectionsConnector.getInt("release_id", -1));
+/* 5590 */       multSel.setSelectionNo(multSelectionsConnector.getField("selectionNo", ""));
+/* 5591 */       multSel.setUpc(multSelectionsConnector.getField("upc", ""));
+/* 5592 */       multSel.setDescription(multSelectionsConnector.getField("description", ""));
 /*      */       
-/* 5583 */       multSelections.add(multSel);
+/* 5594 */       multSelections.add(multSel);
 /*      */       
-/* 5585 */       multSelectionsConnector.next();
+/* 5596 */       multSelectionsConnector.next();
 /*      */     } 
 /*      */     
-/* 5588 */     multSelectionsConnector.close();
+/* 5599 */     multSelectionsConnector.close();
 /*      */     
-/* 5590 */     return multSelections;
+/* 5601 */     return multSelections;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5597,107 +5608,107 @@
 /*      */ 
 /*      */   
 /*      */   public void saveMultSelections(Selection selection, User updatingUser) {
-/* 5600 */     if (selection != null && selection.getMultSelections() != null) {
+/* 5611 */     if (selection != null && selection.getMultSelections() != null) {
 /*      */       
-/* 5602 */       Vector multSelections = selection.getMultSelections();
+/* 5613 */       Vector multSelections = selection.getMultSelections();
 /*      */       
-/* 5604 */       Vector addMultSelections = new Vector();
-/* 5605 */       Vector deleteMultSelections = new Vector();
+/* 5615 */       Vector addMultSelections = new Vector();
+/* 5616 */       Vector deleteMultSelections = new Vector();
 /*      */       
-/* 5607 */       String sqlQuery = "select * from vi_MultSelections where release_id = " + selection.getSelectionID();
+/* 5618 */       String sqlQuery = "select * from vi_MultSelections where release_id = " + selection.getSelectionID();
 /*      */ 
 /*      */ 
 /*      */       
-/* 5611 */       boolean delete = true;
+/* 5622 */       boolean delete = true;
 /*      */       
-/* 5613 */       for (int a = 0; a < multSelections.size(); a++) {
+/* 5624 */       for (int a = 0; a < multSelections.size(); a++) {
 /*      */         
-/* 5615 */         MultSelection multSel = (MultSelection)multSelections.get(a);
+/* 5626 */         MultSelection multSel = (MultSelection)multSelections.get(a);
 /*      */ 
 /*      */ 
 /*      */         
-/* 5619 */         JdbcConnector connectorMultSelectionCount = MilestoneHelper.getConnector(sqlQuery);
-/* 5620 */         connectorMultSelectionCount.runQuery();
+/* 5630 */         JdbcConnector connectorMultSelectionCount = MilestoneHelper.getConnector(sqlQuery);
+/* 5631 */         connectorMultSelectionCount.runQuery();
 /*      */         
-/* 5622 */         if (connectorMultSelectionCount.more()) {
+/* 5633 */         if (connectorMultSelectionCount.more()) {
 /*      */           
-/* 5624 */           while (connectorMultSelectionCount.more())
+/* 5635 */           while (connectorMultSelectionCount.more())
 /*      */           {
 /*      */ 
 /*      */ 
 /*      */             
-/* 5629 */             if (multSel.getMultSelectionsPK() == -1 || 
-/* 5630 */               multSel.getMultSelectionsPK() == connectorMultSelectionCount.getInt("multSelectionsPK", -2)) {
+/* 5640 */             if (multSel.getMultSelectionsPK() == -1 || 
+/* 5641 */               multSel.getMultSelectionsPK() == connectorMultSelectionCount.getInt("multSelectionsPK", -2)) {
 /*      */               
-/* 5632 */               addMultSelections.add(multSel);
+/* 5643 */               addMultSelections.add(multSel);
 /*      */               break;
 /*      */             } 
-/* 5635 */             connectorMultSelectionCount.next();
+/* 5646 */             connectorMultSelectionCount.next();
 /*      */           }
 /*      */         
 /*      */         } else {
 /*      */           
-/* 5640 */           addMultSelections.add(multSel);
+/* 5651 */           addMultSelections.add(multSel);
 /*      */         } 
 /*      */         
-/* 5643 */         connectorMultSelectionCount.close();
+/* 5654 */         connectorMultSelectionCount.close();
 /*      */       } 
 /*      */       
-/* 5646 */       JdbcConnector connectorMultSelectionDelete = MilestoneHelper.getConnector(sqlQuery);
-/* 5647 */       connectorMultSelectionDelete.runQuery();
+/* 5657 */       JdbcConnector connectorMultSelectionDelete = MilestoneHelper.getConnector(sqlQuery);
+/* 5658 */       connectorMultSelectionDelete.runQuery();
 /*      */       
-/* 5649 */       while (connectorMultSelectionDelete.more()) {
+/* 5660 */       while (connectorMultSelectionDelete.more()) {
 /*      */         
-/* 5651 */         delete = true;
+/* 5662 */         delete = true;
 /*      */         
-/* 5653 */         for (int b = 0; b < multSelections.size(); b++) {
+/* 5664 */         for (int b = 0; b < multSelections.size(); b++) {
 /*      */           
-/* 5655 */           MultSelection multSelDelete = (MultSelection)multSelections.get(b);
+/* 5666 */           MultSelection multSelDelete = (MultSelection)multSelections.get(b);
 /*      */           
-/* 5657 */           if (connectorMultSelectionDelete.getInt("multSelectionsPK", -2) == multSelDelete.getMultSelectionsPK())
+/* 5668 */           if (connectorMultSelectionDelete.getInt("multSelectionsPK", -2) == multSelDelete.getMultSelectionsPK())
 /*      */           {
-/* 5659 */             delete = false;
+/* 5670 */             delete = false;
 /*      */           }
 /*      */         } 
 /*      */         
-/* 5663 */         if (delete) {
+/* 5674 */         if (delete) {
 /*      */           
-/* 5665 */           MultSelection delMultSelection = new MultSelection();
-/* 5666 */           delMultSelection.setMultSelectionPK(connectorMultSelectionDelete.getInt("multSelectionsPK", -1));
-/* 5667 */           deleteMultSelections.add(delMultSelection);
+/* 5676 */           MultSelection delMultSelection = new MultSelection();
+/* 5677 */           delMultSelection.setMultSelectionPK(connectorMultSelectionDelete.getInt("multSelectionsPK", -1));
+/* 5678 */           deleteMultSelections.add(delMultSelection);
 /*      */         } 
 /*      */         
-/* 5670 */         connectorMultSelectionDelete.next();
+/* 5681 */         connectorMultSelectionDelete.next();
 /*      */       } 
-/* 5672 */       connectorMultSelectionDelete.close();
+/* 5683 */       connectorMultSelectionDelete.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 5678 */       for (int i = 0; i < addMultSelections.size(); i++) {
+/* 5689 */       for (int i = 0; i < addMultSelections.size(); i++) {
 /*      */         
-/* 5680 */         MultSelection multSel = (MultSelection)addMultSelections.get(i);
+/* 5691 */         MultSelection multSel = (MultSelection)addMultSelections.get(i);
 /*      */         
-/* 5682 */         int relId = multSel.getRealease_id();
-/* 5683 */         int multSelectionsPK = multSel.getMultSelectionsPK();
+/* 5693 */         int relId = multSel.getRealease_id();
+/* 5694 */         int multSelectionsPK = multSel.getMultSelectionsPK();
 /*      */         
-/* 5685 */         if (relId < 0) {
-/* 5686 */           relId = selection.getSelectionID();
+/* 5696 */         if (relId < 0) {
+/* 5697 */           relId = selection.getSelectionID();
 /*      */         }
 /*      */         
-/* 5689 */         String sqlStr = "sp_sav_MultSelections " + multSel.getMultSelectionsPK() + "," + 
-/* 5690 */           relId + "," + 
-/* 5691 */           "'" + multSel.getSelectionNo() + "'," + 
+/* 5700 */         String sqlStr = "sp_sav_MultSelections " + multSel.getMultSelectionsPK() + "," + 
+/* 5701 */           relId + "," + 
+/* 5702 */           "'" + multSel.getSelectionNo() + "'," + 
 /*      */           
-/* 5693 */           "'" + MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(multSel.getUpc(), "UPC", false, true) + "'," + 
-/* 5694 */           "'" + multSel.getDescription() + "'";
+/* 5704 */           "'" + MilestoneHelper_2.reformat_UPC_SSG_SGC_forSave(multSel.getUpc(), "UPC", false, true) + "'," + 
+/* 5705 */           "'" + multSel.getDescription() + "'";
 /*      */ 
 /*      */ 
 /*      */         
-/* 5698 */         JdbcConnector connectorAddMultSelection = MilestoneHelper.getConnector(sqlStr);
-/* 5699 */         connectorAddMultSelection.runQuery();
-/* 5700 */         connectorAddMultSelection.close();
+/* 5709 */         JdbcConnector connectorAddMultSelection = MilestoneHelper.getConnector(sqlStr);
+/* 5710 */         connectorAddMultSelection.runQuery();
+/* 5711 */         connectorAddMultSelection.close();
 /*      */       } 
 /*      */ 
 /*      */ 
@@ -5705,18 +5716,18 @@
 /*      */ 
 /*      */ 
 /*      */       
-/* 5708 */       JdbcConnector connectorDeleteMultSelection = null;
-/* 5709 */       for (int k = 0; k < deleteMultSelections.size(); k++) {
+/* 5719 */       JdbcConnector connectorDeleteMultSelection = null;
+/* 5720 */       for (int k = 0; k < deleteMultSelections.size(); k++) {
 /*      */         
-/* 5711 */         MultSelection multSel = (MultSelection)deleteMultSelections.get(k);
+/* 5722 */         MultSelection multSel = (MultSelection)deleteMultSelections.get(k);
 /*      */         
-/* 5713 */         String deleteSql = "sp_del_MultSelections " + multSel.getMultSelectionsPK();
+/* 5724 */         String deleteSql = "sp_del_MultSelections " + multSel.getMultSelectionsPK();
 /*      */ 
 /*      */ 
 /*      */         
-/* 5717 */         connectorDeleteMultSelection = MilestoneHelper.getConnector(deleteSql);
-/* 5718 */         connectorDeleteMultSelection.runQuery();
-/* 5719 */         connectorDeleteMultSelection.close();
+/* 5728 */         connectorDeleteMultSelection = MilestoneHelper.getConnector(deleteSql);
+/* 5729 */         connectorDeleteMultSelection.runQuery();
+/* 5730 */         connectorDeleteMultSelection.close();
 /*      */       } 
 /*      */     } 
 /*      */   }
@@ -5735,29 +5746,29 @@
 /*      */ 
 /*      */   
 /*      */   public Vector getMultOtherContacts(int id) {
-/* 5738 */     String sqlStr = "sp_get_Schedule_MultOtherContacts " + id;
-/* 5739 */     JdbcConnector multOtherContactsConnector = MilestoneHelper.getConnector(sqlStr);
-/* 5740 */     multOtherContactsConnector.runQuery();
+/* 5749 */     String sqlStr = "sp_get_Schedule_MultOtherContacts " + id;
+/* 5750 */     JdbcConnector multOtherContactsConnector = MilestoneHelper.getConnector(sqlStr);
+/* 5751 */     multOtherContactsConnector.runQuery();
 /*      */     
-/* 5742 */     Vector multOtherContacts = new Vector();
+/* 5753 */     Vector multOtherContacts = new Vector();
 /*      */     
-/* 5744 */     while (multOtherContactsConnector.more()) {
+/* 5755 */     while (multOtherContactsConnector.more()) {
 /*      */       
-/* 5746 */       MultOtherContact otherContact = new MultOtherContact();
+/* 5757 */       MultOtherContact otherContact = new MultOtherContact();
 /*      */       
-/* 5748 */       otherContact.setMultOtherContactsPK(multOtherContactsConnector.getInt("multOtherContactsPK", -1));
-/* 5749 */       otherContact.setRelease_id(multOtherContactsConnector.getInt("release_id", -1));
-/* 5750 */       otherContact.setName(multOtherContactsConnector.getField("name", ""));
-/* 5751 */       otherContact.setDescription(multOtherContactsConnector.getField("description", ""));
+/* 5759 */       otherContact.setMultOtherContactsPK(multOtherContactsConnector.getInt("multOtherContactsPK", -1));
+/* 5760 */       otherContact.setRelease_id(multOtherContactsConnector.getInt("release_id", -1));
+/* 5761 */       otherContact.setName(multOtherContactsConnector.getField("name", ""));
+/* 5762 */       otherContact.setDescription(multOtherContactsConnector.getField("description", ""));
 /*      */       
-/* 5753 */       multOtherContacts.add(otherContact);
+/* 5764 */       multOtherContacts.add(otherContact);
 /*      */       
-/* 5755 */       multOtherContactsConnector.next();
+/* 5766 */       multOtherContactsConnector.next();
 /*      */     } 
 /*      */     
-/* 5758 */     multOtherContactsConnector.close();
+/* 5769 */     multOtherContactsConnector.close();
 /*      */     
-/* 5760 */     return multOtherContacts;
+/* 5771 */     return multOtherContacts;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -5767,105 +5778,105 @@
 /*      */ 
 /*      */   
 /*      */   public void saveMultOtherContacts(Selection selection, User updatingUser) {
-/* 5770 */     if (selection != null && selection.getMultOtherContacts() != null) {
+/* 5781 */     if (selection != null && selection.getMultOtherContacts() != null) {
 /*      */       
-/* 5772 */       Vector multOtherContacts = selection.getMultOtherContacts();
+/* 5783 */       Vector multOtherContacts = selection.getMultOtherContacts();
 /*      */       
-/* 5774 */       Vector addMultOtherContacts = new Vector();
-/* 5775 */       Vector deleteMultOtherContacts = new Vector();
+/* 5785 */       Vector addMultOtherContacts = new Vector();
+/* 5786 */       Vector deleteMultOtherContacts = new Vector();
 /*      */       
-/* 5777 */       String sqlQuery = "select * from vi_MultOtherContacts where release_id = " + selection.getSelectionID();
+/* 5788 */       String sqlQuery = "select * from vi_MultOtherContacts where release_id = " + selection.getSelectionID();
 /*      */ 
 /*      */ 
 /*      */       
-/* 5781 */       boolean delete = true;
+/* 5792 */       boolean delete = true;
 /*      */       
-/* 5783 */       for (int a = 0; a < multOtherContacts.size(); a++) {
+/* 5794 */       for (int a = 0; a < multOtherContacts.size(); a++) {
 /*      */         
-/* 5785 */         MultOtherContact otherContact = (MultOtherContact)multOtherContacts.get(a);
+/* 5796 */         MultOtherContact otherContact = (MultOtherContact)multOtherContacts.get(a);
 /*      */ 
 /*      */ 
 /*      */         
-/* 5789 */         JdbcConnector connectorMultOtherContactCount = MilestoneHelper.getConnector(sqlQuery);
-/* 5790 */         connectorMultOtherContactCount.runQuery();
+/* 5800 */         JdbcConnector connectorMultOtherContactCount = MilestoneHelper.getConnector(sqlQuery);
+/* 5801 */         connectorMultOtherContactCount.runQuery();
 /*      */         
-/* 5792 */         if (connectorMultOtherContactCount.more()) {
+/* 5803 */         if (connectorMultOtherContactCount.more()) {
 /*      */           
-/* 5794 */           while (connectorMultOtherContactCount.more())
+/* 5805 */           while (connectorMultOtherContactCount.more())
 /*      */           {
 /*      */ 
 /*      */ 
 /*      */             
-/* 5799 */             if (otherContact.getMultOtherContactsPK() == -1 || 
-/* 5800 */               otherContact.getMultOtherContactsPK() == connectorMultOtherContactCount.getInt("multOtherContactsPK", -2)) {
+/* 5810 */             if (otherContact.getMultOtherContactsPK() == -1 || 
+/* 5811 */               otherContact.getMultOtherContactsPK() == connectorMultOtherContactCount.getInt("multOtherContactsPK", -2)) {
 /*      */               
-/* 5802 */               addMultOtherContacts.add(otherContact);
+/* 5813 */               addMultOtherContacts.add(otherContact);
 /*      */               break;
 /*      */             } 
-/* 5805 */             connectorMultOtherContactCount.next();
+/* 5816 */             connectorMultOtherContactCount.next();
 /*      */           }
 /*      */         
 /*      */         } else {
 /*      */           
-/* 5810 */           addMultOtherContacts.add(otherContact);
+/* 5821 */           addMultOtherContacts.add(otherContact);
 /*      */         } 
 /*      */         
-/* 5813 */         connectorMultOtherContactCount.close();
+/* 5824 */         connectorMultOtherContactCount.close();
 /*      */       } 
 /*      */       
-/* 5816 */       JdbcConnector connectorMultOtherContactDelete = MilestoneHelper.getConnector(sqlQuery);
-/* 5817 */       connectorMultOtherContactDelete.runQuery();
+/* 5827 */       JdbcConnector connectorMultOtherContactDelete = MilestoneHelper.getConnector(sqlQuery);
+/* 5828 */       connectorMultOtherContactDelete.runQuery();
 /*      */       
-/* 5819 */       while (connectorMultOtherContactDelete.more()) {
+/* 5830 */       while (connectorMultOtherContactDelete.more()) {
 /*      */         
-/* 5821 */         delete = true;
+/* 5832 */         delete = true;
 /*      */         
-/* 5823 */         for (int b = 0; b < multOtherContacts.size(); b++) {
+/* 5834 */         for (int b = 0; b < multOtherContacts.size(); b++) {
 /*      */           
-/* 5825 */           MultOtherContact multOtherContactDelete = (MultOtherContact)multOtherContacts.get(b);
+/* 5836 */           MultOtherContact multOtherContactDelete = (MultOtherContact)multOtherContacts.get(b);
 /*      */           
-/* 5827 */           if (connectorMultOtherContactDelete.getInt("multOtherContactsPK", -2) == multOtherContactDelete.getMultOtherContactsPK())
+/* 5838 */           if (connectorMultOtherContactDelete.getInt("multOtherContactsPK", -2) == multOtherContactDelete.getMultOtherContactsPK())
 /*      */           {
-/* 5829 */             delete = false;
+/* 5840 */             delete = false;
 /*      */           }
 /*      */         } 
 /*      */         
-/* 5833 */         if (delete) {
+/* 5844 */         if (delete) {
 /*      */           
-/* 5835 */           MultOtherContact delMultOtherContact = new MultOtherContact();
-/* 5836 */           delMultOtherContact.setMultOtherContactsPK(connectorMultOtherContactDelete.getInt("multOtherContactsPK", -1));
-/* 5837 */           deleteMultOtherContacts.add(delMultOtherContact);
+/* 5846 */           MultOtherContact delMultOtherContact = new MultOtherContact();
+/* 5847 */           delMultOtherContact.setMultOtherContactsPK(connectorMultOtherContactDelete.getInt("multOtherContactsPK", -1));
+/* 5848 */           deleteMultOtherContacts.add(delMultOtherContact);
 /*      */         } 
 /*      */         
-/* 5840 */         connectorMultOtherContactDelete.next();
+/* 5851 */         connectorMultOtherContactDelete.next();
 /*      */       } 
-/* 5842 */       connectorMultOtherContactDelete.close();
+/* 5853 */       connectorMultOtherContactDelete.close();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */       
-/* 5848 */       for (int i = 0; i < addMultOtherContacts.size(); i++) {
+/* 5859 */       for (int i = 0; i < addMultOtherContacts.size(); i++) {
 /*      */         
-/* 5850 */         MultOtherContact otherContact = (MultOtherContact)addMultOtherContacts.get(i);
+/* 5861 */         MultOtherContact otherContact = (MultOtherContact)addMultOtherContacts.get(i);
 /*      */         
-/* 5852 */         int relId = otherContact.getRealease_id();
-/* 5853 */         int multOtherContactsPK = otherContact.getMultOtherContactsPK();
+/* 5863 */         int relId = otherContact.getRealease_id();
+/* 5864 */         int multOtherContactsPK = otherContact.getMultOtherContactsPK();
 /*      */         
-/* 5855 */         if (relId < 0) {
-/* 5856 */           relId = selection.getSelectionID();
+/* 5866 */         if (relId < 0) {
+/* 5867 */           relId = selection.getSelectionID();
 /*      */         }
 /*      */         
-/* 5859 */         String sqlStr = "sp_sav_MultOtherContacts " + otherContact.getMultOtherContactsPK() + "," + 
-/* 5860 */           relId + "," + 
-/* 5861 */           "'" + otherContact.getName() + "'," + 
-/* 5862 */           "'" + otherContact.getDescription() + "'";
+/* 5870 */         String sqlStr = "sp_sav_MultOtherContacts " + otherContact.getMultOtherContactsPK() + "," + 
+/* 5871 */           relId + "," + 
+/* 5872 */           "'" + otherContact.getName() + "'," + 
+/* 5873 */           "'" + otherContact.getDescription() + "'";
 /*      */ 
 /*      */ 
 /*      */         
-/* 5866 */         JdbcConnector connectorAddMultOtherContact = MilestoneHelper.getConnector(sqlStr);
-/* 5867 */         connectorAddMultOtherContact.runQuery();
-/* 5868 */         connectorAddMultOtherContact.close();
+/* 5877 */         JdbcConnector connectorAddMultOtherContact = MilestoneHelper.getConnector(sqlStr);
+/* 5878 */         connectorAddMultOtherContact.runQuery();
+/* 5879 */         connectorAddMultOtherContact.close();
 /*      */       } 
 /*      */ 
 /*      */ 
@@ -5873,18 +5884,18 @@
 /*      */ 
 /*      */ 
 /*      */       
-/* 5876 */       JdbcConnector connectorDeleteMultOtherContact = null;
-/* 5877 */       for (int k = 0; k < deleteMultOtherContacts.size(); k++) {
+/* 5887 */       JdbcConnector connectorDeleteMultOtherContact = null;
+/* 5888 */       for (int k = 0; k < deleteMultOtherContacts.size(); k++) {
 /*      */         
-/* 5879 */         MultOtherContact otherContact = (MultOtherContact)deleteMultOtherContacts.get(k);
+/* 5890 */         MultOtherContact otherContact = (MultOtherContact)deleteMultOtherContacts.get(k);
 /*      */         
-/* 5881 */         String deleteSql = "sp_del_MultOtherContacts " + otherContact.getMultOtherContactsPK();
+/* 5892 */         String deleteSql = "sp_del_MultOtherContacts " + otherContact.getMultOtherContactsPK();
 /*      */ 
 /*      */ 
 /*      */         
-/* 5885 */         connectorDeleteMultOtherContact = MilestoneHelper.getConnector(deleteSql);
-/* 5886 */         connectorDeleteMultOtherContact.runQuery();
-/* 5887 */         connectorDeleteMultOtherContact.close();
+/* 5896 */         connectorDeleteMultOtherContact = MilestoneHelper.getConnector(deleteSql);
+/* 5897 */         connectorDeleteMultOtherContact.runQuery();
+/* 5898 */         connectorDeleteMultOtherContact.close();
 /*      */       } 
 /*      */     } 
 /*      */   }
@@ -5896,55 +5907,55 @@
 /*      */ 
 /*      */   
 /*      */   public void getAlphaGroupPosition(Context context, Notepad notepad, String alphaChar, int sortOrder) {
-/* 5899 */     Vector notepadList = notepad.getAllContents();
-/* 5900 */     boolean fndChar = false;
+/* 5910 */     Vector notepadList = notepad.getAllContents();
+/* 5911 */     boolean fndChar = false;
 /*      */     
-/* 5902 */     if (notepad != null && notepadList != null && notepadList.size() > 0) {
+/* 5913 */     if (notepad != null && notepadList != null && notepadList.size() > 0) {
 /*      */ 
 /*      */       
-/* 5905 */       int x = 0;
+/* 5916 */       int x = 0;
 /*      */ 
 /*      */ 
 /*      */       
-/* 5909 */       NotepadSortOrder notepadSortOrder = NotepadSortOrder.getNotepadSortOrderFromSession(context);
+/* 5920 */       NotepadSortOrder notepadSortOrder = NotepadSortOrder.getNotepadSortOrderFromSession(context);
 /*      */       
-/* 5911 */       if (sortOrder == 0 || sortOrder == 7) {
-/* 5912 */         notepadSortOrder.setSelectionOrderCol("Artist");
+/* 5922 */       if (sortOrder == 0 || sortOrder == 7) {
+/* 5923 */         notepadSortOrder.setSelectionOrderCol("Artist");
 /*      */       }
-/* 5914 */       if (sortOrder == 1 || sortOrder == 8) {
-/* 5915 */         notepadSortOrder.setSelectionOrderCol("Title");
+/* 5925 */       if (sortOrder == 1 || sortOrder == 8) {
+/* 5926 */         notepadSortOrder.setSelectionOrderCol("Title");
 /*      */       }
-/* 5917 */       notepadSortOrder.setSelectionOrderColNo(sortOrder);
+/* 5928 */       notepadSortOrder.setSelectionOrderColNo(sortOrder);
 /*      */ 
 /*      */       
-/* 5920 */       for (Iterator i = notepadList.iterator(); i.hasNext(); x++) {
+/* 5931 */       for (Iterator i = notepadList.iterator(); i.hasNext(); x++) {
 /*      */         
-/* 5922 */         Selection selection = (Selection)i.next();
-/* 5923 */         String scanStr = "";
+/* 5933 */         Selection selection = (Selection)i.next();
+/* 5934 */         String scanStr = "";
 /*      */         
-/* 5925 */         if (sortOrder == 0 || sortOrder == 7)
-/* 5926 */           scanStr = selection.getArtist(); 
-/* 5927 */         if (sortOrder == 1 || sortOrder == 8) {
-/* 5928 */           scanStr = selection.getTitle();
+/* 5936 */         if (sortOrder == 0 || sortOrder == 7)
+/* 5937 */           scanStr = selection.getArtist(); 
+/* 5938 */         if (sortOrder == 1 || sortOrder == 8) {
+/* 5939 */           scanStr = selection.getTitle();
 /*      */         }
 /*      */         
-/* 5931 */         int result = scanStr.substring(0).compareToIgnoreCase(alphaChar.substring(0));
+/* 5942 */         int result = scanStr.substring(0).compareToIgnoreCase(alphaChar.substring(0));
 /*      */         
-/* 5933 */         if (sortOrder == 0 || sortOrder == 1) {
+/* 5944 */         if (sortOrder == 0 || sortOrder == 1) {
 /*      */           
-/* 5935 */           if (result == 0 || result > 0) {
-/* 5936 */             notepad.setSelected(selection);
-/* 5937 */             fndChar = true;
+/* 5946 */           if (result == 0 || result > 0) {
+/* 5947 */             notepad.setSelected(selection);
+/* 5948 */             fndChar = true;
 /*      */             
 /*      */             break;
 /*      */           } 
-/* 5941 */         } else if (result < 0) {
+/* 5952 */         } else if (result < 0) {
 /*      */           
-/* 5943 */           Selection upOne = null;
-/* 5944 */           if (x > 0)
-/* 5945 */             upOne = (Selection)notepadList.get(x - 1); 
-/* 5946 */           notepad.setSelected(upOne);
-/* 5947 */           fndChar = true;
+/* 5954 */           Selection upOne = null;
+/* 5955 */           if (x > 0)
+/* 5956 */             upOne = (Selection)notepadList.get(x - 1); 
+/* 5957 */           notepad.setSelected(upOne);
+/* 5958 */           fndChar = true;
 /*      */ 
 /*      */           
 /*      */           break;
@@ -5952,12 +5963,12 @@
 /*      */       } 
 /*      */ 
 /*      */       
-/* 5955 */       if (!fndChar) {
-/* 5956 */         if (x > 0) {
-/* 5957 */           Selection upOne = (Selection)notepadList.get(x - 1);
-/* 5958 */           notepad.setSelected(upOne);
+/* 5966 */       if (!fndChar) {
+/* 5967 */         if (x > 0) {
+/* 5968 */           Selection upOne = (Selection)notepadList.get(x - 1);
+/* 5969 */           notepad.setSelected(upOne);
 /*      */         } 
-/* 5960 */         context.putDelivery("AlertMessage", "There is no record that matches the search criteria");
+/* 5971 */         context.putDelivery("AlertMessage", "There is no record that matches the search criteria");
 /*      */       } 
 /*      */     } 
 /*      */   }
@@ -5971,63 +5982,63 @@
 /*      */ 
 /*      */   
 /*      */   public Vector getUserEnvironments(Context context) {
-/* 5974 */     Vector userCompanies = MilestoneHelper.getUserCompanies(context);
-/* 5975 */     Vector userEnvironments = new Vector();
+/* 5985 */     Vector userCompanies = MilestoneHelper.getUserCompanies(context);
+/* 5986 */     Vector userEnvironments = new Vector();
 /*      */     
-/* 5977 */     Environment env = null;
-/* 5978 */     boolean duplicate = false;
-/* 5979 */     for (int i = 0; i < userCompanies.size(); i++) {
+/* 5988 */     Environment env = null;
+/* 5989 */     boolean duplicate = false;
+/* 5990 */     for (int i = 0; i < userCompanies.size(); i++) {
 /*      */       
-/* 5981 */       duplicate = false;
-/* 5982 */       env = ((Company)userCompanies.get(i)).getParentEnvironment();
+/* 5992 */       duplicate = false;
+/* 5993 */       env = ((Company)userCompanies.get(i)).getParentEnvironment();
 /*      */       
-/* 5984 */       for (int j = 0; j < userEnvironments.size(); j++) {
+/* 5995 */       for (int j = 0; j < userEnvironments.size(); j++) {
 /*      */         
-/* 5986 */         if (env.getName() == ((Environment)userEnvironments.get(j)).getName()) {
+/* 5997 */         if (env.getName() == ((Environment)userEnvironments.get(j)).getName()) {
 /*      */           
-/* 5988 */           duplicate = true;
+/* 5999 */           duplicate = true;
 /*      */           
 /*      */           break;
 /*      */         } 
 /*      */       } 
-/* 5993 */       if (!duplicate) {
-/* 5994 */         userEnvironments.add(env);
+/* 6004 */       if (!duplicate) {
+/* 6005 */         userEnvironments.add(env);
 /*      */       }
 /*      */     } 
-/* 5997 */     return userEnvironments;
+/* 6008 */     return userEnvironments;
 /*      */   }
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */   
 /*      */   protected boolean isSelectionIDDuplicate(String prefix, String selectionNo, int selectionID, boolean isDigital) {
-/* 6004 */     int prodType = 0;
+/* 6015 */     int prodType = 0;
 /*      */     
-/* 6006 */     if (isDigital) {
-/* 6007 */       prodType = 1;
+/* 6017 */     if (isDigital) {
+/* 6018 */       prodType = 1;
 /*      */     }
 /*      */     
-/* 6010 */     if (isDigital && selectionNo.length() == 0) {
-/* 6011 */       return false;
+/* 6021 */     if (isDigital && selectionNo.length() == 0) {
+/* 6022 */       return false;
 /*      */     }
 /*      */     
-/* 6014 */     String sqlStr = "SELECT count(*) as myCount FROM release_header with(nolock)  WHERE prefix = '" + 
-/* 6015 */       prefix + "' " + 
-/* 6016 */       " AND NOT status = 'CLOSED' " + 
-/* 6017 */       " AND selection_no = '" + selectionNo + "'" + 
-/* 6018 */       " AND release_id <> " + selectionID + 
-/* 6019 */       " AND digital_flag = " + prodType;
+/* 6025 */     String sqlStr = "SELECT count(*) as myCount FROM release_header with(nolock)  WHERE prefix = '" + 
+/* 6026 */       prefix + "' " + 
+/* 6027 */       " AND NOT status = 'CLOSED' " + 
+/* 6028 */       " AND selection_no = '" + selectionNo + "'" + 
+/* 6029 */       " AND release_id <> " + selectionID + 
+/* 6030 */       " AND digital_flag = " + prodType;
 /*      */ 
 /*      */     
-/* 6022 */     JdbcConnector isDup = MilestoneHelper.getConnector(sqlStr);
-/* 6023 */     isDup.runQuery();
+/* 6033 */     JdbcConnector isDup = MilestoneHelper.getConnector(sqlStr);
+/* 6034 */     isDup.runQuery();
 /*      */     
-/* 6025 */     int count = 0;
-/* 6026 */     if (isDup.more()) {
-/* 6027 */       count = isDup.getInt("myCount");
+/* 6036 */     int count = 0;
+/* 6037 */     if (isDup.more()) {
+/* 6038 */       count = isDup.getInt("myCount");
 /*      */     }
-/* 6029 */     isDup.close();
-/* 6030 */     return (count > 0);
+/* 6040 */     isDup.close();
+/* 6041 */     return (count > 0);
 /*      */   }
 /*      */ 
 /*      */ 
@@ -6039,17 +6050,17 @@
 /*      */ 
 /*      */   
 /*      */   public void saveSelectionDataFromDigitalPfm(int releaseID, PrefixCode prefix, String selectionNo, String upc, String configCode, String soundscan) {
-/* 6042 */     String query = "UPDATE dbo.Release_Header SET UPC = '" + 
-/* 6043 */       MilestoneHelper.escapeSingleQuotes(upc) + "', config_code = '" + 
-/* 6044 */       MilestoneHelper.escapeSingleQuotes(configCode) + "', soundscan_grp = '" + 
-/* 6045 */       MilestoneHelper.escapeSingleQuotes(soundscan) + "', prefix = '" + 
-/* 6046 */       getLookupObjectValue(prefix) + "', selection_no = '" + 
-/* 6047 */       MilestoneHelper.escapeSingleQuotes(selectionNo) + "'" + 
-/* 6048 */       " WHERE release_id = " + String.valueOf(releaseID);
+/* 6053 */     String query = "UPDATE dbo.Release_Header SET UPC = '" + 
+/* 6054 */       MilestoneHelper.escapeSingleQuotes(upc) + "', config_code = '" + 
+/* 6055 */       MilestoneHelper.escapeSingleQuotes(configCode) + "', soundscan_grp = '" + 
+/* 6056 */       MilestoneHelper.escapeSingleQuotes(soundscan) + "', prefix = '" + 
+/* 6057 */       getLookupObjectValue(prefix) + "', selection_no = '" + 
+/* 6058 */       MilestoneHelper.escapeSingleQuotes(selectionNo) + "'" + 
+/* 6059 */       " WHERE release_id = " + String.valueOf(releaseID);
 /*      */     
-/* 6050 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 6051 */     connector.runQuery();
-/* 6052 */     connector.close();
+/* 6061 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 6062 */     connector.runQuery();
+/* 6063 */     connector.close();
 /*      */   }
 /*      */ 
 /*      */ 
@@ -6059,15 +6070,15 @@
 /*      */ 
 /*      */   
 /*      */   public void saveSelectionDataFromPhysicalPfm(int releaseID, String streetDate) {
-/* 6062 */     String query = "UPDATE dbo.Release_Header SET ";
-/* 6063 */     query = String.valueOf(query) + " street_date = '" + MilestoneHelper.escapeSingleQuotes(streetDate) + "'";
-/* 6064 */     query = String.valueOf(query) + " WHERE release_id = " + String.valueOf(releaseID);
+/* 6073 */     String query = "UPDATE dbo.Release_Header SET ";
+/* 6074 */     query = String.valueOf(query) + " street_date = '" + MilestoneHelper.escapeSingleQuotes(streetDate) + "'";
+/* 6075 */     query = String.valueOf(query) + " WHERE release_id = " + String.valueOf(releaseID);
 /*      */ 
 /*      */ 
 /*      */     
-/* 6068 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 6069 */     connector.runQuery();
-/* 6070 */     connector.close();
+/* 6079 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 6080 */     connector.runQuery();
+/* 6081 */     connector.close();
 /*      */   }
 /*      */ 
 /*      */ 
@@ -6076,41 +6087,41 @@
 /*      */ 
 /*      */   
 /*      */   public static boolean isProjectNumberValidFromMilestoneSnapshot(Selection selection) {
-/* 6079 */     String projectsQuery = "";
-/* 6080 */     String projectNumber = selection.getProjectID();
+/* 6090 */     String projectsQuery = "";
+/* 6091 */     String projectNumber = selection.getProjectID();
 /*      */     
-/* 6082 */     if (selection.getFamily().getName().equalsIgnoreCase("UMVD")) {
+/* 6093 */     if (selection.getFamily().getName().equalsIgnoreCase("UMVD")) {
 /*      */       
-/* 6084 */       projectNumber = ProjectSearchManager.replaceStringInString(projectNumber, "-", "");
-/* 6085 */       if (projectNumber.length() > 8)
-/* 6086 */         projectNumber = projectNumber.substring(1); 
-/* 6087 */       projectsQuery = String.valueOf(projectsQuery) + "select * from ArchimedesProjects where [JDE Project#] = '" + projectNumber + "'";
+/* 6095 */       projectNumber = ProjectSearchManager.replaceStringInString(projectNumber, "-", "");
+/* 6096 */       if (projectNumber.length() > 8)
+/* 6097 */         projectNumber = projectNumber.substring(1); 
+/* 6098 */       projectsQuery = String.valueOf(projectsQuery) + "select * from ArchimedesProjects where [JDE Project#] = '" + projectNumber + "'";
 /*      */     }
 /*      */     else {
 /*      */       
-/* 6091 */       projectsQuery = String.valueOf(projectsQuery) + "select * from ArchimedesProjects where [RMS Project#] = '" + projectNumber + "'";
+/* 6102 */       projectsQuery = String.valueOf(projectsQuery) + "select * from ArchimedesProjects where [RMS Project#] = '" + projectNumber + "'";
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */     
-/* 6096 */     JdbcConnector connector = MilestoneHelper.getConnector(projectsQuery);
+/* 6107 */     JdbcConnector connector = MilestoneHelper.getConnector(projectsQuery);
 /*      */ 
 /*      */     
 /*      */     try {
-/* 6100 */       connector.runQuery();
+/* 6111 */       connector.runQuery();
 /*      */     }
-/* 6102 */     catch (Exception e) {
+/* 6113 */     catch (Exception e) {
 /*      */       
-/* 6104 */       System.out.println("****exception raised in isProjectNumberValidFromMilestoneSnapshot****");
+/* 6115 */       System.out.println("****exception raised in isProjectNumberValidFromMilestoneSnapshot****");
 /*      */     } 
 /*      */ 
 /*      */     
-/* 6108 */     boolean isValid = false;
-/* 6109 */     if (connector.more()) {
-/* 6110 */       isValid = true;
+/* 6119 */     boolean isValid = false;
+/* 6120 */     if (connector.more()) {
+/* 6121 */       isValid = true;
 /*      */     }
-/* 6112 */     connector.close();
-/* 6113 */     return isValid;
+/* 6123 */     connector.close();
+/* 6124 */     return isValid;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -6119,9 +6130,9 @@
 /*      */ 
 /*      */   
 /*      */   public static Selection isProjectNumberValid(Selection selection) {
-/* 6122 */     String projectsQuery = "";
-/* 6123 */     String projectNumber = selection.getProjectID();
-/* 6124 */     Selection updatedSel = null;
+/* 6133 */     String projectsQuery = "";
+/* 6134 */     String projectNumber = selection.getProjectID();
+/* 6135 */     Selection updatedSel = null;
 /*      */ 
 /*      */ 
 /*      */ 
@@ -6306,7 +6317,7 @@
 /*      */ 
 /*      */ 
 /*      */     
-/* 6309 */     boolean IsUMVD = false;
+/* 6320 */     boolean IsUMVD = false;
 /*      */ 
 /*      */ 
 /*      */ 
@@ -6316,15 +6327,15 @@
 /*      */ 
 /*      */     
 /*      */     try {
-/* 6319 */       updatedSel = projectSearchSvcClient.ProjectSearchValidation(projectNumber, Boolean.valueOf(IsUMVD));
-/* 6320 */       System.out.println("Project Search from WCF: " + updatedSel.scheduleId);
-/* 6321 */     } catch (Exception e) {
-/* 6322 */       System.out.println(e.getMessage());
+/* 6330 */       updatedSel = projectSearchSvcClient.ProjectSearchValidation(projectNumber, Boolean.valueOf(IsUMVD));
+/* 6331 */       System.out.println("Project Search from WCF: " + updatedSel.scheduleId);
+/* 6332 */     } catch (Exception e) {
+/* 6333 */       System.out.println(e.getMessage());
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */     
-/* 6327 */     return updatedSel;
+/* 6338 */     return updatedSel;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -6334,25 +6345,25 @@
 /*      */ 
 /*      */   
 /*      */   public int getArchimedesIdFromCache(int label_id) {
-/* 6337 */     int returnId = -1;
+/* 6348 */     int returnId = -1;
 /*      */ 
 /*      */     
-/* 6340 */     Vector labels = Cache.getLabels();
-/* 6341 */     if (labels != null)
+/* 6351 */     Vector labels = Cache.getLabels();
+/* 6352 */     if (labels != null)
 /*      */     {
-/* 6343 */       for (int i = 0; i < labels.size(); i++) {
+/* 6354 */       for (int i = 0; i < labels.size(); i++) {
 /*      */ 
 /*      */         
-/* 6346 */         Label label = (Label)labels.get(i);
+/* 6357 */         Label label = (Label)labels.get(i);
 /*      */         
-/* 6348 */         if (label.getStructureID() == label_id) {
+/* 6359 */         if (label.getStructureID() == label_id) {
 /*      */           
-/* 6350 */           returnId = label.getArchimedesId();
+/* 6361 */           returnId = label.getArchimedesId();
 /*      */           break;
 /*      */         } 
 /*      */       } 
 /*      */     }
-/* 6355 */     return returnId;
+/* 6366 */     return returnId;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -6364,40 +6375,40 @@
 /*      */ 
 /*      */   
 /*      */   public static void addReleasingFamilyLabelFamilySelect(String formName, Context context, StringBuffer query, Form form) {
-/* 6367 */     User user = (User)context.getSession().getAttribute("user");
-/* 6368 */     Hashtable relFamilyLabelFamilyHash = (Hashtable)user.getReleasingFamilyLabelFamily().clone();
+/* 6378 */     User user = (User)context.getSession().getAttribute("user");
+/* 6379 */     Hashtable relFamilyLabelFamilyHash = (Hashtable)user.getReleasingFamilyLabelFamily().clone();
 /*      */ 
 /*      */     
-/* 6371 */     addUndefinedReleasingFamilies(relFamilyLabelFamilyHash, context);
+/* 6382 */     addUndefinedReleasingFamilies(relFamilyLabelFamilyHash, context);
 /*      */     
-/* 6373 */     FormDropDownMenu famDD = (FormDropDownMenu)form.getElement(formName);
-/* 6374 */     String familySearch = famDD.getStringValue();
-/* 6375 */     if (familySearch != null && !familySearch.equals("") && !familySearch.equals("0") && 
-/* 6376 */       !familySearch.equals("-1")) {
+/* 6384 */     FormDropDownMenu famDD = (FormDropDownMenu)form.getElement(formName);
+/* 6385 */     String familySearch = famDD.getStringValue();
+/* 6386 */     if (familySearch != null && !familySearch.equals("") && !familySearch.equals("0") && 
+/* 6387 */       !familySearch.equals("-1")) {
 /*      */       
-/* 6378 */       query.append(" AND (Release_Family_id = " + familySearch);
+/* 6389 */       query.append(" AND (Release_Family_id = " + familySearch);
 /*      */       
-/* 6380 */       addLabelFamilySelect(familySearch, relFamilyLabelFamilyHash, query);
-/* 6381 */       query.append(") ");
+/* 6391 */       addLabelFamilySelect(familySearch, relFamilyLabelFamilyHash, query);
+/* 6392 */       query.append(") ");
 /*      */     }
 /*      */     else {
 /*      */       
-/* 6385 */       String[] valueList = famDD.getValueList();
-/* 6386 */       if (valueList != null && valueList.length > 0) {
+/* 6396 */       String[] valueList = famDD.getValueList();
+/* 6397 */       if (valueList != null && valueList.length > 0) {
 /*      */         
-/* 6388 */         query.append(" AND (");
-/* 6389 */         for (int i = 0; i < valueList.length; i++) {
+/* 6399 */         query.append(" AND (");
+/* 6400 */         for (int i = 0; i < valueList.length; i++) {
 /*      */           
-/* 6391 */           if (i > 0)
-/* 6392 */             query.append(" OR "); 
-/* 6393 */           query.append("(Release_Family_id = " + valueList[i]);
-/* 6394 */           addLabelFamilySelect(valueList[i], relFamilyLabelFamilyHash, query);
-/* 6395 */           query.append(")");
+/* 6402 */           if (i > 0)
+/* 6403 */             query.append(" OR "); 
+/* 6404 */           query.append("(Release_Family_id = " + valueList[i]);
+/* 6405 */           addLabelFamilySelect(valueList[i], relFamilyLabelFamilyHash, query);
+/* 6406 */           query.append(")");
 /*      */         } 
-/* 6397 */         query.append(") ");
+/* 6408 */         query.append(") ");
 /*      */       } else {
 /*      */         
-/* 6400 */         query.append(" AND (Release_Family_id = -1 and family_id = -1) ");
+/* 6411 */         query.append(" AND (Release_Family_id = -1 and family_id = -1) ");
 /*      */       } 
 /*      */     } 
 /*      */   }
@@ -6412,66 +6423,66 @@
 /*      */ 
 /*      */   
 /*      */   public static void addLabelFamilySelect(String relFamilyStr, Hashtable relFamilyLabelFamilyHash, StringBuffer query) {
-/* 6415 */     if (relFamilyLabelFamilyHash.containsKey(relFamilyStr)) {
+/* 6426 */     if (relFamilyLabelFamilyHash.containsKey(relFamilyStr)) {
 /*      */       
-/* 6417 */       Vector labelFamilies = (Vector)relFamilyLabelFamilyHash.get(relFamilyStr);
-/* 6418 */       if (labelFamilies != null && labelFamilies.size() > 0) {
-/* 6419 */         for (int i = 0; i < labelFamilies.size(); i++) {
+/* 6428 */       Vector labelFamilies = (Vector)relFamilyLabelFamilyHash.get(relFamilyStr);
+/* 6429 */       if (labelFamilies != null && labelFamilies.size() > 0) {
+/* 6430 */         for (int i = 0; i < labelFamilies.size(); i++) {
 /*      */           
-/* 6421 */           if (i == 0) {
-/* 6422 */             query.append(" AND family_id in (" + (String)labelFamilies.get(i));
+/* 6432 */           if (i == 0) {
+/* 6433 */             query.append(" AND family_id in (" + (String)labelFamilies.get(i));
 /*      */           } else {
-/* 6424 */             query.append("," + (String)labelFamilies.get(i));
+/* 6435 */             query.append("," + (String)labelFamilies.get(i));
 /*      */           } 
-/* 6426 */         }  query.append(")");
+/* 6437 */         }  query.append(")");
 /*      */       }
 /*      */     
 /*      */     } else {
 /*      */       
-/* 6431 */       query.append(" AND family_id in (" + relFamilyStr + ")");
+/* 6442 */       query.append(" AND family_id in (" + relFamilyStr + ")");
 /*      */     } 
 /*      */   }
 /*      */ 
 /*      */ 
 /*      */   
 /*      */   public static void addUndefinedReleasingFamilies(Hashtable relFamilyLabelFamilyHash, Context context) {
-/* 6438 */     Vector labelFamilies = null;
-/* 6439 */     Vector families = ReleasingFamily.getUserReleasingFamiliesVectorOfFamilies(context);
+/* 6449 */     Vector labelFamilies = null;
+/* 6450 */     Vector families = ReleasingFamily.getUserReleasingFamiliesVectorOfFamilies(context);
 /*      */     
-/* 6441 */     if (families != null)
+/* 6452 */     if (families != null)
 /*      */     {
-/* 6443 */       for (int i = 0; i < families.size(); i++) {
+/* 6454 */       for (int i = 0; i < families.size(); i++) {
 /*      */         
-/* 6445 */         Family family = (Family)families.get(i);
+/* 6456 */         Family family = (Family)families.get(i);
 /*      */         
-/* 6447 */         if (family != null) {
+/* 6458 */         if (family != null) {
 /*      */ 
 /*      */           
-/* 6450 */           String relFamilyIdStr = Integer.toString(family.getStructureID());
-/* 6451 */           if (relFamilyLabelFamilyHash.containsKey(relFamilyIdStr)) {
-/* 6452 */             boolean addToHash = true;
-/* 6453 */             labelFamilies = (Vector)relFamilyLabelFamilyHash.get(relFamilyIdStr);
-/* 6454 */             for (int c = 0; c < labelFamilies.size(); c++) {
+/* 6461 */           String relFamilyIdStr = Integer.toString(family.getStructureID());
+/* 6462 */           if (relFamilyLabelFamilyHash.containsKey(relFamilyIdStr)) {
+/* 6463 */             boolean addToHash = true;
+/* 6464 */             labelFamilies = (Vector)relFamilyLabelFamilyHash.get(relFamilyIdStr);
+/* 6465 */             for (int c = 0; c < labelFamilies.size(); c++) {
 /*      */               
-/* 6456 */               String labelFamilyIdStr = (String)labelFamilies.get(c);
+/* 6467 */               String labelFamilyIdStr = (String)labelFamilies.get(c);
 /*      */               
-/* 6458 */               if (labelFamilyIdStr.equals(relFamilyIdStr)) {
+/* 6469 */               if (labelFamilyIdStr.equals(relFamilyIdStr)) {
 /*      */                 
-/* 6460 */                 addToHash = false;
+/* 6471 */                 addToHash = false;
 /*      */                 
 /*      */                 break;
 /*      */               } 
 /*      */             } 
-/* 6465 */             if (addToHash) {
+/* 6476 */             if (addToHash) {
 /*      */               
-/* 6467 */               labelFamilies = (Vector)relFamilyLabelFamilyHash.get(relFamilyIdStr);
-/* 6468 */               labelFamilies.add(relFamilyIdStr);
+/* 6478 */               labelFamilies = (Vector)relFamilyLabelFamilyHash.get(relFamilyIdStr);
+/* 6479 */               labelFamilies.add(relFamilyIdStr);
 /*      */             } 
 /*      */           } else {
 /*      */             
-/* 6472 */             labelFamilies = new Vector();
-/* 6473 */             labelFamilies.add(relFamilyIdStr);
-/* 6474 */             relFamilyLabelFamilyHash.put(relFamilyIdStr, labelFamilies);
+/* 6483 */             labelFamilies = new Vector();
+/* 6484 */             labelFamilies.add(relFamilyIdStr);
+/* 6485 */             relFamilyLabelFamilyHash.put(relFamilyIdStr, labelFamilies);
 /*      */           } 
 /*      */         } 
 /*      */       } 
@@ -6483,17 +6494,17 @@
 /*      */ 
 /*      */   
 /*      */   public static String getSelectionNotepadQueryUserDefaults(Context context) {
-/* 6486 */     StringBuffer query = new StringBuffer();
+/* 6497 */     StringBuffer query = new StringBuffer();
 /*      */ 
 /*      */ 
 /*      */     
-/* 6490 */     Environment environment = null;
-/* 6491 */     Vector environments = MilestoneHelper.getUserEnvironments(context);
-/* 6492 */     int year = Calendar.getInstance().get(1);
-/* 6493 */     String date = "01/01/" + year;
+/* 6501 */     Environment environment = null;
+/* 6502 */     Vector environments = MilestoneHelper.getUserEnvironments(context);
+/* 6503 */     int year = Calendar.getInstance().get(1);
+/* 6504 */     String date = "01/01/" + year;
 /*      */ 
 /*      */     
-/* 6496 */     query.append("SELECT release_id, title, artist, configuration, sub_configuration, upc, prefix, selection_no, digital_flag, street_date =  CASE digital_flag  WHEN 0 THEN street_date   WHEN 1 THEN digital_rls_date  END ,archimedes_id, Release_Family_id from vi_Release_Header WHERE ");
+/* 6507 */     query.append("SELECT release_id, title, artist, configuration, sub_configuration, upc, prefix, selection_no, digital_flag, street_date =  CASE digital_flag  WHEN 0 THEN street_date   WHEN 1 THEN digital_rls_date  END ,archimedes_id, Release_Family_id from vi_Release_Header WHERE ");
 /*      */ 
 /*      */ 
 /*      */ 
@@ -6501,132 +6512,132 @@
 /*      */ 
 /*      */ 
 /*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/* 6508 */     User user = (User)context.getSession().getAttribute("user");
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 6513 */     if (user.getPreferences().getSelectionEnvironment() > 0) {
+/* 6519 */     User user = (User)context.getSession().getAttribute("user");
+/*      */ 
+/*      */ 
+/*      */ 
+/*      */     
+/* 6524 */     if (user.getPreferences().getSelectionEnvironment() > 0) {
 /*      */       
-/* 6515 */       int envId = user.getPreferences().getSelectionEnvironment();
-/* 6516 */       query.append(" environment_id in (" + envId + ") ");
-/* 6517 */       user.SS_environmentSearch = String.valueOf(envId);
-/* 6518 */       user.RC_environment = String.valueOf(envId);
+/* 6526 */       int envId = user.getPreferences().getSelectionEnvironment();
+/* 6527 */       query.append(" environment_id in (" + envId + ") ");
+/* 6528 */       user.SS_environmentSearch = String.valueOf(envId);
+/* 6529 */       user.RC_environment = String.valueOf(envId);
 /*      */     } else {
-/* 6520 */       if (environments.size() > 0) {
-/* 6521 */         query.append(" environment_id in (");
+/* 6531 */       if (environments.size() > 0) {
+/* 6532 */         query.append(" environment_id in (");
 /*      */       }
-/* 6523 */       for (int i = 0; i < environments.size(); i++) {
-/* 6524 */         environment = (Environment)environments.get(i);
-/* 6525 */         if (environment != null) {
-/* 6526 */           if (i == 0) {
-/* 6527 */             query.append(environment.getStructureID());
+/* 6534 */       for (int i = 0; i < environments.size(); i++) {
+/* 6535 */         environment = (Environment)environments.get(i);
+/* 6536 */         if (environment != null) {
+/* 6537 */           if (i == 0) {
+/* 6538 */             query.append(environment.getStructureID());
 /*      */           } else {
-/* 6529 */             query.append("," + environment.getStructureID());
+/* 6540 */             query.append("," + environment.getStructureID());
 /*      */           } 
 /*      */         }
 /*      */       } 
-/* 6533 */       if (environments.size() > 0) {
-/* 6534 */         query.append(" )");
+/* 6544 */       if (environments.size() > 0) {
+/* 6545 */         query.append(" )");
 /*      */       }
 /*      */     } 
-/* 6537 */     Vector rFamilies = ReleasingFamily.getUserReleasingFamiliesVectorOfReleasingFamilies(context);
+/* 6548 */     Vector rFamilies = ReleasingFamily.getUserReleasingFamiliesVectorOfReleasingFamilies(context);
 /*      */     
-/* 6539 */     Hashtable relFamilyLabelFamilyHash = (Hashtable)user.getReleasingFamilyLabelFamily().clone();
+/* 6550 */     Hashtable relFamilyLabelFamilyHash = (Hashtable)user.getReleasingFamilyLabelFamily().clone();
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 6544 */     if (user.getPreferences().getSelectionReleasingFamily() > 0) {
+/* 6555 */     if (user.getPreferences().getSelectionReleasingFamily() > 0) {
 /*      */ 
-/*      */       
-/* 6547 */       addUndefinedReleasingFamilies(relFamilyLabelFamilyHash, context);
-/*      */       
-/* 6549 */       int relFamId = user.getPreferences().getSelectionReleasingFamily();
-/* 6550 */       query.append(" AND (Release_Family_id = " + relFamId);
-/* 6551 */       addLabelFamilySelect(Integer.toString(relFamId), relFamilyLabelFamilyHash, query);
-/* 6552 */       query.append(") ");
-/* 6553 */       user.SS_familySearch = String.valueOf(relFamId);
-/* 6554 */       user.RC_releasingFamily = String.valueOf(relFamId);
-/*      */     }
-/*      */     else {
 /*      */       
 /* 6558 */       addUndefinedReleasingFamilies(relFamilyLabelFamilyHash, context);
 /*      */       
-/* 6560 */       if (rFamilies != null && rFamilies.size() > 0) {
-/* 6561 */         query.append(" AND (");
-/* 6562 */         for (int i = 0; i < rFamilies.size(); i++) {
-/* 6563 */           ReleasingFamily rf = (ReleasingFamily)rFamilies.get(i);
-/* 6564 */           if (i > 0)
-/* 6565 */             query.append(" OR "); 
-/* 6566 */           query.append("(Release_Family_id = " + rf.getReleasingFamilyId());
-/* 6567 */           addLabelFamilySelect(Integer.toString(rf.getReleasingFamilyId()), 
-/* 6568 */               relFamilyLabelFamilyHash, query);
-/* 6569 */           query.append(")");
+/* 6560 */       int relFamId = user.getPreferences().getSelectionReleasingFamily();
+/* 6561 */       query.append(" AND (Release_Family_id = " + relFamId);
+/* 6562 */       addLabelFamilySelect(Integer.toString(relFamId), relFamilyLabelFamilyHash, query);
+/* 6563 */       query.append(") ");
+/* 6564 */       user.SS_familySearch = String.valueOf(relFamId);
+/* 6565 */       user.RC_releasingFamily = String.valueOf(relFamId);
+/*      */     }
+/*      */     else {
+/*      */       
+/* 6569 */       addUndefinedReleasingFamilies(relFamilyLabelFamilyHash, context);
+/*      */       
+/* 6571 */       if (rFamilies != null && rFamilies.size() > 0) {
+/* 6572 */         query.append(" AND (");
+/* 6573 */         for (int i = 0; i < rFamilies.size(); i++) {
+/* 6574 */           ReleasingFamily rf = (ReleasingFamily)rFamilies.get(i);
+/* 6575 */           if (i > 0)
+/* 6576 */             query.append(" OR "); 
+/* 6577 */           query.append("(Release_Family_id = " + rf.getReleasingFamilyId());
+/* 6578 */           addLabelFamilySelect(Integer.toString(rf.getReleasingFamilyId()), 
+/* 6579 */               relFamilyLabelFamilyHash, query);
+/* 6580 */           query.append(")");
 /*      */         } 
-/* 6571 */         query.append(") ");
+/* 6582 */         query.append(") ");
 /*      */       } else {
 /*      */         
-/* 6574 */         query.append(" AND (Release_Family_id = -1 and family_id = -1) ");
+/* 6585 */         query.append(" AND (Release_Family_id = -1 and family_id = -1) ");
 /*      */       } 
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */     
-/* 6580 */     if (user != null && user.getPreferences() != null) {
+/* 6591 */     if (user != null && user.getPreferences() != null) {
 /*      */ 
 /*      */       
-/* 6583 */       user.SS_showAllSearch = "true";
-/* 6584 */       if (user.getPreferences().getSelectionStatus() == 0) {
+/* 6594 */       user.SS_showAllSearch = "true";
+/* 6595 */       if (user.getPreferences().getSelectionStatus() == 0) {
 /*      */         
-/* 6586 */         query.append(" AND NOT ( status = 'CLOSED' OR  status = 'CANCEL' )");
-/* 6587 */         user.SS_showAllSearch = "false";
+/* 6597 */         query.append(" AND NOT ( status = 'CLOSED' OR  status = 'CANCEL' )");
+/* 6598 */         user.SS_showAllSearch = "false";
 /*      */       } 
 /*      */ 
 /*      */       
-/* 6591 */       if (user.getPreferences().getSelectionLabelContact() > 0) {
+/* 6602 */       if (user.getPreferences().getSelectionLabelContact() > 0) {
 /*      */         
-/* 6593 */         query.append(" AND contact_id = " + user.getPreferences().getSelectionLabelContact());
-/* 6594 */         user.SS_contactSearch = String.valueOf(user.getPreferences().getSelectionLabelContact());
-/* 6595 */         user.RC_labelContact = String.valueOf(user.getPreferences().getSelectionLabelContact());
+/* 6604 */         query.append(" AND contact_id = " + user.getPreferences().getSelectionLabelContact());
+/* 6605 */         user.SS_contactSearch = String.valueOf(user.getPreferences().getSelectionLabelContact());
+/* 6606 */         user.RC_labelContact = String.valueOf(user.getPreferences().getSelectionLabelContact());
 /*      */       } 
 /*      */ 
 /*      */       
-/* 6599 */       if (user.getPreferences().getSelectionProductType() > -1) {
+/* 6610 */       if (user.getPreferences().getSelectionProductType() > -1) {
 /*      */ 
 /*      */         
-/* 6602 */         String productTypeSearch = "";
-/* 6603 */         if (user.getPreferences().getSelectionProductType() == 0) {
+/* 6613 */         String productTypeSearch = "";
+/* 6614 */         if (user.getPreferences().getSelectionProductType() == 0) {
 /*      */           
-/* 6605 */           productTypeSearch = "physical";
-/* 6606 */           query.append(" AND digital_flag = 0 ");
+/* 6616 */           productTypeSearch = "physical";
+/* 6617 */           query.append(" AND digital_flag = 0 ");
 /*      */         } 
-/* 6608 */         if (user.getPreferences().getSelectionProductType() == 1) {
+/* 6619 */         if (user.getPreferences().getSelectionProductType() == 1) {
 /*      */           
-/* 6610 */           productTypeSearch = "digital";
-/* 6611 */           query.append(" AND digital_flag = 1 ");
+/* 6621 */           productTypeSearch = "digital";
+/* 6622 */           query.append(" AND digital_flag = 1 ");
 /*      */         } 
-/* 6613 */         if (user.getPreferences().getSelectionProductType() == 2)
+/* 6624 */         if (user.getPreferences().getSelectionProductType() == 2)
 /*      */         {
-/* 6615 */           productTypeSearch = "both";
+/* 6626 */           productTypeSearch = "both";
 /*      */         }
-/* 6617 */         user.SS_productTypeSearch = productTypeSearch;
-/* 6618 */         user.RC_productType = MilestoneHelper_2.convertProductTypeToReleaseCalendar(productTypeSearch);
+/* 6628 */         user.SS_productTypeSearch = productTypeSearch;
+/* 6629 */         user.RC_productType = MilestoneHelper_2.convertProductTypeToReleaseCalendar(productTypeSearch);
 /*      */       } 
 /*      */     } 
 /*      */ 
 /*      */ 
 /*      */     
-/* 6624 */     query.append(ShowOrHideDigitalProductGet(user));
+/* 6635 */     query.append(ShowOrHideDigitalProductGet(user));
 /*      */ 
 /*      */     
-/* 6627 */     log.log("selection query " + query.toString());
+/* 6638 */     log.log("selection query " + query.toString());
 /*      */     
-/* 6629 */     return query.toString();
+/* 6640 */     return query.toString();
 /*      */   }
 /*      */ 
 /*      */ 
@@ -6636,72 +6647,72 @@
 /*      */ 
 /*      */   
 /*      */   public static String getSelectionNotepadQueryUserDefaultsOrderBy(Context context) {
-/* 6639 */     User user = (User)context.getSession().getAttribute("user");
+/* 6650 */     User user = (User)context.getSession().getAttribute("user");
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */     
-/* 6645 */     String order = " ORDER BY artist, title, selection_no, street_date";
+/* 6656 */     String order = " ORDER BY artist, title, selection_no, street_date";
 /*      */ 
 /*      */     
-/* 6648 */     if (user != null && user.getPreferences() != null) {
+/* 6659 */     if (user != null && user.getPreferences() != null) {
 /*      */ 
 /*      */       
-/* 6651 */       NotepadSortOrder notepadSortOrder = NotepadSortOrder.getNotepadSortOrderFromSession(context);
-/* 6652 */       notepadSortOrder.setSelectionOrderCol("Artist");
-/* 6653 */       notepadSortOrder.setSelectionOrderBy(order);
-/* 6654 */       notepadSortOrder.setShowGroupButtons(true);
-/* 6655 */       notepadSortOrder.setSelectionOrderColNo(0);
+/* 6662 */       NotepadSortOrder notepadSortOrder = NotepadSortOrder.getNotepadSortOrderFromSession(context);
+/* 6663 */       notepadSortOrder.setSelectionOrderCol("Artist");
+/* 6664 */       notepadSortOrder.setSelectionOrderBy(order);
+/* 6665 */       notepadSortOrder.setShowGroupButtons(true);
+/* 6666 */       notepadSortOrder.setSelectionOrderColNo(0);
 /*      */ 
 /*      */       
-/* 6658 */       if (user.getPreferences().getNotepadSortBy() == 1) {
-/* 6659 */         if (user.getPreferences().getNotepadOrder() == 1) {
-/* 6660 */           order = " ORDER BY artist ASC , title, selection_no, street_date";
-/* 6661 */         } else if (user.getPreferences().getNotepadOrder() == 2) {
+/* 6669 */       if (user.getPreferences().getNotepadSortBy() == 1) {
+/* 6670 */         if (user.getPreferences().getNotepadOrder() == 1) {
+/* 6671 */           order = " ORDER BY artist ASC , title, selection_no, street_date";
+/* 6672 */         } else if (user.getPreferences().getNotepadOrder() == 2) {
 /*      */           
-/* 6663 */           order = " ORDER BY artist DESC , title, selection_no, street_date";
-/* 6664 */           notepadSortOrder.setSelectionOrderColNo(7);
+/* 6674 */           order = " ORDER BY artist DESC , title, selection_no, street_date";
+/* 6675 */           notepadSortOrder.setSelectionOrderColNo(7);
 /*      */         } else {
-/* 6666 */           order = " ORDER BY artist, title, selection_no, street_date";
+/* 6677 */           order = " ORDER BY artist, title, selection_no, street_date";
 /*      */         } 
 /*      */         
-/* 6669 */         notepadSortOrder.setSelectionOrderCol("Artist");
-/* 6670 */         notepadSortOrder.setSelectionOrderBy(order);
-/* 6671 */         notepadSortOrder.setShowGroupButtons(true);
+/* 6680 */         notepadSortOrder.setSelectionOrderCol("Artist");
+/* 6681 */         notepadSortOrder.setSelectionOrderBy(order);
+/* 6682 */         notepadSortOrder.setShowGroupButtons(true);
 /*      */       }
-/* 6673 */       else if (user.getPreferences().getNotepadSortBy() == 2) {
-/* 6674 */         notepadSortOrder.setSelectionOrderColNo(1);
-/* 6675 */         if (user.getPreferences().getNotepadOrder() == 1) {
-/* 6676 */           order = " ORDER BY title ASC , artist, selection_no, street_date";
-/* 6677 */         } else if (user.getPreferences().getNotepadOrder() == 2) {
+/* 6684 */       else if (user.getPreferences().getNotepadSortBy() == 2) {
+/* 6685 */         notepadSortOrder.setSelectionOrderColNo(1);
+/* 6686 */         if (user.getPreferences().getNotepadOrder() == 1) {
+/* 6687 */           order = " ORDER BY title ASC , artist, selection_no, street_date";
+/* 6688 */         } else if (user.getPreferences().getNotepadOrder() == 2) {
 /*      */           
-/* 6679 */           order = " ORDER BY title DESC , artist, selection_no, street_date";
-/* 6680 */           notepadSortOrder.setSelectionOrderColNo(8);
+/* 6690 */           order = " ORDER BY title DESC , artist, selection_no, street_date";
+/* 6691 */           notepadSortOrder.setSelectionOrderColNo(8);
 /*      */         } else {
-/* 6682 */           order = " ORDER BY title, artist, selection_no, street_date";
+/* 6693 */           order = " ORDER BY title, artist, selection_no, street_date";
 /*      */         } 
-/* 6684 */         notepadSortOrder.setSelectionOrderCol("Title");
-/* 6685 */         notepadSortOrder.setSelectionOrderBy(order);
-/* 6686 */         notepadSortOrder.setShowGroupButtons(true);
+/* 6695 */         notepadSortOrder.setSelectionOrderCol("Title");
+/* 6696 */         notepadSortOrder.setSelectionOrderBy(order);
+/* 6697 */         notepadSortOrder.setShowGroupButtons(true);
 /*      */       }
-/* 6688 */       else if (user.getPreferences().getNotepadSortBy() == 3) {
-/* 6689 */         notepadSortOrder.setSelectionOrderColNo(5);
-/* 6690 */         if (user.getPreferences().getNotepadOrder() == 1) {
-/* 6691 */           order = " ORDER BY street_date ASC , artist, title, selection_no";
-/* 6692 */         } else if (user.getPreferences().getNotepadOrder() == 2) {
-/* 6693 */           order = " ORDER BY street_date DESC , artist, title, selection_no";
+/* 6699 */       else if (user.getPreferences().getNotepadSortBy() == 3) {
+/* 6700 */         notepadSortOrder.setSelectionOrderColNo(5);
+/* 6701 */         if (user.getPreferences().getNotepadOrder() == 1) {
+/* 6702 */           order = " ORDER BY street_date ASC , artist, title, selection_no";
+/* 6703 */         } else if (user.getPreferences().getNotepadOrder() == 2) {
+/* 6704 */           order = " ORDER BY street_date DESC , artist, title, selection_no";
 /*      */         } else {
-/* 6695 */           order = " ORDER BY street_date, artist, title, selection_no";
+/* 6706 */           order = " ORDER BY street_date, artist, title, selection_no";
 /*      */         } 
-/* 6697 */         notepadSortOrder.setShowGroupButtons(false);
-/* 6698 */         notepadSortOrder.setSelectionOrderCol("Str Dt");
-/* 6699 */         notepadSortOrder.setSelectionOrderBy(order);
+/* 6708 */         notepadSortOrder.setShowGroupButtons(false);
+/* 6709 */         notepadSortOrder.setSelectionOrderCol("Str Dt");
+/* 6710 */         notepadSortOrder.setSelectionOrderBy(order);
 /*      */       } 
 /*      */     } 
 /*      */ 
 /*      */     
-/* 6704 */     return order;
+/* 6715 */     return order;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -6712,14 +6723,14 @@
 /*      */ 
 /*      */   
 /*      */   public static void setSelectionNotepadUserDefaults(Context context) {
-/* 6715 */     Notepad selNotepad = MilestoneHelper.getNotepadFromSession(0, context);
+/* 6726 */     Notepad selNotepad = MilestoneHelper.getNotepadFromSession(0, context);
 /*      */     
-/* 6717 */     if (selNotepad == null) {
+/* 6728 */     if (selNotepad == null) {
 /*      */       
-/* 6719 */       User user = (User)context.getSession().getAttribute("user");
-/* 6720 */       if (user != null) {
-/* 6721 */         selNotepad = getInstance().getSelectionNotepad(context, user.getUserId(), 0);
-/* 6722 */         MilestoneHelper.putNotepadIntoSession(selNotepad, context);
+/* 6730 */       User user = (User)context.getSession().getAttribute("user");
+/* 6731 */       if (user != null) {
+/* 6732 */         selNotepad = getInstance().getSelectionNotepad(context, user.getUserId(), 0);
+/* 6733 */         MilestoneHelper.putNotepadIntoSession(selNotepad, context);
 /*      */       } 
 /*      */     } 
 /*      */   }
@@ -6731,14 +6742,14 @@
 /*      */ 
 /*      */   
 /*      */   public static void GDRS_QueueAddReleaseId(Selection selection, String statusCode) {
-/* 6734 */     if ((selection != null && selection.getReleaseFamilyId() != 820 && IsDigitalEquivalent(selection) && (
-/* 6735 */       !selection.releaseType.abbreviation.equals("PR") || !selection.getUpc().trim().equals(""))) || statusCode.equals("DELETE")) {
+/* 6745 */     if ((selection != null && selection.getReleaseFamilyId() != 820 && IsDigitalEquivalent(selection) && (
+/* 6746 */       !selection.releaseType.abbreviation.equals("PR") || !selection.getUpc().trim().equals(""))) || statusCode.equals("DELETE")) {
 /*      */       
-/* 6737 */       String query = "INSERT INTO [dbo].[MilestoneCPRSD] ([release_id],[statusCode]) VALUES (" + 
-/* 6738 */         selection.getSelectionID() + ",'" + statusCode + "')";
-/* 6739 */       JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 6740 */       connector.runQuery();
-/* 6741 */       connector.close();
+/* 6748 */       String query = "INSERT INTO [dbo].[MilestoneCPRSD] ([release_id],[statusCode]) VALUES (" + 
+/* 6749 */         selection.getSelectionID() + ",'" + statusCode + "')";
+/* 6750 */       JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 6751 */       connector.runQuery();
+/* 6752 */       connector.close();
 /*      */     } 
 /*      */   }
 /*      */ 
@@ -6748,21 +6759,21 @@
 /*      */ 
 /*      */   
 /*      */   public static boolean IsDigitalEquivalent(Selection selection) {
-/* 6751 */     boolean results = false;
+/* 6762 */     boolean results = false;
 /*      */     
-/* 6753 */     Vector configCodes = Cache.getConfigCodes();
-/* 6754 */     for (int x = 0; x < configCodes.size(); x++) {
+/* 6764 */     Vector configCodes = Cache.getConfigCodes();
+/* 6765 */     for (int x = 0; x < configCodes.size(); x++) {
 /*      */       
-/* 6756 */       LookupObject lo = (LookupObject)configCodes.get(x);
-/* 6757 */       if (lo != null && lo.getAbbreviation().equals(selection.getConfigCode()) && lo.getIsDigitalEquivalent()) {
+/* 6767 */       LookupObject lo = (LookupObject)configCodes.get(x);
+/* 6768 */       if (lo != null && lo.getAbbreviation().equals(selection.getConfigCode()) && lo.getIsDigitalEquivalent()) {
 /*      */         
-/* 6759 */         results = true;
+/* 6770 */         results = true;
 /*      */         
 /*      */         break;
 /*      */       } 
 /*      */     } 
 /*      */     
-/* 6765 */     return results;
+/* 6776 */     return results;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -6771,16 +6782,16 @@
 /*      */ 
 /*      */   
 /*      */   public static String IsDigitalEquivalentGetConfigs() {
-/* 6774 */     results = "";
+/* 6785 */     results = "";
 /*      */     
-/* 6776 */     Vector configCodes = Cache.getConfigCodes();
-/* 6777 */     for (int x = 0; x < configCodes.size(); x++) {
+/* 6787 */     Vector configCodes = Cache.getConfigCodes();
+/* 6788 */     for (int x = 0; x < configCodes.size(); x++) {
 /*      */       
-/* 6779 */       LookupObject lo = (LookupObject)configCodes.get(x);
-/* 6780 */       if (lo != null && lo.getIsDigitalEquivalent())
-/* 6781 */         results = String.valueOf(results) + lo.getAbbreviation() + ";"; 
+/* 6790 */       LookupObject lo = (LookupObject)configCodes.get(x);
+/* 6791 */       if (lo != null && lo.getIsDigitalEquivalent())
+/* 6792 */         results = String.valueOf(results) + lo.getAbbreviation() + ";"; 
 /*      */     } 
-/* 6783 */     return results;
+/* 6794 */     return results;
 /*      */   }
 /*      */ 
 /*      */ 
@@ -6789,21 +6800,21 @@
 /*      */ 
 /*      */   
 /*      */   public static boolean IsPfmDraftOrFinal(int releaseId) {
-/* 6792 */     boolean result = false;
-/* 6793 */     String query = "SELECT isnull(print_flag,'') as print_flag FROM dbo.Pfm_Selection WHERE (release_id = " + releaseId + ")";
-/* 6794 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 6795 */     connector.runQuery();
+/* 6803 */     boolean result = false;
+/* 6804 */     String query = "SELECT isnull(print_flag,'') as print_flag FROM dbo.Pfm_Selection WHERE (release_id = " + releaseId + ")";
+/* 6805 */     JdbcConnector connector = MilestoneHelper.getConnector(query);
+/* 6806 */     connector.runQuery();
 /*      */     
-/* 6797 */     String printFlag = "";
-/* 6798 */     if (connector.more())
+/* 6808 */     String printFlag = "";
+/* 6809 */     if (connector.more())
 /*      */     {
 /*      */ 
 /*      */       
-/* 6802 */       result = true;
+/* 6813 */       result = true;
 /*      */     }
-/* 6804 */     connector.close();
+/* 6815 */     connector.close();
 /*      */     
-/* 6806 */     return result;
+/* 6817 */     return result;
 /*      */   }
 /*      */ }
 

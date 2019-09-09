@@ -1077,8 +1077,8 @@
 /* 1077 */         selection.setProjectID(connector.getField("project_no", ""));
 /*      */ 
 /*      */         
-/* 1080 */         selection.setSelectionStatus(
-/* 1081 */             (SelectionStatus)MilestoneHelper.getLookupObject(connector.getField("status"), Cache.getSelectionStatusList()));
+/* 1080 */         selection.setSelectionStatus((SelectionStatus)MilestoneHelper.getLookupObject(connector.getField("status"), 
+/* 1081 */               Cache.getSelectionStatusList()));
 /*      */ 
 /*      */         
 /* 1084 */         String streetDateString = connector.getFieldByName("street_date");

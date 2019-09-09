@@ -1135,7 +1135,7 @@
 /*      */     
 /* 1136 */     String[] columnNames = { "Task Name", "Wks to Rls", "Own", "Dpt" };
 /* 1137 */     contents = TaskManager.getInstance().getTaskNotepadList(context, null);
-/* 1138 */     return new Notepad(contents, 0, 7, "Tasks", 4, columnNames);
+/* 1138 */     return new Notepad(contents, 0, 15, "Tasks", 4, columnNames);
 /*      */   }
 /*      */ 
 /*      */ 

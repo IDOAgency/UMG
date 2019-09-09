@@ -284,12 +284,14 @@ function submitResize()
       parent.top.bottomFrame.location = "home?cmd=notepad-toggle&notepadType=<%=MilestoneConstants.NOTEPAD_SCHEDULE_TASKS_VISIBLE%>&lastCommand=<%=form.getRenderableValue("cmd")%>";
   <%}%>
  } //end submitResize
-                                                            //sOnColor
- parent.top.menuFrame.document.all.MIschedule.style.color = 6750156;
+ if(parent.top.menuFrame.document.all.MIschedule)
+ {                                                            //sOnColor
+ 	parent.top.menuFrame.document.all.MIschedule.style.color = 6750156;
                                                               //sOffColor
- parent.top.menuFrame.document.all.MIselection.style.color = 65638;
- parent.top.menuFrame.selectedMenuItem = "schedule";
-
+	 parent.top.menuFrame.document.all.MIselection.style.color = 65638;
+                                                              
+	 parent.top.menuFrame.selectedMenuItem = "schedule";
+ }
  // ITS 1046 - jo - 2005-01-03
  function validateDate(pName)
  {

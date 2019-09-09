@@ -213,7 +213,7 @@
 /*      */         
 /*  214 */         while (monthsC.hasMoreElements()) {
 /*  215 */           monthVectorC.add((String)monthsC.nextElement());
-/*  216 */           Object[] monthArrayC = (Object[])null;
+/*  216 */           Object[] monthArrayC = null;
 /*  217 */           monthArrayC = monthVectorC.toArray();
 /*  218 */           totalCount += monthArrayC.length;
 /*      */         } 
@@ -458,7 +458,7 @@
 /*  458 */           while (months.hasMoreElements()) {
 /*  459 */             monthVector.add((String)months.nextElement());
 /*      */           }
-/*  461 */           Object[] monthArray = (Object[])null;
+/*  461 */           Object[] monthArray = null;
 /*  462 */           monthArray = monthVector.toArray();
 /*      */           
 /*  464 */           Arrays.sort(monthArray, new MonthYearComparator());
@@ -540,7 +540,7 @@
 /*  540 */               while (dateSort.hasMoreElements()) {
 /*  541 */                 dateVector.add((String)dateSort.nextElement());
 /*      */               }
-/*  543 */               Object[] dateArray = (Object[])null;
+/*  543 */               Object[] dateArray = null;
 /*      */               
 /*  545 */               dateArray = dateVector.toArray();
 /*  546 */               Arrays.sort(dateArray, new StringDateComparator());
@@ -785,8 +785,8 @@
 /*  785 */                         if (task.getCompletionDate() != null) {
 /*  786 */                           SimpleDateFormat completionDateFormatter = 
 /*  787 */                             new SimpleDateFormat("M/d");
-/*  788 */                           completionDate = completionDateFormatter.format(
-/*  789 */                               task.getCompletionDate().getTime());
+/*  788 */                           completionDate = completionDateFormatter.format(task
+/*  789 */                               .getCompletionDate().getTime());
 /*      */                         } 
 /*      */ 
 /*      */ 

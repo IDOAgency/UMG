@@ -164,7 +164,7 @@
 /*     */   private void getSessionInfo() {
 /*     */     try {
 /* 166 */       WebServiceContext wsContext = WebServiceContext.currentContext();
-/* 167 */       WebServiceSession session = wsContext.getSession();
+/* 167 */       WebServiceSession webServiceSession = wsContext.getSession();
 /*     */ 
 /*     */     
 /*     */     }

@@ -417,7 +417,7 @@
 /* 417 */                 while (monthSort.hasMoreElements()) {
 /* 418 */                   monthVector.add((String)monthSort.nextElement());
 /*     */                 }
-/* 420 */                 Object[] monthArray = (Object[])null;
+/* 420 */                 Object[] monthArray = null;
 /*     */                 
 /* 422 */                 monthArray = monthVector.toArray();
 /*     */                 

@@ -228,7 +228,7 @@
 /* 228 */             monthVectorC.add((String)monthsC.nextElement());
 /*     */           }
 /*     */           
-/* 231 */           Object[] monthArrayC = (Object[])null;
+/* 231 */           Object[] monthArrayC = null;
 /* 232 */           monthArrayC = monthVectorC.toArray();
 /*     */           
 /* 234 */           for (int b = 0; b < monthArrayC.length; b++) {

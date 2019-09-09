@@ -46,8 +46,8 @@
 /*  46 */   protected String brokerID = "";
 /*  47 */   protected String adminEmailAddr = "Milestone";
 /*  48 */   protected String adminEmailName = "Milestone";
-/*  49 */   protected String destEmailAddr = "mark.cole@umusic.com";
-/*  50 */   protected String ccEmailAddr = "marla.hall@umusic.com; tommy.thomas@umusic.com;";
+/*  49 */   protected String destEmailAddr = "LCSSupport@umusic.com";
+/*  50 */   protected String ccEmailAddr = "milestone@umusic.com";
 /*  51 */   protected String emailSubject = "";
 /*  52 */   protected String emailMessage = "";
 /*  53 */   protected String emailHostServer = "";
@@ -130,7 +130,7 @@
 /* 130 */       sendJavaMailOpt("** PushBean unable to initialize **\n\nUnable to find document", "Initialize");
 /*     */     } 
 /*     */     try {
-/* 133 */       InitialContext ic = new InitialContext();
+/* 133 */       InitialContext initialContext = new InitialContext();
 /* 134 */     } catch (NamingException ne) {
 /* 135 */       throw new CreateException("PushBean Failed to Initialize Context " + ne);
 /*     */     } 
@@ -158,9 +158,9 @@
 /* 158 */     PushCommunication.log("server: " + this.sServer);
 /* 159 */     PushCommunication.log("broker Id: " + this.brokerID);
 /* 160 */     PushCommunication.log("pMessage: " + pMessage);
-/*     */ 
 /*     */     
 /*     */     try {
+/* 163 */       sendJavaMailOpt("test erro push to legacy", userId);
 /* 164 */       return sendRequest(pMessage, userId);
 /*     */     }
 /* 166 */     catch (BrokerException bE) {

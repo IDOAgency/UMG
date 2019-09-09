@@ -11,6 +11,7 @@
 /*      */ import com.universal.milestone.JdbcConnector;
 /*      */ import com.universal.milestone.MilestoneConstants;
 /*      */ import com.universal.milestone.MilestoneHelper;
+/*      */ import com.universal.milestone.MilestoneHelper_2;
 /*      */ import com.universal.milestone.ProjectSearch;
 /*      */ import com.universal.milestone.ProjectSearchComparator;
 /*      */ import com.universal.milestone.ProjectSearchManager;
@@ -23,10 +24,9 @@
 /*      */ import java.util.Enumeration;
 /*      */ import java.util.HashMap;
 /*      */ import java.util.Hashtable;
+/*      */ import java.util.Properties;
 /*      */ import java.util.StringTokenizer;
 /*      */ import java.util.Vector;
-/*      */ 
-/*      */ 
 /*      */ 
 /*      */ 
 /*      */ 
@@ -1161,60 +1161,86 @@
 /* 1161 */     String subject = String.valueOf(envName.toUpperCase()) + " Project Search: Archimedes DB Connection Down ";
 /* 1162 */     String body = " The " + envName.toUpperCase() + " database connection from Milestone to Archimedes is down. " + 
 /* 1163 */       envName.toUpperCase() + " Milestone will be querying against the ArchimedesProjects snapshot table";
-/* 1164 */     String recipients = "cgareca@hpe.com";
-/* 1165 */     String copyRecipients = "cgareca@hpe.com;shanmuga.selvaraj@umusic.com";
+/* 1164 */     String recipients = "";
+/* 1165 */     String copyRecipients = "";
 /* 1166 */     String attachment = "";
 /*      */     
 /* 1168 */     boolean result = false;
 /*      */     
 /*      */     try {
-/* 1171 */       StringTokenizer valueTokenizer = new StringTokenizer(recipients, ";");
-/* 1172 */       ArrayList destList = new ArrayList();
+/* 1171 */       Properties fileProps = MilestoneHelper_2.readConfigFile(MilestoneHelper_2.MILESTONE_CONFIG_FILE);
+/* 1172 */       if (fileProps != null) {
+/*      */         
+/* 1174 */         recipients = fileProps.getProperty("ProjectSearchEmailDistributionRecipients");
+/* 1175 */         copyRecipients = fileProps.getProperty("ProjectSearchEmailDistributionCopyRecipients");
+/*      */         
+/* 1177 */         if (recipients == null) {
+/*      */           
+/* 1179 */           log.debug("ProjectSearchManager: sendEmailDistribution:  no property 'ProjectSearchEmailDistributionRecipients' in " + MilestoneHelper_2.MILESTONE_CONFIG_FILE);
+/* 1180 */           recipients = "";
+/*      */         } 
+/*      */         
+/* 1183 */         if (copyRecipients == null) {
+/*      */           
+/* 1185 */           log.debug("ProjectSearchManager: sendEmailDistribution: no property 'ProjectSearchEmailDistributionCopyRecipients' in " + MilestoneHelper_2.MILESTONE_CONFIG_FILE);
+/* 1186 */           copyRecipients = "";
+/*      */         } 
+/*      */       } 
 /*      */       
-/* 1174 */       while (valueTokenizer.hasMoreTokens()) {
-/* 1175 */         destList.add(new SessionUserEmailObj(valueTokenizer.nextToken().trim(), true));
+/* 1190 */       if (fileProps == null || (recipients.isEmpty() && copyRecipients.isEmpty())) {
+/*      */         
+/* 1192 */         log.debug("ProjectSearchManager: sendEmailDistribution:  no emails sent out because of failing to get properties 'ProjectSearchEmailDistributionRecipients' and  'ProjectSearchEmailDistributionRecipients' in " + 
+/* 1193 */             MilestoneHelper_2.MILESTONE_CONFIG_FILE);
+/* 1194 */         return result;
+/*      */       } 
+/*      */       
+/* 1197 */       StringTokenizer valueTokenizer = new StringTokenizer(recipients, ";");
+/* 1198 */       ArrayList destList = new ArrayList();
+/*      */       
+/* 1200 */       while (valueTokenizer.hasMoreTokens()) {
+/* 1201 */         destList.add(new SessionUserEmailObj(valueTokenizer.nextToken().trim(), true));
 /*      */       }
 /*      */       
-/* 1178 */       StringTokenizer ccValueTokenizer = new StringTokenizer(copyRecipients, ";");
-/* 1179 */       ArrayList ccList = new ArrayList();
+/* 1204 */       StringTokenizer ccValueTokenizer = new StringTokenizer(copyRecipients, ";");
+/* 1205 */       ArrayList ccList = new ArrayList();
 /*      */       
-/* 1181 */       while (ccValueTokenizer.hasMoreTokens()) {
-/* 1182 */         ccList.add(new SessionUserEmailObj(ccValueTokenizer.nextToken().trim(), true));
+/* 1207 */       while (ccValueTokenizer.hasMoreTokens()) {
+/* 1208 */         ccList.add(new SessionUserEmailObj(ccValueTokenizer.nextToken().trim(), true));
 /*      */       }
-/* 1184 */       SessionUserEmail sue = new SessionUserEmail();
-/* 1185 */       body = "<font face='arial'>" + body + "</font>";
-/* 1186 */       result = sue.sendEmail(destList, body, subject, attachment, ccList);
+/* 1210 */       SessionUserEmail sue = new SessionUserEmail();
+/* 1211 */       body = "<font face='arial'>" + body + "</font>";
+/* 1212 */       result = sue.sendEmail(destList, body, subject, attachment, ccList);
 /*      */     }
-/* 1188 */     catch (Exception e) {
+/* 1214 */     catch (Exception e) {
 /*      */       
-/* 1190 */       System.out.println("send email exception...");
+/* 1216 */       System.out.println("send email exception...");
 /*      */     } 
-/* 1192 */     return result;
+/* 1218 */     return result;
 /*      */   }
 /*      */ 
 /*      */ 
 /*      */ 
 /*      */   
 /*      */   public static Vector getProjectSearchJDEFamilies() {
-/* 1199 */     returnFamilies = new Vector();
+/* 1225 */     returnFamilies = new Vector();
 /*      */     
-/* 1201 */     String jdeQuery = "select value from vi_lookup_detail where field_id = 65";
-/* 1202 */     JdbcConnector connector = MilestoneHelper.getConnector(jdeQuery);
+/* 1227 */     String jdeQuery = "select value from vi_lookup_detail where field_id = 65";
+/* 1228 */     JdbcConnector connector = MilestoneHelper.getConnector(jdeQuery);
 /*      */     
 /*      */     try {
-/* 1205 */       connector.runQuery();
-/* 1206 */     } catch (Exception e) {
-/* 1207 */       System.out.println("****exception raised in getProjectSearchJDEFamilies****");
+/* 1231 */       connector.runQuery();
+/* 1232 */     } catch (Exception e) {
+/* 1233 */       System.out.println("****exception raised in getProjectSearchJDEFamilies****");
 /*      */     } 
 /*      */     
-/* 1210 */     while (connector.more()) {
+/* 1236 */     while (connector.more()) {
 /*      */       
-/* 1212 */       returnFamilies.add(new Integer(connector.getField("value")));
-/* 1213 */       connector.next();
+/* 1238 */       returnFamilies.add(new Integer(connector.getField("value")));
+/* 1239 */       connector.next();
 /*      */     } 
-/* 1215 */     connector.close();
+/* 1241 */     connector.close();
 /*      */     
-/* 1217 */     return returnFamilies;
+/* 1243 */     return returnFamilies;
 /*      */   }
 /*      */ }
 

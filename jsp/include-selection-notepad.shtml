@@ -35,13 +35,21 @@ a.pinkLink:hover {color: red; font-size: 8pt; font-family: "Arial","Helvetica"; 
 var sOffColor = 65638;
 <% Selection myTempCurrentSelection = (Selection)context.getSessionValue("Selection"); %>
 <% if (myTempCurrentSelection != null && myTempCurrentSelection.getIsDigital()) { %>
-	top.menuFrame.MIselectionmanufacturing.style.color = sOffColor;
-	top.menuFrame.MIselectionmanufacturing.style.visibility='hidden';
-	top.menuFrame.MIbom.style.color = sOffColor;
-	top.menuFrame.MIbom.style.visibility='hidden';
+	if(parent.top.menuFrame.document.all.MIselectionmanufacturing) {
+		top.menuFrame.MIselectionmanufacturing.style.color = sOffColor;
+		top.menuFrame.MIselectionmanufacturing.style.visibility='hidden';
+	}
+	if(parent.top.menuFrame.document.all.MIbom) {
+		top.menuFrame.MIbom.style.color = sOffColor;
+		top.menuFrame.MIbom.style.visibility='hidden';
+	}
 <% } else { %>
-	top.menuFrame.MIselectionmanufacturing.style.visibility='visible';
-	top.menuFrame.MIbom.style.visibility='visible';
+	if(parent.top.menuFrame.document.all.MIselectionmanufacturing) {
+		top.menuFrame.MIselectionmanufacturing.style.visibility='visible';
+	}
+	if(parent.top.menuFrame.document.all.MIbom) {
+		top.menuFrame.MIbom.style.visibility='visible';
+	}
 <% } %>
 
 /* function submitGroup( alpha, colNo )

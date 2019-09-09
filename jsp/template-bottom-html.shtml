@@ -49,7 +49,7 @@ if(!isMacBT)
 function submitFormWaitMsg(fObj)
 {
   // display wait message
-  if(parent.top.menuFrame)
+  if(parent.top.menuFrame.document.all.WaitLayerDiv)
     parent.top.menuFrame.document.all.WaitLayerDiv.style.display = "block";
   fObj.origSubmit(); // calls the original submit function
 }
@@ -80,4 +80,3 @@ if(document.forms)
 </script>
 
 </body>
-</html>

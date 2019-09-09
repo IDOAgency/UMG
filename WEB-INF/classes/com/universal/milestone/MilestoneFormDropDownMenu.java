@@ -219,7 +219,7 @@
 /*     */   
 /*     */   public void setValue(Context context) {
 /* 221 */     if (this.multiple) {
-/* 222 */       String[] multSels = (String[])null;
+/* 222 */       String[] multSels = null;
 /*     */       try {
 /* 224 */         multSels = context.getRequest().getParameterValues(getName());
 /* 225 */       } catch (IllegalArgumentException iaexc) {

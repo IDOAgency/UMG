@@ -131,7 +131,7 @@ DIV.search {
 	top: 20px;
 	font-weight: bold;
 	visibility:visible;
-	width:210px;
+	width: auto;
 	z-index:2;
 	background-color: wheat;
 }
@@ -142,7 +142,7 @@ DIV.search2 {
 	top: 0px;
 	font-weight: bold;
 	visibility:visible;
-	width:210px;
+	width: auto;
 	z-index:0;
 	background-color: wheat;
 }
@@ -257,10 +257,6 @@ IMG.separator {
         background-color: #CCCCCC;
 }
 
-#specialIntructionsBox textarea {
-	height : 150px; 
-}
-
 a.digital:link {font-size: 8pt;	font-family: "Arial","Helvetica"; color: #990099;text-decoration:underline;}
 a.digital:visited {font-size: 8pt;font-family: "Arial","Helvetica"; color: #990099;text-decoration:underline;}
 a.digital:active {font-size: 8pt;font-family: "Arial","Helvetica"; color: #990099;text-decoration:underline;}
@@ -281,3 +277,7 @@ a.pinkLink:visited {color: #990099; font-size: 8pt; font-family: "Arial","Helvet
 a.pinkLink:active {color: #990099; font-size: 8pt; font-family: "Arial","Helvetica"; text-decoration:none;}
 a.pinkLink:hover {color: red; font-size: 8pt; font-family: "Arial","Helvetica"; text-decoration:none;}
 
+
+#specialIntructionsBox textarea {
+	height : 150px; 
+}

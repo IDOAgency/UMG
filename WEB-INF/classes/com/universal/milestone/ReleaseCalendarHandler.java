@@ -937,18 +937,18 @@
 /*      */       
 /*  938 */       selection.setIsDigital(connector.getBoolean("digital_flag"));
 /*      */       
-/*  940 */       selection.setSelectionConfig(
-/*  941 */           SelectionManager.getSelectionConfigObject(connector.getField("configuration"), Cache.getSelectionConfigs()));
+/*  940 */       selection.setSelectionConfig(SelectionManager.getSelectionConfigObject(connector.getField("configuration"), 
+/*  941 */             Cache.getSelectionConfigs()));
 /*      */       
-/*  943 */       selection.setSelectionSubConfig(
-/*  944 */           SelectionManager.getSelectionSubConfigObject(connector.getField("sub_configuration"), selection.getSelectionConfig()));
+/*  943 */       selection.setSelectionSubConfig(SelectionManager.getSelectionSubConfigObject(connector.getField("sub_configuration"), 
+/*  944 */             selection.getSelectionConfig()));
 /*      */       
 /*  946 */       selection.setUpc(connector.getField("upc", ""));
 /*      */ 
 /*      */ 
 /*      */       
-/*  950 */       selection.setSelectionStatus(
-/*  951 */           (SelectionStatus)MilestoneHelper.getLookupObject(connector.getField("status", ""), Cache.getSelectionStatusList()));
+/*  950 */       selection.setSelectionStatus((SelectionStatus)MilestoneHelper.getLookupObject(connector.getField("status", ""), 
+/*  951 */             Cache.getSelectionStatusList()));
 /*      */       
 /*  953 */       currDate = MilestoneHelper.getDatabaseDate(connector.getField("release_date"));
 /*  954 */       txtDateHeader = String.valueOf(String.valueOf(currDate.get(5))) + "-" + this.calendarDays[currDate.get(7) - 1];

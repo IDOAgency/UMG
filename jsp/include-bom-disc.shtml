@@ -93,7 +93,7 @@
 <tr>
 	<td><%= form.getElement("PID12") %></td>
   <td>Jewel Box</td>
-  <td>n.a.</td>
+  <td><input type="hidden" name="SID12" value="24">n.a.</td>
   <td colspan="2">&nbsp;</td>
   <td colspan="2"><%= form.getElement("SEL12") %></td>
   <td>
@@ -104,7 +104,7 @@
 <tr>
 	<td><%= form.getElement("PID23") %></td>
   <td>Tray</td>
-  <td>n.a.</td>
+  <td><input type="hidden" name="SID23" value="24">n.a.</td>
   <td colspan="2">&nbsp;</td>
 	<td colspan="2"><%= form.getElement("SEL23") %></td>
   <td>

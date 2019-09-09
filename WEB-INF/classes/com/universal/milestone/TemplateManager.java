@@ -459,20 +459,20 @@
 /*     */ 
 /*     */       
 /* 461 */       if (MilestoneHelper.isStringNotEmpty(templateNameSrch)) {
-/* 462 */         query = String.valueOf(query) + 
-/* 463 */           MilestoneHelper.addQueryParams(query, " a.[name] " + MilestoneHelper.setWildCardsEscapeSingleQuotes(templateNameSrch));
+/* 462 */         query = String.valueOf(query) + MilestoneHelper.addQueryParams(query, " a.[name] " + 
+/* 463 */             MilestoneHelper.setWildCardsEscapeSingleQuotes(templateNameSrch));
 /*     */       }
 /* 465 */       if (MilestoneHelper.isStringNotEmpty(configurationSrch) && !configurationSrch.equals("0")) {
-/* 466 */         query = String.valueOf(query) + 
-/* 467 */           MilestoneHelper.addQueryParams(query, " a.[configuration] = '" + MilestoneHelper.escapeSingleQuotes(configurationSrch) + "'");
+/* 466 */         query = String.valueOf(query) + MilestoneHelper.addQueryParams(query, " a.[configuration] = '" + 
+/* 467 */             MilestoneHelper.escapeSingleQuotes(configurationSrch) + "'");
 /*     */       }
 /* 469 */       if (MilestoneHelper.isStringNotEmpty(ownerSrch) && !ownerSrch.equals("0")) {
-/* 470 */         query = String.valueOf(query) + 
-/* 471 */           MilestoneHelper.addQueryParams(query, " a.[owner] = '" + MilestoneHelper.escapeSingleQuotes(ownerSrch) + "'");
+/* 470 */         query = String.valueOf(query) + MilestoneHelper.addQueryParams(query, " a.[owner] = '" + 
+/* 471 */             MilestoneHelper.escapeSingleQuotes(ownerSrch) + "'");
 /*     */       }
 /* 473 */       if (MilestoneHelper.isStringNotEmpty(productSearch) && !productSearch.equals("2")) {
-/* 474 */         query = String.valueOf(query) + 
-/* 475 */           MilestoneHelper.addQueryParams(query, " a.[productType] = " + MilestoneHelper.escapeSingleQuotes(productSearch));
+/* 474 */         query = String.valueOf(query) + MilestoneHelper.addQueryParams(query, " a.[productType] = " + 
+/* 475 */             MilestoneHelper.escapeSingleQuotes(productSearch));
 /*     */       }
 /* 477 */       String order = " ORDER BY a.[name]";
 /*     */       

@@ -239,7 +239,7 @@
 /*  239 */             monthVectorC.add((String)monthsC.nextElement());
 /*      */           }
 /*      */           
-/*  242 */           Object[] monthArrayC = (Object[])null;
+/*  242 */           Object[] monthArrayC = null;
 /*  243 */           monthArrayC = monthVectorC.toArray();
 /*      */           
 /*  245 */           for (int b = 0; b < monthArrayC.length; b++) {
@@ -358,7 +358,7 @@
 /*  358 */             monthVector.add((String)months.nextElement());
 /*      */           }
 /*      */           
-/*  361 */           Object[] monthArray = (Object[])null;
+/*  361 */           Object[] monthArray = null;
 /*  362 */           monthArray = monthVector.toArray();
 /*  363 */           Arrays.sort(monthArray, new MonthYearComparator());
 /*      */           
@@ -926,7 +926,7 @@
 /*      */ 
 /*      */ 
 /*      */               
-/*  929 */               subTable.setObject(nextRow, 11, SFD);
+/*  929 */               subTable.setObject(nextRow, 11, MQD);
 /*  930 */               subTable.setBackground(nextRow, 11, Color.lightGray);
 /*  931 */               subTable.setObject(nextRow + 1, 11, MQDcom);
 /*      */ 

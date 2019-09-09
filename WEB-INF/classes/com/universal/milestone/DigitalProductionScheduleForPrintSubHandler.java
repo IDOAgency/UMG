@@ -188,7 +188,7 @@
 /*      */ 
 /*      */ 
 /*      */       
-/*  191 */       Object[] sortedArray = (Object[])null;
+/*  191 */       Object[] sortedArray = null;
 /*  192 */       sortedArray = MilestoneHelper.sortStringVector(configVector);
 /*  193 */       Vector sortedConfigVector = new Vector();
 /*  194 */       for (int aCount = 0; aCount < sortedArray.length; aCount++) {
@@ -220,7 +220,7 @@
 /*  220 */             monthVectorC.add((String)monthsC.nextElement());
 /*      */           }
 /*      */           
-/*  223 */           Object[] monthArrayC = (Object[])null;
+/*  223 */           Object[] monthArrayC = null;
 /*  224 */           monthArrayC = monthVectorC.toArray();
 /*      */           
 /*  226 */           for (int b = 0; b < monthArrayC.length; b++) {
@@ -330,7 +330,7 @@
 /*  330 */             monthVector.add((String)months.nextElement());
 /*      */           }
 /*      */           
-/*  333 */           Object[] monthArray = (Object[])null;
+/*  333 */           Object[] monthArray = null;
 /*  334 */           monthArray = monthVector.toArray();
 /*  335 */           Arrays.sort(monthArray, new MonthYearComparator());
 /*      */           
@@ -595,8 +595,8 @@
 /*      */               
 /*  596 */               String pfmComments = "";
 /*  597 */               Pfm pfm = new Pfm();
-/*  598 */               pfm = SelectionManager.getInstance().getPfm(
-/*  599 */                   sel.getSelectionID());
+/*  598 */               pfm = SelectionManager.getInstance().getPfm(sel
+/*  599 */                   .getSelectionID());
 /*  600 */               if (pfm != null && 
 /*  601 */                 pfm.getComments() != null) {
 /*  602 */                 pfmComments = pfm.getComments();

@@ -736,7 +736,7 @@
 /*  736 */       notepad.setSelected(null);
 /*      */ 
 /*      */       
-/*  739 */       notepad.setMaxRecords(105);
+/*  739 */       notepad.setMaxRecords(225);
 /*      */ 
 /*      */       
 /*  742 */       Form form = new Form(this.application, "selectionForm", 
@@ -1744,7 +1744,7 @@
 /*      */     
 /* 1745 */     String[] columnNames = { "Task Name", "Wks to Rls", "Own", "Dpt" };
 /* 1746 */     contents = ScheduleManager.getInstance().getScheduleTaskNotepadList(releaseId, userId, null, context);
-/* 1747 */     return new Notepad(contents, 0, 7, "Tasks", 2, columnNames);
+/* 1747 */     return new Notepad(contents, 0, 15, "Tasks", 2, columnNames);
 /*      */   }
 /*      */ 
 /*      */ 
@@ -4205,8 +4205,8 @@
 /*      */ 
 /*      */ 
 /*      */           
-/* 4208 */           ScheduledTask dbTask = ScheduleManager.getInstance().getScheduledTask(
-/* 4209 */               sessionSchedule.getSelectionID(), taskID);
+/* 4208 */           ScheduledTask dbTask = ScheduleManager.getInstance().getScheduledTask(sessionSchedule
+/* 4209 */               .getSelectionID(), taskID);
 /* 4210 */           int taskIndex = getScheduledTaskIndex(sessionSchedule.getTasks(), taskID);
 /* 4211 */           if (taskIndex >= 0) {
 /* 4212 */             sessionSchedule.getTasks().set(taskIndex, dbTask);
