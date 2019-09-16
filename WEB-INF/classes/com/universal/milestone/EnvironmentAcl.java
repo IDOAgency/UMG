@@ -1,458 +1,170 @@
-/*     */ package WEB-INF.classes.com.universal.milestone;
-/*     */ 
-/*     */ import com.universal.milestone.Environment;
-/*     */ import com.universal.milestone.EnvironmentAcl;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class EnvironmentAcl
-/*     */   extends Environment
-/*     */ {
-/*     */   protected String envName;
-/*     */   protected int envId;
-/*     */   protected int mbAccessSelection;
-/*     */   protected int mbAccessSchedule;
-/*     */   protected int mbAccessManufacturing;
-/*     */   protected int mbAccessPfmForm;
-/*     */   protected int mbAccessBomForm;
-/*     */   protected int mbAccessReport;
-/*     */   protected int mbAccessTemplate;
-/*     */   protected int mbAccessTask;
-/*     */   protected int mbAccessDayType;
-/*     */   protected int mbAccessUser;
-/*     */   protected int mbAccessFamily;
-/*     */   protected int mbAccessEnvironment;
-/*     */   protected int mbAccessCompany;
-/*     */   protected int mbAccessDivision;
-/*     */   protected int mbAccessLabel;
-/*     */   protected int mbAccessTable;
-/*     */   protected int mbAccessParameter;
-/*     */   protected int mbAccessAuditTrail;
-/*     */   protected int mbAccessReportConfig;
-/*     */   protected int mbAccessPriceCode;
-/*     */   
-/*     */   protected EnvironmentAcl() {}
-/*     */   
-/*     */   protected EnvironmentAcl(int pUserID, int pEnvID) {}
-/*     */   
-/*  79 */   public int getAccessSelection() { return this.mbAccessSelection; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*  87 */   public void setAccessSelection(int pAccessSelection) { this.mbAccessSelection = pAccessSelection; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*  95 */   public int getAccessSchedule() { return this.mbAccessSchedule; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 103 */   public void setAccessSchedule(int pAccessSchedule) { this.mbAccessSchedule = pAccessSchedule; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 111 */   public int getAccessManufacturing() { return this.mbAccessManufacturing; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 119 */   public void setAccessManufacturing(int pAccessManufacturing) { this.mbAccessManufacturing = pAccessManufacturing; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 127 */   public int getAccessPfmForm() { return this.mbAccessPfmForm; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 135 */   public void setAccessPfmForm(int pAccessPfmForm) { this.mbAccessPfmForm = pAccessPfmForm; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 143 */   public int getAccessBomForm() { return this.mbAccessBomForm; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 151 */   public void setAccessBomForm(int pAccessBomForm) { this.mbAccessBomForm = pAccessBomForm; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 159 */   public int getAccessReport() { return this.mbAccessReport; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 167 */   public void setAccessReport(int pAccessReport) { this.mbAccessReport = pAccessReport; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 175 */   public int getAccessTemplate() { return this.mbAccessTemplate; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 183 */   public void setAccessTemplate(int pAccessTemplate) { this.mbAccessTemplate = pAccessTemplate; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 191 */   public int getAccessTask() { return this.mbAccessTask; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 199 */   public void setAccessTask(int pAccessTask) { this.mbAccessTask = pAccessTask; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 207 */   public int getAccessDayType() { return this.mbAccessDayType; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 215 */   public void setAccessDayType(int pAccessDayType) { this.mbAccessDayType = pAccessDayType; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 223 */   public int getAccessUser() { return this.mbAccessUser; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 231 */   public void setAccessUser(int pAccessUser) { this.mbAccessUser = pAccessUser; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 239 */   public int getAccessFamily() { return this.mbAccessFamily; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 247 */   public void setAccessFamily(int pAccessFamily) { this.mbAccessFamily = pAccessFamily; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 255 */   public int getAccessEnvironment() { return this.mbAccessEnvironment; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 263 */   public void setAccessEnvironment(int pAccessEnvironment) { this.mbAccessEnvironment = pAccessEnvironment; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 271 */   public int getAccessCompany() { return this.mbAccessCompany; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 279 */   public void setAccessCompany(int pAccessCompany) { this.mbAccessCompany = pAccessCompany; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 287 */   public int getAccessDivision() { return this.mbAccessDivision; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 295 */   public void setAccessDivision(int pAccessDivision) { this.mbAccessDivision = pAccessDivision; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 303 */   public int getAccessLabel() { return this.mbAccessLabel; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 311 */   public void setAccessLabel(int pAccessLabel) { this.mbAccessLabel = pAccessLabel; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 319 */   public int getAccessTable() { return this.mbAccessTable; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 327 */   public void setAccessTable(int pAccessTable) { this.mbAccessTable = pAccessTable; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 335 */   public int getAccessParameter() { return this.mbAccessParameter; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 343 */   public void setAccessParameter(int pAccessParameter) { this.mbAccessParameter = pAccessParameter; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 351 */   public int getAccessAuditTrail() { return this.mbAccessAuditTrail; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 359 */   public void setAccessAuditTrail(int pAccessAuditTrail) { this.mbAccessAuditTrail = pAccessAuditTrail; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 367 */   public int getAccessReportConfig() { return this.mbAccessReportConfig; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 375 */   public void setAccessReportConfig(int pAccessReportConfig) { this.mbAccessReportConfig = pAccessReportConfig; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 383 */   public int getAccessPriceCode() { return this.mbAccessPriceCode; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 391 */   public void setAccessPriceCode(int pAccessPriceCode) { this.mbAccessPriceCode = pAccessPriceCode; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 400 */   public String getEnvironmentName() { return this.envName; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 408 */   public void setEnvironmentName(String EnvironmentName) { this.envName = EnvironmentName; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 416 */   public int getEnvironmentId() { return this.envId; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 424 */   public void setEnvironmentId(int envId) { this.envId = envId; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public String toString() {
-/* 432 */     return "--EnvironmentAcl--\nEnvironment name: " + 
-/* 433 */       getEnvironmentName() + "\n" + 
-/* 434 */       "Selection: " + String.valueOf(getAccessSelection()) + "\n" + 
-/* 435 */       "Schedule:" + String.valueOf(getAccessSchedule()) + "\n" + 
-/* 436 */       "Manufacturing " + String.valueOf(getAccessManufacturing()) + "\n" + 
-/* 437 */       "PfmForm " + String.valueOf(getAccessPfmForm()) + "\n" + 
-/* 438 */       "BomForm " + String.valueOf(getAccessBomForm()) + "\n" + 
-/* 439 */       "Report " + String.valueOf(getAccessReport()) + "\n" + 
-/* 440 */       "Template " + String.valueOf(getAccessTemplate()) + "\n" + 
-/* 441 */       "Task " + String.valueOf(getAccessTask()) + "\n" + 
-/* 442 */       "DayType " + String.valueOf(getAccessDayType()) + "\n" + 
-/* 443 */       "User " + String.valueOf(getAccessUser()) + "\n" + 
-/* 444 */       "Family " + String.valueOf(getAccessFamily()) + "\n" + 
-/* 445 */       "Environment " + String.valueOf(getAccessEnvironment()) + "\n" + 
-/* 446 */       "Company " + String.valueOf(getAccessCompany()) + "\n" + 
-/* 447 */       "Division " + String.valueOf(getAccessDivision()) + "\n" + 
-/* 448 */       "Label " + String.valueOf(getAccessLabel()) + "\n" + 
-/* 449 */       "Table " + String.valueOf(getAccessTable()) + "\n" + 
-/* 450 */       "Parameter " + String.valueOf(getAccessParameter()) + "\n" + 
-/* 451 */       "AuditTrail " + String.valueOf(getAccessAuditTrail()) + "\n" + 
-/* 452 */       "ReportConfig " + String.valueOf(getAccessReportConfig()) + "\n" + 
-/* 453 */       "PriceCode " + String.valueOf(getAccessPriceCode()) + "\n--end company acl--\n";
-/*     */   }
-/*     */ }
+package WEB-INF.classes.com.universal.milestone;
+
+import com.universal.milestone.Environment;
+import com.universal.milestone.EnvironmentAcl;
+
+public class EnvironmentAcl extends Environment {
+  protected String envName;
+  
+  protected int envId;
+  
+  protected int mbAccessSelection;
+  
+  protected int mbAccessSchedule;
+  
+  protected int mbAccessManufacturing;
+  
+  protected int mbAccessPfmForm;
+  
+  protected int mbAccessBomForm;
+  
+  protected int mbAccessReport;
+  
+  protected int mbAccessTemplate;
+  
+  protected int mbAccessTask;
+  
+  protected int mbAccessDayType;
+  
+  protected int mbAccessUser;
+  
+  protected int mbAccessFamily;
+  
+  protected int mbAccessEnvironment;
+  
+  protected int mbAccessCompany;
+  
+  protected int mbAccessDivision;
+  
+  protected int mbAccessLabel;
+  
+  protected int mbAccessTable;
+  
+  protected int mbAccessParameter;
+  
+  protected int mbAccessAuditTrail;
+  
+  protected int mbAccessReportConfig;
+  
+  protected int mbAccessPriceCode;
+  
+  protected EnvironmentAcl() {}
+  
+  protected EnvironmentAcl(int pUserID, int pEnvID) {}
+  
+  public int getAccessSelection() { return this.mbAccessSelection; }
+  
+  public void setAccessSelection(int pAccessSelection) { this.mbAccessSelection = pAccessSelection; }
+  
+  public int getAccessSchedule() { return this.mbAccessSchedule; }
+  
+  public void setAccessSchedule(int pAccessSchedule) { this.mbAccessSchedule = pAccessSchedule; }
+  
+  public int getAccessManufacturing() { return this.mbAccessManufacturing; }
+  
+  public void setAccessManufacturing(int pAccessManufacturing) { this.mbAccessManufacturing = pAccessManufacturing; }
+  
+  public int getAccessPfmForm() { return this.mbAccessPfmForm; }
+  
+  public void setAccessPfmForm(int pAccessPfmForm) { this.mbAccessPfmForm = pAccessPfmForm; }
+  
+  public int getAccessBomForm() { return this.mbAccessBomForm; }
+  
+  public void setAccessBomForm(int pAccessBomForm) { this.mbAccessBomForm = pAccessBomForm; }
+  
+  public int getAccessReport() { return this.mbAccessReport; }
+  
+  public void setAccessReport(int pAccessReport) { this.mbAccessReport = pAccessReport; }
+  
+  public int getAccessTemplate() { return this.mbAccessTemplate; }
+  
+  public void setAccessTemplate(int pAccessTemplate) { this.mbAccessTemplate = pAccessTemplate; }
+  
+  public int getAccessTask() { return this.mbAccessTask; }
+  
+  public void setAccessTask(int pAccessTask) { this.mbAccessTask = pAccessTask; }
+  
+  public int getAccessDayType() { return this.mbAccessDayType; }
+  
+  public void setAccessDayType(int pAccessDayType) { this.mbAccessDayType = pAccessDayType; }
+  
+  public int getAccessUser() { return this.mbAccessUser; }
+  
+  public void setAccessUser(int pAccessUser) { this.mbAccessUser = pAccessUser; }
+  
+  public int getAccessFamily() { return this.mbAccessFamily; }
+  
+  public void setAccessFamily(int pAccessFamily) { this.mbAccessFamily = pAccessFamily; }
+  
+  public int getAccessEnvironment() { return this.mbAccessEnvironment; }
+  
+  public void setAccessEnvironment(int pAccessEnvironment) { this.mbAccessEnvironment = pAccessEnvironment; }
+  
+  public int getAccessCompany() { return this.mbAccessCompany; }
+  
+  public void setAccessCompany(int pAccessCompany) { this.mbAccessCompany = pAccessCompany; }
+  
+  public int getAccessDivision() { return this.mbAccessDivision; }
+  
+  public void setAccessDivision(int pAccessDivision) { this.mbAccessDivision = pAccessDivision; }
+  
+  public int getAccessLabel() { return this.mbAccessLabel; }
+  
+  public void setAccessLabel(int pAccessLabel) { this.mbAccessLabel = pAccessLabel; }
+  
+  public int getAccessTable() { return this.mbAccessTable; }
+  
+  public void setAccessTable(int pAccessTable) { this.mbAccessTable = pAccessTable; }
+  
+  public int getAccessParameter() { return this.mbAccessParameter; }
+  
+  public void setAccessParameter(int pAccessParameter) { this.mbAccessParameter = pAccessParameter; }
+  
+  public int getAccessAuditTrail() { return this.mbAccessAuditTrail; }
+  
+  public void setAccessAuditTrail(int pAccessAuditTrail) { this.mbAccessAuditTrail = pAccessAuditTrail; }
+  
+  public int getAccessReportConfig() { return this.mbAccessReportConfig; }
+  
+  public void setAccessReportConfig(int pAccessReportConfig) { this.mbAccessReportConfig = pAccessReportConfig; }
+  
+  public int getAccessPriceCode() { return this.mbAccessPriceCode; }
+  
+  public void setAccessPriceCode(int pAccessPriceCode) { this.mbAccessPriceCode = pAccessPriceCode; }
+  
+  public String getEnvironmentName() { return this.envName; }
+  
+  public void setEnvironmentName(String EnvironmentName) { this.envName = EnvironmentName; }
+  
+  public int getEnvironmentId() { return this.envId; }
+  
+  public void setEnvironmentId(int envId) { this.envId = envId; }
+  
+  public String toString() {
+    return "--EnvironmentAcl--\nEnvironment name: " + 
+      getEnvironmentName() + "\n" + 
+      "Selection: " + String.valueOf(getAccessSelection()) + "\n" + 
+      "Schedule:" + String.valueOf(getAccessSchedule()) + "\n" + 
+      "Manufacturing " + String.valueOf(getAccessManufacturing()) + "\n" + 
+      "PfmForm " + String.valueOf(getAccessPfmForm()) + "\n" + 
+      "BomForm " + String.valueOf(getAccessBomForm()) + "\n" + 
+      "Report " + String.valueOf(getAccessReport()) + "\n" + 
+      "Template " + String.valueOf(getAccessTemplate()) + "\n" + 
+      "Task " + String.valueOf(getAccessTask()) + "\n" + 
+      "DayType " + String.valueOf(getAccessDayType()) + "\n" + 
+      "User " + String.valueOf(getAccessUser()) + "\n" + 
+      "Family " + String.valueOf(getAccessFamily()) + "\n" + 
+      "Environment " + String.valueOf(getAccessEnvironment()) + "\n" + 
+      "Company " + String.valueOf(getAccessCompany()) + "\n" + 
+      "Division " + String.valueOf(getAccessDivision()) + "\n" + 
+      "Label " + String.valueOf(getAccessLabel()) + "\n" + 
+      "Table " + String.valueOf(getAccessTable()) + "\n" + 
+      "Parameter " + String.valueOf(getAccessParameter()) + "\n" + 
+      "AuditTrail " + String.valueOf(getAccessAuditTrail()) + "\n" + 
+      "ReportConfig " + String.valueOf(getAccessReportConfig()) + "\n" + 
+      "PriceCode " + String.valueOf(getAccessPriceCode()) + "\n--end company acl--\n";
+  }
+}
 
 
 /* Location:              D:\Documents\NetBeansProjects\milestone2 Prod.war!\WEB-INF\classes\co\\universal\milestone\EnvironmentAcl.class

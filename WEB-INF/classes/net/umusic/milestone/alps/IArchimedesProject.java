@@ -40,6 +40,6 @@ public interface IArchimedesProject extends Remote {
 
 
 /* Location:              D:\Documents\NetBeansProjects\milestone2 Prod.war!\WEB-INF\classes\ne\\umusic\milestone\alps\IArchimedesProject.class
- * Java compiler version: 5 (49.0)
+ * Java compiler version: 6 (50.0)
  * JD-Core Version:       1.0.7
  */
