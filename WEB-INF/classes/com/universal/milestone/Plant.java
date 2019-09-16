@@ -1,279 +1,75 @@
-/*     */ package WEB-INF.classes.com.universal.milestone;
-/*     */ 
-/*     */ import com.universal.milestone.LookupObject;
-/*     */ import com.universal.milestone.MilestoneDataEntity;
-/*     */ import com.universal.milestone.NotepadContentObject;
-/*     */ import com.universal.milestone.Plant;
-/*     */ import java.util.Calendar;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class Plant
-/*     */   extends MilestoneDataEntity
-/*     */   implements NotepadContentObject
-/*     */ {
-/*  36 */   protected int plantID = -1;
-/*  37 */   protected String selectionID = null;
-/*  38 */   protected int releaseID = -1;
-/*  39 */   protected LookupObject plant = null;
-/*  40 */   protected int orderQty = -1;
-/*  41 */   protected int completedQty = -1;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected int lastUpdatingUser;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected Calendar lastUpdateDate;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   protected long lastUpdatedCk;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*  61 */   public String getTableName() { return "Manufacturing_Plants"; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*  71 */   public int getIdentity() { return getPlantID(); }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*  92 */   public int getPlantID() { return this.plantID; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 102 */   public void setPlantID(int id) { this.plantID = id; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 112 */   public String getSelectionID() { return this.selectionID; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 122 */   public int getReleaseID() { return this.releaseID; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 132 */   public void setSelectionID(String id) { this.selectionID = id; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 142 */   public void setReleaseID(int id) { this.releaseID = id; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 153 */   public LookupObject getPlant() { return this.plant; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 163 */   public void setPlant(LookupObject plant) { this.plant = plant; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 173 */   public int getOrderQty() { return this.orderQty; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 183 */   public void setOrderQty(int orderQty) { this.orderQty = orderQty; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 193 */   public int getCompletedQty() { return this.completedQty; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 203 */   public void setCompletedQty(int completedQty) { this.completedQty = completedQty; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 213 */   public long getLastUpdatedCk() { return this.lastUpdatedCk; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 223 */   public void setLastUpdatedCk(long lastUpdatedCk) { this.lastUpdatedCk = lastUpdatedCk; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 233 */   public int getLastUpdatingUser() { return this.lastUpdatingUser; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 243 */   public void setLastUpdatingUser(int updatingUser) { this.lastUpdatingUser = updatingUser; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 253 */   public Calendar getLastUpdateDate() { return this.lastUpdateDate; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 263 */   public void setLastUpdateDate(Calendar lastUpdateDate) { this.lastUpdateDate = lastUpdateDate; }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/* 272 */   public String getNotepadContentObjectId() { return Integer.toString(this.plantID); }
-/*     */ }
+package WEB-INF.classes.com.universal.milestone;
+
+import com.universal.milestone.LookupObject;
+import com.universal.milestone.MilestoneDataEntity;
+import com.universal.milestone.NotepadContentObject;
+import com.universal.milestone.Plant;
+import java.util.Calendar;
+
+public class Plant extends MilestoneDataEntity implements NotepadContentObject {
+  protected int plantID = -1;
+  
+  protected String selectionID = null;
+  
+  protected int releaseID = -1;
+  
+  protected LookupObject plant = null;
+  
+  protected int orderQty = -1;
+  
+  protected int completedQty = -1;
+  
+  protected int lastUpdatingUser;
+  
+  protected Calendar lastUpdateDate;
+  
+  protected long lastUpdatedCk;
+  
+  public String getTableName() { return "Manufacturing_Plants"; }
+  
+  public int getIdentity() { return getPlantID(); }
+  
+  public int getPlantID() { return this.plantID; }
+  
+  public void setPlantID(int id) { this.plantID = id; }
+  
+  public String getSelectionID() { return this.selectionID; }
+  
+  public int getReleaseID() { return this.releaseID; }
+  
+  public void setSelectionID(String id) { this.selectionID = id; }
+  
+  public void setReleaseID(int id) { this.releaseID = id; }
+  
+  public LookupObject getPlant() { return this.plant; }
+  
+  public void setPlant(LookupObject plant) { this.plant = plant; }
+  
+  public int getOrderQty() { return this.orderQty; }
+  
+  public void setOrderQty(int orderQty) { this.orderQty = orderQty; }
+  
+  public int getCompletedQty() { return this.completedQty; }
+  
+  public void setCompletedQty(int completedQty) { this.completedQty = completedQty; }
+  
+  public long getLastUpdatedCk() { return this.lastUpdatedCk; }
+  
+  public void setLastUpdatedCk(long lastUpdatedCk) { this.lastUpdatedCk = lastUpdatedCk; }
+  
+  public int getLastUpdatingUser() { return this.lastUpdatingUser; }
+  
+  public void setLastUpdatingUser(int updatingUser) { this.lastUpdatingUser = updatingUser; }
+  
+  public Calendar getLastUpdateDate() { return this.lastUpdateDate; }
+  
+  public void setLastUpdateDate(Calendar lastUpdateDate) { this.lastUpdateDate = lastUpdateDate; }
+  
+  public String getNotepadContentObjectId() { return Integer.toString(this.plantID); }
+}
 
 
-/* Location:              D:\Documents\NetBeansProjects\milestone2 Prod.war!\WEB-INF\classes\co\\universal\milestone\Plant.class
- * Java compiler version: 5 (49.0)
+/* Location:              D:\Documents\NetBeansProjects\milestone2 Local.war!\WEB-INF\classes\co\\universal\milestone\Plant.class
+ * Java compiler version: 6 (50.0)
  * JD-Core Version:       1.0.7
  */

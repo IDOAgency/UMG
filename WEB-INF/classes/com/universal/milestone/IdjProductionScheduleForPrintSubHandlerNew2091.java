@@ -1,1535 +1,879 @@
-/*      */ package WEB-INF.classes.com.universal.milestone;
-/*      */ 
-/*      */ import com.techempower.ComponentLog;
-/*      */ import com.techempower.gemini.Context;
-/*      */ import com.techempower.gemini.GeminiApplication;
-/*      */ import com.universal.milestone.DatePeriod;
-/*      */ import com.universal.milestone.Form;
-/*      */ import com.universal.milestone.IdjProductionScheduleForPrintSubHandlerNew2091;
-/*      */ import com.universal.milestone.JdbcConnector;
-/*      */ import com.universal.milestone.MilestoneHelper;
-/*      */ import com.universal.milestone.MilestoneHelper_2;
-/*      */ import com.universal.milestone.MonthYearComparator;
-/*      */ import com.universal.milestone.MultCompleteDate;
-/*      */ import com.universal.milestone.ReportingServices;
-/*      */ import com.universal.milestone.Schedule;
-/*      */ import com.universal.milestone.ScheduledTask;
-/*      */ import com.universal.milestone.SecureHandler;
-/*      */ import com.universal.milestone.Selection;
-/*      */ import com.universal.milestone.StringDateComparator;
-/*      */ import inetsoft.report.SectionBand;
-/*      */ import inetsoft.report.XStyleSheet;
-/*      */ import inetsoft.report.lens.DefaultSectionLens;
-/*      */ import inetsoft.report.lens.DefaultTableLens;
-/*      */ import java.awt.Color;
-/*      */ import java.awt.Dimension;
-/*      */ import java.awt.Font;
-/*      */ import java.awt.Insets;
-/*      */ import java.awt.Rectangle;
-/*      */ import java.text.SimpleDateFormat;
-/*      */ import java.util.Arrays;
-/*      */ import java.util.Calendar;
-/*      */ import java.util.Collections;
-/*      */ import java.util.Date;
-/*      */ import java.util.Enumeration;
-/*      */ import java.util.Hashtable;
-/*      */ import java.util.Iterator;
-/*      */ import java.util.Vector;
-/*      */ import javax.servlet.http.HttpServletResponse;
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ public class IdjProductionScheduleForPrintSubHandlerNew2091
-/*      */   extends SecureHandler
-/*      */ {
-/*      */   public static final String COMPONENT_CODE = "hPsp";
-/*      */   public GeminiApplication application;
-/*      */   public ComponentLog log;
-/*      */   
-/*      */   public IdjProductionScheduleForPrintSubHandlerNew2091(GeminiApplication application) {
-/*   82 */     this.application = application;
-/*   83 */     this.log = application.getLog("hPsp");
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*   91 */   public String getDescription() { return "Sub Report"; }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   protected static void fillIdjProductionScheduleForPrint(XStyleSheet report, Context context) {
-/*  105 */     int COL_LINE_STYLE = 4097;
-/*  106 */     int HEADER_FONT_SIZE = 12;
-/*      */     
-/*  108 */     double ldLineVal = 0.3D;
-/*      */     
-/*  110 */     if (!ReportingServices.usingReportServicesByContext(context)) {
-/*      */       
-/*      */       try {
-/*      */         
-/*  114 */         HttpServletResponse sresponse = context.getResponse();
-/*  115 */         context.putDelivery("status", new String("start_gathering"));
-/*  116 */         context.includeJSP("status.jsp", "hiddenFrame");
-/*  117 */         sresponse.setContentType("text/plain");
-/*  118 */         sresponse.flushBuffer();
-/*      */       }
-/*  120 */       catch (Exception exception) {}
-/*      */     }
-/*      */ 
-/*      */ 
-/*      */     
-/*  125 */     Vector selections = MilestoneHelper.getSelectionsForReport(context);
-/*  126 */     if (ReportingServices.usingReportServicesByContext(context)) {
-/*      */       return;
-/*      */     }
-/*      */     
-/*  130 */     Vector multCompleteDates = getRptMultCompleteDates(selections);
-/*      */ 
-/*      */     
-/*      */     try {
-/*  134 */       HttpServletResponse sresponse = context.getResponse();
-/*  135 */       context.putDelivery("status", new String("start_report"));
-/*  136 */       context.putDelivery("percent", new String("10"));
-/*  137 */       context.includeJSP("status.jsp", "hiddenFrame");
-/*  138 */       sresponse.setContentType("text/plain");
-/*  139 */       sresponse.flushBuffer();
-/*      */     }
-/*  141 */     catch (Exception exception) {}
-/*      */ 
-/*      */     
-/*  144 */     int DATA_FONT_SIZE = 7;
-/*  145 */     int SMALL_HEADER_FONT_SIZE = 8;
-/*  146 */     int NUM_COLUMNS = 15;
-/*  147 */     Color SHADED_AREA_COLOR = Color.lightGray;
-/*      */     
-/*  149 */     SectionBand hbandType = new SectionBand(report);
-/*  150 */     SectionBand hbandCategory = new SectionBand(report);
-/*      */     
-/*  152 */     SectionBand body = new SectionBand(report);
-/*  153 */     SectionBand footer = new SectionBand(report);
-/*  154 */     SectionBand spacer = new SectionBand(report);
-/*  155 */     DefaultSectionLens group = null;
-/*      */     
-/*  157 */     footer.setVisible(true);
-/*  158 */     footer.setHeight(0.1F);
-/*  159 */     footer.setShrinkToFit(false);
-/*  160 */     footer.setBottomBorder(0);
-/*      */     
-/*  162 */     spacer.setVisible(true);
-/*  163 */     spacer.setHeight(0.05F);
-/*  164 */     spacer.setShrinkToFit(false);
-/*  165 */     spacer.setBottomBorder(0);
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/*  170 */     Hashtable selTable = MilestoneHelper.groupSelectionsforIDJByConfigAndStreetDate(selections);
-/*  171 */     Enumeration configs = selTable.keys();
-/*  172 */     Vector configVector = new Vector();
-/*      */     
-/*  174 */     while (configs.hasMoreElements()) {
-/*  175 */       configVector.addElement(configs.nextElement());
-/*      */     }
-/*  177 */     int numConfigs = configVector.size();
-/*      */ 
-/*      */     
-/*      */     try {
-/*  181 */       Collections.sort(configVector);
-/*  182 */       Vector sortedConfigVector = MilestoneHelper.sortStrings(configVector);
-/*      */ 
-/*      */       
-/*  185 */       DefaultTableLens table_contents = null;
-/*  186 */       DefaultTableLens rowCountTable = null;
-/*  187 */       DefaultTableLens columnHeaderTable = null;
-/*  188 */       DefaultTableLens subTable = null;
-/*  189 */       DefaultTableLens monthTableLens = null;
-/*      */ 
-/*      */       
-/*  192 */       rowCountTable = new DefaultTableLens(2, 10000);
-/*      */ 
-/*      */       
-/*  195 */       int totalCount = 0;
-/*  196 */       int tenth = 1;
-/*      */ 
-/*      */       
-/*  199 */       for (int n = 0; n < sortedConfigVector.size(); n++) {
-/*      */         
-/*  201 */         String configC = (configVector.elementAt(n) != null) ? (String)configVector.elementAt(n) : "";
-/*  202 */         Hashtable monthTableC = (Hashtable)selTable.get(configC);
-/*      */         
-/*  204 */         totalCount++;
-/*  205 */         Enumeration monthsC = monthTableC.keys();
-/*      */         
-/*  207 */         Vector monthVectorC = new Vector();
-/*      */         
-/*  209 */         while (monthsC.hasMoreElements()) {
-/*  210 */           monthVectorC.add((String)monthsC.nextElement());
-/*  211 */           Object[] monthArrayC = null;
-/*  212 */           monthArrayC = monthVectorC.toArray();
-/*  213 */           totalCount += monthArrayC.length;
-/*      */         } 
-/*      */       } 
-/*      */ 
-/*      */       
-/*  218 */       tenth = (totalCount > 10) ? (totalCount / 10) : 1;
-/*      */       
-/*  220 */       HttpServletResponse sresponse = context.getResponse();
-/*  221 */       context.putDelivery("status", new String("start_report"));
-/*  222 */       context.putDelivery("percent", new String("20"));
-/*  223 */       context.includeJSP("status.jsp", "hiddenFrame");
-/*  224 */       sresponse.setContentType("text/plain");
-/*  225 */       sresponse.flushBuffer();
-/*      */       
-/*  227 */       int recordCount = 0;
-/*  228 */       int count = 0;
-/*      */       
-/*  230 */       for (int n = 0; n < sortedConfigVector.size(); n++)
-/*      */       {
-/*      */ 
-/*      */ 
-/*      */         
-/*  235 */         Form reportForm = (Form)context.getSessionValue("reportForm");
-/*      */         
-/*  237 */         Calendar beginStDate = (reportForm.getStringValue("beginDate") != null && 
-/*  238 */           reportForm.getStringValue("beginDate").length() > 0) ? 
-/*  239 */           MilestoneHelper.getDate(reportForm.getStringValue("beginDate")) : null;
-/*      */         
-/*  241 */         Calendar endStDate = (reportForm.getStringValue("endDate") != null && 
-/*  242 */           reportForm.getStringValue("endDate").length() > 0) ? 
-/*  243 */           MilestoneHelper.getDate(reportForm.getStringValue("endDate")) : null;
-/*      */         
-/*  245 */         report.setElement("crs_startdate", MilestoneHelper.getFormatedDate(beginStDate));
-/*  246 */         report.setElement("crs_enddate", MilestoneHelper.getFormatedDate(endStDate));
-/*      */         
-/*  248 */         SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy");
-/*  249 */         String todayLong = formatter.format(new Date());
-/*  250 */         report.setElement("crs_bottomdate", todayLong);
-/*      */         
-/*  252 */         String config = (configVector.elementAt(n) != null) ? (String)configVector.elementAt(n) : "";
-/*      */         
-/*  254 */         Hashtable monthTable = (Hashtable)selTable.get(config);
-/*      */ 
-/*      */         
-/*  257 */         int numMonths = 0;
-/*  258 */         int numDates = 0;
-/*  259 */         int numSelections = 0;
-/*      */         
-/*  261 */         if (monthTable != null) {
-/*      */           
-/*  263 */           Enumeration months = monthTable.keys();
-/*  264 */           while (months.hasMoreElements()) {
-/*      */             
-/*  266 */             String monthName = (String)months.nextElement();
-/*      */             
-/*  268 */             numMonths++;
-/*      */             
-/*  270 */             Hashtable dateTable = (Hashtable)monthTable.get(monthName);
-/*  271 */             if (dateTable != null) {
-/*      */               
-/*  273 */               Enumeration dates = dateTable.keys();
-/*  274 */               while (dates.hasMoreElements()) {
-/*      */                 
-/*  276 */                 String dateName = (String)dates.nextElement();
-/*      */                 
-/*  278 */                 numDates++;
-/*      */                 
-/*  280 */                 selections = (Vector)dateTable.get(dateName);
-/*  281 */                 if (selections != null) {
-/*  282 */                   numSelections += selections.size();
-/*      */                 }
-/*      */               } 
-/*      */             } 
-/*      */           } 
-/*      */         } 
-/*      */         
-/*  289 */         int numRows = 0;
-/*      */ 
-/*      */         
-/*  292 */         numRows += numMonths * 3;
-/*  293 */         numRows += numDates * 2;
-/*  294 */         numRows += numSelections * 2;
-/*      */         
-/*  296 */         numRows += 5;
-/*      */ 
-/*      */         
-/*  299 */         hbandType = new SectionBand(report);
-/*  300 */         hbandType.setHeight(0.95F);
-/*  301 */         hbandType.setShrinkToFit(true);
-/*  302 */         hbandType.setVisible(true);
-/*      */         
-/*  304 */         table_contents = new DefaultTableLens(1, 15);
-/*      */ 
-/*      */         
-/*  307 */         table_contents.setHeaderRowCount(0);
-/*  308 */         table_contents.setColWidth(0, 77);
-/*  309 */         table_contents.setColWidth(1, 259);
-/*  310 */         table_contents.setColWidth(2, 157);
-/*  311 */         table_contents.setColWidth(3, 150);
-/*  312 */         table_contents.setColWidth(4, 80);
-/*  313 */         table_contents.setColWidth(5, 168);
-/*  314 */         table_contents.setColWidth(6, 87);
-/*  315 */         table_contents.setColWidth(7, 84);
-/*  316 */         table_contents.setColWidth(8, 84);
-/*  317 */         table_contents.setColWidth(9, 70);
-/*      */         
-/*  319 */         table_contents.setColWidth(10, 80);
-/*      */         
-/*  321 */         table_contents.setColWidth(11, 90);
-/*  322 */         table_contents.setColWidth(12, 90);
-/*  323 */         table_contents.setColWidth(13, 70);
-/*  324 */         table_contents.setColWidth(14, 90);
-/*      */         
-/*  326 */         table_contents.setColBorderColor(Color.black);
-/*  327 */         table_contents.setRowBorderColor(Color.black);
-/*  328 */         table_contents.setRowBorder(4097);
-/*  329 */         table_contents.setColBorder(4097);
-/*      */ 
-/*      */         
-/*  332 */         int nextRow = 0;
-/*      */ 
-/*      */         
-/*  335 */         String configHeaderText = !config.trim().equals("") ? config : "Other";
-/*      */ 
-/*      */         
-/*  338 */         if (configHeaderText != null)
-/*      */         {
-/*  340 */           if (configHeaderText.startsWith("Commercial CD Single")) {
-/*  341 */             configHeaderText = "Commercial Singles";
-/*      */           }
-/*  343 */           else if (configHeaderText.startsWith("Promotional CD Single")) {
-/*  344 */             configHeaderText = "Promos Singles";
-/*      */           } 
-/*      */         }
-/*      */ 
-/*      */         
-/*  349 */         table_contents.setSpan(nextRow, 0, new Dimension(15, 1));
-/*  350 */         table_contents.setAlignment(nextRow, 0, 2);
-/*  351 */         table_contents.setObject(nextRow, 0, configHeaderText);
-/*  352 */         table_contents.setRowHeight(nextRow, 16);
-/*      */         
-/*  354 */         table_contents.setRowBorderColor(nextRow, Color.black);
-/*  355 */         table_contents.setRowBorder(nextRow, 0, 266240);
-/*      */         
-/*  357 */         table_contents.setRowFont(nextRow, new Font("Arial", 3, 12));
-/*  358 */         table_contents.setRowBackground(nextRow, Color.white);
-/*  359 */         table_contents.setRowForeground(nextRow, Color.black);
-/*      */         
-/*  361 */         table_contents.setRowBorder(nextRow - 1, 266240);
-/*  362 */         table_contents.setColBorder(nextRow, -1, 266240);
-/*  363 */         table_contents.setColBorder(nextRow, 0, 266240);
-/*  364 */         table_contents.setColBorder(nextRow, 14, 266240);
-/*  365 */         table_contents.setColBorder(nextRow, 15, 266240);
-/*  366 */         table_contents.setRowBorder(nextRow, 266240);
-/*      */         
-/*  368 */         table_contents.setRowBorderColor(nextRow - 1, Color.black);
-/*  369 */         table_contents.setColBorderColor(nextRow, -1, Color.black);
-/*  370 */         table_contents.setColBorderColor(nextRow, 0, Color.black);
-/*  371 */         table_contents.setColBorderColor(nextRow, 14, Color.black);
-/*  372 */         table_contents.setColBorderColor(nextRow, 15, Color.black);
-/*  373 */         table_contents.setRowBorderColor(nextRow, Color.black);
-/*      */ 
-/*      */         
-/*  376 */         hbandType.addTable(table_contents, new Rectangle(0, 0, 800, 25));
-/*      */         
-/*  378 */         nextRow = 0;
-/*      */         
-/*  380 */         columnHeaderTable = new DefaultTableLens(1, 15);
-/*      */         
-/*  382 */         columnHeaderTable.setHeaderRowCount(0);
-/*  383 */         columnHeaderTable.setColWidth(0, 77);
-/*  384 */         columnHeaderTable.setColWidth(1, 259);
-/*  385 */         columnHeaderTable.setColWidth(2, 157);
-/*  386 */         columnHeaderTable.setColWidth(3, 150);
-/*  387 */         columnHeaderTable.setColWidth(4, 80);
-/*  388 */         columnHeaderTable.setColWidth(5, 168);
-/*  389 */         columnHeaderTable.setColWidth(6, 87);
-/*  390 */         columnHeaderTable.setColWidth(7, 84);
-/*  391 */         columnHeaderTable.setColWidth(8, 70);
-/*  392 */         columnHeaderTable.setColWidth(9, 80);
-/*      */         
-/*  394 */         columnHeaderTable.setColWidth(10, 90);
-/*      */         
-/*  396 */         columnHeaderTable.setColWidth(11, 72);
-/*  397 */         columnHeaderTable.setColWidth(12, 90);
-/*  398 */         columnHeaderTable.setColWidth(13, 70);
-/*  399 */         columnHeaderTable.setColWidth(14, 90);
-/*      */         
-/*  401 */         columnHeaderTable.setAlignment(nextRow, 0, 33);
-/*  402 */         columnHeaderTable.setAlignment(nextRow, 1, 33);
-/*  403 */         columnHeaderTable.setAlignment(nextRow, 2, 34);
-/*  404 */         columnHeaderTable.setAlignment(nextRow, 3, 34);
-/*  405 */         columnHeaderTable.setAlignment(nextRow, 4, 34);
-/*  406 */         columnHeaderTable.setAlignment(nextRow, 5, 34);
-/*  407 */         columnHeaderTable.setAlignment(nextRow, 6, 34);
-/*  408 */         columnHeaderTable.setAlignment(nextRow, 7, 34);
-/*  409 */         columnHeaderTable.setAlignment(nextRow, 8, 34);
-/*  410 */         columnHeaderTable.setAlignment(nextRow, 9, 34);
-/*  411 */         columnHeaderTable.setAlignment(nextRow, 10, 34);
-/*  412 */         columnHeaderTable.setAlignment(nextRow, 11, 34);
-/*  413 */         columnHeaderTable.setAlignment(nextRow, 12, 34);
-/*  414 */         columnHeaderTable.setAlignment(nextRow, 13, 34);
-/*  415 */         columnHeaderTable.setAlignment(nextRow, 14, 34);
-/*      */         
-/*  417 */         columnHeaderTable.setObject(nextRow, 0, "Release Date\nCycle");
-/*  418 */         columnHeaderTable.setObject(nextRow, 1, "Artist/Title");
-/*  419 */         columnHeaderTable.setObject(nextRow, 2, "Packaging\nSpecs");
-/*  420 */         columnHeaderTable.setObject(nextRow, 3, "Local Prod #\nUPC\nConfig\nImpact Date");
-/*  421 */         columnHeaderTable.setObject(nextRow, 4, "Price\nCode\nUnits");
-/*  422 */         columnHeaderTable.setObject(nextRow, 5, "Label & Contacts");
-/*  423 */         columnHeaderTable.setObject(nextRow, 6, "Prod\nReq\nDue");
-/*  424 */         columnHeaderTable.setObject(nextRow, 7, "Sol\nFilm\nDue");
-/*  425 */         columnHeaderTable.setObject(nextRow, 8, "Readers\nCirc");
-/*  426 */         columnHeaderTable.setObject(nextRow, 9, "BOM");
-/*  427 */         columnHeaderTable.setObject(nextRow, 10, "Film\nShips");
-/*      */         
-/*  429 */         columnHeaderTable.setObject(nextRow, 11, "Signed\nProd\nReq Due");
-/*  430 */         columnHeaderTable.setObject(nextRow, 12, "Masters\nShip");
-/*  431 */         columnHeaderTable.setObject(nextRow, 13, "Manf\nCopy\nDue");
-/*  432 */         columnHeaderTable.setObject(nextRow, 14, "Tests\nApproved");
-/*      */         
-/*  434 */         setColBorderColor(columnHeaderTable, nextRow, 15, SHADED_AREA_COLOR);
-/*      */         
-/*  436 */         columnHeaderTable.setRowBorderColor(nextRow - 1, SHADED_AREA_COLOR);
-/*  437 */         columnHeaderTable.setRowBorderColor(nextRow, SHADED_AREA_COLOR);
-/*  438 */         columnHeaderTable.setRowFont(nextRow, new Font("Arial", 1, 8));
-/*  439 */         columnHeaderTable.setRowBackground(nextRow, Color.white);
-/*  440 */         columnHeaderTable.setRowForeground(nextRow, Color.black);
-/*      */         
-/*  442 */         hbandType.addTable(columnHeaderTable, new Rectangle(0, 24, 800, 45));
-/*  443 */         hbandType.setBottomBorder(0);
-/*      */ 
-/*      */         
-/*  446 */         if (monthTable != null) {
-/*      */           
-/*  448 */           Enumeration months = monthTable.keys();
-/*      */           
-/*  450 */           Vector monthVector = new Vector();
-/*      */           
-/*  452 */           while (months.hasMoreElements()) {
-/*  453 */             monthVector.add((String)months.nextElement());
-/*      */           }
-/*  455 */           Object[] monthArray = null;
-/*  456 */           monthArray = monthVector.toArray();
-/*      */           
-/*  458 */           Arrays.sort(monthArray, new MonthYearComparator());
-/*      */           
-/*  460 */           for (int x = 0; x < monthArray.length; x++) {
-/*      */ 
-/*      */             
-/*  463 */             String monthName = (String)monthArray[x];
-/*  464 */             String monthNameString = monthName;
-/*      */             
-/*      */             try {
-/*  467 */               monthNameString = MONTHS[Integer.parseInt(monthName.substring(0, 2)) - 1];
-/*      */             }
-/*  469 */             catch (Exception e) {
-/*      */               
-/*  471 */               if (monthName.equals("13")) {
-/*  472 */                 monthNameString = "TBS";
-/*  473 */               } else if (monthName.equals("26")) {
-/*  474 */                 monthNameString = "ITW";
-/*      */               } else {
-/*  476 */                 monthNameString = "No street date";
-/*      */               } 
-/*      */             } 
-/*  479 */             monthTableLens = new DefaultTableLens(1, 15);
-/*  480 */             hbandCategory = new SectionBand(report);
-/*  481 */             hbandCategory.setHeight(0.25F);
-/*  482 */             hbandCategory.setShrinkToFit(true);
-/*  483 */             hbandCategory.setVisible(true);
-/*  484 */             hbandCategory.setBottomBorder(0);
-/*  485 */             hbandCategory.setLeftBorder(0);
-/*  486 */             hbandCategory.setRightBorder(0);
-/*  487 */             hbandCategory.setTopBorder(0);
-/*      */             
-/*  489 */             nextRow = 0;
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */             
-/*  494 */             monthTableLens.setSpan(nextRow, 0, new Dimension(15, 1));
-/*  495 */             monthTableLens.setObject(nextRow, 0, monthNameString);
-/*  496 */             monthTableLens.setRowHeight(nextRow, 14);
-/*  497 */             monthTableLens.setRowFont(nextRow, new Font("Arial", 1, 12));
-/*  498 */             monthTableLens.setRowBackground(nextRow, SHADED_AREA_COLOR);
-/*  499 */             monthTableLens.setRowForeground(nextRow, Color.black);
-/*  500 */             monthTableLens.setRowBorderColor(nextRow, Color.white);
-/*  501 */             monthTableLens.setRowBorderColor(nextRow - 1, Color.white);
-/*  502 */             monthTableLens.setColBorderColor(nextRow, -1, Color.white);
-/*  503 */             monthTableLens.setColBorderColor(nextRow, 0, Color.white);
-/*  504 */             monthTableLens.setColBorderColor(nextRow, 14, Color.white);
-/*      */             
-/*  506 */             hbandCategory.addTable(monthTableLens, new Rectangle(800, 800));
-/*      */             
-/*  508 */             footer.setVisible(true);
-/*  509 */             footer.setHeight(0.1F);
-/*  510 */             footer.setShrinkToFit(false);
-/*  511 */             footer.setBottomBorder(0);
-/*      */             
-/*  513 */             group = new DefaultSectionLens(null, group, spacer);
-/*  514 */             group = new DefaultSectionLens(null, group, hbandCategory);
-/*  515 */             group = new DefaultSectionLens(null, group, spacer);
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */             
-/*  521 */             Hashtable dateTable = (Hashtable)monthTable.get(monthName);
-/*  522 */             if (dateTable != null) {
-/*      */               
-/*  524 */               Enumeration dateSort = dateTable.keys();
-/*      */               
-/*  526 */               Vector dateVector = new Vector();
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */               
-/*  531 */               while (dateSort.hasMoreElements()) {
-/*  532 */                 dateVector.add((String)dateSort.nextElement());
-/*      */               }
-/*  534 */               Object[] dateArray = null;
-/*      */               
-/*  536 */               dateArray = dateVector.toArray();
-/*  537 */               Arrays.sort(dateArray, new StringDateComparator());
-/*      */               
-/*  539 */               for (int dIndex = 0; dIndex < dateArray.length; dIndex++) {
-/*      */ 
-/*      */                 
-/*  542 */                 String dateName = (String)dateArray[dIndex];
-/*  543 */                 String dateNameText = dateName;
-/*      */                 
-/*  545 */                 if (monthNameString.equalsIgnoreCase("TBS")) {
-/*      */                   
-/*  547 */                   dateNameText = "TBS " + dateName;
-/*      */                 }
-/*  549 */                 else if (monthNameString.equalsIgnoreCase("ITW")) {
-/*      */                   
-/*  551 */                   dateNameText = "ITW " + dateName;
-/*      */                 } 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                 
-/*  557 */                 String cycle = "";
-/*      */ 
-/*      */                 
-/*      */                 try {
-/*  561 */                   Calendar calanderDate = MilestoneHelper.getDate(dateNameText);
-/*  562 */                   DatePeriod datePeriod = MilestoneHelper.findDatePeriod(calanderDate);
-/*  563 */                   cycle = " " + datePeriod.getCycle();
-/*      */                 }
-/*  565 */                 catch (Exception exception) {}
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                 
-/*  582 */                 nextRow = 0;
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                 
-/*  601 */                 selections = (Vector)dateTable.get(dateName);
-/*  602 */                 if (selections == null) {
-/*  603 */                   selections = new Vector();
-/*      */                 }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                 
-/*  640 */                 MilestoneHelper.setSelectionSorting(selections, 4);
-/*  641 */                 Collections.sort(selections);
-/*      */                 
-/*  643 */                 MilestoneHelper.setSelectionSorting(selections, 22);
-/*  644 */                 Collections.sort(selections);
-/*      */ 
-/*      */                 
-/*  647 */                 for (int i = 0; i < selections.size(); i++) {
-/*      */                   
-/*  649 */                   Selection sel = (Selection)selections.elementAt(i);
-/*      */                   
-/*  651 */                   if (count < recordCount / tenth) {
-/*      */                     
-/*  653 */                     count = recordCount / tenth;
-/*  654 */                     sresponse = context.getResponse();
-/*  655 */                     context.putDelivery("status", new String("start_report"));
-/*  656 */                     int myPercent = count * 10;
-/*  657 */                     if (myPercent > 90)
-/*  658 */                       myPercent = 90; 
-/*  659 */                     context.putDelivery("percent", new String(String.valueOf(myPercent)));
-/*  660 */                     context.includeJSP("status.jsp", "hiddenFrame");
-/*  661 */                     sresponse.setContentType("text/plain");
-/*  662 */                     sresponse.flushBuffer();
-/*      */                   } 
-/*  664 */                   recordCount++;
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/*  672 */                   String titleId = "";
-/*  673 */                   titleId = sel.getTitleID();
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/*  678 */                   String artist = "";
-/*  679 */                   artist = sel.getFlArtist().trim();
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/*  684 */                   String comment = "";
-/*  685 */                   String commentStr = (sel.getSelectionComments() != null) ? sel.getSelectionComments() : "";
-/*      */                   
-/*  687 */                   String newComment = removeLF(commentStr, 800);
-/*  688 */                   int subTableRows = 2;
-/*  689 */                   if (newComment.length() > 0) {
-/*  690 */                     subTableRows = 3;
-/*      */                   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/*  698 */                   String label = "";
-/*  699 */                   label = sel.getImprint();
-/*      */ 
-/*      */ 
-/*      */                   
-/*  703 */                   String pack = "";
-/*  704 */                   pack = sel.getSelectionPackaging();
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/*  709 */                   String title = "";
-/*  710 */                   if (sel.getTitle() != null) {
-/*  711 */                     title = sel.getTitle();
-/*      */                   }
-/*      */ 
-/*      */                   
-/*  715 */                   String upc = "";
-/*  716 */                   upc = (sel.getUpc() != null) ? sel.getUpc() : "";
-/*      */ 
-/*      */                   
-/*  719 */                   String radioImpactDate = "";
-/*  720 */                   radioImpactDate = MilestoneHelper.getFormatedDate(sel.getImpactDate());
-/*      */ 
-/*      */                   
-/*  723 */                   upc = MilestoneHelper_2.getRMSReportFormat(upc, "UPC", sel.getIsDigital());
-/*      */ 
-/*      */                   
-/*  726 */                   String localProductNumber = "";
-/*  727 */                   if (sel.getPrefixID() != null && sel.getPrefixID().getAbbreviation() != null)
-/*  728 */                     localProductNumber = sel.getPrefixID().getAbbreviation(); 
-/*  729 */                   localProductNumber = String.valueOf(localProductNumber) + sel.getSelectionNo();
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/*  735 */                   String selConfig = "";
-/*  736 */                   selConfig = (sel.getSelectionConfig() != null) ? sel.getSelectionConfig().getSelectionConfigurationAbbreviation() : "";
-/*      */                   
-/*  738 */                   String selSubConfig = "";
-/*  739 */                   selSubConfig = (sel.getSelectionSubConfig() != null) ? sel.getSelectionSubConfig().getSelectionSubConfigurationAbbreviation() : "";
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/*  744 */                   String units = "";
-/*  745 */                   units = (sel.getNumberOfUnits() > 0) ? String.valueOf(sel.getNumberOfUnits()) : "";
-/*      */                   
-/*  747 */                   String code = (sel.getSellCode() != null) ? sel.getSellCode() : "";
-/*  748 */                   if (code != null && code.startsWith("-1")) {
-/*  749 */                     code = "";
-/*      */                   }
-/*  751 */                   String retail = "";
-/*  752 */                   if (sel.getPriceCode() != null && sel.getPriceCode().getRetailCode() != null) {
-/*  753 */                     retail = sel.getPriceCode().getRetailCode();
-/*      */                   }
-/*  755 */                   if (code.length() > 0) {
-/*  756 */                     retail = "/" + retail;
-/*      */                   }
-/*  758 */                   String price = "";
-/*  759 */                   if (sel.getPriceCode() != null && sel.getPriceCode().getTotalCost() > 0.0F) {
-/*  760 */                     price = "$" + MilestoneHelper.formatDollarPrice(sel.getPriceCode().getTotalCost());
-/*      */                   }
-/*      */ 
-/*      */ 
-/*      */                   
-/*  765 */                   String contact = "";
-/*  766 */                   contact = (sel.getLabelContact() != null) ? sel.getLabelContact().getName() : "";
-/*      */ 
-/*      */ 
-/*      */                   
-/*  770 */                   String otherContact = "";
-/*  771 */                   otherContact = (sel.getOtherContact() != null) ? sel.getOtherContact() : "";
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/*  776 */                   Schedule schedule = sel.getSchedule();
-/*      */                   
-/*  778 */                   Vector tasks = (schedule != null) ? schedule.getTasks() : null;
-/*  779 */                   ScheduledTask task = null;
-/*      */                   
-/*  781 */                   String FP = "";
-/*  782 */                   String BOM = "";
-/*  783 */                   String PRQ = "";
-/*  784 */                   String MASTERS = "";
-/*  785 */                   String FILM = "";
-/*  786 */                   String DEPOT = "";
-/*  787 */                   String STIC = "";
-/*  788 */                   String SFD = "";
-/*  789 */                   String MC = "";
-/*  790 */                   String DJ = "";
-/*      */                   
-/*  792 */                   String SPR = "";
-/*      */                   
-/*  794 */                   String FPcom = "";
-/*  795 */                   String BOMcom = "";
-/*  796 */                   String PRQcom = "";
-/*  797 */                   String MASTERScom = "";
-/*  798 */                   String FILMcom = "";
-/*  799 */                   String DEPOTcom = "";
-/*  800 */                   String STICcom = "";
-/*  801 */                   String SFDcom = "";
-/*  802 */                   String MCcom = "";
-/*  803 */                   String DJcom = "";
-/*      */                   
-/*  805 */                   String SPRcom = "";
-/*      */                   
-/*  807 */                   boolean hasSFD = false;
-/*      */                   
-/*  809 */                   if (tasks != null)
-/*      */                   {
-/*  811 */                     for (int j = 0; j < tasks.size(); j++) {
-/*      */                       
-/*  813 */                       task = (ScheduledTask)tasks.get(j);
-/*      */                       
-/*  815 */                       if (task != null) {
-/*      */                         
-/*  817 */                         SimpleDateFormat dueDateFormatter = new SimpleDateFormat("M/d");
-/*      */                         
-/*  819 */                         String dueDate = "";
-/*  820 */                         if (task.getDueDate() != null)
-/*      */                         {
-/*      */                           
-/*  823 */                           dueDate = String.valueOf(dueDateFormatter.format(task.getDueDate().getTime())) + 
-/*  824 */                             " " + MilestoneHelper.getDayType(sel.getCalendarGroup(), task.getDueDate());
-/*      */                         }
-/*      */                         
-/*  827 */                         String completionDate = MilestoneHelper.getFormatedDate(task.getCompletionDate());
-/*  828 */                         if (task.getScheduledTaskStatus().equals("N/A"))
-/*      */                         {
-/*  830 */                           completionDate = task.getScheduledTaskStatus();
-/*      */                         }
-/*      */                         
-/*  833 */                         completionDate = String.valueOf(completionDate) + "\n";
-/*      */                         
-/*  835 */                         String taskAbbrev = MilestoneHelper.getTaskAbbreivationNameById(task.getTaskAbbreviationID());
-/*  836 */                         String taskComment = "";
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                         
-/*  842 */                         if (taskAbbrev.equalsIgnoreCase("PRQD")) {
-/*      */                           
-/*  844 */                           PRQ = dueDate;
-/*  845 */                           completionDate = String.valueOf(completionDate) + getTaskMultCompleteDates(task.getScheduledTaskID(), sel.getSelectionID(), multCompleteDates);
-/*  846 */                           PRQcom = String.valueOf(completionDate) + taskComment;
-/*      */                         
-/*      */                         }
-/*  849 */                         else if (taskAbbrev.equalsIgnoreCase("READ")) {
-/*      */                           
-/*  851 */                           STIC = dueDate;
-/*  852 */                           STICcom = String.valueOf(completionDate) + taskComment;
-/*      */                         }
-/*  854 */                         else if (taskAbbrev.equalsIgnoreCase("BMS")) {
-/*      */                           
-/*  856 */                           BOM = dueDate;
-/*  857 */                           BOMcom = String.valueOf(completionDate) + taskComment;
-/*      */                         
-/*      */                         }
-/*  860 */                         else if (taskAbbrev.equalsIgnoreCase("SFD")) {
-/*      */                           
-/*  862 */                           SFD = dueDate;
-/*  863 */                           SFDcom = String.valueOf(completionDate) + taskComment;
-/*      */                           
-/*  865 */                           hasSFD = true;
-/*      */                         
-/*      */                         }
-/*  868 */                         else if (taskAbbrev.equalsIgnoreCase("PFS")) {
-/*      */                           
-/*  870 */                           FP = dueDate;
-/*  871 */                           completionDate = String.valueOf(completionDate) + getTaskMultCompleteDates(task.getScheduledTaskID(), sel.getSelectionID(), multCompleteDates);
-/*  872 */                           FPcom = String.valueOf(completionDate) + taskComment;
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                         
-/*      */                         }
-/*  883 */                         else if (taskAbbrev.equalsIgnoreCase("TPS")) {
-/*      */                           
-/*  885 */                           MASTERS = dueDate;
-/*  886 */                           completionDate = String.valueOf(completionDate) + getTaskMultCompleteDates(task.getScheduledTaskID(), sel.getSelectionID(), multCompleteDates);
-/*  887 */                           MASTERScom = String.valueOf(completionDate) + taskComment;
-/*      */                         
-/*      */                         }
-/*  890 */                         else if (taskAbbrev.equalsIgnoreCase("TA")) {
-/*      */                           
-/*  892 */                           FILM = dueDate;
-/*  893 */                           FILMcom = String.valueOf(completionDate) + taskComment;
-/*      */                         
-/*      */                         }
-/*  896 */                         else if (taskAbbrev.equalsIgnoreCase("PSD")) {
-/*      */                           
-/*  898 */                           DEPOT = dueDate;
-/*  899 */                           DEPOTcom = String.valueOf(completionDate) + taskComment;
-/*      */                         
-/*      */                         }
-/*  902 */                         else if (taskAbbrev.equalsIgnoreCase("MCS")) {
-/*      */                           
-/*  904 */                           DJ = dueDate;
-/*  905 */                           completionDate = String.valueOf(completionDate) + getTaskMultCompleteDates(task.getScheduledTaskID(), sel.getSelectionID(), multCompleteDates);
-/*  906 */                           DJcom = String.valueOf(completionDate) + taskComment;
-/*      */                         
-/*      */                         }
-/*  909 */                         else if (taskAbbrev.equalsIgnoreCase("SPR")) {
-/*      */                           
-/*  911 */                           SPR = dueDate;
-/*  912 */                           completionDate = String.valueOf(completionDate) + getTaskMultCompleteDates(task.getScheduledTaskID(), sel.getSelectionID(), multCompleteDates);
-/*  913 */                           SPRcom = String.valueOf(completionDate) + taskComment;
-/*      */                         } 
-/*      */                         
-/*  916 */                         task = null;
-/*      */                       } 
-/*      */                     } 
-/*      */                   }
-/*      */ 
-/*      */ 
-/*      */                   
-/*  923 */                   nextRow = 0;
-/*  924 */                   subTable = new DefaultTableLens(subTableRows, 15);
-/*      */ 
-/*      */                   
-/*  927 */                   subTable.setRowInsets(nextRow, new Insets(0, 0, 0, 0));
-/*      */                   
-/*  929 */                   setColBorderColor(subTable, nextRow, 15, SHADED_AREA_COLOR);
-/*      */                   
-/*  931 */                   subTable.setHeaderRowCount(0);
-/*  932 */                   subTable.setColWidth(0, 77);
-/*  933 */                   subTable.setColWidth(1, 259);
-/*  934 */                   subTable.setColWidth(2, 157);
-/*  935 */                   subTable.setColWidth(3, 150);
-/*  936 */                   subTable.setColWidth(4, 80);
-/*  937 */                   subTable.setColWidth(5, 168);
-/*  938 */                   subTable.setColWidth(6, 87);
-/*  939 */                   subTable.setColWidth(7, 84);
-/*  940 */                   subTable.setColWidth(8, 70);
-/*  941 */                   subTable.setColWidth(9, 80);
-/*      */                   
-/*  943 */                   subTable.setColWidth(10, 90);
-/*      */                   
-/*  945 */                   subTable.setColWidth(11, 72);
-/*  946 */                   subTable.setColWidth(12, 90);
-/*  947 */                   subTable.setColWidth(13, 70);
-/*  948 */                   subTable.setColWidth(14, 90);
-/*      */ 
-/*      */                   
-/*  951 */                   subTable.setRowBorderColor(nextRow - 1, Color.lightGray);
-/*      */ 
-/*      */                   
-/*  954 */                   subTable.setObject(nextRow, 0, String.valueOf(dateNameText) + "\n" + cycle.trim());
-/*  955 */                   subTable.setBackground(nextRow, 0, Color.white);
-/*  956 */                   subTable.setSpan(nextRow, 0, new Dimension(1, 2));
-/*  957 */                   subTable.setRowAutoSize(true);
-/*  958 */                   subTable.setAlignment(nextRow, 0, 9);
-/*  959 */                   subTable.setFont(nextRow, 0, new Font("Arial", 1, 7));
-/*      */ 
-/*      */                   
-/*  962 */                   subTable.setObject(nextRow, 1, String.valueOf(artist) + "\n" + title);
-/*  963 */                   subTable.setBackground(nextRow, 1, Color.white);
-/*  964 */                   subTable.setSpan(nextRow, 1, new Dimension(1, 2));
-/*  965 */                   subTable.setRowAutoSize(true);
-/*  966 */                   subTable.setAlignment(nextRow, 1, 9);
-/*  967 */                   subTable.setFont(nextRow, 1, new Font("Arial", 1, 7));
-/*      */ 
-/*      */ 
-/*      */                   
-/*  971 */                   subTable.setSpan(nextRow, 2, new Dimension(1, 2));
-/*  972 */                   subTable.setObject(nextRow, 2, pack);
-/*  973 */                   subTable.setAlignment(nextRow, 2, 10);
-/*  974 */                   subTable.setBackground(nextRow, 2, Color.white);
-/*      */ 
-/*      */                   
-/*  977 */                   String[] checkStrings = { comment, artist, title, pack, (new String[7][4] = label).valueOf(contact) + "/n" + otherContact, price };
-/*  978 */                   int[] checkStringsLength = { 20, 30, 30, 20, 25, 25, 15 };
-/*      */                   
-/*  980 */                   int extraLines = MilestoneHelper.lineCountWCR(checkStrings, checkStringsLength);
-/*      */                   
-/*  982 */                   String[] commentString = { comment };
-/*  983 */                   int[] checkCommentLength = { 30 };
-/*  984 */                   int commentCounter = MilestoneHelper.lineCountWCR(commentString, checkCommentLength);
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/*  997 */                   boolean otherContactExists = false;
-/*      */                   
-/*  999 */                   if (!otherContact.equals("") || commentCounter > 1) {
-/* 1000 */                     otherContactExists = true;
-/*      */                   }
-/*      */ 
-/*      */                   
-/* 1004 */                   extraLines = (extraLines <= 2) ? 0 : (extraLines - 2);
-/* 1005 */                   for (int z = 0; z < extraLines; z++)
-/*      */                   {
-/* 1007 */                     otherContact = String.valueOf(otherContact) + "\n";
-/*      */                   }
-/*      */                   
-/* 1010 */                   subTable.setObject(nextRow, 3, String.valueOf(localProductNumber) + "\n" + upc + "\n" + selSubConfig + "\n" + radioImpactDate);
-/* 1011 */                   subTable.setAlignment(nextRow, 3, 10);
-/* 1012 */                   subTable.setBackground(nextRow, 3, Color.white);
-/* 1013 */                   subTable.setSpan(nextRow, 3, new Dimension(1, 2));
-/*      */                   
-/* 1015 */                   subTable.setObject(nextRow, 4, String.valueOf(price) + "\n" + code + retail + "\n" + units);
-/* 1016 */                   subTable.setAlignment(nextRow, 4, 10);
-/* 1017 */                   subTable.setBackground(nextRow, 4, Color.white);
-/* 1018 */                   subTable.setSpan(nextRow, 4, new Dimension(1, 2));
-/* 1019 */                   subTable.setAlignment(nextRow + 1, 4, 10);
-/*      */                   
-/* 1021 */                   subTable.setObject(nextRow, 5, "Due Dates");
-/* 1022 */                   subTable.setColBorderColor(nextRow, 5, SHADED_AREA_COLOR);
-/* 1023 */                   subTable.setColBorder(nextRow, 5, 266240);
-/* 1024 */                   subTable.setFont(nextRow, 5, new Font("Arial", 1, 8));
-/* 1025 */                   subTable.setRowBorderColor(nextRow, SHADED_AREA_COLOR);
-/*      */                   
-/* 1027 */                   subTable.setAlignment(nextRow, 6, 10);
-/* 1028 */                   subTable.setAlignment(nextRow + 1, 6, 10);
-/*      */ 
-/*      */                   
-/* 1031 */                   if (otherContactExists) {
-/* 1032 */                     subTable.setObject(nextRow + 1, 5, String.valueOf(label) + "\n" + contact + "\n" + otherContact);
-/*      */                   } else {
-/* 1034 */                     subTable.setObject(nextRow + 1, 5, String.valueOf(label) + "\n" + contact);
-/*      */                   } 
-/*      */ 
-/*      */ 
-/*      */                   
-/* 1039 */                   subTable.setRowAutoSize(true);
-/*      */                   
-/* 1041 */                   subTable.setRowHeight(nextRow, 14);
-/*      */                   
-/* 1043 */                   subTable.setRowBorderColor(nextRow + 1, SHADED_AREA_COLOR);
-/*      */                   
-/* 1045 */                   subTable.setObject(nextRow, 6, PRQ);
-/* 1046 */                   subTable.setColBorderColor(nextRow, 6, SHADED_AREA_COLOR);
-/* 1047 */                   subTable.setColBorder(nextRow, 6, 266240);
-/*      */                   
-/* 1049 */                   subTable.setObject(nextRow, 7, SFD);
-/* 1050 */                   subTable.setColBorderColor(nextRow, 7, SHADED_AREA_COLOR);
-/* 1051 */                   subTable.setColBorder(nextRow, 7, 266240);
-/*      */                   
-/* 1053 */                   subTable.setObject(nextRow, 8, STIC);
-/* 1054 */                   subTable.setColBorderColor(nextRow, 8, SHADED_AREA_COLOR);
-/* 1055 */                   subTable.setColBorder(nextRow, 8, 266240);
-/*      */                   
-/* 1057 */                   subTable.setObject(nextRow, 9, BOM);
-/* 1058 */                   subTable.setColBorderColor(nextRow, 9, SHADED_AREA_COLOR);
-/* 1059 */                   subTable.setColBorder(nextRow, 9, 266240);
-/*      */                   
-/* 1061 */                   subTable.setObject(nextRow, 10, FP);
-/* 1062 */                   subTable.setColBorderColor(nextRow, 10, SHADED_AREA_COLOR);
-/* 1063 */                   subTable.setColBorder(nextRow, 10, 266240);
-/*      */ 
-/*      */                   
-/* 1066 */                   subTable.setObject(nextRow, 11, SPR);
-/* 1067 */                   subTable.setColBorderColor(nextRow, 11, SHADED_AREA_COLOR);
-/* 1068 */                   subTable.setColBorder(nextRow, 11, 266240);
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/* 1076 */                   subTable.setObject(nextRow, 12, MASTERS);
-/* 1077 */                   subTable.setColBorderColor(nextRow, 12, Color.lightGray);
-/* 1078 */                   subTable.setColBorder(nextRow, 12, 266240);
-/*      */                   
-/* 1080 */                   subTable.setObject(nextRow, 13, DJ);
-/* 1081 */                   subTable.setColBorderColor(nextRow, 13, Color.lightGray);
-/* 1082 */                   subTable.setColBorder(nextRow, 13, 266240);
-/*      */                   
-/* 1084 */                   subTable.setObject(nextRow, 14, FILM);
-/* 1085 */                   subTable.setColBorderColor(nextRow, 14, SHADED_AREA_COLOR);
-/* 1086 */                   subTable.setColBorder(nextRow, 14, 266240);
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/* 1092 */                   subTable.setFont(nextRow, 5, new Font("Arial", 1, 7));
-/* 1093 */                   subTable.setFont(nextRow, 6, new Font("Arial", 1, 7));
-/* 1094 */                   subTable.setFont(nextRow, 7, new Font("Arial", 1, 7));
-/* 1095 */                   subTable.setFont(nextRow, 8, new Font("Arial", 1, 7));
-/* 1096 */                   subTable.setFont(nextRow, 9, new Font("Arial", 1, 7));
-/* 1097 */                   subTable.setFont(nextRow, 10, new Font("Arial", 1, 7));
-/* 1098 */                   subTable.setFont(nextRow, 11, new Font("Arial", 1, 7));
-/* 1099 */                   subTable.setFont(nextRow, 12, new Font("Arial", 1, 7));
-/* 1100 */                   subTable.setFont(nextRow, 13, new Font("Arial", 1, 7));
-/* 1101 */                   subTable.setFont(nextRow, 14, new Font("Arial", 1, 7));
-/*      */ 
-/*      */ 
-/*      */                   
-/* 1105 */                   Font holidayFont = new Font("Arial", 3, 7);
-/* 1106 */                   for (int colIdx = 6; colIdx <= 14; colIdx++) {
-/*      */                     
-/* 1108 */                     String dueDate = subTable.getObject(nextRow, colIdx).toString();
-/* 1109 */                     if (dueDate != null && dueDate.length() > 0) {
-/* 1110 */                       char lastChar = dueDate.charAt(dueDate.length() - 1);
-/* 1111 */                       if (Character.isLetter(lastChar)) {
-/* 1112 */                         subTable.setFont(nextRow, colIdx, holidayFont);
-/*      */                       }
-/*      */                     } 
-/*      */                   } 
-/*      */ 
-/*      */                   
-/* 1118 */                   subTable.setAlignment(nextRow, 5, 2);
-/* 1119 */                   subTable.setAlignment(nextRow, 6, 2);
-/* 1120 */                   subTable.setAlignment(nextRow, 7, 2);
-/* 1121 */                   subTable.setAlignment(nextRow, 8, 2);
-/* 1122 */                   subTable.setAlignment(nextRow, 9, 2);
-/* 1123 */                   subTable.setAlignment(nextRow, 10, 2);
-/* 1124 */                   subTable.setAlignment(nextRow, 11, 2);
-/* 1125 */                   subTable.setAlignment(nextRow, 12, 2);
-/* 1126 */                   subTable.setAlignment(nextRow, 13, 2);
-/* 1127 */                   subTable.setAlignment(nextRow, 14, 2);
-/*      */                   
-/* 1129 */                   subTable.setObject(nextRow + 1, 6, PRQcom);
-/*      */                   
-/* 1131 */                   if (!hasSFD)
-/*      */                   {
-/* 1133 */                     if (sel.getTemplateId() == 98 || 
-/* 1134 */                       configHeaderText.startsWith("Commercial Single") || 
-/* 1135 */                       configHeaderText.startsWith("Promos"))
-/*      */                     {
-/* 1137 */                       SFDcom = "N/A";
-/*      */                     }
-/*      */                   }
-/*      */ 
-/*      */                   
-/* 1142 */                   subTable.setObject(nextRow + 1, 7, SFDcom);
-/* 1143 */                   subTable.setObject(nextRow + 1, 8, STICcom);
-/*      */                   
-/* 1145 */                   subTable.setObject(nextRow + 1, 9, BOMcom);
-/*      */                   
-/* 1147 */                   subTable.setObject(nextRow + 1, 10, FPcom);
-/*      */                   
-/* 1149 */                   subTable.setObject(nextRow + 1, 11, SPRcom);
-/*      */ 
-/*      */                   
-/* 1152 */                   subTable.setObject(nextRow + 1, 12, MASTERScom);
-/* 1153 */                   subTable.setObject(nextRow + 1, 13, DJcom);
-/* 1154 */                   subTable.setObject(nextRow + 1, 14, FILMcom);
-/*      */ 
-/*      */                   
-/* 1157 */                   setColBorderColor(subTable, nextRow + 1, 15, SHADED_AREA_COLOR);
-/*      */                   
-/* 1159 */                   subTable.setAlignment(nextRow + 1, 5, 10);
-/* 1160 */                   subTable.setAlignment(nextRow + 1, 6, 10);
-/* 1161 */                   subTable.setAlignment(nextRow + 1, 7, 10);
-/* 1162 */                   subTable.setAlignment(nextRow + 1, 8, 10);
-/* 1163 */                   subTable.setAlignment(nextRow + 1, 9, 10);
-/* 1164 */                   subTable.setAlignment(nextRow + 1, 10, 10);
-/* 1165 */                   subTable.setAlignment(nextRow + 1, 11, 10);
-/* 1166 */                   subTable.setAlignment(nextRow + 1, 12, 10);
-/* 1167 */                   subTable.setAlignment(nextRow + 1, 13, 10);
-/* 1168 */                   subTable.setAlignment(nextRow + 1, 14, 10);
-/*      */                   
-/* 1170 */                   subTable.setRowFont(nextRow + 1, new Font("Arial", 0, 7));
-/*      */                   
-/* 1172 */                   subTable.setRowBackground(nextRow, SHADED_AREA_COLOR);
-/* 1173 */                   subTable.setRowForeground(nextRow, Color.black);
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */                   
-/* 1182 */                   subTable.setRowFont(nextRow, new Font("Arial", 0, 7));
-/*      */ 
-/*      */                   
-/* 1185 */                   if (newComment.length() > 0) {
-/* 1186 */                     nextRow++;
-/*      */ 
-/*      */                     
-/* 1189 */                     subTable.setRowAutoSize(true);
-/* 1190 */                     subTable.setRowBorderColor(nextRow + 1, Color.lightGray);
-/* 1191 */                     setColBorderColor(subTable, nextRow + 1, 15, SHADED_AREA_COLOR);
-/* 1192 */                     subTable.setRowFont(nextRow + 1, new Font("Arial", 3, 7));
-/*      */                     
-/* 1194 */                     subTable.setSpan(nextRow + 1, 0, new Dimension(1, 1));
-/*      */                     
-/* 1196 */                     subTable.setSpan(nextRow + 1, 1, new Dimension(1, 1));
-/* 1197 */                     subTable.setAlignment(nextRow + 1, 1, 12);
-/* 1198 */                     subTable.setObject(nextRow + 1, 1, "Comments:   ");
-/*      */                     
-/* 1200 */                     subTable.setObject(nextRow + 1, 2, newComment);
-/* 1201 */                     subTable.setSpan(nextRow + 1, 2, new Dimension(13, 1));
-/*      */                     
-/* 1203 */                     subTable.setRowBorderColor(nextRow + 1, Color.lightGray);
-/* 1204 */                     setColBorderColor(subTable, nextRow + 1, 15, SHADED_AREA_COLOR);
-/* 1205 */                     subTable.setRowFont(nextRow + 1, new Font("Arial", 3, 7));
-/* 1206 */                     subTable.setAlignment(nextRow + 1, 2, 9);
-/* 1207 */                     subTable.setColLineWrap(2, true);
-/*      */                     
-/* 1209 */                     subTable.setColBorderColor(nextRow + 1, 0, Color.white);
-/* 1210 */                     subTable.setColBorderColor(nextRow + 1, 1, Color.white);
-/* 1211 */                     subTable.setColBorderColor(nextRow + 1, 2, Color.white);
-/* 1212 */                     subTable.setColBorderColor(nextRow + 1, 3, Color.white);
-/* 1213 */                     subTable.setColBorderColor(nextRow + 1, 4, Color.white);
-/* 1214 */                     subTable.setColBorderColor(nextRow + 1, 5, Color.white);
-/* 1215 */                     subTable.setColBorderColor(nextRow + 1, 6, Color.white);
-/* 1216 */                     subTable.setColBorderColor(nextRow + 1, 7, Color.white);
-/* 1217 */                     subTable.setColBorderColor(nextRow + 1, 8, Color.white);
-/* 1218 */                     subTable.setColBorderColor(nextRow + 1, 9, Color.white);
-/* 1219 */                     subTable.setColBorderColor(nextRow + 1, 10, Color.white);
-/* 1220 */                     subTable.setColBorderColor(nextRow + 1, 11, Color.white);
-/* 1221 */                     subTable.setColBorderColor(nextRow + 1, 12, Color.white);
-/* 1222 */                     subTable.setColBorderColor(nextRow + 1, 13, Color.white);
-/*      */                   } 
-/*      */ 
-/*      */                   
-/* 1226 */                   body = new SectionBand(report);
-/*      */                   
-/* 1228 */                   double lfLineCount = 1.5D;
-/*      */ 
-/*      */ 
-/*      */                   
-/* 1232 */                   if (extraLines > 3 || 
-/* 1233 */                     PRQcom.length() > 10 || STICcom.length() > 10 || 
-/* 1234 */                     BOMcom.length() > 10 || FPcom.length() > 10 || 
-/* 1235 */                     MCcom.length() > 10 || MASTERScom.length() > 10 || 
-/* 1236 */                     DJcom.length() > 10 || FILMcom.length() > 10 || 
-/* 1237 */                     DEPOTcom.length() > 10) {
-/*      */ 
-/*      */                     
-/* 1240 */                     if (lfLineCount < extraLines * 0.3D) {
-/* 1241 */                       lfLineCount = extraLines * 0.3D;
-/*      */                     }
-/* 1243 */                     if (lfLineCount < (PRQcom.length() / 7) * 0.3D) {
-/* 1244 */                       lfLineCount = (PRQcom.length() / 7) * 0.3D;
-/*      */                     }
-/* 1246 */                     if (lfLineCount < (STICcom.length() / 8) * 0.3D) {
-/* 1247 */                       lfLineCount = (STICcom.length() / 8) * 0.3D;
-/*      */                     }
-/* 1249 */                     if (lfLineCount < (BOMcom.length() / 8) * 0.3D) {
-/* 1250 */                       lfLineCount = (BOMcom.length() / 8) * 0.3D;
-/*      */                     }
-/* 1252 */                     if (lfLineCount < (FPcom.length() / 8) * 0.3D) {
-/* 1253 */                       lfLineCount = (FPcom.length() / 8) * 0.3D;
-/*      */                     }
-/* 1255 */                     if (lfLineCount < (MCcom.length() / 8) * 0.3D) {
-/* 1256 */                       lfLineCount = (MCcom.length() / 8) * 0.3D;
-/*      */                     }
-/* 1258 */                     if (lfLineCount < (MASTERScom.length() / 8) * 0.3D) {
-/* 1259 */                       lfLineCount = (MASTERScom.length() / 8) * 0.3D;
-/*      */                     }
-/* 1261 */                     if (lfLineCount < (DJcom.length() / 8) * 0.3D) {
-/* 1262 */                       lfLineCount = (DJcom.length() / 8) * 0.3D;
-/*      */                     }
-/* 1264 */                     if (lfLineCount < (FILMcom.length() / 8) * 0.3D) {
-/* 1265 */                       lfLineCount = (FILMcom.length() / 8) * 0.3D;
-/*      */                     }
-/* 1267 */                     if (lfLineCount < (DEPOTcom.length() / 8) * 0.3D) {
-/* 1268 */                       lfLineCount = (DEPOTcom.length() / 8) * 0.3D;
-/*      */                     }
-/* 1270 */                     body.setHeight((float)lfLineCount);
-/*      */                   
-/*      */                   }
-/*      */                   else {
-/*      */                     
-/* 1275 */                     body.setHeight(1.5F);
-/*      */                   } 
-/*      */                   
-/* 1278 */                   body.addTable(subTable, new Rectangle(800, 800));
-/* 1279 */                   body.setBottomBorder(0);
-/* 1280 */                   body.setTopBorder(0);
-/* 1281 */                   body.setShrinkToFit(true);
-/* 1282 */                   body.setVisible(true);
-/* 1283 */                   group = new DefaultSectionLens(null, group, body);
-/*      */                 } 
-/*      */                 
-/* 1286 */                 group = new DefaultSectionLens(null, group, spacer);
-/*      */               } 
-/*      */             } 
-/*      */           } 
-/*      */         } 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */         
-/* 1296 */         group = new DefaultSectionLens(hbandType, group, null);
-/* 1297 */         report.addSection(group, rowCountTable);
-/* 1298 */         report.addPageBreak();
-/* 1299 */         group = null;
-/*      */ 
-/*      */       
-/*      */       }
-/*      */ 
-/*      */ 
-/*      */     
-/*      */     }
-/* 1307 */     catch (Exception e) {
-/*      */       
-/* 1309 */       System.out.println(">>>>>>>>IdjProductionScheduleForPrintSubHandler(): exception: " + e);
-/*      */     } 
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   private static void setColBorderColor(DefaultTableLens table, int row, int columns, Color color) {
-/* 1327 */     for (int i = -1; i < columns; i++)
-/*      */     {
-/* 1329 */       table.setColBorderColor(row, i, color);
-/*      */     }
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public static int insertConfigHeader(DefaultTableLens table_contents, String title, int nextRow, int cols) {
-/* 1343 */     int COL_LINE_STYLE = 4097;
-/* 1344 */     int HEADER_FONT_SIZE = 12;
-/*      */     
-/* 1346 */     table_contents.setObject(nextRow, 0, "");
-/* 1347 */     table_contents.setSpan(nextRow, 0, new Dimension(cols, 1));
-/* 1348 */     table_contents.setRowHeight(nextRow, 1);
-/* 1349 */     table_contents.setRowBackground(nextRow, Color.white);
-/*      */     
-/* 1351 */     table_contents.setColBorderColor(nextRow, -1, Color.black);
-/* 1352 */     table_contents.setColBorder(nextRow, -1, 4097);
-/* 1353 */     table_contents.setColBorderColor(nextRow, cols - 1, Color.black);
-/* 1354 */     table_contents.setColBorder(nextRow, cols - 1, 4097);
-/*      */     
-/* 1356 */     table_contents.setRowBorderColor(nextRow, Color.white);
-/* 1357 */     table_contents.setRowBorder(nextRow, 266240);
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/* 1362 */     table_contents.setColBorderColor(nextRow + 1, -1, Color.black);
-/* 1363 */     table_contents.setColBorder(nextRow + 1, -1, 4097);
-/* 1364 */     table_contents.setColBorderColor(nextRow + 1, cols - 1, Color.black);
-/* 1365 */     table_contents.setColBorder(nextRow + 1, cols - 1, 4097);
-/*      */ 
-/*      */     
-/* 1368 */     table_contents.setAlignment(nextRow + 1, 0, 2);
-/* 1369 */     table_contents.setSpan(nextRow + 1, 0, new Dimension(cols, 1));
-/* 1370 */     table_contents.setObject(nextRow + 1, 0, title);
-/* 1371 */     table_contents.setRowFont(nextRow + 1, new Font("Arial", 3, 12));
-/*      */     
-/* 1373 */     table_contents.setColBorderColor(nextRow + 1, -1, Color.black);
-/* 1374 */     table_contents.setColBorder(nextRow + 1, -1, 4097);
-/*      */     
-/* 1376 */     nextRow += 2;
-/*      */     
-/* 1378 */     table_contents.setObject(nextRow, 0, "");
-/* 1379 */     table_contents.setSpan(nextRow, 0, new Dimension(cols, 1));
-/* 1380 */     table_contents.setRowHeight(nextRow, 1);
-/* 1381 */     table_contents.setRowBackground(nextRow, Color.white);
-/*      */ 
-/*      */     
-/* 1384 */     table_contents.setColBorderColor(nextRow, -1, Color.black);
-/* 1385 */     table_contents.setColBorder(nextRow, -1, 4097);
-/* 1386 */     table_contents.setColBorderColor(nextRow, cols, Color.black);
-/* 1387 */     table_contents.setColBorder(nextRow, cols, 4097);
-/*      */     
-/* 1389 */     table_contents.setRowBorderColor(nextRow, Color.white);
-/* 1390 */     table_contents.setRowBorder(nextRow, 266240);
-/*      */     
-/* 1392 */     nextRow++;
-/*      */ 
-/*      */     
-/* 1395 */     table_contents.setObject(nextRow, 0, "");
-/* 1396 */     table_contents.setSpan(nextRow, 0, new Dimension(cols, 1));
-/* 1397 */     table_contents.setRowHeight(nextRow, 1);
-/* 1398 */     table_contents.setRowBackground(nextRow, Color.white);
-/*      */ 
-/*      */     
-/* 1401 */     table_contents.setColBorderColor(nextRow, -1, Color.white);
-/* 1402 */     table_contents.setColBorder(nextRow, -1, 4097);
-/* 1403 */     table_contents.setColBorderColor(nextRow, cols - 1, Color.white);
-/* 1404 */     table_contents.setColBorder(nextRow, cols, 4097);
-/*      */     
-/* 1406 */     table_contents.setRowBorderColor(nextRow, Color.white);
-/* 1407 */     table_contents.setRowBorder(nextRow, 266240);
-/*      */     
-/* 1409 */     nextRow++;
-/*      */     
-/* 1411 */     return nextRow;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/* 1426 */   public static String removeLF(String theString, int maxChars) { return theString.replace('\n', ' '); }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   private static String getTaskMultCompleteDates(int taskID, int selectionID, Vector multCompleteDates) {
-/* 1438 */     String completionDateList = "";
-/* 1439 */     if (multCompleteDates != null) {
-/*      */ 
-/*      */       
-/* 1442 */       int mcdCt = (multCompleteDates == null) ? 0 : multCompleteDates.size();
-/*      */ 
-/*      */       
-/* 1445 */       boolean relTaskFound = false;
-/* 1446 */       int i = 0;
-/* 1447 */       while (!relTaskFound && i < mcdCt) {
-/*      */         
-/* 1449 */         MultCompleteDate mcd = (MultCompleteDate)multCompleteDates.get(i);
-/* 1450 */         if (mcd.getReleaseID() == selectionID && mcd.getTaskID() == taskID) {
-/* 1451 */           relTaskFound = true;
-/*      */           continue;
-/*      */         } 
-/* 1454 */         i++;
-/*      */       } 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */       
-/* 1460 */       if (relTaskFound) {
-/* 1461 */         boolean relTaskDone = false;
-/* 1462 */         while (!relTaskDone && i < mcdCt) {
-/* 1463 */           MultCompleteDate mcd = (MultCompleteDate)multCompleteDates.get(i);
-/* 1464 */           if (mcd.getReleaseID() == selectionID && mcd.getTaskID() == taskID) {
-/* 1465 */             completionDateList = String.valueOf(completionDateList) + MilestoneHelper.getFormatedDate(mcd.getCompletionDate()) + "\n";
-/*      */           } else {
-/*      */             
-/* 1468 */             relTaskDone = true;
-/*      */           } 
-/* 1470 */           i++;
-/*      */         } 
-/*      */       } 
-/*      */     } 
-/* 1474 */     return completionDateList;
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   private static Vector getRptMultCompleteDates(Vector selections) {
-/* 1489 */     Vector multCompleteDates = null;
-/*      */     
-/* 1491 */     if (selections != null) {
-/*      */       
-/* 1493 */       multCompleteDates = new Vector();
-/* 1494 */       StringBuffer sql = new StringBuffer();
-/* 1495 */       Iterator it = selections.iterator();
-/*      */       
-/* 1497 */       sql.append("select * from MultCompleteDates with (nolock) where release_id in (");
-/* 1498 */       while (it.hasNext()) {
-/*      */         
-/* 1500 */         sql.append(((Selection)it.next()).getSelectionID());
-/* 1501 */         sql.append(", ");
-/*      */       } 
-/*      */ 
-/*      */       
-/* 1505 */       String query = String.valueOf(sql.substring(0, sql.length() - 2)) + ") order by release_id asc, task_id asc, order_no desc";
-/*      */       
-/* 1507 */       JdbcConnector connector = MilestoneHelper.getConnector(query);
-/* 1508 */       if (connector != null) {
-/*      */         
-/* 1510 */         connector.setForwardOnly(false);
-/* 1511 */         connector.runQuery();
-/* 1512 */         SimpleDateFormat adf = new SimpleDateFormat("M/d/yy");
-/* 1513 */         while (connector.more()) {
-/*      */           
-/* 1515 */           MultCompleteDate mcd = new MultCompleteDate();
-/* 1516 */           mcd.setReleaseID(connector.getInt("release_id"));
-/* 1517 */           mcd.setTaskID(connector.getInt("task_id"));
-/* 1518 */           mcd.setOrderNo(connector.getInt("order_no"));
-/* 1519 */           mcd.setCompletionDate(MilestoneHelper.getDate(adf.format(connector.getDate("completion_date"))));
-/* 1520 */           multCompleteDates.addElement(mcd);
-/* 1521 */           connector.next();
-/*      */         } 
-/*      */         
-/* 1524 */         connector.close();
-/*      */       } 
-/*      */     } 
-/* 1527 */     return multCompleteDates;
-/*      */   }
-/*      */ }
+package WEB-INF.classes.com.universal.milestone;
+
+import com.techempower.ComponentLog;
+import com.techempower.gemini.Context;
+import com.techempower.gemini.GeminiApplication;
+import com.universal.milestone.DatePeriod;
+import com.universal.milestone.Form;
+import com.universal.milestone.IdjProductionScheduleForPrintSubHandlerNew2091;
+import com.universal.milestone.JdbcConnector;
+import com.universal.milestone.MilestoneHelper;
+import com.universal.milestone.MilestoneHelper_2;
+import com.universal.milestone.MonthYearComparator;
+import com.universal.milestone.MultCompleteDate;
+import com.universal.milestone.ReportingServices;
+import com.universal.milestone.Schedule;
+import com.universal.milestone.ScheduledTask;
+import com.universal.milestone.SecureHandler;
+import com.universal.milestone.Selection;
+import com.universal.milestone.StringDateComparator;
+import inetsoft.report.SectionBand;
+import inetsoft.report.XStyleSheet;
+import inetsoft.report.lens.DefaultSectionLens;
+import inetsoft.report.lens.DefaultTableLens;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Vector;
+import javax.servlet.http.HttpServletResponse;
+
+public class IdjProductionScheduleForPrintSubHandlerNew2091 extends SecureHandler {
+  public static final String COMPONENT_CODE = "hPsp";
+  
+  public GeminiApplication application;
+  
+  public ComponentLog log;
+  
+  public IdjProductionScheduleForPrintSubHandlerNew2091(GeminiApplication application) {
+    this.application = application;
+    this.log = application.getLog("hPsp");
+  }
+  
+  public String getDescription() { return "Sub Report"; }
+  
+  protected static void fillIdjProductionScheduleForPrint(XStyleSheet report, Context context) {
+    int COL_LINE_STYLE = 4097;
+    int HEADER_FONT_SIZE = 12;
+    double ldLineVal = 0.3D;
+    if (!ReportingServices.usingReportServicesByContext(context))
+      try {
+        HttpServletResponse sresponse = context.getResponse();
+        context.putDelivery("status", new String("start_gathering"));
+        context.includeJSP("status.jsp", "hiddenFrame");
+        sresponse.setContentType("text/plain");
+        sresponse.flushBuffer();
+      } catch (Exception exception) {} 
+    Vector selections = MilestoneHelper.getSelectionsForReport(context);
+    if (ReportingServices.usingReportServicesByContext(context))
+      return; 
+    Vector multCompleteDates = getRptMultCompleteDates(selections);
+    try {
+      HttpServletResponse sresponse = context.getResponse();
+      context.putDelivery("status", new String("start_report"));
+      context.putDelivery("percent", new String("10"));
+      context.includeJSP("status.jsp", "hiddenFrame");
+      sresponse.setContentType("text/plain");
+      sresponse.flushBuffer();
+    } catch (Exception exception) {}
+    int DATA_FONT_SIZE = 7;
+    int SMALL_HEADER_FONT_SIZE = 8;
+    int NUM_COLUMNS = 15;
+    Color SHADED_AREA_COLOR = Color.lightGray;
+    SectionBand hbandType = new SectionBand(report);
+    SectionBand hbandCategory = new SectionBand(report);
+    SectionBand body = new SectionBand(report);
+    SectionBand footer = new SectionBand(report);
+    SectionBand spacer = new SectionBand(report);
+    DefaultSectionLens group = null;
+    footer.setVisible(true);
+    footer.setHeight(0.1F);
+    footer.setShrinkToFit(false);
+    footer.setBottomBorder(0);
+    spacer.setVisible(true);
+    spacer.setHeight(0.05F);
+    spacer.setShrinkToFit(false);
+    spacer.setBottomBorder(0);
+    Hashtable selTable = MilestoneHelper.groupSelectionsforIDJByConfigAndStreetDate(selections);
+    Enumeration configs = selTable.keys();
+    Vector configVector = new Vector();
+    while (configs.hasMoreElements())
+      configVector.addElement(configs.nextElement()); 
+    int numConfigs = configVector.size();
+    try {
+      Collections.sort(configVector);
+      Vector sortedConfigVector = MilestoneHelper.sortStrings(configVector);
+      DefaultTableLens table_contents = null;
+      DefaultTableLens rowCountTable = null;
+      DefaultTableLens columnHeaderTable = null;
+      DefaultTableLens subTable = null;
+      DefaultTableLens monthTableLens = null;
+      rowCountTable = new DefaultTableLens(2, 10000);
+      int totalCount = 0;
+      int tenth = 1;
+      for (int n = 0; n < sortedConfigVector.size(); n++) {
+        String configC = (configVector.elementAt(n) != null) ? (String)configVector.elementAt(n) : "";
+        Hashtable monthTableC = (Hashtable)selTable.get(configC);
+        totalCount++;
+        Enumeration monthsC = monthTableC.keys();
+        Vector monthVectorC = new Vector();
+        while (monthsC.hasMoreElements()) {
+          monthVectorC.add((String)monthsC.nextElement());
+          Object[] monthArrayC = null;
+          monthArrayC = monthVectorC.toArray();
+          totalCount += monthArrayC.length;
+        } 
+      } 
+      tenth = (totalCount > 10) ? (totalCount / 10) : 1;
+      HttpServletResponse sresponse = context.getResponse();
+      context.putDelivery("status", new String("start_report"));
+      context.putDelivery("percent", new String("20"));
+      context.includeJSP("status.jsp", "hiddenFrame");
+      sresponse.setContentType("text/plain");
+      sresponse.flushBuffer();
+      int recordCount = 0;
+      int count = 0;
+      for (int n = 0; n < sortedConfigVector.size(); n++) {
+        Form reportForm = (Form)context.getSessionValue("reportForm");
+        Calendar beginStDate = (reportForm.getStringValue("beginDate") != null && 
+          reportForm.getStringValue("beginDate").length() > 0) ? 
+          MilestoneHelper.getDate(reportForm.getStringValue("beginDate")) : null;
+        Calendar endStDate = (reportForm.getStringValue("endDate") != null && 
+          reportForm.getStringValue("endDate").length() > 0) ? 
+          MilestoneHelper.getDate(reportForm.getStringValue("endDate")) : null;
+        report.setElement("crs_startdate", MilestoneHelper.getFormatedDate(beginStDate));
+        report.setElement("crs_enddate", MilestoneHelper.getFormatedDate(endStDate));
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy");
+        String todayLong = formatter.format(new Date());
+        report.setElement("crs_bottomdate", todayLong);
+        String config = (configVector.elementAt(n) != null) ? (String)configVector.elementAt(n) : "";
+        Hashtable monthTable = (Hashtable)selTable.get(config);
+        int numMonths = 0;
+        int numDates = 0;
+        int numSelections = 0;
+        if (monthTable != null) {
+          Enumeration months = monthTable.keys();
+          while (months.hasMoreElements()) {
+            String monthName = (String)months.nextElement();
+            numMonths++;
+            Hashtable dateTable = (Hashtable)monthTable.get(monthName);
+            if (dateTable != null) {
+              Enumeration dates = dateTable.keys();
+              while (dates.hasMoreElements()) {
+                String dateName = (String)dates.nextElement();
+                numDates++;
+                selections = (Vector)dateTable.get(dateName);
+                if (selections != null)
+                  numSelections += selections.size(); 
+              } 
+            } 
+          } 
+        } 
+        int numRows = 0;
+        numRows += numMonths * 3;
+        numRows += numDates * 2;
+        numRows += numSelections * 2;
+        numRows += 5;
+        hbandType = new SectionBand(report);
+        hbandType.setHeight(0.95F);
+        hbandType.setShrinkToFit(true);
+        hbandType.setVisible(true);
+        table_contents = new DefaultTableLens(1, 15);
+        table_contents.setHeaderRowCount(0);
+        table_contents.setColWidth(0, 77);
+        table_contents.setColWidth(1, 259);
+        table_contents.setColWidth(2, 157);
+        table_contents.setColWidth(3, 150);
+        table_contents.setColWidth(4, 80);
+        table_contents.setColWidth(5, 168);
+        table_contents.setColWidth(6, 87);
+        table_contents.setColWidth(7, 84);
+        table_contents.setColWidth(8, 84);
+        table_contents.setColWidth(9, 70);
+        table_contents.setColWidth(10, 80);
+        table_contents.setColWidth(11, 90);
+        table_contents.setColWidth(12, 90);
+        table_contents.setColWidth(13, 70);
+        table_contents.setColWidth(14, 90);
+        table_contents.setColBorderColor(Color.black);
+        table_contents.setRowBorderColor(Color.black);
+        table_contents.setRowBorder(4097);
+        table_contents.setColBorder(4097);
+        int nextRow = 0;
+        String configHeaderText = !config.trim().equals("") ? config : "Other";
+        if (configHeaderText != null)
+          if (configHeaderText.startsWith("Commercial CD Single")) {
+            configHeaderText = "Commercial Singles";
+          } else if (configHeaderText.startsWith("Promotional CD Single")) {
+            configHeaderText = "Promos Singles";
+          }  
+        table_contents.setSpan(nextRow, 0, new Dimension(15, 1));
+        table_contents.setAlignment(nextRow, 0, 2);
+        table_contents.setObject(nextRow, 0, configHeaderText);
+        table_contents.setRowHeight(nextRow, 16);
+        table_contents.setRowBorderColor(nextRow, Color.black);
+        table_contents.setRowBorder(nextRow, 0, 266240);
+        table_contents.setRowFont(nextRow, new Font("Arial", 3, 12));
+        table_contents.setRowBackground(nextRow, Color.white);
+        table_contents.setRowForeground(nextRow, Color.black);
+        table_contents.setRowBorder(nextRow - 1, 266240);
+        table_contents.setColBorder(nextRow, -1, 266240);
+        table_contents.setColBorder(nextRow, 0, 266240);
+        table_contents.setColBorder(nextRow, 14, 266240);
+        table_contents.setColBorder(nextRow, 15, 266240);
+        table_contents.setRowBorder(nextRow, 266240);
+        table_contents.setRowBorderColor(nextRow - 1, Color.black);
+        table_contents.setColBorderColor(nextRow, -1, Color.black);
+        table_contents.setColBorderColor(nextRow, 0, Color.black);
+        table_contents.setColBorderColor(nextRow, 14, Color.black);
+        table_contents.setColBorderColor(nextRow, 15, Color.black);
+        table_contents.setRowBorderColor(nextRow, Color.black);
+        hbandType.addTable(table_contents, new Rectangle(0, 0, 800, 25));
+        nextRow = 0;
+        columnHeaderTable = new DefaultTableLens(1, 15);
+        columnHeaderTable.setHeaderRowCount(0);
+        columnHeaderTable.setColWidth(0, 77);
+        columnHeaderTable.setColWidth(1, 259);
+        columnHeaderTable.setColWidth(2, 157);
+        columnHeaderTable.setColWidth(3, 150);
+        columnHeaderTable.setColWidth(4, 80);
+        columnHeaderTable.setColWidth(5, 168);
+        columnHeaderTable.setColWidth(6, 87);
+        columnHeaderTable.setColWidth(7, 84);
+        columnHeaderTable.setColWidth(8, 70);
+        columnHeaderTable.setColWidth(9, 80);
+        columnHeaderTable.setColWidth(10, 90);
+        columnHeaderTable.setColWidth(11, 72);
+        columnHeaderTable.setColWidth(12, 90);
+        columnHeaderTable.setColWidth(13, 70);
+        columnHeaderTable.setColWidth(14, 90);
+        columnHeaderTable.setAlignment(nextRow, 0, 33);
+        columnHeaderTable.setAlignment(nextRow, 1, 33);
+        columnHeaderTable.setAlignment(nextRow, 2, 34);
+        columnHeaderTable.setAlignment(nextRow, 3, 34);
+        columnHeaderTable.setAlignment(nextRow, 4, 34);
+        columnHeaderTable.setAlignment(nextRow, 5, 34);
+        columnHeaderTable.setAlignment(nextRow, 6, 34);
+        columnHeaderTable.setAlignment(nextRow, 7, 34);
+        columnHeaderTable.setAlignment(nextRow, 8, 34);
+        columnHeaderTable.setAlignment(nextRow, 9, 34);
+        columnHeaderTable.setAlignment(nextRow, 10, 34);
+        columnHeaderTable.setAlignment(nextRow, 11, 34);
+        columnHeaderTable.setAlignment(nextRow, 12, 34);
+        columnHeaderTable.setAlignment(nextRow, 13, 34);
+        columnHeaderTable.setAlignment(nextRow, 14, 34);
+        columnHeaderTable.setObject(nextRow, 0, "Release Date\nCycle");
+        columnHeaderTable.setObject(nextRow, 1, "Artist/Title");
+        columnHeaderTable.setObject(nextRow, 2, "Packaging\nSpecs");
+        columnHeaderTable.setObject(nextRow, 3, "Local Prod #\nUPC\nConfig\nImpact Date");
+        columnHeaderTable.setObject(nextRow, 4, "Price\nCode\nUnits");
+        columnHeaderTable.setObject(nextRow, 5, "Label & Contacts");
+        columnHeaderTable.setObject(nextRow, 6, "Prod\nReq\nDue");
+        columnHeaderTable.setObject(nextRow, 7, "Sol\nFilm\nDue");
+        columnHeaderTable.setObject(nextRow, 8, "Readers\nCirc");
+        columnHeaderTable.setObject(nextRow, 9, "BOM");
+        columnHeaderTable.setObject(nextRow, 10, "Film\nShips");
+        columnHeaderTable.setObject(nextRow, 11, "Signed\nProd\nReq Due");
+        columnHeaderTable.setObject(nextRow, 12, "Masters\nShip");
+        columnHeaderTable.setObject(nextRow, 13, "Manf\nCopy\nDue");
+        columnHeaderTable.setObject(nextRow, 14, "Tests\nApproved");
+        setColBorderColor(columnHeaderTable, nextRow, 15, SHADED_AREA_COLOR);
+        columnHeaderTable.setRowBorderColor(nextRow - 1, SHADED_AREA_COLOR);
+        columnHeaderTable.setRowBorderColor(nextRow, SHADED_AREA_COLOR);
+        columnHeaderTable.setRowFont(nextRow, new Font("Arial", 1, 8));
+        columnHeaderTable.setRowBackground(nextRow, Color.white);
+        columnHeaderTable.setRowForeground(nextRow, Color.black);
+        hbandType.addTable(columnHeaderTable, new Rectangle(0, 24, 800, 45));
+        hbandType.setBottomBorder(0);
+        if (monthTable != null) {
+          Enumeration months = monthTable.keys();
+          Vector monthVector = new Vector();
+          while (months.hasMoreElements())
+            monthVector.add((String)months.nextElement()); 
+          Object[] monthArray = null;
+          monthArray = monthVector.toArray();
+          Arrays.sort(monthArray, new MonthYearComparator());
+          for (int x = 0; x < monthArray.length; x++) {
+            String monthName = (String)monthArray[x];
+            String monthNameString = monthName;
+            try {
+              monthNameString = MONTHS[Integer.parseInt(monthName.substring(0, 2)) - 1];
+            } catch (Exception e) {
+              if (monthName.equals("13")) {
+                monthNameString = "TBS";
+              } else if (monthName.equals("26")) {
+                monthNameString = "ITW";
+              } else {
+                monthNameString = "No street date";
+              } 
+            } 
+            monthTableLens = new DefaultTableLens(1, 15);
+            hbandCategory = new SectionBand(report);
+            hbandCategory.setHeight(0.25F);
+            hbandCategory.setShrinkToFit(true);
+            hbandCategory.setVisible(true);
+            hbandCategory.setBottomBorder(0);
+            hbandCategory.setLeftBorder(0);
+            hbandCategory.setRightBorder(0);
+            hbandCategory.setTopBorder(0);
+            nextRow = 0;
+            monthTableLens.setSpan(nextRow, 0, new Dimension(15, 1));
+            monthTableLens.setObject(nextRow, 0, monthNameString);
+            monthTableLens.setRowHeight(nextRow, 14);
+            monthTableLens.setRowFont(nextRow, new Font("Arial", 1, 12));
+            monthTableLens.setRowBackground(nextRow, SHADED_AREA_COLOR);
+            monthTableLens.setRowForeground(nextRow, Color.black);
+            monthTableLens.setRowBorderColor(nextRow, Color.white);
+            monthTableLens.setRowBorderColor(nextRow - 1, Color.white);
+            monthTableLens.setColBorderColor(nextRow, -1, Color.white);
+            monthTableLens.setColBorderColor(nextRow, 0, Color.white);
+            monthTableLens.setColBorderColor(nextRow, 14, Color.white);
+            hbandCategory.addTable(monthTableLens, new Rectangle(800, 800));
+            footer.setVisible(true);
+            footer.setHeight(0.1F);
+            footer.setShrinkToFit(false);
+            footer.setBottomBorder(0);
+            group = new DefaultSectionLens(null, group, spacer);
+            group = new DefaultSectionLens(null, group, hbandCategory);
+            group = new DefaultSectionLens(null, group, spacer);
+            Hashtable dateTable = (Hashtable)monthTable.get(monthName);
+            if (dateTable != null) {
+              Enumeration dateSort = dateTable.keys();
+              Vector dateVector = new Vector();
+              while (dateSort.hasMoreElements())
+                dateVector.add((String)dateSort.nextElement()); 
+              Object[] dateArray = null;
+              dateArray = dateVector.toArray();
+              Arrays.sort(dateArray, new StringDateComparator());
+              for (int dIndex = 0; dIndex < dateArray.length; dIndex++) {
+                String dateName = (String)dateArray[dIndex];
+                String dateNameText = dateName;
+                if (monthNameString.equalsIgnoreCase("TBS")) {
+                  dateNameText = "TBS " + dateName;
+                } else if (monthNameString.equalsIgnoreCase("ITW")) {
+                  dateNameText = "ITW " + dateName;
+                } 
+                String cycle = "";
+                try {
+                  Calendar calanderDate = MilestoneHelper.getDate(dateNameText);
+                  DatePeriod datePeriod = MilestoneHelper.findDatePeriod(calanderDate);
+                  cycle = " " + datePeriod.getCycle();
+                } catch (Exception exception) {}
+                nextRow = 0;
+                selections = (Vector)dateTable.get(dateName);
+                if (selections == null)
+                  selections = new Vector(); 
+                MilestoneHelper.setSelectionSorting(selections, 4);
+                Collections.sort(selections);
+                MilestoneHelper.setSelectionSorting(selections, 22);
+                Collections.sort(selections);
+                for (int i = 0; i < selections.size(); i++) {
+                  Selection sel = (Selection)selections.elementAt(i);
+                  if (count < recordCount / tenth) {
+                    count = recordCount / tenth;
+                    sresponse = context.getResponse();
+                    context.putDelivery("status", new String("start_report"));
+                    int myPercent = count * 10;
+                    if (myPercent > 90)
+                      myPercent = 90; 
+                    context.putDelivery("percent", new String(String.valueOf(myPercent)));
+                    context.includeJSP("status.jsp", "hiddenFrame");
+                    sresponse.setContentType("text/plain");
+                    sresponse.flushBuffer();
+                  } 
+                  recordCount++;
+                  String titleId = "";
+                  titleId = sel.getTitleID();
+                  String artist = "";
+                  artist = sel.getFlArtist().trim();
+                  String comment = "";
+                  String commentStr = (sel.getSelectionComments() != null) ? sel.getSelectionComments() : "";
+                  String newComment = removeLF(commentStr, 800);
+                  int subTableRows = 2;
+                  if (newComment.length() > 0)
+                    subTableRows = 3; 
+                  String label = "";
+                  label = sel.getImprint();
+                  String pack = "";
+                  pack = sel.getSelectionPackaging();
+                  String title = "";
+                  if (sel.getTitle() != null)
+                    title = sel.getTitle(); 
+                  String upc = "";
+                  upc = (sel.getUpc() != null) ? sel.getUpc() : "";
+                  String radioImpactDate = "";
+                  radioImpactDate = MilestoneHelper.getFormatedDate(sel.getImpactDate());
+                  upc = MilestoneHelper_2.getRMSReportFormat(upc, "UPC", sel.getIsDigital());
+                  String localProductNumber = "";
+                  if (sel.getPrefixID() != null && sel.getPrefixID().getAbbreviation() != null)
+                    localProductNumber = sel.getPrefixID().getAbbreviation(); 
+                  localProductNumber = String.valueOf(localProductNumber) + sel.getSelectionNo();
+                  String selConfig = "";
+                  selConfig = (sel.getSelectionConfig() != null) ? sel.getSelectionConfig().getSelectionConfigurationAbbreviation() : "";
+                  String selSubConfig = "";
+                  selSubConfig = (sel.getSelectionSubConfig() != null) ? sel.getSelectionSubConfig().getSelectionSubConfigurationAbbreviation() : "";
+                  String units = "";
+                  units = (sel.getNumberOfUnits() > 0) ? String.valueOf(sel.getNumberOfUnits()) : "";
+                  String code = (sel.getSellCode() != null) ? sel.getSellCode() : "";
+                  if (code != null && code.startsWith("-1"))
+                    code = ""; 
+                  String retail = "";
+                  if (sel.getPriceCode() != null && sel.getPriceCode().getRetailCode() != null)
+                    retail = sel.getPriceCode().getRetailCode(); 
+                  if (code.length() > 0)
+                    retail = "/" + retail; 
+                  String price = "";
+                  if (sel.getPriceCode() != null && sel.getPriceCode().getTotalCost() > 0.0F)
+                    price = "$" + MilestoneHelper.formatDollarPrice(sel.getPriceCode().getTotalCost()); 
+                  String contact = "";
+                  contact = (sel.getLabelContact() != null) ? sel.getLabelContact().getName() : "";
+                  String otherContact = "";
+                  otherContact = (sel.getOtherContact() != null) ? sel.getOtherContact() : "";
+                  Schedule schedule = sel.getSchedule();
+                  Vector tasks = (schedule != null) ? schedule.getTasks() : null;
+                  ScheduledTask task = null;
+                  String FP = "";
+                  String BOM = "";
+                  String PRQ = "";
+                  String MASTERS = "";
+                  String FILM = "";
+                  String DEPOT = "";
+                  String STIC = "";
+                  String SFD = "";
+                  String MC = "";
+                  String DJ = "";
+                  String SPR = "";
+                  String FPcom = "";
+                  String BOMcom = "";
+                  String PRQcom = "";
+                  String MASTERScom = "";
+                  String FILMcom = "";
+                  String DEPOTcom = "";
+                  String STICcom = "";
+                  String SFDcom = "";
+                  String MCcom = "";
+                  String DJcom = "";
+                  String SPRcom = "";
+                  boolean hasSFD = false;
+                  if (tasks != null)
+                    for (int j = 0; j < tasks.size(); j++) {
+                      task = (ScheduledTask)tasks.get(j);
+                      if (task != null) {
+                        SimpleDateFormat dueDateFormatter = new SimpleDateFormat("M/d");
+                        String dueDate = "";
+                        if (task.getDueDate() != null)
+                          dueDate = String.valueOf(dueDateFormatter.format(task.getDueDate().getTime())) + 
+                            " " + MilestoneHelper.getDayType(sel.getCalendarGroup(), task.getDueDate()); 
+                        String completionDate = MilestoneHelper.getFormatedDate(task.getCompletionDate());
+                        if (task.getScheduledTaskStatus().equals("N/A"))
+                          completionDate = task.getScheduledTaskStatus(); 
+                        completionDate = String.valueOf(completionDate) + "\n";
+                        String taskAbbrev = MilestoneHelper.getTaskAbbreivationNameById(task.getTaskAbbreviationID());
+                        String taskComment = "";
+                        if (taskAbbrev.equalsIgnoreCase("PRQD")) {
+                          PRQ = dueDate;
+                          completionDate = String.valueOf(completionDate) + getTaskMultCompleteDates(task.getScheduledTaskID(), sel.getSelectionID(), multCompleteDates);
+                          PRQcom = String.valueOf(completionDate) + taskComment;
+                        } else if (taskAbbrev.equalsIgnoreCase("READ")) {
+                          STIC = dueDate;
+                          STICcom = String.valueOf(completionDate) + taskComment;
+                        } else if (taskAbbrev.equalsIgnoreCase("BMS")) {
+                          BOM = dueDate;
+                          BOMcom = String.valueOf(completionDate) + taskComment;
+                        } else if (taskAbbrev.equalsIgnoreCase("SFD")) {
+                          SFD = dueDate;
+                          SFDcom = String.valueOf(completionDate) + taskComment;
+                          hasSFD = true;
+                        } else if (taskAbbrev.equalsIgnoreCase("PFS")) {
+                          FP = dueDate;
+                          completionDate = String.valueOf(completionDate) + getTaskMultCompleteDates(task.getScheduledTaskID(), sel.getSelectionID(), multCompleteDates);
+                          FPcom = String.valueOf(completionDate) + taskComment;
+                        } else if (taskAbbrev.equalsIgnoreCase("TPS")) {
+                          MASTERS = dueDate;
+                          completionDate = String.valueOf(completionDate) + getTaskMultCompleteDates(task.getScheduledTaskID(), sel.getSelectionID(), multCompleteDates);
+                          MASTERScom = String.valueOf(completionDate) + taskComment;
+                        } else if (taskAbbrev.equalsIgnoreCase("TA")) {
+                          FILM = dueDate;
+                          FILMcom = String.valueOf(completionDate) + taskComment;
+                        } else if (taskAbbrev.equalsIgnoreCase("PSD")) {
+                          DEPOT = dueDate;
+                          DEPOTcom = String.valueOf(completionDate) + taskComment;
+                        } else if (taskAbbrev.equalsIgnoreCase("MCS")) {
+                          DJ = dueDate;
+                          completionDate = String.valueOf(completionDate) + getTaskMultCompleteDates(task.getScheduledTaskID(), sel.getSelectionID(), multCompleteDates);
+                          DJcom = String.valueOf(completionDate) + taskComment;
+                        } else if (taskAbbrev.equalsIgnoreCase("SPR")) {
+                          SPR = dueDate;
+                          completionDate = String.valueOf(completionDate) + getTaskMultCompleteDates(task.getScheduledTaskID(), sel.getSelectionID(), multCompleteDates);
+                          SPRcom = String.valueOf(completionDate) + taskComment;
+                        } 
+                        task = null;
+                      } 
+                    }  
+                  nextRow = 0;
+                  subTable = new DefaultTableLens(subTableRows, 15);
+                  subTable.setRowInsets(nextRow, new Insets(0, 0, 0, 0));
+                  setColBorderColor(subTable, nextRow, 15, SHADED_AREA_COLOR);
+                  subTable.setHeaderRowCount(0);
+                  subTable.setColWidth(0, 77);
+                  subTable.setColWidth(1, 259);
+                  subTable.setColWidth(2, 157);
+                  subTable.setColWidth(3, 150);
+                  subTable.setColWidth(4, 80);
+                  subTable.setColWidth(5, 168);
+                  subTable.setColWidth(6, 87);
+                  subTable.setColWidth(7, 84);
+                  subTable.setColWidth(8, 70);
+                  subTable.setColWidth(9, 80);
+                  subTable.setColWidth(10, 90);
+                  subTable.setColWidth(11, 72);
+                  subTable.setColWidth(12, 90);
+                  subTable.setColWidth(13, 70);
+                  subTable.setColWidth(14, 90);
+                  subTable.setRowBorderColor(nextRow - 1, Color.lightGray);
+                  subTable.setObject(nextRow, 0, String.valueOf(dateNameText) + "\n" + cycle.trim());
+                  subTable.setBackground(nextRow, 0, Color.white);
+                  subTable.setSpan(nextRow, 0, new Dimension(1, 2));
+                  subTable.setRowAutoSize(true);
+                  subTable.setAlignment(nextRow, 0, 9);
+                  subTable.setFont(nextRow, 0, new Font("Arial", 1, 7));
+                  subTable.setObject(nextRow, 1, String.valueOf(artist) + "\n" + title);
+                  subTable.setBackground(nextRow, 1, Color.white);
+                  subTable.setSpan(nextRow, 1, new Dimension(1, 2));
+                  subTable.setRowAutoSize(true);
+                  subTable.setAlignment(nextRow, 1, 9);
+                  subTable.setFont(nextRow, 1, new Font("Arial", 1, 7));
+                  subTable.setSpan(nextRow, 2, new Dimension(1, 2));
+                  subTable.setObject(nextRow, 2, pack);
+                  subTable.setAlignment(nextRow, 2, 10);
+                  subTable.setBackground(nextRow, 2, Color.white);
+                  String[] checkStrings = { comment, artist, title, pack, (new String[7][4] = label).valueOf(contact) + "/n" + otherContact, price };
+                  int[] checkStringsLength = { 20, 30, 30, 20, 25, 25, 15 };
+                  int extraLines = MilestoneHelper.lineCountWCR(checkStrings, checkStringsLength);
+                  String[] commentString = { comment };
+                  int[] checkCommentLength = { 30 };
+                  int commentCounter = MilestoneHelper.lineCountWCR(commentString, checkCommentLength);
+                  boolean otherContactExists = false;
+                  if (!otherContact.equals("") || commentCounter > 1)
+                    otherContactExists = true; 
+                  extraLines = (extraLines <= 2) ? 0 : (extraLines - 2);
+                  for (int z = 0; z < extraLines; z++)
+                    otherContact = String.valueOf(otherContact) + "\n"; 
+                  subTable.setObject(nextRow, 3, String.valueOf(localProductNumber) + "\n" + upc + "\n" + selSubConfig + "\n" + radioImpactDate);
+                  subTable.setAlignment(nextRow, 3, 10);
+                  subTable.setBackground(nextRow, 3, Color.white);
+                  subTable.setSpan(nextRow, 3, new Dimension(1, 2));
+                  subTable.setObject(nextRow, 4, String.valueOf(price) + "\n" + code + retail + "\n" + units);
+                  subTable.setAlignment(nextRow, 4, 10);
+                  subTable.setBackground(nextRow, 4, Color.white);
+                  subTable.setSpan(nextRow, 4, new Dimension(1, 2));
+                  subTable.setAlignment(nextRow + 1, 4, 10);
+                  subTable.setObject(nextRow, 5, "Due Dates");
+                  subTable.setColBorderColor(nextRow, 5, SHADED_AREA_COLOR);
+                  subTable.setColBorder(nextRow, 5, 266240);
+                  subTable.setFont(nextRow, 5, new Font("Arial", 1, 8));
+                  subTable.setRowBorderColor(nextRow, SHADED_AREA_COLOR);
+                  subTable.setAlignment(nextRow, 6, 10);
+                  subTable.setAlignment(nextRow + 1, 6, 10);
+                  if (otherContactExists) {
+                    subTable.setObject(nextRow + 1, 5, String.valueOf(label) + "\n" + contact + "\n" + otherContact);
+                  } else {
+                    subTable.setObject(nextRow + 1, 5, String.valueOf(label) + "\n" + contact);
+                  } 
+                  subTable.setRowAutoSize(true);
+                  subTable.setRowHeight(nextRow, 14);
+                  subTable.setRowBorderColor(nextRow + 1, SHADED_AREA_COLOR);
+                  subTable.setObject(nextRow, 6, PRQ);
+                  subTable.setColBorderColor(nextRow, 6, SHADED_AREA_COLOR);
+                  subTable.setColBorder(nextRow, 6, 266240);
+                  subTable.setObject(nextRow, 7, SFD);
+                  subTable.setColBorderColor(nextRow, 7, SHADED_AREA_COLOR);
+                  subTable.setColBorder(nextRow, 7, 266240);
+                  subTable.setObject(nextRow, 8, STIC);
+                  subTable.setColBorderColor(nextRow, 8, SHADED_AREA_COLOR);
+                  subTable.setColBorder(nextRow, 8, 266240);
+                  subTable.setObject(nextRow, 9, BOM);
+                  subTable.setColBorderColor(nextRow, 9, SHADED_AREA_COLOR);
+                  subTable.setColBorder(nextRow, 9, 266240);
+                  subTable.setObject(nextRow, 10, FP);
+                  subTable.setColBorderColor(nextRow, 10, SHADED_AREA_COLOR);
+                  subTable.setColBorder(nextRow, 10, 266240);
+                  subTable.setObject(nextRow, 11, SPR);
+                  subTable.setColBorderColor(nextRow, 11, SHADED_AREA_COLOR);
+                  subTable.setColBorder(nextRow, 11, 266240);
+                  subTable.setObject(nextRow, 12, MASTERS);
+                  subTable.setColBorderColor(nextRow, 12, Color.lightGray);
+                  subTable.setColBorder(nextRow, 12, 266240);
+                  subTable.setObject(nextRow, 13, DJ);
+                  subTable.setColBorderColor(nextRow, 13, Color.lightGray);
+                  subTable.setColBorder(nextRow, 13, 266240);
+                  subTable.setObject(nextRow, 14, FILM);
+                  subTable.setColBorderColor(nextRow, 14, SHADED_AREA_COLOR);
+                  subTable.setColBorder(nextRow, 14, 266240);
+                  subTable.setFont(nextRow, 5, new Font("Arial", 1, 7));
+                  subTable.setFont(nextRow, 6, new Font("Arial", 1, 7));
+                  subTable.setFont(nextRow, 7, new Font("Arial", 1, 7));
+                  subTable.setFont(nextRow, 8, new Font("Arial", 1, 7));
+                  subTable.setFont(nextRow, 9, new Font("Arial", 1, 7));
+                  subTable.setFont(nextRow, 10, new Font("Arial", 1, 7));
+                  subTable.setFont(nextRow, 11, new Font("Arial", 1, 7));
+                  subTable.setFont(nextRow, 12, new Font("Arial", 1, 7));
+                  subTable.setFont(nextRow, 13, new Font("Arial", 1, 7));
+                  subTable.setFont(nextRow, 14, new Font("Arial", 1, 7));
+                  Font holidayFont = new Font("Arial", 3, 7);
+                  for (int colIdx = 6; colIdx <= 14; colIdx++) {
+                    String dueDate = subTable.getObject(nextRow, colIdx).toString();
+                    if (dueDate != null && dueDate.length() > 0) {
+                      char lastChar = dueDate.charAt(dueDate.length() - 1);
+                      if (Character.isLetter(lastChar))
+                        subTable.setFont(nextRow, colIdx, holidayFont); 
+                    } 
+                  } 
+                  subTable.setAlignment(nextRow, 5, 2);
+                  subTable.setAlignment(nextRow, 6, 2);
+                  subTable.setAlignment(nextRow, 7, 2);
+                  subTable.setAlignment(nextRow, 8, 2);
+                  subTable.setAlignment(nextRow, 9, 2);
+                  subTable.setAlignment(nextRow, 10, 2);
+                  subTable.setAlignment(nextRow, 11, 2);
+                  subTable.setAlignment(nextRow, 12, 2);
+                  subTable.setAlignment(nextRow, 13, 2);
+                  subTable.setAlignment(nextRow, 14, 2);
+                  subTable.setObject(nextRow + 1, 6, PRQcom);
+                  if (!hasSFD)
+                    if (sel.getTemplateId() == 98 || 
+                      configHeaderText.startsWith("Commercial Single") || 
+                      configHeaderText.startsWith("Promos"))
+                      SFDcom = "N/A";  
+                  subTable.setObject(nextRow + 1, 7, SFDcom);
+                  subTable.setObject(nextRow + 1, 8, STICcom);
+                  subTable.setObject(nextRow + 1, 9, BOMcom);
+                  subTable.setObject(nextRow + 1, 10, FPcom);
+                  subTable.setObject(nextRow + 1, 11, SPRcom);
+                  subTable.setObject(nextRow + 1, 12, MASTERScom);
+                  subTable.setObject(nextRow + 1, 13, DJcom);
+                  subTable.setObject(nextRow + 1, 14, FILMcom);
+                  setColBorderColor(subTable, nextRow + 1, 15, SHADED_AREA_COLOR);
+                  subTable.setAlignment(nextRow + 1, 5, 10);
+                  subTable.setAlignment(nextRow + 1, 6, 10);
+                  subTable.setAlignment(nextRow + 1, 7, 10);
+                  subTable.setAlignment(nextRow + 1, 8, 10);
+                  subTable.setAlignment(nextRow + 1, 9, 10);
+                  subTable.setAlignment(nextRow + 1, 10, 10);
+                  subTable.setAlignment(nextRow + 1, 11, 10);
+                  subTable.setAlignment(nextRow + 1, 12, 10);
+                  subTable.setAlignment(nextRow + 1, 13, 10);
+                  subTable.setAlignment(nextRow + 1, 14, 10);
+                  subTable.setRowFont(nextRow + 1, new Font("Arial", 0, 7));
+                  subTable.setRowBackground(nextRow, SHADED_AREA_COLOR);
+                  subTable.setRowForeground(nextRow, Color.black);
+                  subTable.setRowFont(nextRow, new Font("Arial", 0, 7));
+                  if (newComment.length() > 0) {
+                    nextRow++;
+                    subTable.setRowAutoSize(true);
+                    subTable.setRowBorderColor(nextRow + 1, Color.lightGray);
+                    setColBorderColor(subTable, nextRow + 1, 15, SHADED_AREA_COLOR);
+                    subTable.setRowFont(nextRow + 1, new Font("Arial", 3, 7));
+                    subTable.setSpan(nextRow + 1, 0, new Dimension(1, 1));
+                    subTable.setSpan(nextRow + 1, 1, new Dimension(1, 1));
+                    subTable.setAlignment(nextRow + 1, 1, 12);
+                    subTable.setObject(nextRow + 1, 1, "Comments:   ");
+                    subTable.setObject(nextRow + 1, 2, newComment);
+                    subTable.setSpan(nextRow + 1, 2, new Dimension(13, 1));
+                    subTable.setRowBorderColor(nextRow + 1, Color.lightGray);
+                    setColBorderColor(subTable, nextRow + 1, 15, SHADED_AREA_COLOR);
+                    subTable.setRowFont(nextRow + 1, new Font("Arial", 3, 7));
+                    subTable.setAlignment(nextRow + 1, 2, 9);
+                    subTable.setColLineWrap(2, true);
+                    subTable.setColBorderColor(nextRow + 1, 0, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 1, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 2, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 3, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 4, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 5, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 6, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 7, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 8, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 9, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 10, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 11, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 12, Color.white);
+                    subTable.setColBorderColor(nextRow + 1, 13, Color.white);
+                  } 
+                  body = new SectionBand(report);
+                  double lfLineCount = 1.5D;
+                  if (extraLines > 3 || 
+                    PRQcom.length() > 10 || STICcom.length() > 10 || 
+                    BOMcom.length() > 10 || FPcom.length() > 10 || 
+                    MCcom.length() > 10 || MASTERScom.length() > 10 || 
+                    DJcom.length() > 10 || FILMcom.length() > 10 || 
+                    DEPOTcom.length() > 10) {
+                    if (lfLineCount < extraLines * 0.3D)
+                      lfLineCount = extraLines * 0.3D; 
+                    if (lfLineCount < (PRQcom.length() / 7) * 0.3D)
+                      lfLineCount = (PRQcom.length() / 7) * 0.3D; 
+                    if (lfLineCount < (STICcom.length() / 8) * 0.3D)
+                      lfLineCount = (STICcom.length() / 8) * 0.3D; 
+                    if (lfLineCount < (BOMcom.length() / 8) * 0.3D)
+                      lfLineCount = (BOMcom.length() / 8) * 0.3D; 
+                    if (lfLineCount < (FPcom.length() / 8) * 0.3D)
+                      lfLineCount = (FPcom.length() / 8) * 0.3D; 
+                    if (lfLineCount < (MCcom.length() / 8) * 0.3D)
+                      lfLineCount = (MCcom.length() / 8) * 0.3D; 
+                    if (lfLineCount < (MASTERScom.length() / 8) * 0.3D)
+                      lfLineCount = (MASTERScom.length() / 8) * 0.3D; 
+                    if (lfLineCount < (DJcom.length() / 8) * 0.3D)
+                      lfLineCount = (DJcom.length() / 8) * 0.3D; 
+                    if (lfLineCount < (FILMcom.length() / 8) * 0.3D)
+                      lfLineCount = (FILMcom.length() / 8) * 0.3D; 
+                    if (lfLineCount < (DEPOTcom.length() / 8) * 0.3D)
+                      lfLineCount = (DEPOTcom.length() / 8) * 0.3D; 
+                    body.setHeight((float)lfLineCount);
+                  } else {
+                    body.setHeight(1.5F);
+                  } 
+                  body.addTable(subTable, new Rectangle(800, 800));
+                  body.setBottomBorder(0);
+                  body.setTopBorder(0);
+                  body.setShrinkToFit(true);
+                  body.setVisible(true);
+                  group = new DefaultSectionLens(null, group, body);
+                } 
+                group = new DefaultSectionLens(null, group, spacer);
+              } 
+            } 
+          } 
+        } 
+        group = new DefaultSectionLens(hbandType, group, null);
+        report.addSection(group, rowCountTable);
+        report.addPageBreak();
+        group = null;
+      } 
+    } catch (Exception e) {
+      System.out.println(">>>>>>>>IdjProductionScheduleForPrintSubHandler(): exception: " + e);
+    } 
+  }
+  
+  private static void setColBorderColor(DefaultTableLens table, int row, int columns, Color color) {
+    for (int i = -1; i < columns; i++)
+      table.setColBorderColor(row, i, color); 
+  }
+  
+  public static int insertConfigHeader(DefaultTableLens table_contents, String title, int nextRow, int cols) {
+    int COL_LINE_STYLE = 4097;
+    int HEADER_FONT_SIZE = 12;
+    table_contents.setObject(nextRow, 0, "");
+    table_contents.setSpan(nextRow, 0, new Dimension(cols, 1));
+    table_contents.setRowHeight(nextRow, 1);
+    table_contents.setRowBackground(nextRow, Color.white);
+    table_contents.setColBorderColor(nextRow, -1, Color.black);
+    table_contents.setColBorder(nextRow, -1, 4097);
+    table_contents.setColBorderColor(nextRow, cols - 1, Color.black);
+    table_contents.setColBorder(nextRow, cols - 1, 4097);
+    table_contents.setRowBorderColor(nextRow, Color.white);
+    table_contents.setRowBorder(nextRow, 266240);
+    table_contents.setColBorderColor(nextRow + 1, -1, Color.black);
+    table_contents.setColBorder(nextRow + 1, -1, 4097);
+    table_contents.setColBorderColor(nextRow + 1, cols - 1, Color.black);
+    table_contents.setColBorder(nextRow + 1, cols - 1, 4097);
+    table_contents.setAlignment(nextRow + 1, 0, 2);
+    table_contents.setSpan(nextRow + 1, 0, new Dimension(cols, 1));
+    table_contents.setObject(nextRow + 1, 0, title);
+    table_contents.setRowFont(nextRow + 1, new Font("Arial", 3, 12));
+    table_contents.setColBorderColor(nextRow + 1, -1, Color.black);
+    table_contents.setColBorder(nextRow + 1, -1, 4097);
+    nextRow += 2;
+    table_contents.setObject(nextRow, 0, "");
+    table_contents.setSpan(nextRow, 0, new Dimension(cols, 1));
+    table_contents.setRowHeight(nextRow, 1);
+    table_contents.setRowBackground(nextRow, Color.white);
+    table_contents.setColBorderColor(nextRow, -1, Color.black);
+    table_contents.setColBorder(nextRow, -1, 4097);
+    table_contents.setColBorderColor(nextRow, cols, Color.black);
+    table_contents.setColBorder(nextRow, cols, 4097);
+    table_contents.setRowBorderColor(nextRow, Color.white);
+    table_contents.setRowBorder(nextRow, 266240);
+    nextRow++;
+    table_contents.setObject(nextRow, 0, "");
+    table_contents.setSpan(nextRow, 0, new Dimension(cols, 1));
+    table_contents.setRowHeight(nextRow, 1);
+    table_contents.setRowBackground(nextRow, Color.white);
+    table_contents.setColBorderColor(nextRow, -1, Color.white);
+    table_contents.setColBorder(nextRow, -1, 4097);
+    table_contents.setColBorderColor(nextRow, cols - 1, Color.white);
+    table_contents.setColBorder(nextRow, cols, 4097);
+    table_contents.setRowBorderColor(nextRow, Color.white);
+    table_contents.setRowBorder(nextRow, 266240);
+    nextRow++;
+    return nextRow;
+  }
+  
+  public static String removeLF(String theString, int maxChars) { return theString.replace('\n', ' '); }
+  
+  private static String getTaskMultCompleteDates(int taskID, int selectionID, Vector multCompleteDates) {
+    String completionDateList = "";
+    if (multCompleteDates != null) {
+      int mcdCt = (multCompleteDates == null) ? 0 : multCompleteDates.size();
+      boolean relTaskFound = false;
+      int i = 0;
+      while (!relTaskFound && i < mcdCt) {
+        MultCompleteDate mcd = (MultCompleteDate)multCompleteDates.get(i);
+        if (mcd.getReleaseID() == selectionID && mcd.getTaskID() == taskID) {
+          relTaskFound = true;
+          continue;
+        } 
+        i++;
+      } 
+      if (relTaskFound) {
+        boolean relTaskDone = false;
+        while (!relTaskDone && i < mcdCt) {
+          MultCompleteDate mcd = (MultCompleteDate)multCompleteDates.get(i);
+          if (mcd.getReleaseID() == selectionID && mcd.getTaskID() == taskID) {
+            completionDateList = String.valueOf(completionDateList) + MilestoneHelper.getFormatedDate(mcd.getCompletionDate()) + "\n";
+          } else {
+            relTaskDone = true;
+          } 
+          i++;
+        } 
+      } 
+    } 
+    return completionDateList;
+  }
+  
+  private static Vector getRptMultCompleteDates(Vector selections) {
+    Vector multCompleteDates = null;
+    if (selections != null) {
+      multCompleteDates = new Vector();
+      StringBuffer sql = new StringBuffer();
+      Iterator it = selections.iterator();
+      sql.append("select * from MultCompleteDates with (nolock) where release_id in (");
+      while (it.hasNext()) {
+        sql.append(((Selection)it.next()).getSelectionID());
+        sql.append(", ");
+      } 
+      String query = String.valueOf(sql.substring(0, sql.length() - 2)) + ") order by release_id asc, task_id asc, order_no desc";
+      JdbcConnector connector = MilestoneHelper.getConnector(query);
+      if (connector != null) {
+        connector.setForwardOnly(false);
+        connector.runQuery();
+        SimpleDateFormat adf = new SimpleDateFormat("M/d/yy");
+        while (connector.more()) {
+          MultCompleteDate mcd = new MultCompleteDate();
+          mcd.setReleaseID(connector.getInt("release_id"));
+          mcd.setTaskID(connector.getInt("task_id"));
+          mcd.setOrderNo(connector.getInt("order_no"));
+          mcd.setCompletionDate(MilestoneHelper.getDate(adf.format(connector.getDate("completion_date"))));
+          multCompleteDates.addElement(mcd);
+          connector.next();
+        } 
+        connector.close();
+      } 
+    } 
+    return multCompleteDates;
+  }
+}
 
 
-/* Location:              D:\Documents\NetBeansProjects\milestone2 Prod.war!\WEB-INF\classes\co\\universal\milestone\IdjProductionScheduleForPrintSubHandlerNew2091.class
- * Java compiler version: 5 (49.0)
+/* Location:              D:\Documents\NetBeansProjects\milestone2 Local.war!\WEB-INF\classes\co\\universal\milestone\IdjProductionScheduleForPrintSubHandlerNew2091.class
+ * Java compiler version: 6 (50.0)
  * JD-Core Version:       1.0.7
  */
